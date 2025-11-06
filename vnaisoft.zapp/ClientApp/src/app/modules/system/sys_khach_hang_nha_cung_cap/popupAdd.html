@@ -1,0 +1,136 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible mobile:mb-20">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_khach_hang_nha_cung_cap"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <!-- <div class="flex flex-row justify-end space-x-2">
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+                <p transloco="save" class="mb-0 text-white"></p>
+            </button>
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center"
+                [disabled]="loading" (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+        </div> -->
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'db.hinh_thuc'; index as i">
+                (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+            </span>
+            <br>
+            <div class="flex-1">
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group space-x-4"
+                    [(ngModel)]="record.db.hinh_thuc">
+                    <mat-radio-button class="example-radio-button " *ngFor="let item of list_hinh_thuc"
+                        [disabled]="actionEnum==3" [value]="item.id">
+                        {{item.name}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <!--tổ chức-->
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.hinh_thuc == 2">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" *ngIf="actionEnum==1" [actionEnum]="actionEnum"
+                    [label]="'system.ma_so_thue_ma_khach_hang'" [callbackChange]="load_ma_so_thue.bind(this)"
+                    [keyError]="'db.ma_so_thue'" [maxlength]="100" [(model)]="record.db.ma_so_thue">
+                </cm_input>
+                <cm_input [errorModel]="errorModel" *ngIf="actionEnum!=1" [actionEnum]="3"
+                    [label]="'system.ma_so_thue_ma_khach_hang'" [callbackChange]="load_ma_so_thue.bind(this)"
+                    [keyError]="'db.ma_so_thue'" [maxlength]="100" [(model)]="record.db.ma_so_thue">
+                </cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.phone_contact'"
+                    [maxlength]="10" [keyError]="'db.dien_thoai'" [(model)]="record.db.dien_thoai"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.hinh_thuc == 2">
+
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.name'"
+                    [keyError]="'db.ten'" [maxlength]="100" [(model)]="record.db.ten"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.email'" [maxlength]="100"
+                    [keyError]="'db.email'" [(model)]="record.db.email"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.hinh_thuc == 2">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.address'"
+                    [type]="'textarea'" [keyError]="'db.dia_chi'" [(model)]="record.db.dia_chi"></cm_input>
+            </div>
+        </div>
+        <!--cá nhân-->
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.hinh_thuc != 2">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" *ngIf="actionEnum==1" [actionEnum]="actionEnum"
+                    [label]="'system.ma_so_thue_ma_khach_hang'" 
+                    [keyError]="'db.ma_so_thue'" [maxlength]="100" [(model)]="record.db.ma_so_thue">
+                </cm_input>
+                <cm_input [errorModel]="errorModel" *ngIf="actionEnum!=1" [actionEnum]="3"
+                    [label]="'system.ma_so_thue_ma_khach_hang'" 
+                    [keyError]="'db.ma_so_thue'" [maxlength]="100" [(model)]="record.db.ma_so_thue">
+                </cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.phone_contact'"
+                    [maxlength]="13" [keyError]="'db.dien_thoai'"
+                    [(model)]="record.db.dien_thoai"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.hinh_thuc != 2">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.name'"
+                    [keyError]="'db.ten'" [maxlength]="100" [(model)]="record.db.ten"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.email'" [maxlength]="100"
+                    [keyError]="'db.email'" [(model)]="record.db.email"></cm_input>
+            </div>
+
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="record.db.hinh_thuc != 2">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.address'"
+                    [type]="'textarea'" [keyError]="'db.dia_chi'" [(model)]="record.db.dia_chi"></cm_input>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum==3">
+                <cm_input [label]="'system.tai_khoan_ngan_hang_nhan_tien'" [actionEnum]="3" [type]="'readonly'"
+                    [(model)]="record.ten_ngan_hang"></cm_input>
+            </div>
+            <div class="flex-1" *ngIf="actionEnum!=3">
+                <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                    [label]="'system.tai_khoan_ngan_hang_nhan_tien'" [keyError]="'db.id_ngan_hang'"
+                    [listData]="list_ngan_hang" [(model)]="record.db.id_ngan_hang">
+                </cm_select>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.so_tai_khoan_nhan_tien'"
+                    [keyError]="'db.so_tai_khoan'" [(model)]="record.db.so_tai_khoan" [maxlength]="34"></cm_input>
+            </div>
+        </div>
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+                <p transloco="save" class="mb-0 text-white"></p>
+            </button>
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center"
+                [disabled]="loading" (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+
+
+        </div>
+    </div>
+</div>

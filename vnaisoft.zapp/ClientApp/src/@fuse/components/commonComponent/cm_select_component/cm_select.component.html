@@ -1,0 +1,172 @@
+<mat-form-field floatLabel="always" class="w-full common_input" *ngIf="type=='single_button'"
+    [class.mat-form-field-disabled]="actionEnum === 3 || disabled">
+    <mat-label>
+        {{label | transloco}} {{ labelAddString }}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+    <mat-select [(ngModel)]="model" (ngModelChange)="modelChange.emit(model);setChose($event)" #singleSelect
+        [disabled]="actionEnum === 3 || disabled" placeholder="{{placeholder}}">
+        <mat-option *ngIf="showSearch==true">
+            <ngx-mat-select-search *ngIf="showSearch==true" [(ngModel)]="search"
+                placeholderLabel="{{ 'search' | transloco }}" noEntriesFoundLabel="{{'no_data' | transloco }}">
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let it of listData | filter : 'name' : search" [value]="it.id">
+            {{it.name}}
+        </mat-option>
+        <mat-option>
+            <mat-icon class="text-blue-600">add</mat-icon>
+            Thêm mới
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field floatLabel="always" class="w-full common_input" *ngIf="type=='select_group'"
+    [class.mat-form-field-disabled]="actionEnum === 3 || disabled">
+    <mat-label>
+        {{label | transloco}} {{ labelAddString }}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+    <mat-select [(ngModel)]="model" (ngModelChange)="modelChange.emit(model);setChose($event)" #singleSelect
+        [disabled]="actionEnum === 3  || disabled" placeholder="{{placeholder}}">
+        <mat-option *ngIf="showSearch==true">
+            <ngx-mat-select-search *ngIf="showSearch==true" [(ngModel)]="search"
+                placeholderLabel="{{ 'search' | transloco }}" noEntriesFoundLabel="{{'no_data' | transloco }}">
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-optgroup *ngFor="let it of listData | filter : 'name' : search" [value]="it.id" [label]="it.name">
+            <mat-option *ngFor="let item of it.listData" [value]="item.id">
+                {{item.name}}
+            </mat-option>
+        </mat-optgroup>
+    </mat-select>
+</mat-form-field>
+<mat-form-field floatLabel="always" class="w-full common_input" *ngIf="type=='single'"
+    [class.mat-form-field-disabled]="actionEnum === 3  || disabled">
+    <mat-label *ngIf="stt!=''">
+        {{ label | transloco }} [{{stt}}] {{ labelAddString }}<span style="color: red"
+                                                                   *ngFor="let item of errorModel | filter: 'key':keyError; index as i">
+            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+        </span>
+    </mat-label>
+    <mat-label *ngIf="stt==''">
+        {{label | transloco}} {{ labelAddString }}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+    <mat-select [(ngModel)]="model" (ngModelChange)="modelChange.emit(model);setChose($event)" #singleSelect
+        [disabled]="actionEnum === 3  || disabled" placeholder="{{placeholder}}">
+        <mat-option *ngIf="showSearch==true">
+            <ngx-mat-select-search *ngIf="showSearch==true" [(ngModel)]="search"
+                placeholderLabel="{{ 'search' | transloco }}" noEntriesFoundLabel="{{'no_data' | transloco }}">
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let it of listData | filter : 'name' : search" [value]="it.id">
+            {{it.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field floatLabel="always" class="w-full common_input" *ngIf="type=='single_disabled'"
+    [class.mat-form-field-disabled]="true">
+    <mat-label>
+        {{label | transloco}} {{ labelAddString }}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+    <mat-select [(ngModel)]="model" (ngModelChange)="modelChange.emit(model);setChose($event)" #singleSelect
+        [disabled]="true">
+        <mat-option *ngIf="showSearch==true">
+            <ngx-mat-select-search [(ngModel)]="search" placeholderLabel="{{ 'search' | transloco }}"
+                noEntriesFoundLabel="{{'no_data' | transloco }}"></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let it of listData | filter : 'name' : search" [value]="it.id">
+            {{it.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field floatLabel="always" class="w-full common_input" *ngIf="type=='multiple'"
+    [class.mat-form-field-disabled]="actionEnum === 3">
+    <mat-label *ngIf="stt!=''">
+        {{ label | transloco }} [{{stt}}] {{ labelAddString }}<span style="color: red"
+                                                                   *ngFor="let item of errorModel | filter: 'key':keyError; index as i">
+            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+        </span>
+    </mat-label>
+    <mat-label *ngIf="stt==''">
+        {{label | transloco}} {{ labelAddString }}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+    <mat-select #mySel [(ngModel)]="model" (ngModelChange)="modelChange.emit(model);setChose($event)" multiple
+        [disabled]="actionEnum === 3" placeholder="{{placeholder}}">
+        <mat-option>
+            <ngx-mat-select-search *ngIf="showSearch==true" [(ngModel)]="search"  (ngModelChange)="changeSearch()"
+                placeholderLabel="{{ 'search' | transloco }}" noEntriesFoundLabel="{{'no_data' | transloco }}">
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-option [hidden]="searchFunction(it.name)"  *ngFor="let it of listData" [value]="it.id">
+            {{it.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+<mat-form-field floatLabel="always" class="w-full" *ngIf="type=='multiple_all'"
+    [class.mat-form-field-disabled]="actionEnum === 3  || disabled">
+    <mat-label>
+        {{label | transloco}}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+    <mat-select [(ngModel)]="model" (ngModelChange)="modelChange.emit(model);setChose($event)" multiple
+        [disabled]="actionEnum === 3  || disabled" placeholder="{{placeholder}}">
+
+        <mat-option>
+            <ngx-mat-select-search *ngIf="showSearch==true" [(ngModel)]="search"
+                placeholderLabel="{{ 'search' | transloco }}" noEntriesFoundLabel="{{'no_data' | transloco }}">
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let it of listData | filter : 'name' : search" [value]="it.id">
+            {{it.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+
+<mat-form-field floatLabel="always" appearance="outline" class="w-full" *ngIf="type=='multiple_outline'"
+    [class.mat-form-field-disabled]="actionEnum === 3  || disabled">
+    <!-- [(ngModel)]="sys_giang_vien_model.db.id_chuc_vu"== [value]="item.id" -->
+    <mat-select style=" background-color:#0000000a!important;width: 100%;height: 100%;" [(ngModel)]="model"
+        (ngModelChange)="modelChange.emit(model);setChose($event)" placeholder="{{ 'system.choose' | transloco }}"
+        multiple [disabled]="actionEnum === 3  || disabled">
+        <mat-option>
+            <ngx-mat-select-search *ngIf="showSearch==true" [(ngModel)]="search"
+                placeholderLabel="{{ 'search' | transloco }}" noEntriesFoundLabel="{{'no_data' | transloco }}">
+            </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let it of listData | filter : 'name' : search" [value]="it.id">
+            {{it.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

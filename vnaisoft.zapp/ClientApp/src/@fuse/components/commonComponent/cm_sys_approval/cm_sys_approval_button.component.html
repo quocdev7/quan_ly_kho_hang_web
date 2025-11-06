@@ -1,0 +1,19 @@
+<ng-container *transloco="let t">
+    <div class="flex flex-row justify-end space-x-2">
+        <button *ngIf="model.to_user==currentUser.id && model.status_finish==2" [disabled]="loading" mat-raised-button
+        class="bg-teal-400 text-white shadow-none hover:bg-teal-600" (click)="approval()">{{t('common.approval')}}</button>
+    <button *ngIf="model.status_finish==3 && currentUser.username=='administrator'" [disabled]="loading"
+        mat-raised-button color="warn" (click)="cancel()">{{t('common.cancel')}}</button>
+    <button *ngIf="model.status_finish==3" [disabled]="loading" style="margin-right:10px" mat-raised-button color="warn"
+        (click)="close()">{{t('common.close')}}</button>
+    <button *ngIf="model.status_finish==6 || (model.status_finish==4 && currentUser.username=='administrator')"
+        [disabled]="loading" mat-raised-button class="bg-teal-400 text-white shadow-none hover:bg-teal-600" (click)="open()">{{t('common.open')}}></button>
+    <button mat-raised-button color="warn" style="margin-right:10px"
+        *ngIf="model.to_user==currentUser.id && model.status_finish==2" [disabled]="loading"
+        (click)="return()">{{t('return')}}</button>
+    <button mat-raised-button class="bg-teal-400 text-white shadow-none hover:bg-teal-600" style="margin-right:10px" *ngIf="model.id==0||model.status_finish==5"
+        [disabled]="loading" mat-raised-button (click)="openDialogApproval()">{{t('send_approval')}}</button>
+    </div>
+
+
+</ng-container>

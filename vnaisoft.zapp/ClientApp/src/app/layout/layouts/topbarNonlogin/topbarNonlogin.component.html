@@ -1,0 +1,48 @@
+<div class="flex flex-col sm:flex-col flex-auto min-w-0 h-full">
+    <div *ngIf="tuyen_sinh != null" class="scroll-to-top-1" [ngClass]="{'show-scrollTop-1': windowScrolled}" style="z-index:9999999">
+        <div class="flex flex-col bg-white shadow-lg rounded-lg p-4 text-center border">
+            <div class="">
+                <span class="text-green-500">Đang tuyển sinh</span>&nbsp;(<span>{{tuyen_sinh.db.lst_3[0].tu_ngay | date:"dd/MM/yyyy"}} - {{tuyen_sinh.db.lst_3[0].den_ngay | date:"dd/MM/yyyy"}}</span>)
+            </div>
+            <div class="mt-2">
+                <button class="flex flex-row justify-center gap-2 w-full rounded py-2 px-4 font-semibold bg-blue-500 hover:bg-blue-600 item2s-center" (click)="goto_addHoSo()">
+                    <img class="h-7 w-7" src="../assets/icons/icons_telegram.png" alt="">
+                    <p transloco="system.nop_ho_so" class="mb-0 text-white"></p>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="flex items-center w-full  z-50 shadow bg-card  print:hidden transition duration-700 background-color-web-primary" style="height: 38px !important;">
+        <div class="w-full max-w-screen-xl flex    md:pr-16 z-50 mx-auto">
+            <div class="w-full  flex  z-50 " *ngIf="is_login==false">
+                <language class="ml-auto"></language>
+                <a mat-button class="" style="padding: 0 10px !important;" [routerLink]="'/sign-in'">
+                    <mat-icon class="text-white mr-1 text-base">account_circle</mat-icon>
+                    <span class="text-white text-base" transloco="common.signin"></span>
+                </a>
+            </div>
+            <div class="w-full  flex  z-50" *ngIf="is_login==true">
+                <language class="ml-auto text-white"></language>
+                <user-menu></user-menu>
+                <a mat-button *ngIf="user.type==1" class="text-white" style="padding: 0 10px !important;" [routerLink]="'/portal-module'">
+                    <mat-icon [svgIcon]="'heroicons_solid:cog'" class="text-base text-white mr-1"></mat-icon>
+                    <span class="text-base" transloco="common.management"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="!isScreenSmall">
+        <div class="flex flex-col w-full  mx-auto  cursor-pointer" *ngIf="truong_hoc != undefined && truong_hoc != null">
+            <img class="w-full h-full object-contain"
+                 src="{{truong_hoc.db.cover_image}}" alt="Cover image">
+        </div>
+    </ng-container>
+    <ng-container *ngIf="isScreenSmall">
+        <div class="flex flex-col w-full  mx-auto cursor-pointer" *ngIf="truong_hoc != undefined && truong_hoc != null">
+            <img class="w-full h-full object-contain"
+                 src="{{truong_hoc.db.cover_image}}" alt="Cover image">
+        </div>
+    </ng-container>
+    <router-outlet *ngIf="true"></router-outlet>
+</div>

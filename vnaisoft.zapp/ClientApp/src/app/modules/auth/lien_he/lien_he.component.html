@@ -1,0 +1,129 @@
+<div style="position: relative;overflow: hidden; width: 100%; height: 100%;">
+     
+
+    <div style="background-image: url('assets/images/portal/bg_sign_in.jpg');top: 0;left: 0;width: 100%;height: 100%;background-size: cover;background-position: center;opacity: 0.76;">
+        <div style="top: 0;left: 0; background: linear-gradient(to left top, #6750A4 0%, rgba(103, 80, 164, 0) 65%);width: 100%;height: 100%;">
+            <div style=" top: 0;left: 0;background-color: rgba(255, 255, 255, 0.2);width: 100%;height: 100%;"
+                 class="flex-auto flex items-center justify-center">
+
+                <div class="flex items-center justify-center"  *ngIf="!loading"
+                     style="background-color: white !important;opacity: 1;position: relative;">
+                    <div class="md:flex md:items-center md:justify-center w-full sm:w-auto md:h-full py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card"
+                         style="box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+                     
+
+                          <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0" >
+  
+                    <p class="text-center text-2xl text-base max-w-xl leading-relaxed">Thông báo</p>
+                    <p class="text-center text-base max-w-xl leading-relaxed">
+                        Hiện tại, trường
+                        <span class="bg-blue-200 text-blue-800 font-semibold px-1.5 rounded">
+                            {{ten_truong}}
+                        </span>
+                        chưa được khởi tạo trên hệ thống.
+                    </p>
+                    <p class="text-center text-base max-w-xl mt-4 leading-relaxed">
+                        Vui lòng liên hệ theo thông tin sau để được hỗ trợ:
+                    </p>
+                    <div class="max-w-xl w-full mt-4 bg-blue-50 rounded-lg p-4 text-sm text-gray-800 leading-relaxed">
+                        <p class="font-semibold text-blue-700 text-center mb-2 text-base">
+                            CÔNG TY CỔ PHẦN GIẢI PHÁP PHẦN MỀM VIỆT NAM AI
+                        </p>
+                        <p>
+                            <span class="font-bold">
+                                Địa chỉ:
+                            </span>
+                            Lầu 2 B10, tòa nhà Phú Mã Dương,
+                            Khu TTTM Tài Chính Quốc Tế Phú Mỹ Hưng, số 79/3 đường Hoàng Văn Thái,
+                            Phường Tân Phú, Quận 7, TP HCM
+                        </p>
+                        <p class="mt-1">
+                            <span class="font-bold">
+                                GĐKD:
+                            </span>
+                            Ngô Văn Bích
+                            <span class="float-right font-bold">
+                                SDT:
+                                <a class="text-blue-700 hover:underline" href="tel:0901424488">
+                                    0901424488
+                                </a>
+                            </span>
+                        </p>
+                        <p class="mt-1">
+                            <span class="font-bold">
+                                Email:
+                            </span>
+                            <a class="text-blue-700 hover:underline" href="mailto:bich.ngo@vnaisoft.com">
+                                bich.ngo@vnaisoft.com
+                            </a>
+                        </p>
+                    </div>
+                    <p class="text-center font-semibold mt-6 mb-2">
+                        Hỗ trợ trực tiếp qua Zalo:
+                    </p>
+                    <img alt="Mã QR Zalo Support màu xanh dương trên nền trắng" class="mx-auto w-24 h-24" height="64" src="https://school.vietnamai.com.vn/thcs.vnaisoft.com/sys_banner/68be9e8f612213a0f04b18bd.jpg" width="64" />
+                    <!--<div class="w-24 h-24 bg-white border border-gray-300 rounded-md mx-auto">
+
+    </div>-->
+
+             
+
+                            <div align="center" class="flex-1 text-sm mt-10">
+                                Copyright © {{currentYear}} SV IUH - All right reserved 
+                                <br />
+
+                                <a target="_blank" href="https://vnaisoft.com/homepage-index" style="color:black">
+                                    Powered by SV IUH
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* Custom checkbox styles */
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 24px;
+        height: 24px;
+        border: 2px solid #7a7a7a;
+        border-radius: 12px;
+        position: relative;
+        cursor: pointer;
+        outline: none;
+        margin-right: 16px;
+        flex-shrink: 0;
+        background-color: white;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+        box-shadow: inset 0 0 0 0 transparent;
+    }
+
+        input[type="checkbox"]:hover {
+            border-color: #0a3e66;
+        }
+
+        input[type="checkbox"]:checked {
+            border-color: white;
+            background-color: white;
+            box-shadow: inset 0 0 0 2px #0a3e66;
+        }
+
+            input[type="checkbox"]:checked::before {
+                content: "";
+                position: absolute;
+                top: 6px;
+                left: 9px;
+                width: 6px;
+                height: 12px;
+                border: solid #0a3e66;
+                border-width: 0 2.5px 2.5px 0;
+                transform: rotate(45deg);
+                border-radius: 1px;
+            }
+</style>

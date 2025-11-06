@@ -1,0 +1,145 @@
+ky yeu
+<!-- loanding -->
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+        <div class="flex flex-col flex-auto min-w-0">
+            <div class="bg-card dark:border-b">
+                <div class="flex flex-col w-full mx-auto">
+
+                    <div class="flex flex-col mx-auto  w-full h-full bg-card shadow rounded-lg">
+                        <mat-drawer-container class="flex-auto  w-full mx-auto bg-white"
+                            style="min-height: 90vh;max-height: 90vh;padding-left: 20px;">
+                            <!-- Drawer -->
+                            <mat-drawer class="w-96  bg-white" [autoFocus]="false" [mode]="drawerMode"
+                                [opened]="drawerOpened" #drawer>
+                                <div class="flex flex-col divide-y border-t border-b">
+
+                                    <ng-container *ngFor="let panel of panels; trackBy: trackByFn; let i = index">
+
+
+                                        <div class="flex px-8 py-3 cursor-pointer"
+                                            *ngIf="i==0 || panel.type !== panels[(i==0?1:i)-1].type">
+                                            <div class="font-bold text-2xl text-blue-900 leading-6">
+                                                <span *ngIf="panel.type==1" transloco="system.gioi_thieu"></span>
+                                                <span *ngIf="panel.type==2" transloco="NAV.sys_to_chuc"></span>
+                                            </div>
+                                        </div>
+                                        <div class="flex px-5 py-3 cursor-pointer"
+                                            [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedPanel || selectedPanel !== panel.id,
+                                                            'bg-primary-50 dark:bg-hover': selectedPanel && selectedPanel === panel.id}"
+                                            (click)="goToPanel(panel.id)">
+                                            <!--<mat-icon
+                                                [ngClass]="{'text-hint': !selectedPanel || selectedPanel !== panel.id,
+                                                            'text-blue-900': selectedPanel && selectedPanel === panel.id}"
+                                                  >menu</mat-icon>-->
+                                            <div class="ml-3 py-2">
+
+                                                <div class="font-medium leading-6"
+                                                    [ngClass]="{'text-blue-900': selectedPanel && selectedPanel === panel.id}">
+                                                    <span *ngIf="activeLang=='vi'">{{panel.title}}</span>
+
+                                                    <span *ngIf="activeLang!='vi'">{{panel.title_en}}</span>
+                                                </div>
+                                                <div class="mt-0.5 text-secondary text-lg">
+                                                    {{panel.description}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </mat-drawer>
+
+                            <!-- Drawer content -->
+                            <mat-drawer-content class="flex flex-col bg-white"
+                                style="min-height: 90vh;max-height: 90vh;">
+                                <div *ngIf="isScreenSmall"
+                                    class="flex  flex-row flex-auto sm:items-center bg-card  shadow  fix_top_mobile z-50"
+                                    [ngClass]="{ 'fixed' :(windowScrolled)}" data-aos="fade-right" data-aos-once="true"
+                                    style="height:40px;max-height: 40px;width: 100% !important;"
+                                    (click)="scrollToTop();drawer.toggle()">
+                                    <div class="flex flex-auto items-center min-w-0 pl-4 z-50">
+                                        <img style="width:20px;height:20px" src="assets/images/portal/menu.png" />
+                                        <span *ngIf="activeLang=='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                            style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                            {{getPanelInfo(selectedPanel).title}}</span>
+                                        <span *ngIf="activeLang!='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                            style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                            {{getPanelInfo(selectedPanel).title_en}}</span>
+                                    </div>
+                                </div>
+                                <!-- Main -->
+                                <div
+                                    class="flex-auto px-3  w-full mx-auto max-w-screen-xl md:px-6 md:pt-9 pb-12 md:p-8 md:pb-12 lg:p-12 bg-white ">
+
+                                    <!-- Panel header -->
+                                    <div class="flex items-center">
+
+                                        <!-- Drawer toggle -->
+                                        <div *ngIf="!isScreenSmall"
+                                            class="ml-2 text-blue-900  text-3xl font-bold tracking-tight leading-none">
+                                            <div class="flex flex-auto items-center min-w-0 invisible">
+                                                <img style="width:20px;height:20px"
+                                                    src="assets/images/portal/narrow_right.png" />
+                                                <span *ngIf="activeLang=='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                                    style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                                    {{getPanelInfo(selectedPanel).title}}</span>
+                                                <span *ngIf="activeLang!='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                                    style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                                    {{getPanelInfo(selectedPanel).title_en}}</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Load settings panel -->
+                                    <div class="mt-2">
+                                        <ng-container *ngFor="let panel of panels;">
+                                            <div *ngIf="panel.id==selectedPanel">
+
+                                                <about_us_detail [id_detail]="panel.id">
+                                                </about_us_detail>
+                                                <!-- <portal_nang_luc *ngIf="panel.type==4" ></portal_nang_luc>
+                                                        <about_us_cot_moc *ngIf="panel.type==3" ></about_us_cot_moc> -->
+                                                <!--<div *ngIf="panel.id =='1'">
+                                                    <about_us_cot_moc></about_us_cot_moc>
+                                                </div>
+                                                <div *ngIf="panel.id !='1'">
+                                                    <div class="w-full" style="word-break: break-word;"
+                                                        *ngIf="!isScreenSmall">
+                                                        <span *ngIf="activeLang=='vi'"
+                                                            [innerHtml]="panel.noi_dung | safeHtml"></span>
+                                                        <span *ngIf="activeLang!='vi'"
+                                                            [innerHtml]="panel.noi_dung_en | safeHtml"></span>
+                                                    </div>
+                                                    <div class="w-full" style="word-break: break-word;"
+                                                        *ngIf="isScreenSmall">
+                                                        <span *ngIf="activeLang=='vi' && panel.noi_dung_mobile!='null'"
+                                                            [innerHtml]="panel.noi_dung_mobile | safeHtml"></span>
+                                                        <span
+                                                            *ngIf="activeLang!='vi' && panel.noi_dung_mobile_en!='null'"
+                                                            [innerHtml]="panel.noi_dung_mobile_en | safeHtml"></span>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                        </ng-container>
+
+                                    </div>
+
+                                </div>
+
+                            </mat-drawer-content>
+
+                        </mat-drawer-container>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿using System.Collections.Generic;
+
+using vnaisoft.common.Models;
+using vnaisoft.system.web.Controller;
+//using vnaisoft.so_chu_nhiem.web.Controller;
+
+namespace vnaisoft.system.web.MenuAndRole
+{
+    public static class SystemListController
+    {
+        public static List<ControllerAppModel> listController = new List<ControllerAppModel>()
+
+        {
+            
+            //hệ thống
+            sys_userController.declare,
+            sys_group_userController.declare,
+            //scn_ban_can_bo_lopController.declare,
+            sys_cau_hinh_anh_mac_dinhController.declare,
+            sys_cau_hinh_ma_he_thongController.declare,
+            sys_template_mailController.declare,
+            //sys_videoController.declare,
+
+            //Quản lý danh mục
+            sys_don_vi_tinhController.declare,
+            sys_khach_hang_nha_cung_capController.declare,
+            sys_loai_mat_hangController.declare,
+            sys_mat_hangController.declare,
+            sys_don_hang_muaController.declare,
+            sys_don_hang_banController.declare,
+
+        };
+    }
+}

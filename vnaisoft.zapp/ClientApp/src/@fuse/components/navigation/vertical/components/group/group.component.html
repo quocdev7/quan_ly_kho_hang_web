@@ -1,0 +1,89 @@
+<!-- Item wrapper -->
+<div
+    class="fuse-vertical-navigation-item-wrapper"
+    [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle"
+    [ngClass]="item.classes?.wrapper">
+
+    <div class="fuse-vertical-navigation-item" (click)="collap=!collap">
+        <img src="{{item.icon_img}}" class="fuse-horizontal-navigation-item-icon h-5 w-5 mr-2"
+             *ngIf="item.icon_img" />
+        <!-- Icon -->
+        <mat-icon class="fuse-vertical-navigation-item-icon"
+                  [ngClass]="item.classes?.icon"
+                  *ngIf="item.icon"
+                  [svgIcon]="item.icon"></mat-icon>
+
+        <!-- Title & Subtitle -->
+        <div class="fuse-vertical-navigation-item-title-wrapper">
+            <div class="fuse-horizontal-navigation-item-title" *ngIf="item.translate!=''">
+                <span [ngClass]="item.classes?.title" style="font-size: 15px !important;">
+                    {{item.translate | transloco}}    <mat-icon *ngIf="item.children.length !=0 && collap==false" class="text-lg">expand_more</mat-icon>
+                    <mat-icon *ngIf="item.children.length !=0 && collap==true" class="text-lg">expand_less</mat-icon>
+                </span>
+            </div>
+            <div class="fuse-horizontal-navigation-item-title" *ngIf="item.translate==''">
+                <span [ngClass]="item.classes?.title" style="font-size: 15px !important;">
+                    {{item.title}}   <mat-icon class="text-lg" *ngIf="item.children.length !=0 && collap==false">expand_more</mat-icon>
+                    <mat-icon *ngIf="item.children.length !=0 && collap==true" class="text-lg">expand_less</mat-icon>
+                </span>
+            </div>
+            <div class="fuse-vertical-navigation-item-subtitle"
+                 *ngIf="item.subtitle">
+                <span [ngClass]="item.classes?.subtitle">
+                    {{item.subtitle}}
+                </span>
+            </div>
+        </div>
+
+        <!-- Badge -->
+        <div class="fuse-vertical-navigation-item-badge"
+             *ngIf="item.badge">
+            <div class="fuse-vertical-navigation-item-badge-content"
+                 [ngClass]="item.badge.classes">
+                {{item.badge.title}}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<ng-container *ngIf="collap==false">
+    <ng-container *ngFor="let item of item.children; trackBy: trackByFn">
+
+        <!-- Skip the hidden items -->
+        <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
+
+            <!-- Basic -->
+            <fuse-vertical-navigation-basic-item class="ml-6"
+                                                 *ngIf="item.type === 'basic'"
+                                                 [item]="item"
+                                                 [name]="name"></fuse-vertical-navigation-basic-item>
+
+            <!-- Collapsable -->
+            <fuse-vertical-navigation-collapsable-item *ngIf="item.type === 'collapsable'"
+                                                       [item]="item"
+                                                       [name]="name"
+                                                       [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
+
+            <!-- Divider -->
+            <fuse-vertical-navigation-divider-item *ngIf="item.type === 'divider'"
+                                                   [item]="item"
+                                                   [name]="name"></fuse-vertical-navigation-divider-item>
+
+            <!-- Group -->
+            <fuse-vertical-navigation-group-item *ngIf="item.type === 'group'"
+                                                 [item]="item"
+                                                 [name]="name"></fuse-vertical-navigation-group-item>
+
+            <!-- Spacer -->
+            <fuse-vertical-navigation-spacer-item *ngIf="item.type === 'spacer'"
+                                                  [item]="item"
+                                                  [name]="name"></fuse-vertical-navigation-spacer-item>
+
+        </ng-container>
+
+    </ng-container>
+</ng-container>
+
+
+

@@ -1,0 +1,38 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.changepass"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel"
+                              [actionEnum]="actionEnum"
+                              [label]="'common.newPass'"
+                              [keyError]="'new_password'"
+                              [type]="'password'"
+                              [(model)]="record.password"></cm_input>
+                        <!-- <mat-error *ngIf="record.password.length < 8">
+                            Mật khẩu phải có ít nhất 8 ký tự
+                        </mat-error>
+                        <mat-error *ngIf="record.password.length > 20">
+                            Mật khẩu không được vượt quá 20 ký tự
+                        </mat-error>
+                        <mat-error *ngIf="record.password != record.passwordRegex">
+                            Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt
+                        </mat-error> -->
+                </div>
+            </div>
+        </mat-card>
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3" [disabled]="loading" mat-raised-button (click)="changePass()" transloco="save"></button>
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>
+

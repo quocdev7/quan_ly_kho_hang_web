@@ -1,0 +1,82 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl overflow-y-auto">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.changepass"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <form name="resetPasswordForm" [formGroup]="resetPasswordForm" novalidate fxLayout="column">
+
+
+                <div fxFlex="100%">
+                    <mat-form-field [floatLabel]="'always'" appearance="outline" fxFlex="100%" style="padding-left:10px;padding-right:10px;width:100%">
+                        <mat-label>Mật khẩu cũ</mat-label>
+                        <input matInput [type]="hideOldPassword ? 'password' : 'text'" formControlName="oldPassword">
+                        <mat-icon matSuffix (click)="hideOldPassword = !hideOldPassword">{{hideOldPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="resetPasswordForm.get('oldPassword').hasError('required')">
+                            Bắt buộc
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+
+
+
+                <div fxFlex="100%" class="mt-4">
+                    <mat-form-field [floatLabel]="'always'" appearance="outline" fxFlex="100%" style="padding-left: 10px; padding-right: 10px; width: 100%">
+                        <mat-label>Mật khẩu mới</mat-label>
+                        <input matInput [type]="hideNewPassword ? 'password' : 'text'" formControlName="password">
+                        <mat-icon matSuffix (click)="hideNewPassword = !hideNewPassword">{{hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="resetPasswordForm.get('password').hasError('required')">
+                            Bắt buộc
+                        </mat-error>
+                        <mat-error *ngIf="resetPasswordForm.get('password').hasError('minlength')">
+                            Mật khẩu phải có ít nhất 8 ký tự
+                        </mat-error>
+                        <mat-error *ngIf="resetPasswordForm.get('password').hasError('maxlength')">
+                            Mật khẩu không được vượt quá 20 ký tự
+                        </mat-error>
+                        <mat-error *ngIf="resetPasswordForm.get('password').hasError('passwordComplexity')">
+                            Mật khẩu phải bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100%" class="mt-4">
+                    <mat-form-field [floatLabel]="'always'" appearance="outline" fxFlex="100%" style="padding-left: 10px; padding-right: 10px; width: 100%">
+                        <mat-label>Nhập lại mật khẩu mới</mat-label>
+                        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="passwordConfirm">
+                        <mat-icon matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="resetPasswordForm.get('passwordConfirm').hasError('required')">
+                            Bắt buộc
+                        </mat-error>
+                        <mat-error *ngIf="!resetPasswordForm.get('passwordConfirm').hasError('required') &&
+                                       resetPasswordForm.get('passwordConfirm').hasError('passwordsNotMatching')">
+                            Mật khẩu nhập lại không khớp với mật khẩu mới
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="flex flex-row justify-end space-x-2">
+                    <button mat-raised-button class="submit-button" color="accent"
+                            aria-label="RESET MY PASSWORD" [disabled]="resetPasswordForm.invalid" (click)="changePassword()">
+                        Đổi mật khẩu
+                    </button>
+                    <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" (click)="onclose()" mat-raised-button transloco="close"></button>
+                </div>
+
+
+
+            </form>
+        </mat-card>
+        <!--<div class="flex flex-row justify-end space-x-2">
+            <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" mat-raised-button  transloco="close"></button>
+        </div>-->
+    </div>
+</div>
+

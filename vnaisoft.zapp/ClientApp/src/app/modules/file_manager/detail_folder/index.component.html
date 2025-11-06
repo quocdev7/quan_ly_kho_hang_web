@@ -1,0 +1,74 @@
+<div class="flex flex-col flex-auto p-6 md:p-8" *ngIf="folder!=null && show_detail_folder==true">
+    <!-- Preview -->
+    <div class="aspect-w-9 aspect-h-6 mt-8">
+        <div class="flex items-center justify-center border rounded-lg bg-gray-50 dark:bg-card">
+            <!-- <img  class="w-20 h-20" src="/assets/icons/folder.png" alt=""> -->
+            <mat-icon class="icon-size-14 text-hint opacity-50" [svgIcon]="'heroicons_solid:folder'">
+            </mat-icon>
+        </div>
+    </div>
+    <!-- Name & Type -->
+    <div class="flex justify-between items-center py-4">
+        <div class="text-xl font-medium">{{folder.db.ten}}</div>
+        <button autofocus="false" *ngIf="folder.db.id_admin == user_login.Id"
+            class="mdc-icon-button mat-mdc-icon-button mat-unthemed mat-mdc-button-base"
+            (click)="openDialogEdit(folder)">
+            <span class="mat-mdc-button-persistent-ripple mdc-icon-button__ripple"></span>
+            <mat-icon svgIcon="heroicons_solid:pencil"></mat-icon>
+            <span class="mat-mdc-focus-indicator"></span>
+            <span matripple="" class="mat-ripple mat-mdc-button-ripple"></span>
+            <span class="mat-mdc-button-touch-target"></span>
+        </button>
+    </div>
+    <!-- Information -->
+    <div class="flex justify-between items-center">
+        <div class="text-lg font-medium" transloco="system.info"></div>
+    </div>
+    <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary" transloco="storage.create_by"></div>
+            <div>{{folder.ten_nguoi_cap_nhat}}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary" transloco="storage.modified_at"></div>
+            <div>{{folder.db.ngay_cap_nhat | date: 'dd/MM/yyyy HH:mm'}}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary" transloco="storage.size"></div>
+
+            <div>{{formatSizeUnits(folder.size)}}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary" transloco="storage.contents"></div>
+            <div>
+                <span *ngIf="folder.count_file==null">0 files</span>
+                <span *ngIf="folder.count_file!=null">{{folder.count_file}} files</span>
+            </div>
+        </div>
+    </div>
+    <!-- Description -->
+    <ng-container *ngIf="folder.db.mo_ta!=null&& folder.db.mo_ta!=''">
+        <div class="flex justify-between items-center">
+            <div class="text-lg font-medium mt-8" transloco="system.mo_ta"></div>
+        </div>
+        <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
+            <div class="flex items-center justify-between py-3">
+                <div [innerHtml]="folder.db.mo_ta | safeHtml"></div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Actions -->
+    <div class="grid grid-cols-2 gap-4 w-full mt-8">
+
+        <button mat-stroked-button (click)="download(folder.db.id)" style="background-color: #0d6efd;">
+            <p transloco="system.download" class="mb-0 text-white"></p>
+        </button>
+
+        <button *ngIf="folder.db.id_admin == user_login.Id" (click)="delete_folder(folder.db.id,2)" class="flex-auto"
+            mat-stroked-button transloco="system.delete">
+        </button>
+
+
+    </div>
+
+</div>

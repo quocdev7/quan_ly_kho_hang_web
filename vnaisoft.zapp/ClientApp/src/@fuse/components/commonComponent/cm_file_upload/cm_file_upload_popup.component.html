@@ -1,0 +1,79 @@
+<div class="flex flex-col flex-auto w-full   h-fit overflow-y-visible">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.file_upload"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full mt-3 px-6 sm:px-8 space-y-1">
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white rounded shadow-none hover:bg-teal-600" mat-raised-button
+                (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+    <div class="w-full p-6 sm:p-8 space-y-1">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+                <div align="center">
+                    <span style="color:red"
+                        *ngFor="let item of errorModel | filter : 'key' : 'db.image' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                    (onFileDropped)="DragAndDropProgress($event)" align="center">
+                    <h3 style="margin:auto" transloco="system.chose_file"></h3>
+                    <input hidden type="file" #fileInput (change)="fileProgress($event)" accept="*" multiple>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-2xl py-6 px-6 shadow">
+            <div class="w-full overflow-auto">
+                <table class="cell-border myTable hover w-full">
+                    <thead>
+                        <tr>
+                            <td style="width:50px" *ngIf="actionEnum!=3"></td>
+                            <th transloco="no_" style="width:50px"></th>
+                            <th transloco="system.file_name" style="width:200px !important"></th>
+                            <th transloco="system.file_size"></th>
+                            <th transloco="system.file"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="list_file?.length != 0">
+                        <tr *ngFor="let item of list_file; index as i;">
+                            <td align="center" *ngIf="actionEnum!=3">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item transloco="system.tai_file"
+                                        (click)="downloadFile(item.id,item.file_name)">
+                                    </button>
+                                    <button mat-menu-item transloco="delete" (click)="deleteFile(item,i)"></button>
+                                </mat-menu>
+                            </td>
+                            <td align="center">{{i+1 }}</td>
+                            <td align="center"><a (click)="downloadFile(item.id,item.file_name)">{{item.file_name}}</a>
+                            </td>
+                            <td align="center">{{formatSizeUnits(item.file_size)}}</td>
+                            <td align="center">
+                                <img *ngIf="item.file_type!='application/json'" style="width:50px"
+                                    [src]="getFontAwesomeIconFromMIME(item.file_type)" />
+                                <sys_animation_options_index *ngIf="item.file_type=='application/json'"
+                                    [file_path]="item.file_path"></sys_animation_options_index>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 rounded text-white shadow-none hover:bg-teal-600" mat-raised-button
+                (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

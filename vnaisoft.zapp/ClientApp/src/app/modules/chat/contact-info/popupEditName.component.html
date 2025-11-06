@@ -1,0 +1,31 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl  h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" *ngIf="actionEnum!=3" transloco="system.cap_nhat_name_group"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1" *ngIf="actionEnum!=3">
+        <div class="rounded-2xl py-6 px-6 bg-card shadow overflow-hidden">
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.name_group'"
+                        [keyError]="'db.stt'" [(model)]="record.db.conversation_group_name"></cm_input>
+                </div>
+
+            </div>
+
+            <div class="flex flex-row justify-end space-x-2  mt-5">
+                <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3"
+                    [disabled]="loading" mat-raised-button (click)="update_name()" transloco="save"></button>
+                <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading"
+                    mat-raised-button (click)="close()" transloco="close"></button>
+            </div>
+            <div class="h-20" *ngIf="isScreenSmall"></div>
+        </div>
+
+    </div>
+
+</div>

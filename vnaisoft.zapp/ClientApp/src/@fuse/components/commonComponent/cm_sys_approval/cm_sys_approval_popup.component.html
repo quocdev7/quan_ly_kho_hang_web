@@ -1,0 +1,47 @@
+<ng-container *transloco="let t">
+    <h1 mat-dialog-title class="dark:text-white" class="dark:text-white" transloco="">{{t('NAV.sys_approval')}}</h1>
+    <div mat-dialog-content>
+        <div class="flex flex-row">
+
+            <div class="flex-1 space-x-4">
+                <div class="w-full">
+                    <cm_select [errorModel]="errorModel" [keyError]="'db.id_sys_approval_config'"
+                        [label]="'NAV.sys_approval'" [listData]="listData_sys_approval"
+                        [(objectChose)]="item_sys_approval_config"
+                        [callbackChange]="bind_sys_approval_config.bind(this)"
+                        [(model)]="record.db.id_sys_approval_config"></cm_select>
+                </div>
+            </div>
+            <div class="flex-1 space-x-4">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full" >
+                        <thead>
+                            <tr>
+                                <th>{{t('no_')}}</th>
+                                <th>{{t('common.step_num')}}</th>
+                                <th>{{t('common.step_name')}}</th>
+                                <th>{{t('common.user_name')}}</th>
+                                <th>{{t('common.duration_hours')}}</th>
+                                <th>{{t('note')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of item_sys_approval_config.list_item;  index as i;">
+                                <td>{{ i+1 }}</td>
+                                <td>{{ item.user_name }}</td>
+                                <td>{{ item.db.step_num }}</td>
+                                <td>{{ item.db.step_name }}</td>
+                                <td align="right">{{ item.db.duration_hours | number }}</td>
+                                <td>{{ item.db.note }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div >
+        <button [disabled]="loading" mat-raised-button class="bg-teal-400 text-white shadow-none hover:bg-teal-600" (click)="save()">{{t('send_approval')}}</button>
+        <button [disabled]="loading" mat-raised-button (click)="close()">{{t('close')}}</button>
+    </div>
+</ng-container>

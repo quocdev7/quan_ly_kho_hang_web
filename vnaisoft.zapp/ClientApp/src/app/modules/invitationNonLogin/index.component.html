@@ -1,0 +1,114 @@
+<div class="flex flex-col sm:flex-col flex-auto min-w-0 h-full background-color-web-primary">
+    <!-- Logo -->
+    <!-- <div class="w-full flex flex-col px-5 pt-5 items-center">
+        <img src="../assets/images/logo/shungo_horizotal_logo.png" class="h-10 w-30"
+            style="image-rendering: -webkit-optimize-contrast;">
+    </div> -->
+    <div class="flex flex-col  items-center justify-center flex-auto min-w-0">
+        <div
+            class="md:flex md:items-center md:justify-center w-full pt-4 pb-8 px-4 sm:p-6 md:p-8 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none">
+            <div class="w-full max-w-lg  mx-auto" *ngIf="loading_loi_moi==true">
+                <!-- Title -->
+                <!-- 
+                <div class="w-full max-w-2xl sm:w-lg mx-auto sm:mx-0">
+                    <div class="mt-8 text-center text-4xl font-extrabold tracking-tight leading-tight">
+                        Lời mời
+                    </div>
+                    <div class="mt-4 text-center mb-2 p-2 text-lg tracking-tight leading-tight">Lời mời tham gia Workspace của tổ
+                        chức sẽ hiển thị ở đây</div>
+                </div> -->
+                <!-- not invitation -->
+                <div class="flex sm:flex-col md:flex-row" *ngIf="record==null || record==undefined">
+                    <div class="flex flex-1 md:my-0 md:mx-4 sm:mx-auto flex-col rounded-xl bg-card"
+                        style="min-width: 200px;">
+                        <div class="flex justify-center items-center p-8">
+                            <img src="../assets/images/portal/empty_box_1.png"
+                                style="image-rendering: -webkit-optimize-contrast;width: 200px; height: 200px;min-width: 200px;">
+                        </div>
+                        <div class="mt-4 text-center mb-2 p-8 text-lg tracking-tight leading-tight">Bạn chưa có lời mời
+                            tham gia
+                            Workspace nào.</div>
+                    </div>
+                </div>
+                <div class="flex w-full max-w-2xl mx-auto" *ngIf="record!=null">
+                    <div class="flex flex-1 md:my-0 md:mx-4 sm:mx-auto flex-col rounded-xl bg-card"
+                        style="min-width: 200px;">
+                        <div
+                            class="text-center text-3xl font-bold border-b-2 border-black p-4 tracking-tight leading-tight">
+                            Lời mời</div>
+                        <!-- <div class="flex justify-center items-center p-8">
+                            <img [src]="record.company_image"
+                                style="image-rendering: -webkit-optimize-contrast;width: 200px; height: 200px;min-width: 200px;">
+                        </div> -->
+                        <div class="text-center text-lg tracking-tight leading-tight">
+                            <span class="uppercase">{{record.name_workspace}}</span> mời bạn tham gia
+                        </div>
+                        <div class="mt-2 text-center text-lg tracking-tight leading-tight"
+                            *ngIf="record.ten_chuc_danh!=null">
+                            <span>
+                                <span class="font-bold">Vị trí: </span>
+                                <span>{{record.ten_chuc_danh}}</span>
+                            </span>
+                        </div>
+                        <div class="mt-2 text-center text-lg tracking-tight leading-tight"
+                            *ngIf="record.ten_phong_ban!=null">
+                            <span>
+                                <span class="font-bold">Phòng ban: </span>
+                                <span>{{record.ten_phong_ban}}</span>
+                            </span>
+                        </div>
+                        <div class="mt-4 text-center flex flex-row text-lg tracking-tight leading-tight">
+                            <div class="flex-1 px-4">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [label]="'system.full_name'" [keyError]="'db.full_name'" [(model)]="full_name">
+                                </cm_input>
+                            </div>
+                        </div>
+                        <div class="text-center flex flex-row text-lg tracking-tight leading-tight">
+                            <div class="flex-1 px-4">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.phone'"
+                                    [keyError]="'db.phone'" [maxlength]="20" [(model)]="phone"></cm_input>
+                            </div>
+                        </div>
+                        <div class="text-center flex flex-row text-lg tracking-tight leading-tight">
+                            <div class="flex-1 px-4">
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [label]="'system.password'" [type]="'password_login'" [maxlength]="100"
+                                    [(model)]="password" [keyError]="'db.password'"></cm_input>
+                            </div>
+                        </div>
+                        <div class="text-center flex flex-row text-lg tracking-tight leading-tight px-4 mt-4">
+                            <button class="h-10 max-h-10 min-h-10 rounded-lg w-full" style="background-color: #0d6efd;"
+                                mat-flat-button [color]="'primary'" *ngIf="!loading" (click)="check_error()">
+                                <span *ngIf="!loading">
+                                    Đồng ý
+                                </span>
+                            </button>
+                        </div>
+
+                        <div *ngIf="loading"
+                            class="h-10 max-h-10 min-h-10  justify-center items-center mt-4 px-4 rounded-lg w-full flex flex-row"
+                            style="background-color: #6c757d;">
+                            <div class="flex ml-4 text-white">
+                                <mat-progress-spinner *ngIf="loading" class="text-white" [diameter]="24"
+                                    [mode]="'indeterminate'">
+                                </mat-progress-spinner>
+                            </div>
+                            <div class="justify-center text-white items-center flex w-full">
+                                Đang thực hiện
+                            </div>
+                        </div>
+                        <div
+                            class="flex flex-col mt-5 md:flex-row lg:flex-row md:space-x-4 mb-4 flex-wrap w-full max-w-screen-xl mx-auto">
+                            <div class="flex-1 mx-auto text-base text-center">
+                                <a href="https://vnaisoft.com/" class="text-black "> Copyright © {{currentYear}}
+                                    SV IUH <br> All right reserved</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+
+    .avatar {
+
+        .hover_avatar {
+          display: none;
+        }
+     
+        &:hover {
+          .hover_avatar {
+            display: block !important; 
+          }
+        }
+      }
+
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+        overflow: unset !important;
+}

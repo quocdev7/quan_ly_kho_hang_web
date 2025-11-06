@@ -1,0 +1,48 @@
+.avatar {
+  position: relative; //phan tu cha
+
+  .hover_avatar {
+    position: absolute; // phần tử con định vị theo phần tử cha
+    width: 250px;
+    height: 200px;
+    background: #ffffff;
+    border-radius: 5px;
+    border-color: rgb(228, 225, 225);
+    border-width: 1px;
+    bottom: -200px;
+    display: none;
+  }
+
+  &:hover {
+    .hover_avatar {
+      display: block !important;
+    }
+  }
+}
+
+.dataTables_scrollBody {
+  height: 500px !important;
+}
+
+.hidden_toat {
+  display: none;
+  transform: translateX(100%);
+  transition: all 1s ease-out;
+}
+
+.block_toat {
+  display: block;
+  animation: slide_down 1s ease;
+  left: 0;
+  right: 0;
+}
+
+@keyframes slide_down {
+  50% {
+    transform: translateX(50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}

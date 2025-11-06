@@ -1,0 +1,137 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible mobile:mb-20">
+    <!-- Header -->
+    <div class="flex flex-0 items-center h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.share"></div>
+        &nbsp;
+        <span class="font-bold"
+            *ngIf="record.db.ten!=null || record.db.ten!=undefined || record.db.ten!=''">{{record.db.ten}}</span>
+        <span class="font-bold"
+            *ngIf="record.db.file_name!=null || record.db.file_name!=undefined || record.db.file_name!=''">{{record.db.file_name}}</span>
+    </div>
+    <div class="w-full p-6 sm:p-8 space-y-1 relative">
+        <!-- action -->
+        <div class="flex flex-row justify-end space-x-2">
+            <button *ngIf="record.type==4" class="rounded py-2 px-4 font-bold  bg-yellow-500  hover:bg-yellow-600"
+                (click)="download(record.db.id)">
+                <p transloco="system.download" class="mb-0 text-white"></p>
+            </button>
+            <button *ngIf="record.type==5" (click)="downloadFile(record.db.id,record.db.file_name)"
+                class="rounded py-2 px-4 font-bold  bg-yellow-500  hover:bg-yellow-600">
+                <p transloco="system.download" class="mb-0 text-white"></p>
+            </button>
+            <button class="bg-primary-600 text-white rounded shadow-none hover:bg-primary-700" *ngIf="actionEnum!=3"
+                [disabled]="loading" mat-raised-button (click)="share()" transloco="save"></button>
+            <button class="bg-teal-500 text-white rounded shadow-none hover:bg-teal-600" [disabled]="loading"
+                mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+        <br>
+        <!-- view -->
+        <div class="relative pr-3 sm:pr-5 pl-6 sm:pl-8">
+            <div class="w-full">
+                <mat-form-field class="fuse-mat-no-subscript fuse-mat-rounded fuse-mat-dense w-full"
+                    [floatLabel]="'always'">
+                    <mat-icon matPrefix class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                    <input matInput [autocomplete]="'off'" [placeholder]="'Tìm kiếm'" [(ngModel)]="searchField"
+                        (input)="filterUsers()">
+                </mat-form-field>
+            </div>
+            <div class="w-11/12 absolute pl-1.5 z-99" *ngIf="list.length>0 && searchField!=''">
+                <ng-container *ngIf="list.length; else noItems">
+                    <ng-container *ngFor="let item of list | slice:0:2; let i = index; trackBy: trackByFn">
+                        <div (click)="add_user(i)"
+                            class="z-20 px-2 bg-card  rounded-md flex py-1 my-1 shadow items-center cursor-pointer border-b hover:bg-gray-400 dark:hover:bg-hover ng-star-inserted">
+                            <div class="flex flex-0 items-center justify-center w-8 h-8 rounded-full overflow-hidden">
+                                <ng-container *ngIf="item.avatar">
+                                    <img [src]="item.avatar" alt="Contact avatar" />
+                                </ng-container>
+                                <ng-container *ngIf="!item.avatar">
+                                    <div
+                                        class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                        {{item.name.charAt(0)}}
+                                    </div>
+                                </ng-container>
+                            </div>
+                            <div class="min-w-0 ml-4">
+                                <div class="font-semibold text-base leading-5 truncate">{{item.name}}</div>
+                                <div class="font-semibold text-base leading-5 truncate">{{item.email}}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+        <div class="flex flex-0 items-center justify-between h-8 pr-3 sm:pr-5 pl-6 sm:pl-8">
+            <div class="text-lg font-medium" transloco="system.nhung_nguoi_co_quyen_truy_cap"></div>
+        </div>
+        <div class="pt-2 pr-3 sm:pr-5 pl-6 sm:pl-8">
+            <!-- người được chia sẻ -->
+            <div class="flex items-center w-full h-16 border-b border-gray-400" style="border-radius: 10px;width: 100%;"
+                *ngFor="let item of record.db.list_user_share;  index as i;">
+                <div class="p-2 flex justify-between w-full">
+                    <div class="flex  items-center space-x-2">
+                        <div class="avatar w-8 h-8 rounded-full ">
+                            <ng-container *ngIf="item.avatar">
+                                <img [src]="item.avatar" alt="Contact avatar" />
+                            </ng-container>
+                            <ng-container *ngIf="!item.avatar">
+                                <div
+                                    class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                    {{item.name.charAt(0)}}
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="flex"><span class="font-bold">{{item.name}}</span></div>
+                            <div class="flex"><span>{{item.email}}</span></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="italic">{{change_role_name(item.role,2).name}}</span>
+                        <!-- người sở hữu -->
+                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                            *ngIf="user_login.role==3 && user_login.Id!=item.id_user">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <ng-container *ngFor="let role of list_role_share_show">
+                                <button mat-menu-item (click)="set_role(i,role.id,2)">
+                                    {{role.name}}
+                                </button>
+                            </ng-container>
+                            <button *ngIf="user_login.role==3" mat-menu-item (click)="remove_user(i)">
+                                <span transloco="system.xoa"></span>
+                            </button>
+                        </mat-menu>
+                        <!-- người chỉnh sửa -->
+                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                            *ngIf="user_login.role==4 && item.role!=3 && user_login.Id!=item.id_user">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <ng-container *ngFor="let role of list_role_share_show">
+                                <button mat-menu-item (click)="set_role(i,role.id,2)">
+                                    {{role.name}}
+                                </button>
+                            </ng-container>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button *ngIf="record.type==4" class="rounded py-2 px-4 font-bold  bg-yellow-500  hover:bg-yellow-600"
+                (click)="download(record.type)">
+                <p transloco="system.download" class="mb-0 text-white"></p>
+            </button>
+            <button *ngIf="record.type==5" (click)="downloadFile(file.db.id,file.db.file_name)"
+                class="rounded py-2 px-4 font-bold  bg-yellow-500  hover:bg-yellow-600">
+                <p transloco="system.download" class="mb-0 text-white"></p>
+            </button>
+            <button class="bg-primary-600 text-white rounded shadow-none hover:bg-primary-700" *ngIf="actionEnum!=3"
+                [disabled]="loading" mat-raised-button (click)="share()" transloco="save"></button>
+            <button class="bg-teal-500 text-white rounded shadow-none hover:bg-teal-600" [disabled]="loading"
+                mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

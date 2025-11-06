@@ -1,0 +1,28 @@
+<!-- Bar search -->
+<ng-container *ngIf="appearance === 'bar'">
+    <button mat-icon-button (click)="open()">
+        <mat-icon>search</mat-icon>
+    </button>
+
+    <div class="absolute inset-0 flex items-center flex-shrink-0 z-99 bg-card  mx-auto  max-w-screen-xl"
+        style="height:55px!important" *ngIf="opened" @slideInTop @slideOutTop>
+
+        <mat-icon class="absolute ml-6 sm:ml-8">search</mat-icon>
+        <input class="w-full h-full px-16 sm:px-18" style="padding-right:135px !important" [formControl]="searchControl"
+            (change)="searchFunc()" [placeholder]="'Gõ từ khóa để tìm kiếm'" #barSearchInput />
+        <button class="absolute top-1/2 right-5 sm:right-7 flex-shrink-0 w-10 h-10 -mt-5" mat-icon-button
+            (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</ng-container>
+<!-- Basic search -->
+<ng-container *ngIf="appearance === 'basic'">
+    <div class="w-full sm:min-w-80">
+        <mat-form-field class="fuse-mat-no-subscript w-full">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput [formControl]="searchControl" [matAutocomplete]="matAutocomplete"
+                [placeholder]="'Gõ từ khóa để tìm kiếm'" (keydown)="onKeydown($event)">
+        </mat-form-field>
+    </div>
+</ng-container>

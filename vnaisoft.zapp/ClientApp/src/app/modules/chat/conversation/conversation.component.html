@@ -1,0 +1,516 @@
+<div class="flex flex-col w-full flex-auto overflow-y-auto lg:overflow-hidden bg-card dark:bg-default relative">
+    <ng-container *ngIf="info_group_chat; else selectChatOrStartNew">
+        <mat-drawer-container class="flex-auto h-full w-full" [hasBackdrop]="false">
+            <!-- Drawer -->
+            <mat-drawer class="sm:w-100 lg:border-l lg:shadow-none dark:bg-gray-900" [autoFocus]="false"
+                [mode]="drawerMode" [position]="'end'" [(opened)]="drawerOpened" #drawer>
+                <!-- Contact info -->
+                <chat-contact-info [drawer]="drawer" [chat_conversation_message]="chat_conversation_message"
+                    [chat]="info_group_chat"></chat-contact-info>
+            </mat-drawer>
+            <!-- Drawer content -->
+            <mat-drawer-content class="flex flex-col flex-auto overflow-hidden">
+                <!-- Header -->
+                <div class="flex flex-0 items-center h-18 px-4 md:px-6 border-b bg-gray-50 dark:bg-transparent">
+                    <!-- Back button -->
+                    <a class="lg:hidden md:-ml-2" mat-icon-button [routerLink]="['./']" (click)="resetChat()">
+                        <mat-icon [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
+                    </a>
+                    <!-- Contact info -->
+                    <div class="flex items-center ml-2 lg:ml-0 mr-2 cursor-pointer" (click)="openContactInfo()">
+                        <div class="relative flex flex-0 items-center justify-center w-10 h-10">
+                            <ng-container *ngIf="info_group_chat.conversation_group_image!=''">
+                                <img class="w-full h-full rounded-full object-cover"
+                                    [src]="info_group_chat.conversation_group_image" alt="" />
+                            </ng-container>
+                            <ng-container
+                                *ngIf="info_group_chat.conversation_group_image==='' || info_group_chat.conversation_group_image=== null || info_group_chat.conversation_group_image=== undefined">
+                                <div
+                                    class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                    {{info_group_chat.conversation_group_name.charAt(0)}}
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="ml-4 text-lg font-medium leading-5 truncate">
+                            {{info_group_chat.conversation_group_name}}</div>
+                    </div>
+                    <button class="ml-auto" matTooltip="Bắt đầu gọi thoại" mat-icon-button>
+                        <mat-icon>call</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Bắt đầu gọi video">
+                        <mat-icon>video_call</mat-icon>
+                    </button>
+                    <!-- Bar search -->
+                    <ng-container>
+                        <button mat-icon-button (click)="open()">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                        <div class="absolute inset-0 flex items-center flex-shrink-0 z-99 bg-card  mx-auto  max-w-screen-xl"
+                            style="height:55px!important" *ngIf="opened" @slideInTop @slideOutTop>
+
+                            <mat-icon class="absolute ml-6 sm:ml-8">search</mat-icon>
+                            <input class="w-full h-full px-16 sm:px-18" style="padding-right:135px !important"
+                                [formControl]="searchControl" (change)="searchFunc()"
+                                [placeholder]="'Gõ từ khóa để tìm kiếm'" #barSearchInput />
+                            <button class="absolute top-1/2 right-5 sm:right-7 flex-shrink-0 w-10 h-10 -mt-5"
+                                mat-icon-button (click)="close()">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </div>
+                    </ng-container>
+                    <button mat-icon-button (click)="openContactInfo()" matTooltip="Thông tin về cuộc trò chuyện">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </div>
+                <!-- Conversation -->
+                <div class="flex overflow-y-auto flex-col-reverse relative">
+                    <div class="flex flex-col flex-auto shrink p-6 bg-card dark:bg-transparent">
+                        <ng-container
+                            *ngFor="let chat of chat_conversation_message;  index as i; let first = first; let last = last;">
+                            <!-- message user -->
+                            <div class="flex flex-col items-end" *ngIf="chat.user_id==currentUser.id">
+                                <div id="item_hover" class="flex flex-row p-2 w-full justify-end">
+                                    <!-- hover -->
+                                    <div id="item_child_hover" class="flex mr-2 h-full justify-center items-center">
+                                        <div class="h-8 flex justify-center items-center">
+                                            <a class="flex flex-row justify-center items-center">
+                                                <button [matMenuTriggerFor]="menu">
+                                                    <mat-icon class="text-black"
+                                                        svgIcon="heroicons_solid:dots-horizontal"></mat-icon>
+                                                </button>
+                                                <mat-menu #menu="matMenu">
+                                                    <button (click)="decryptAESCryptoJSAnyKey2(chat.conversation_id,chat.message)" mat-menu-item transloco="system.ghim_tin_nhan"></button>
+                                                    <button mat-menu-item transloco="system.xoa_tin_nhan"></button>
+                                                </mat-menu>
+
+                                                <button class="mx-2" matTooltip="Chuyển tiếp"
+                                                    (click)="openDialogAvatar(chat)">
+                                                    <mat-icon class="text-black">publish</mat-icon>
+                                                </button>
+                                                <button class="mx-2" matTooltip="Trả lời" (click)="reply_chat(chat)">
+                                                    <mat-icon class="text-black" svgIcon="heroicons_solid:reply">
+                                                    </mat-icon>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- icon -->
+                                    <div *ngIf="chat.reaction_count==0"
+                                        class="flex mr-2 h-full justify-center items-center">
+                                        <div class="bg-gray-300 rounded-full h-8 w-8 flex justify-center items-center">
+                                            <a class="flex justify-center items-center">
+                                                <!-- <mat-icon *ngIf="chat.reaction_count>0"
+                                                    (click)="delete_reaction_count(i)" style="color: rgb(243, 26, 63);">
+                                                    favorite</mat-icon> -->
+                                                <mat-icon *ngIf="chat.reaction_count==0"
+                                                    (click)="change_reaction_count(i)" style="color: rgb(243, 26, 63);">
+                                                    favorite_border</mat-icon>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- messeage -->
+                                    <div class="relative max-w-3/4 px-3 py-2 mr-2 rounded-lg bg-gray-600 text-blue-50 ">
+                                        <ng-container *ngIf="check_show_avatar(i)">
+                                            <div class="absolute bottom-0 w-3 text-gray-600 -right-1 -mr-px mb-px">
+                                                <ng-container *ngTemplateOutlet="speechBubbleExtension"></ng-container>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container>
+                                            <div class="absolute bg-gray-300 rounded-full h-6 flex justify-center items-center -bottom-4 w-6 text-white left-2 -mr-px mb-px"
+                                                *ngIf="chat.reaction_count>0">
+                                                <a class="flex justify-center items-center"
+                                                    (click)="delete_reaction_count(i)">
+                                                    <mat-icon class="icon-size-4" style="color: rgb(243, 26, 63);">
+                                                        favorite
+                                                    </mat-icon>
+                                                </a>
+                                            </div>
+                                        </ng-container>
+                                        <div class="min-w-4 leading-5">
+                                            <!-- message text -->
+                                            <div *ngIf="chat.status!=2 && chat.type_message==1  && chat.meta_tag==null">
+                                                <span>
+                                                    {{chat.message}}
+                                                </span>
+                                            </div>
+                                            <!-- file -->
+                                            <div
+                                                *ngIf="chat.status!=2 && chat.type_message==2 && chat.extensionFile=='pdf'">
+                                                <div class="flex flex-row w-50">
+                                                    <div class="w-1/3 h-10 mr-2">
+                                                        <!-- <img [src]="chat.filePath" alt=""> -->
+                                                        <img class=" h-10"
+                                                            [src]="'assets/images/whatsApp/Whatsapp-Wallpaper-2.jpg'"
+                                                            alt="">
+                                                    </div>
+                                                    <div class="w-2/3">
+                                                        <span>
+                                                            {{chat.fileName}}
+                                                        </span> <br>
+                                                        <span>
+                                                            {{formatSizeUnits(chat.fileSize)}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- image -->
+                                            <div
+                                                *ngIf="chat.status!=2 && chat.type_message==2  && chat.extensionFile!='pdf'">
+                                                <img [src]="'assets/images/whatsApp/Whatsapp-Wallpaper-2.jpg'" alt="">
+                                                <!-- <img [src]="chat.filePath" alt=""> -->
+                                            </div>
+                                            <!-- map -->
+                                            <div
+                                                *ngIf="chat.status!=2 && chat.type_message==5  && chat.extensionFile!=null">
+                                                <img [src]="'assets/images/whatsApp/Whatsapp-Wallpaper-2.jpg'" alt="">
+                                                <!-- <img [src]="chat.filePath" alt=""> -->
+                                            </div>
+                                            <!-- <div
+                                                        *ngIf="chat.status!=2 && chat.type_message==5 || chat.status!=2 && chat.type_message==2">
+                                                        <img  [src]="chat.filePath" alt="">
+                                                    </div> -->
+                                            <!-- sticker -->
+                                            <div *ngIf="chat.status!=2 && chat.type_message==13 ">
+                                                <sys_animation_chat_index class="w-full h-full"
+                                                    [file_path]="chat.filePath">
+                                                </sys_animation_chat_index>
+                                                <!-- <sys_animation_chat_index class="w-full h-full"
+                                                    [file_path]="'assets/archive/Angry.json'">
+                                                </sys_animation_chat_index> -->
+                                            </div>
+                                            <!-- record -->
+                                            <div *ngIf="chat.status!=2 && chat.type_message==6 ">
+                                                <span (click)="click_record()">
+                                                    <div class="flex flex-row">
+                                                        <div class="flex">
+                                                            <mat-icon class="w-10 h-10 text-white"
+                                                                *ngIf="start_record==false">play_circle_filled
+                                                            </mat-icon>
+                                                            <mat-icon class="w-10 h-10 text-white"
+                                                                *ngIf="start_record==true">stop</mat-icon>
+                                                        </div>
+                                                        <div class="flex items-center justify-center text-center">
+                                                            <span *ngIf="start_record==false">
+                                                                Bản ghi âm
+                                                            </span>
+                                                            <span *ngIf="start_record==true">
+                                                                Đang mở
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </span>
+
+                                            </div>
+                                            <!-- tag meta -->
+                                            <div *ngIf="chat.status!=2 && chat.type_message==1 && chat.meta_tag!=null">
+                                                <a class="text-blue-500 hover:underline"
+                                                    href="{{change_parse_json_url(chat.meta_tag).url_raw}}">
+                                                    {{change_parse_json_url(chat.meta_tag).url_raw}}
+                                                </a><br>
+                                                <img src="{{change_parse_json_url(chat.meta_tag).image}}" alt="">
+                                                <br>
+                                                <a class="text-blue-500 hover:underline"
+                                                    href="{{change_parse_json_url(chat.meta_tag).url}}">
+                                                    {{change_parse_json_url(chat.meta_tag).url}}
+                                                </a><br>
+                                                <span
+                                                    class="font-bold">{{change_parse_json_url(chat.meta_tag).title}}</span><br>
+                                                <span>{{change_parse_json_url(chat.meta_tag).description}}</span>
+                                            </div>
+                                            <!-- message đã bị xóa -->
+                                            <div *ngIf="chat.status==2 ">
+                                                <span>Tin nhắn đã bị xóa</span>
+                                            </div>
+                                            <br>
+                                            <!-- //time -->
+                                            <div class="justify-end items-end">
+                                                <span>
+                                                    <!-- {{chat.send_time_micro_epoch.seconds * 1000|
+                                                            date:'dd/MM/yyyy HH:mm:ss'}} / -->
+                                                    {{change_time_ago(chat.send_time_micro_epoch.seconds *
+                                                    1000)}} trước
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- avatar -->
+                                    <div class="flex ml-2  h-full justify-end items-end w-10">
+                                        <ng-container *ngIf="check_show_avatar(i)">
+                                            <div class="flex w-10 h-10">
+                                                <!-- <ng-container *ngIf="chat.user_avatar_path!=''">
+                                                <img class="w-full h-full rounded-full object-cover"
+                                                    [src]="chat.user_avatar_path" alt="" />
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="chat.user_avatar_path==='' || chat.user_avatar_path=== null || chat.user_avatar_path=== undefined">
+                                                <div
+                                                    class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                                    {{chat.user_full_name.charAt(0)}}
+                                                </div>
+                                            </ng-container> -->
+                                                <ng-container>
+                                                    <img class="w-full h-full rounded-full object-cover"
+                                                        src="https://bka.edu.vn/assets/images/groupchat.png" alt="" />
+                                                </ng-container>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- message friend -->
+                            <div id="item_hover" class="flex flex-row p-2 items-start"
+                                *ngIf="chat.user_id!=currentUser.id">
+                                <div class="flex h-full w-10 justify-end items-end">
+                                    <ng-container *ngIf="check_show_avatar(i)">
+                                        <div class="w-10 h-10 flex">
+                                            <!-- <ng-container *ngIf="chat.user_avatar_path!=''">
+                                        <img class="w-full h-full rounded-full object-cover"
+                                            [src]="chat.user_avatar_path" alt="" />
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="chat.user_avatar_path==='' || chat.user_avatar_path=== null || chat.user_avatar_path=== undefined">
+                                        <div
+                                            class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                            {{chat.user_full_name.charAt(0)}}
+                                        </div>
+                                    </ng-container> -->
+                                            <ng-container>
+                                                <img class="w-full h-full rounded-full object-cover"
+                                                    src="https://bka.edu.vn/assets/images/groupchat.png" alt="" />
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="relative max-w-3/4 ml-2  px-3 py-2 rounded-lg bg-gray-600 text-gray-50">
+                                    <ng-container *ngIf="check_show_avatar(i)">
+                                        <div class="absolute bottom-0 w-3 text-gray-600 -left-1 -mr-px mb-px">
+                                            <ng-container *ngTemplateOutlet="speechBubbleExtension"></ng-container>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container>
+                                        <div class="absolute bg-gray-300 rounded-full h-6 flex justify-center items-center -bottom-4 w-6 text-white right-2 -mr-px mb-px"
+                                            *ngIf="chat.reaction_count>0">
+                                            <a class="flex justify-center items-center"
+                                                (click)="delete_reaction_count(i)">
+                                                <mat-icon class="icon-size-4" style="color: rgb(243, 26, 63);">favorite
+                                                </mat-icon>
+                                            </a>
+                                        </div>
+                                    </ng-container>
+                                    <div class="min-w-4 leading-5">
+                                        <!-- message text -->
+                                        <span *ngIf="chat.status!=2 && chat.type_message==1 && chat.meta_tag==null">
+                                            {{chat.message}}
+                                        </span>
+                                        <!-- image -->
+                                        <div *ngIf="chat.status!=2 && chat.type_message==2">
+                                            <img [src]="'assets/images/whatsApp/Whatsapp-Wallpaper-2.jpg'" alt="">
+                                            <!-- <img [src]="chat.filePath" alt=""> -->
+                                        </div>
+                                        <!-- map -->
+                                        <div *ngIf="chat.status!=2 && chat.type_message==5">
+                                            <img [src]="'assets/images/whatsApp/Whatsapp-Wallpaper-2.jpg'" alt="">
+                                            <!-- <img [src]="chat.filePath" alt=""> -->
+                                        </div>
+                                        <!-- sticker -->
+                                        <div *ngIf="chat.status!=2 && chat.type_message==13">
+                                            <sys_animation_chat_index class="w-full h-full" [file_path]="chat.filePath">
+                                            </sys_animation_chat_index>
+                                            <!-- <sys_animation_chat_index class="w-full h-full"
+                                                [file_path]="'assets/archive/Angry.json'">
+                                            </sys_animation_chat_index> -->
+                                        </div>
+                                        <!-- record -->
+                                        <div *ngIf="chat.status!=2 && chat.type_message==6">
+                                            <span (click)="click_record()">
+                                                <div class="flex flex-row">
+                                                    <div class="flex">
+                                                        <mat-icon class="w-10 h-10 text-white"
+                                                            *ngIf="start_record==false">
+                                                            play_circle_filled
+                                                        </mat-icon>
+                                                        <mat-icon class="w-10 h-10 text-white"
+                                                            *ngIf="start_record==true">stop
+                                                        </mat-icon>
+                                                    </div>
+                                                    <div class="flex items-center justify-center text-center">
+                                                        <span *ngIf="start_record==false">
+                                                            Bản ghi âm
+                                                        </span>
+                                                        <span *ngIf="start_record==true">
+                                                            Đang mở
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <!-- message đã xóa -->
+                                        <div *ngIf="chat.status==2">
+                                            <span>Tin nhắn đã bị xóa</span>
+                                        </div>
+                                        <div *ngIf="chat.status!=2 && chat.type_message==1 && chat.meta_tag!=null">
+                                            <a class="text-blue-500 hover:underline"
+                                                href="{{change_parse_json_url(chat.meta_tag).url_raw}}">
+                                                {{change_parse_json_url(chat.meta_tag).url_raw}}
+                                            </a><br>
+                                            <img src="{{change_parse_json_url(chat.meta_tag).image}}" alt="">
+                                            <br>
+                                            <a class="text-blue-500 hover:underline"
+                                                href="{{change_parse_json_url(chat.meta_tag).url}}">
+                                                {{change_parse_json_url(chat.meta_tag).url}}
+                                            </a><br>
+                                            <span
+                                                class="font-bold">{{change_parse_json_url(chat.meta_tag).title}}</span><br>
+                                            <span>{{change_parse_json_url(chat.meta_tag).description}}</span>
+                                        </div>
+                                        <br>
+                                        <!-- time -->
+                                        <div class="justify-end items-end text-right">
+                                            <span>
+                                                {{change_time_ago(chat.send_time_micro_epoch.seconds * 1000)}} trước
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="chat.reaction_count==0"
+                                    class="flex ml-2 h-full justify-center items-center">
+                                    <div class="bg-gray-300 rounded-full h-8 w-8 flex justify-center items-center">
+                                        <!-- <mat-icon (click)="delete_reaction_count(i)" *ngIf="chat.reaction_count>0"
+                                            style="color: rgb(243, 26, 63);">
+                                            favorite</mat-icon> -->
+                                        <mat-icon (click)="change_reaction_count(i)" style="color: rgb(243, 26, 63);">
+                                            favorite_border</mat-icon>
+                                    </div>
+                                </div>
+                                <div id="item_child_hover" class="flex mr-2 w-30  h-full justify-center items-center">
+                                    <div class="h-8 w-8 flex justify-center items-center">
+                                        <a class="flex flex-row justify-center items-center">
+                                            <button class="mx-2" matTooltip="Trả lời" (click)="reply_chat(chat)">
+                                                <mat-icon class="text-black" svgIcon="heroicons_solid:reply"></mat-icon>
+                                            </button>
+                                            <button class="mx-2" matTooltip="Chuyển tiếp"
+                                                (click)="openDialogAvatar(chat)">
+                                                <mat-icon class="text-black">publish</mat-icon>
+                                            </button>
+                                            <button [matMenuTriggerFor]="menu">
+                                                <mat-icon class="text-black" svgIcon="heroicons_solid:dots-horizontal">
+                                                </mat-icon>
+                                            </button>
+                                            <mat-menu #menu="matMenu">
+                                                <button mat-menu-item transloco="system.ghim_tin_nhan"></button>
+                                                <button mat-menu-item transloco="system.xoa_tin_nhan"></button>
+                                            </mat-menu>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <!-- Message field -->
+                <div class="flex flex-col">
+                    <div *ngIf="open_reply==true" class="flex flex-col border-t py-2 bg-gray-50 dark:bg-transparent">
+                        <div class="flex flex-col text-base">
+                            <div class="flex">
+                                Đang trả lời :<span class="font-bold">
+                                    {{chat_reply.user_full_name}}
+                                </span>
+                                <mat-icon class="icon-size-5 text-end items-end justify-end"
+                                    (click)="close_reply_chat()" [svgIcon]="'mat_solid:close'">
+                                </mat-icon>
+                            </div>
+                        </div>
+                        <div class="flex text-base">
+                            <div
+                                *ngIf="chat_reply.status!=2 && chat_reply.type_message==1  && chat_reply.meta_tag==null">
+                                <span>
+                                    {{chat_reply.message}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-end pb-2 border-t bg-gray-50 dark:bg-transparent">
+                        <div class="flex items-center h-11 my-px">
+                            <button class="ml-0.5" mat-icon-button>
+                                <mat-icon class="text-black">folder</mat-icon>
+                            </button>
+                            <button class="ml-0.5" mat-icon-button>
+                                <img class="h-5 w-5" src="../assets/images/chat/OIP.jpeg" alt="">
+                            </button>
+                            <button (click)="toggle_div(1)" class="ml-0.5" mat-icon-button>
+                                <img class="h-5 w-5" src="../assets/icons/imoje_1.png" alt="">
+                            </button>
+                        </div>
+                        <mat-form-field
+                            class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded items-end fuse-mat-bold w-full ml-4">
+                            <textarea class="min-h-5 my-0 resize-none" placeholder="Aa" [(ngModel)]="text_message"
+                                style="margin: 6px 0 !important; padding: 0 !important;" [rows]="1" matInput
+                                #messageInput></textarea>
+                            <button mat-icon-button>
+                                <img class="h-5 w-5" src="../assets/icons/imoje_2.png" alt="">
+                            </button>
+                        </mat-form-field>
+                        <div class="flex items-center h-11 my-px ml-4">
+                            <button mat-icon-button *ngIf="text_message!=''" (click)="send()">
+                                <mat-icon class="rotate-90 text-black">send</mat-icon>
+                            </button>
+                            <button mat-icon-button *ngIf="text_message==''" (click)="toggle_div(2)">
+                                <img class="h-5 w-5" src="../assets/icons/icon_fell.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </ng-container>
+    <ng-template #selectChatOrStartNew>
+        <div class="flex flex-col flex-auto items-center justify-center bg-gray-100 dark:bg-transparent">
+            <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:chat'"></mat-icon>
+            <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary"></div>
+        </div>
+    </ng-template>
+    <ng-template #speechBubbleExtension>
+        <svg width="100%" height="100%" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path
+                    d="M1.01522827,0.516204834 C-8.83532715,54.3062744 61.7609863,70.5215302 64.8009949,64.3061218 C68.8074951,54.8859711 30.1663208,52.9997559 37.5036011,0.516204834 L1.01522827,0.516204834 Z"
+                    fill="currentColor" fill-rule="nonzero"></path>
+            </g>
+        </svg>
+    </ng-template>
+    <div style="min-height: 120px;z-index: 9999999999;" data-aos="fade-right" data-aos-once="true"
+        class="left-0 bottom-20 absolute bg-white">
+        <div class="collapse collapse-horizontal hidden_div" id="collapseWidthExample" data-aos="fade-right"
+            data-aos-once="true" style="max-height: 500px;height: 500px;">
+            <div class="overflow-y-auto overflow-hidden rounded-lg  max-w-sm grid grid-cols-4 gap-2 p-2"
+                style="width: 350px;max-height: 500px;height: 500px;">
+                <div *ngFor="let item of list_sticker;  index as i;">
+                    <div class="w-10" (click)="check_sticker(item,1)">
+                        <sys_animation_chat_index class="w-full h-full" [file_path]="item.file_path">
+                        </sys_animation_chat_index>
+                        <!-- <sys_animation_chat_index class="w-full h-full" [file_path]="'assets/archive/Cry.json'">
+                        </sys_animation_chat_index> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="min-height: 120px;z-index: 9999999999;" class="right-0 bottom-20 absolute bg-black"
+        data-aos="fade-right" data-aos-once="true" [ngClass]="{'right-4':!drawerOpened,
+            'right-100': drawerOpened}">
+        <div class="collapse collapse-horizontal hidden_div" id="collapseWidthExample2" data-aos="fade-right"
+            data-aos-once="true" style="max-height: 500px;height: 500px;">
+            <div class="overflow-y-auto overflow-hidden rounded-lg  max-w-sm grid grid-cols-4 gap-2 p-2"
+                style="width: 350px;max-height: 500px;height: 500px;">
+                <div *ngFor="let item of list_sticker_2;  index as i;">
+                    <div class="w-10" (click)="check_sticker(item,2)">
+                        <sys_animation_chat_index class="w-full h-full" [file_path]="item.file_path">
+                        </sys_animation_chat_index>
+                        <!-- <sys_animation_chat_index class="w-full h-full" [file_path]="'assets/archive/Angry.json'">
+                        </sys_animation_chat_index> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

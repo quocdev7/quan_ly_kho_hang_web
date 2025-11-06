@@ -1,0 +1,89 @@
+<!-- Navigation -->
+<fuse-vertical-navigation style="background-color: #273a87 !important" class="dark  print:hidden" [appearance]="'default'"
+                          [mode]="isScreenSmall ? 'over' : 'side'" [name]="'mainNavigation'" [navigation]="navigation.default"
+                          [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <!-- Logo -->
+        <div class="flex items-center justify-center h-20 mt-3 mb-4 flex-col" *ngIf="truong_hoc.db.logo != null && truong_hoc.db.logo != undefined">
+            <!-- <img class="w-20"  [src]="truong_hoc.db.logo"
+                 style="image-rendering: -webkit-optimize-contrast;" alt="Logo image"> -->
+            <!-- <span class="font-bold">Shungo</span> -->
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0 relative">
+  
+    <!--<div class="flex items-center w-full  z-50 shadow bg-card  print:hidden transition duration-700 background-color-web-primary" style="height: 38px !important;">
+        <div class="w-full max-w-screen-xl flex    md:pr-16 z-50 mx-auto">
+            <div class="w-full  flex  z-50 " *ngIf="is_login==false">
+               
+                <a mat-button class="" style="padding: 0 10px !important;" [routerLink]="'/sign-in'">
+                    <mat-icon class="text-white mr-1 text-base">account_circle</mat-icon>
+                    <span class="text-white text-base" transloco="common.signin"></span>
+                </a>
+
+                <a mat-button [routerLink]="'/sign-up'" style="padding: 0 10px !important;">
+                    <mat-icon class="text-white mr-1 text-base">person_add</mat-icon>
+                    <span class="text-base text-white" transloco="common.signup"></span>
+                </a>
+            </div>
+
+            <div class="w-full  flex  z-50" *ngIf="is_login==true">
+                <language class="ml-auto text-white"></language>
+          
+                <user-menu></user-menu>
+             
+
+                <a mat-button *ngIf="user.type==1" class="text-white" style="padding: 0 10px !important;" [routerLink]="'/home'">
+                    <mat-icon [svgIcon]="'heroicons_solid:cog'" class="text-base text-white mr-1"></mat-icon>
+                    <span class="text-base" transloco="common.management"></span>
+                </a>
+
+            </div>
+
+        </div>
+    </div>-->
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto ">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="relative flex flex-0 items-center w-full h-10 sm:h-10 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+        <!-- <div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden"> -->
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap w-full max-w-screen-xl mx-auto px-6 sm:px-2">
+            <div align="right" class="flex-1 text-base text-center">
+                <a *ngIf="!isScreenSmall" href="https://vnaisoft.com/" class="text-black ">
+                    Copyright ©
+                    {{currentYear}} SV IUH - All right reserved
+                </a>
+
+                <a *ngIf="isScreenSmall" href="https://vnaisoft.com/" class="text-black ">
+                    Copyright ©
+                    {{currentYear}} SV IUH <br> All right reserved
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- @formatter:on -->
+
+
+<style>
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        border-color: black;
+    }
+</style>

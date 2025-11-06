@@ -1,0 +1,13 @@
+diff a/vnaisoft.zapp/ClientApp/src/app/core/auth/auth.service.ts b/vnaisoft.zapp/ClientApp/src/app/core/auth/auth.service.ts	(rejected hunks)
+@@ -216,9 +216,10 @@
+     signOut(): Observable<any> {
+         // Remove the access token from the local storage
+ 
+-        localStorage.removeItem(this.encryptUsingAES256('vnaisoft_zxc11_accessToken'));
++      
+         sessionStorage.removeItem('menu_user');
+         sessionStorage.removeItem('user');
++        localStorage.removeItem(this.encryptUsingAES256('vnaisoft_zxc11_accessToken'));
+         // Set the authenticated flag to false
+         this._authenticated = false;
+ 

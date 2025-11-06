@@ -1,0 +1,87 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "system", "system", "{4EBF6DA6-955D-4C1D-A76E-8778BE615909}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "a_share", "a_share", "{0034CA63-0109-4DC0-A94F-B4FFB7022BED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FireBase", "FireBase", "{3F9CC116-2C71-477D-8FD1-FEEED67B6C27}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FireBase.API", "FireBase.API\FireBase.API.csproj", "{3281F600-DDF5-4635-B5EF-B7BBF89FC30D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vnaisoft.common", "vnaisoft.common\vnaisoft.common.csproj", "{7987E044-8129-4EB9-8147-43C71D1F62A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vnaisoft.DataBase", "vnaisoft.DataBase\vnaisoft.DataBase.csproj", "{EC422159-EDC7-4953-9237-D409977BC531}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vnaisoft.system.data", "SystemModule\vnaisoft.system.data\vnaisoft.system.data.csproj", "{9A98A968-D8FE-4B90-B600-5AEF142D94BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vnaisoft.zapp", "vnaisoft.zapp\vnaisoft.zapp.csproj", "{77BF44AF-CDB3-4549-83CA-91B42651B929}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vnaisoft.system.web", "SystemModule\vnaisoft.system.web\vnaisoft.system.web.csproj", "{2B26B7A3-4DAA-4571-A3BA-B41564F75A1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{D552565F-8C6F-4BE9-BB16-E7EB63C2A27B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "giao_vien", "giao_vien", "{872D3A51-1E3D-40EC-83DC-8D327C3E7D5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vnaisoft.giao_vien.app.data", "vnaisoft.giao_vien.app.data\vnaisoft.giao_vien.app.data.csproj", "{A6B7CAC7-2008-43B4-902F-86CEDBAF5E35}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vnaisoft.giao_vien.app.web", "vnaisoft.giao_vien.app.web\vnaisoft.giao_vien.app.web.csproj", "{15D165E6-D4A1-4590-8519-A51AD05814CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3281F600-DDF5-4635-B5EF-B7BBF89FC30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3281F600-DDF5-4635-B5EF-B7BBF89FC30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3281F600-DDF5-4635-B5EF-B7BBF89FC30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3281F600-DDF5-4635-B5EF-B7BBF89FC30D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7987E044-8129-4EB9-8147-43C71D1F62A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7987E044-8129-4EB9-8147-43C71D1F62A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7987E044-8129-4EB9-8147-43C71D1F62A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7987E044-8129-4EB9-8147-43C71D1F62A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC422159-EDC7-4953-9237-D409977BC531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC422159-EDC7-4953-9237-D409977BC531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC422159-EDC7-4953-9237-D409977BC531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC422159-EDC7-4953-9237-D409977BC531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A98A968-D8FE-4B90-B600-5AEF142D94BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A98A968-D8FE-4B90-B600-5AEF142D94BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A98A968-D8FE-4B90-B600-5AEF142D94BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A98A968-D8FE-4B90-B600-5AEF142D94BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77BF44AF-CDB3-4549-83CA-91B42651B929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77BF44AF-CDB3-4549-83CA-91B42651B929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77BF44AF-CDB3-4549-83CA-91B42651B929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77BF44AF-CDB3-4549-83CA-91B42651B929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B26B7A3-4DAA-4571-A3BA-B41564F75A1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B26B7A3-4DAA-4571-A3BA-B41564F75A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B26B7A3-4DAA-4571-A3BA-B41564F75A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B26B7A3-4DAA-4571-A3BA-B41564F75A1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6B7CAC7-2008-43B4-902F-86CEDBAF5E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B7CAC7-2008-43B4-902F-86CEDBAF5E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B7CAC7-2008-43B4-902F-86CEDBAF5E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B7CAC7-2008-43B4-902F-86CEDBAF5E35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15D165E6-D4A1-4590-8519-A51AD05814CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D165E6-D4A1-4590-8519-A51AD05814CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D165E6-D4A1-4590-8519-A51AD05814CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D165E6-D4A1-4590-8519-A51AD05814CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3281F600-DDF5-4635-B5EF-B7BBF89FC30D} = {3F9CC116-2C71-477D-8FD1-FEEED67B6C27}
+		{7987E044-8129-4EB9-8147-43C71D1F62A5} = {0034CA63-0109-4DC0-A94F-B4FFB7022BED}
+		{EC422159-EDC7-4953-9237-D409977BC531} = {0034CA63-0109-4DC0-A94F-B4FFB7022BED}
+		{9A98A968-D8FE-4B90-B600-5AEF142D94BE} = {4EBF6DA6-955D-4C1D-A76E-8778BE615909}
+		{2B26B7A3-4DAA-4571-A3BA-B41564F75A1A} = {4EBF6DA6-955D-4C1D-A76E-8778BE615909}
+		{872D3A51-1E3D-40EC-83DC-8D327C3E7D5C} = {D552565F-8C6F-4BE9-BB16-E7EB63C2A27B}
+		{A6B7CAC7-2008-43B4-902F-86CEDBAF5E35} = {872D3A51-1E3D-40EC-83DC-8D327C3E7D5C}
+		{15D165E6-D4A1-4590-8519-A51AD05814CB} = {872D3A51-1E3D-40EC-83DC-8D327C3E7D5C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {376AFFB6-1FD6-413E-AD1A-265EBD24642D}
+	EndGlobalSection
+EndGlobal

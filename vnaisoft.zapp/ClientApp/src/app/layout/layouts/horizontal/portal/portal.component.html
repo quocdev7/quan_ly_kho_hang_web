@@ -1,0 +1,421 @@
+<!-- Navigation -->
+<ng-container *ngIf="isScreenSmall">
+  <fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="'over'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.horizontal"
+    [opened]="false"
+  >
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+      <!-- Logo -->
+      <div
+        class="flex items-center h-20 pt-6 px-8 justify-center"
+        *ngIf="truong_hoc != undefined && truong_hoc != null"
+      >
+        <!--src="/assets/images/logo/logo.png"-->
+        <img
+          class="h-15 w-auto"
+          [src]="truong_hoc.db.logo"
+          style="image-rendering: -webkit-optimize-contrast"
+          alt="Logo image"
+        />
+      </div>
+    </ng-container>
+  </fuse-vertical-navigation>
+</ng-container>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0 bg-white">
+   <div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}" style="z-index:9999999">
+        <div class="flex flex-col justify-center items-center">
+
+           <a *ngIf="!isScreenSmall" href="https://zalo.me/92271568156239495">
+                <img src="assets/icons/zalo.png" alt="" style="width: 35px;height: 35px;"
+                    class="rounded-full  ring-4 ring-bg-card"></a>
+            <a *ngIf="isScreenSmall" href="https://zalo.me/92271568156239495">
+                <img src="assets/icons/zalo.png" alt="" style="width: 35px;height: 35px;"
+                    class="rounded-full ring-4 ring-bg-card"></a>
+
+            <br />
+            <button mat-raised-button style="background: #ffb700; min-width: 35px; width: 35px" (click)="scrollToTop()">
+                <span>
+                    <mat-icon style="color:white !important;vertical-align:middle">arrow_upward</mat-icon>
+                </span>
+            </button>
+        </div>
+
+    </div>
+  <!-- Header -->
+  <div
+    class="flex items-center w-full z-50 shadow bg-card print:hidden transition duration-700 background-color-web-primary min-h-[50px] py-3"
+  >
+    <div class="w-full max-w-screen-xl flex md:pr-16 z-50 mx-auto">
+      <div class="w-full flex z-50" *ngIf="is_login == false">
+        <language class="ml-auto"></language>
+        <!-- <button class="h-full" mat-button mat-button-base style="padding: 0 10px !important;">
+                    <div class="flex flex-row h-full grids items-center" [routerLink]="['/portal-contact-us']" >
+                        <span class="relative w-6">
+
+                            <img  class="h-6 w-auto"
+                                src="assets/images/portal/contact-us.png"
+                                alt="Logo image">
+                        </span>
+                        <a class="text-base text-white ml-1" transloco="portal.contactus"></a>
+                    </div>
+                </button> -->
+        <a mat-button class="no-radius" style="padding: 0 10px !important" [routerLink]="'/sign-in'">
+          <mat-icon class="text-white mr-1 text-base">account_circle</mat-icon>
+          <span class="text-white text-base" transloco="common.signin"></span>
+        </a>
+
+        <!--<a mat-button [routerLink]="'/sign-up'" style="padding: 0 10px !important;">
+                    <mat-icon class="text-white mr-1 text-base">person_add</mat-icon>
+                    <span class="text-base text-white" transloco="common.signup"></span>
+                </a>-->
+      </div>
+
+      <div class="w-full flex z-50" *ngIf="is_login == true">
+        <language class="ml-auto text-white"></language>
+        <user-menu></user-menu>
+        <a
+          mat-button
+          *ngIf="user_htx.loai != 4"
+          class="text-white"
+          style="padding: 0 10px !important"
+          [routerLink]="'/portal-module'"
+        >
+          <mat-icon [svgIcon]="'heroicons_solid:cog'" class="text-base text-white mr-1"></mat-icon>
+          <span class="text-base" transloco="common.he_thong_truong"></span>
+        </a>
+        <a
+          mat-button
+          *ngIf="user_htx.loai == 4"
+          class="text-white"
+          style="padding: 0 10px !important"
+          (click)="gotoLink()"
+        >
+          <mat-icon [svgIcon]="'heroicons_solid:cog'" class="text-base text-white mr-1"></mat-icon>
+          <span class="text-base" transloco="common.he_thong_truong"></span>
+        </a>
+        <!-- <a
+          mat-button
+          *ngIf="user_htx.loai == 4"
+          class="text-white"
+          style="padding: 0 10px !important"
+          [routerLink]="'/hs_lop_bai_hoc_index'"
+        >
+          <mat-icon [svgIcon]="'heroicons_solid:cog'" class="text-base text-white mr-1"></mat-icon>
+          <span class="text-base" transloco="common.quan_ly_kho_hang"></span>
+        </a> -->
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="flex flex-col flex-auto w-full"
+    [ngClass]="{
+      margin_header_coverimage: windowScrolled
+    }"
+  ></div>
+
+  <!--<div class="flex h-full items-center" *ngIf="truong_hoc != undefined && truong_hoc != null">
+
+        <img class="flex mx-auto h-full" [src]="truong_hoc.db.cover_image">
+
+    </div>-->
+  <div
+    *ngIf="truong_hoc != null && truong_hoc != undefined"
+    class="flex flex-0 items-center w-full md:px-4 z-50 shadow bg-card dark:bg-transparent print:hidden"
+    [ngClass]="{
+      'fixed top-0': windowScrolled,
+      height_header_web: !isScreenSmall,
+      height_header_mobile: isScreenSmall
+    }"
+  >
+    <div class="w-full max-w-screen-xl flex flex-0 items-center h-16 sm:h-16 px-2 md:px-15 z-50 mx-auto">
+      <ng-container *ngIf="!isScreenSmall">
+        <!-- Logo -->
+        <!-- Horizontal navigation src="/assets/images/logo/logo.png" -->
+        <div class="flex h-full items-center" *ngIf="truong_hoc != undefined && truong_hoc != null">
+          <a class="h-full" [routerLink]="['/portal-module']">
+            <img class="flex mx-auto h-full" [src]="truong_hoc.db.logo" />
+          </a>
+        </div>
+        <fuse-horizontal-navigation
+          class="mr-2 mx-auto"
+          [name]="'mainNavigation'"
+          [navigation]="navigation.horizontal"
+        ></fuse-horizontal-navigation>
+
+        <!--<fuse-vertical-navigation class="mr-2 mx-auto" [name]="'mainNavigation'" [navigation]="navigation.horizontal"></fuse-vertical-navigation>-->
+        <!--<mat-menu #appMenu="matMenu">
+                    <button mat-menu-item>Item 1</button>
+                    <button mat-menu-item>Item 2</button>
+                    <button mat-menu-item [matMenuTriggerFor]="subMenu1">Item 3</button>
+                </mat-menu>
+
+                <mat-menu #subMenu1="matMenu">
+                    <button mat-menu-item>Sub Item 1</button>
+                    <button mat-menu-item>Sub Item 2</button>
+                    <button mat-menu-item [matMenuTriggerFor]="subMenu2">Sub Item 3</button>
+                </mat-menu>
+
+                <mat-menu #subMenu2="matMenu">
+                    <button mat-menu-item>Sub Sub Item 1</button>
+                    <button mat-menu-item>Sub Sub Item 2</button>
+                    <button mat-menu-item [matMenuTriggerFor]="subMenu3">Sub Sub Item 3</button>
+                </mat-menu>
+
+                <mat-menu #subMenu3="matMenu">
+                    <button mat-menu-item>Sub Sub Sub Item 1</button>
+                    <button mat-menu-item>Sub Sub Sub Item 2</button>
+                    <button mat-menu-item [matMenuTriggerFor]="subMenu4">Sub Sub Sub Item 3</button>
+                </mat-menu>
+
+                <mat-menu #subMenu4="matMenu">
+                    <button mat-menu-item>Sub Sub Sub Sub Item 1</button>
+                    <button mat-menu-item>Sub Sub Sub Sub Item 2</button>
+                    <button mat-menu-item [matMenuTriggerFor]="subMenu5">Sub Sub Sub Sub Item 3</button>
+                </mat-menu>
+
+                <mat-menu #subMenu5="matMenu">
+                    <button mat-menu-item>Sub Sub Sub Sub Sub Item 1</button>
+                    <button mat-menu-item>Sub Sub Sub Sub Sub Item 2</button>
+                </mat-menu>
+
+                <button mat-button [matMenuTriggerFor]="appMenu">Open menu</button>-->
+      </ng-container>
+      <!-- Navigation toggle button -->
+      <ng-container *ngIf="isScreenSmall">
+        <button mat-icon-button (click)="toggleNavigation('mainNavigation')">
+          <mat-icon [svgIcon]="'heroicons_solid:menu'"></mat-icon>
+        </button>
+        <a [routerLink]="['/portal-module']">
+          <img
+            class="h-15 w-auto"
+            *ngIf="truong_hoc != undefined && truong_hoc != null"
+            [src]="truong_hoc.db.logo"
+            style="image-rendering: -webkit-optimize-contrast"
+            alt="Logo image"
+          />
+        </a>
+      </ng-container>
+      <!-- Components -->
+      <div class="flex items-center pl-2 ml-auto space-x-2 md:pr-1" *ngIf="is_login == true">
+        <search [appearance]="'bar'"></search>
+      </div>
+      <div class="flex items-center pl-2 ml-auto space-x-2 md:pr-1" *ngIf="is_login == false">
+        <search [appearance]="'bar'"></search>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!isScreenSmall && !isNewsDetail">
+    <div
+      class="flex flex-col w-full mx-auto cursor-pointer mb-2.5"
+      *ngIf="truong_hoc != undefined && truong_hoc != null"
+      style="height: 712.5px !important"
+    >
+      <img class="w-full h-full object-contain" src="{{ truong_hoc.db.cover_image }}" alt="Cover image" />
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isScreenSmall">
+    <div class="flex flex-col w-full mx-auto cursor-pointer" *ngIf="truong_hoc != undefined && truong_hoc != null">
+      <img class="w-full h-full object-contain" src="{{ truong_hoc.db.cover_image }}" alt="Cover image" />
+    </div>
+  </ng-container>
+
+  <!-- Content -->
+  <div
+    class="flex flex-col flex-auto w-full"
+    [ngClass]="{
+      margin_header_web: !isScreenSmall,
+      margin_header_mobile: isScreenSmall
+    }"
+  >
+    <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+    <router-outlet *ngIf="true"></router-outlet>
+  </div>
+
+  <!--style="background-color: #93dbfb !important"-->
+  <div
+    class="flex flex-col justify-center items-center md:flex-row lg:flex-row flex-wrap w-full print:hidden z-50 ng-star-inserted bg-card"
+    style="background-color: #e6f9ff !important"
+  >
+    <div
+      class="flex flex-col w-full flex-auto min-w-0 max-w-screen-xl mx-auto md:py-6 lg:py-8 md:pl-20 md:pr-20 lg:pl-20 lg:pr-20 bg-card"
+      style="background-color: #e6f9ff !important"
+      *ngIf="truong_hoc != undefined && truong_hoc != null"
+    >
+      <div
+        class="flex justify-center md:justify-start lg:justify-start items-center flex-col md:flex-row lg:flex-row w-full"
+        style="background-color: #e6f9ff !important"
+      >
+        <div class="flex flex-col">
+          <div class="flex flex-col p-4 items-center md:flex-row lg:flex-row md:justify-start lg:justify-start">
+            <div class="w-30 h-30 rounded-2xl"><img [src]="truong_hoc.db.logo" alt="" class="w-full h-full" /></div>
+            <div class="text-xl mt-4 flex flex-col font-semibold ml-2 md:ml-4 lg:ml-4 xl:ml-4 leading-tight">
+              <span class="font-bold" style="font-family: Arial; font-size: 16px">Trường {{ truong_hoc.db.name }}</span>
+              <span class="font-medium text-md mt-1" style="font-family: Arial; font-size: 16px"
+                >Địa chỉ: {{ truong_hoc.db.dia_chi }}
+              </span>
+              <span class="font-medium text-md" style="font-family: Arial; font-size: 16px"
+                >Điện thoại: {{ truong_hoc.db.dien_thoai }}</span
+              >
+              <span class="font-bold text-xl mt-2" style="font-family: Arial; font-size: 16px"
+                >Kết nối với chúng tôi</span
+              >
+              <span
+                class="font-medium text-md cursor-pointer mt-1"
+                style="font-family: Arial; font-size: 16px"
+                (click)="goto_dieu_khoan()"
+                >Điều khoản sử dụng</span
+              >
+              <span
+                class="font-medium text-md cursor-pointer"
+                style="font-family: Arial; font-size: 16px"
+                (click)="goto_chinh_sach()"
+                >Chính sách bảo mật</span
+              >
+              <span
+                class="font-medium text-md cursor-pointer"
+                style="font-family: Arial; font-size: 16px"
+                (click)="goto_lien_he()"
+                >Liên hệ</span
+              >
+
+              <div class="w-30 h-30 rounded-2xl">
+                <img [src]="truong_hoc.db.qr_image" alt="" class="w-full h-full" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--<p *ngIf="truong_hoc.db.ghim_ban_do != null && truong_hoc.db.ghim_ban_do != ''"
+           class="mx-auto text-xl text-black bg-yellow-200 h-200"
+           [innerHtml]="truong_hoc.db.ghim_ban_do | safeHtml">
+        </p>-->
+        <!--<div class="text-xl flex flex-col font-semibold ml-2 md:ml-4 lg:ml-4 xl:ml-4 leading-tight ">
+
+        <span class="text-white text-xl ">Trường {{truong_hoc.db.name}}</span>
+        <span class="text-white text-xl">Địa chỉ: {{truong_hoc.db.dia_chi}} </span>
+        <span class="text-white text-xl ">Điện thoại: {{truong_hoc.db.dien_thoai}}</span>
+        <span class="text-white text-xl " *ngIf="truong_hoc.db.email!=null&&truong_hoc.db.email!=''">Email: {{truong_hoc.db.email}} </span>
+        <a class="text-white text-xl hover:text-orange-200" href="/portal-term"><span transloco="common.term" class="ng-star-inserted">Điều khoản sử dụng</span>-->
+        <!----><!---->
+        <!--</a>
+        <a class="text-white text-xl hover:text-orange-200" href="/portal-privacy"><span transloco="common.privacy">Chính sách bảo mật</span>-->
+        <!---->
+        <!--</a>
+        <a class="text-white text-xl hover:text-orange-200" href="/portal-contact-us">
+            Liên hệ-->
+        <!---->
+        <!--</a>
+        </div>-->
+      </div>
+
+      <div class="flex-1 text-base p-4">
+        <hr style="margin: 6px 0px !important" />
+        <a *ngIf="!isScreenSmall" href="https://vnaisoft.com/" class="text-black">
+          Copyright © {{ currentYear }} Vnaisoft Corporation - All right reserved</a
+        >
+
+        <a *ngIf="isScreenSmall" href="https://vnaisoft.com/" class="text-black">
+          Copyright © {{ currentYear }} Vnaisoft Corporation <br />
+          All right reserved</a
+        >
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <!--<div class="flex flex-col  md:flex-row lg:flex-row  flex-wrap w-full print:hidden z-50 background-color-web-primary" *ngIf="truong_hoc!=null && truong_hoc!= undefined">
+
+    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap w-full leading-10 mx-auto  md:px-20 px-6 pt-4 max-w-screen-xl background-color-web-primary">
+
+        <div *ngIf="!isScreenSmall" class="flex-1 items-center">
+            <img class="w-full" [src]="truong_hoc.db.logo">
+        </div>
+        <div *ngIf="isScreenSmall" class="flex-1 items-center">
+            <img class="w-1/2" [src]="truong_hoc.db.logo">
+        </div>
+        <div class="flex-1 text-white ">
+            <span class="text-2xl font-bold uppercase">Liên hệ</span>
+            <hr style="border-color: #ffffff; margin-top: 8px; margin-bottom: 8px;border-bottom-width: 0px; border-top-width:1px !important">
+            <div class="flex items-center justify-c space-x-1">
+                <mat-icon>home</mat-icon>
+                <span>Trường {{truong_hoc.db.name}}</span>
+            </div>
+            <div class="flex items-center justify-start  space-x-1">
+                <mat-icon> location_on</mat-icon>-->
+  <!--<svg class="h-5 w-5 text-white" style="margin-top: 10px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />  <circle cx="12" cy="10" r="3" /></svg>-->
+  <!--<span>{{truong_hoc.db.dia_chi}}</span>
+    </div>
+    <div class="flex items-start justify-start  space-x-1">
+        <mat-icon> phone</mat-icon>-->
+  <!--<svg class="h-5 w-5 text-white" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>-->
+  <!--<span>{{truong_hoc.db.dien_thoai}}</span>
+    </div>
+    <div class="flex items-center justify-start   space-x-1">
+        <mat-icon> email</mat-icon>-->
+  <!--<svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />  <polyline points="22,6 12,13 2,6" /></svg>-->
+  <!--<span>{{truong_hoc.db.email}}</span>
+    </div>
+    <div class="flex items-center justify-start  space-x-1">-->
+  <!--<svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />  <polyline points="22,6 12,13 2,6" /></svg>-->
+  <!--Website:
+                    <a [href]="truong_hoc.db.website" target="_blank" style="text-decoration: none; color: #ffffff;">
+
+                        <span class="text-xl">{{truong_hoc.db.website}}</span>
+                    </a>
+
+
+                </div>
+            </div>
+            <div class="flex-1  ">
+                <div align="left" class="flex-1 text-white">
+                    <span class="text-2xl font-bold uppercase" transloco="portal.dieu_khoan"></span>
+                    <hr style="margin-top: 8px; margin-bottom: 8px;border-bottom-width: 0px; border-top-width:1px !important">
+                    <div class="flex flex-col text-white leading-10">
+                        <span *ngFor="let item of list_dieu_khoan_footer">
+                            <a [routerLink]="[item.link]" style="text-decoration: none; color: #ffffff;">
+                                <span class="text-xl">{{item.name}}</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1  ">
+                <span class="text-2xl font-bold text-white uppercase" transloco="portal.ket_noi_voi_chung_toi"></span>
+                <hr style="margin-top: 8px; margin-bottom: 8px;border-bottom-width: 0px; border-top-width:1px !important">
+                <div class="flex items-center mt-4 mb-4 space-x-6">
+                    <a [href]="truong_hoc.db.website" target="_blank">
+                        <img src="/assets/images/portal/facebook_footer.png" style="height:45px;width:auto">
+                    </a>
+                    <a [href]="truong_hoc.db.website" target="_blank">
+                        <img src="/assets/images/portal/in_footer.png" alt="" style="height: 45px; width: auto">
+                    </a>
+                    <a [href]="truong_hoc.db.website" target="_blank">
+                        <img src="/assets/images/portal/youtube_footer.png" alt="" style="height: 45px; width: auto">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>-->
+  <!--<div class="relative flex flex-0 items-center w-full pt-2 pb-2  z-50 print:hidden background-color-web-primary">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap w-full mx-auto    px-6 sm:px-2">
+            <div align="center" class="flex-1 text-base text-white">
+                <a *ngIf="!isScreenSmall" href="https://vnaisoft.com/" class="text-white "> Copyright © {{currentYear}} vnaisoft Corporation - All right reserved</a>
+
+                <a *ngIf="isScreenSmall" href="https://vnaisoft.com/" class="text-white "> Copyright © {{currentYear}} vnaisoft Corporation <br> All right reserved</a>
+
+
+            </div>
+        </div>
+
+    </div>-->
+</div>

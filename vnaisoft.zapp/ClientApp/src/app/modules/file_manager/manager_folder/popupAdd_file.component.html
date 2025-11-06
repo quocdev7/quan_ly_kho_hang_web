@@ -1,0 +1,187 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl  h-fit overflow-y-visible" *ngIf="actionEnum==1">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.file_dinh_kem"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-4 space-y-1">
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none rounded hover:bg-teal-600" *ngIf="actionEnum!=1"
+                mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 rounded text-white shadow-none hover:bg-primary-700" mat-raised-button
+                (click)="close()" transloco="close"></button>
+        </div>
+        <br>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+                <label transloco="attach" style="padding:25px;color:blue;font-size:20px;font-weight:bold"></label>
+                <div align="center">
+                    <span style="color:red"
+                        *ngFor="let item of errorModel | filter : 'key' : 'db.image' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                    (onFileDropped)="DragAndDropProgress($event)" align="center">
+                    <h3 style="margin:auto" transloco="system.chose_file"></h3>
+                    <input hidden type="file" #fileInput (change)="fileProgress($event)" accept="*" multiple>
+                </div>
+            </div>
+        </div>
+        <mat-card class="rounded-2xl py-6 px-6 shadow">
+            <div class="w-full overflow-auto">
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.ten' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+                <table class="cell-border myTable hover w-full dataTable no-footer overflow-auto">
+                    <thead>
+                        <tr>
+                            <td style="width:50px" *ngIf="actionEnum!=3"></td>
+                            <th transloco="no_" style="width:50px"></th>
+                            <th transloco="system.file_name" style="width:200px !important"></th>
+                            <th transloco="system.file_size"></th>
+                            <th transloco="system.file"></th>
+                            <!-- <th transloco="system.mo_ta"></th> -->
+                            <th transloco="erp.tai_ve"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="record.list_file?.length != 0">
+                        <tr *ngFor="let item of record.list_file; index as i;">
+                            <td >
+                                <button *ngIf="actionEnum==1"  color="warn" mat-raised-button transloco="delete" (click)="deleteFile(item,i)">
+
+                                </button>
+                            </td>
+                            <td align="center">{{i+1 }}</td>
+                            <td align="center">
+                                <span *ngIf="actionEnum==1">{{item.db.file_name}}</span>
+                                <span *ngIf="actionEnum!=1">
+                                    <cm_input [maxlength]="100" [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [keyError]="'file_name'+ i" [(model)]="item.db.file_name"></cm_input> 
+                                </span>
+                                    <!-- <cm_input [maxlength]="100" [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [keyError]="'file_name'+ i" [(model)]="item.db.file_name"></cm_input> -->
+                                <!-- <div style="position: relative"
+                                    *ngIf="item.percent_complete!=null && item.percent_complete!=100 ">
+                                    <mat-progress-bar mode="determinate" [value]="item.percent_complete"
+                                        style="height: 2em;" color="'Warn'"></mat-progress-bar>
+                                    <span style="position: absolute; top: 0.5em;"
+                                        [ngStyle]="{'left': item.percent_complete + '%'}">{{item.percent_complete}}%</span>
+                                </div> -->
+                            </td>
+                            <td align="center">{{formatSizeUnits(item.db.file_size)}}</td>
+                            <!-- <td>
+                                <a class="mb-1 h-10 w-10" target="_blank" (click)="copy(item.db.id,item.db.file_path)" *ngIf="copied && item.db.id == item_current"
+                                    matTooltip="Đã sao chép đường dẫn">
+                                    <mat-icon role="img" click="copy()"
+                                        class=" mat-icon notranslate secondary-text s-48 material-icons mat-icon-no-color">
+                                        file_copy</mat-icon>
+                                </a>
+                                <a class="mb-1 h-10 w-10" target="_blank" (click)="copy(item.db.id,item.db.file_path)" *ngIf="!copied"
+                                    matTooltip="Link sao chép đường dẫn">
+                                    <mat-icon role="img" click="copy()"
+                                        class=" mat-icon notranslate secondary-text s-48 material-icons mat-icon-no-color">
+                                        file_copy</mat-icon>
+                                </a>
+                                <a class="mb-1 h-10 w-10" target="_blank" (click)="copy(item.db.id,item.db.file_path)" *ngIf="copied && item.db.id != item_current"
+                                    matTooltip="Link sao chép đường dẫn">
+                                    <mat-icon role="img" click="copy()"
+                                        class=" mat-icon notranslate secondary-text s-48 material-icons mat-icon-no-color">
+                                        file_copy</mat-icon>
+                                </a>
+                            </td> -->
+
+                            <td align="center">
+
+
+
+                                <img *ngIf="item.file_type!='application/json'" style="width:70px" style="height:50px"
+                                    [src]="getFontAwesomeIconFromMIME(item.db.file_type)" />
+
+
+                                <sys_animation_options_index *ngIf="item.db.file_type=='application/json'"
+                                    [file_path]="item.file_path"></sys_animation_options_index>
+
+                            </td>
+
+                            <td align="center">
+                                <a href="{{item.db.file_path}}"><button mat-raised-button
+                                        class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                                        transloco="system.tai_file">
+
+                                    </button></a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    
+                
+                </table>
+            </div>
+        </mat-card>
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white shadow-none rounded hover:bg-teal-600" *ngIf="actionEnum!=1"
+                mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-primary-600 rounded text-white shadow-none hover:bg-primary-700" mat-raised-button
+                (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>
+
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible" *ngIf="actionEnum!=1">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div  class="text-lg font-medium" transloco="system.chinh_sua_thong_tin"></div>
+        
+    </div>
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-primary-600 text-white rounded shadow-none hover:bg-primary-700" *ngIf="actionEnum!=3"
+                [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-teal-500 text-white rounded shadow-none hover:bg-teal-600" [disabled]="loading"
+                mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+        <br>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.file_name'"
+                    [keyError]="'db.file_name'" [(model)]="record.db.file_name">
+                </cm_input>
+                
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum !=3" style="max-width:100%">
+                <h1 transloco="system.mo_ta"></h1>
+                <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : 'db.description_file' ;  index as i;">
+                    (<span *ngFor="let msg of item.value">
+                        {{msg | transloco}}
+                    </span>)
+                </span>
+                <editor class="w-full" [init]="timyconfig" [(ngModel)]="record.db.description_file">
+                </editor>
+
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==3" style="padding:10px">
+                <h1 transloco="system.mo_ta"></h1>
+                <span [innerHtml]="record.db.description_file | safeHtml"></span>
+            </div>
+        </div>
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-primary-600 text-white rounded shadow-none hover:bg-primary-700" *ngIf="actionEnum!=3"
+                [disabled]="loading" mat-raised-button (click)="save()" transloco="save"></button>
+            <button class="bg-teal-500 text-white rounded shadow-none hover:bg-teal-600" [disabled]="loading"
+                mat-raised-button (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,62 @@
+<div class="flex flex-col flex-auto h-full overflow-hidden bg-card dark:bg-default">
+    <div class="relative overflow-y-auto">
+        <div class="mt-4 mx-4">
+            <mat-form-field class="fuse-mat-no-subscript fuse-mat-rounded fuse-mat-dense w-full"
+                [floatLabel]="'always'">
+                <mat-icon matPrefix class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput [autocomplete]="'off'" [placeholder]="'Tìm kiếm bạn bè'"
+                    (input)="filterChats(searchField.value)" #searchField>
+            </mat-form-field>
+        </div>
+        <div class="mt-4 mx-4" *ngIf="list_friend_chat_chip.length">
+            <mat-form-field class="fuse-mat-no-subscript fuse-mat-rounded fuse-mat-dense w-full">
+                <mat-chip-list #chipList>
+                    <mat-chip class="h-10" *ngFor="let tag of list_friend_chat_chip; let i = index" (removed)="remove_friend(i)">
+                        <img style="margin-right: 5px; max-width: 20px; border-radius: inherit;" src="{{tag.avatar}}"
+                            alt="">{{tag.name}}
+                        <button matChipRemove class="mb-1">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+            </mat-form-field>
+        </div>
+        <div class="mx-4">
+            <ng-container *ngIf="contacts.length; else noContacts">
+                <ng-container *ngFor="let contact of contacts; let i = index; trackBy: trackByFn">
+                    <div (click)="add_friend(i)"
+                        class="z-20 flex items-center px-6 py-4 md:px-8 cursor-pointer border-b hover:bg-gray-100 dark:hover:bg-hover">
+                        <div class="flex flex-0 items-center justify-center w-10 h-10 rounded-full overflow-hidden">
+                            <ng-container *ngIf="contact.avatar">
+                                <img class="object-cover w-full h-full" [src]="contact.avatar" alt="Contact avatar" />
+                            </ng-container>
+                            <ng-container *ngIf="!contact.avatar">
+                                <div
+                                    class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                    {{contact.name.charAt(0)}}
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="min-w-0 ml-4">
+                            <div class="font-medium leading-5 truncate">{{contact.name}}</div>
+                            <div class="leading-5 truncate text-secondary">{{contact.date_action | date:
+                                'dd/MM/yyyy HH:mm'}}</div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+
+    <!-- No contacts -->
+    <ng-template #noContacts>
+        <div class="p-8 sm:p-16 text-4xl font-semibold tracking-tight text-center"></div>
+    </ng-template>
+
+    <div class="flex flex-row justify-end space-x-2 mb-4 mx-4">
+        <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" mat-raised-button (click)="save()"
+            transloco="system.create"></button>
+        <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" mat-raised-button (click)="close_popup()"
+            transloco="close"></button>
+    </div>
+</div>

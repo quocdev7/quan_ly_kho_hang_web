@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entities\**" />
+    <EmbeddedResource Remove="Entities\**" />
+    <None Remove="Entities\**" />
+  </ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Aspose.PDF" Version="25.5.0" />
+		<PackageReference Include="AWSSDK.S3" Version="4.0.6.13" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+		<PackageReference Include="NPOI" Version="2.5.5" />
+		<PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
+		<PackageReference Include="Google.Apis.Drive.v3" Version="1.63.0.3155" />
+		<PackageReference Include="MailKit" Version="4.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.1" />
+		<PackageReference Include="PDFsharp-MigraDoc" Version="6.1.1" />
+		<PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="28.2.12" />
+		<PackageReference Include="Syncfusion.XlsIORenderer.Net.Core" Version="28.2.12" />
+		<PackageReference Include="System.ServiceModel.Duplex" Version="4.7.*" />
+		<PackageReference Include="System.ServiceModel.Http" Version="4.7.*" />
+		<PackageReference Include="System.ServiceModel.NetTcp" Version="4.7.*" />
+		<PackageReference Include="System.ServiceModel.Security" Version="4.7.*" />
+		<PackageReference Include="ZXing.Net" Version="0.16.9" />
+		<PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.12" />
+	</ItemGroup>
+
+	<ItemGroup>
+    <Folder Include="Connected Services\" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\vnaisoft.DataBase\vnaisoft.DataBase.csproj" />
+	</ItemGroup>
+
+	
+</Project>

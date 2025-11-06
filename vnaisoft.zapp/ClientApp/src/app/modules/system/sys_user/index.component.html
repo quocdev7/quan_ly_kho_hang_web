@@ -1,0 +1,166 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3 sm:p-10" style="background-color: #f9fafb">
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="Quản lý thành viên"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div>
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1">
+                            <mat-form-field class="w-full" floatLabel="always">
+                                <mat-label>
+                                    {{ "search" | transloco }} ({{
+                                    "system.ten" | transloco
+                                    }}
+                                    | {{ "system.so_dien_thoai" | transloco }})
+                                </mat-label>
+                                <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()" placeholder="{{
+                                        'nhap_ten_thanh_vien' | transloco
+                                    }}" />
+                                <button mat-icon-button color="primary" class="mr-4" (click)="rerender()">
+                                    Tìm kiếm
+                                </button>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex-1">
+                            <cm_select [label]="'system.use_status'" [listData]="list_status_del"
+                                [(model)]="filter.status_del" [callbackChange]="rerender.bind(this)"></cm_select>
+                        </div>
+                    </div>
+                </div>
+
+                <div align="right" class="space-x-2">
+                    <button class="rounded py-2 px-4 font-bold bg-primary-500 hover:bg-primary-600 item2s-center"
+                        (click)="openDialogAdd()">
+                        <p transloco="system.add" class="mb-0 text-white"></p>
+                    </button>
+                </div>
+            </mat-card>
+            <!-- CONTENT GOES HERE -->
+            <br />
+
+            <div class="w-full">
+                <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px"></th>
+                            <th style="max-width: 50px !important" transloco="system.no_"></th>
+                            <th transloco="system.thanh_vien"></th>
+                            <th transloco="system.loai_dang_nhap"></th>
+                            <!-- <th transloco="system.login_from_app"></th> -->
+                            <th style="width: 120px" transloco="system.update_by"></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="listData?.length != 0">
+                        <tr style="border-top: 1px solid" *ngFor="let item of listData; index as i">
+                            <td style="
+                                    vertical-align: middle !important;
+                                    height: 100%;
+                                    align-items: center;
+                                ">
+                                <button class="w-full h-full" align="center" [matMenuTriggerFor]="menu">
+                                    <mat-icon class="text-gray-400" svgIcon="heroicons_solid:dots-vertical">
+                                    </mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <!-- <button mat-menu-item transloco="system.xem_tat_ca_cac_sach"
+                                        *ngIf="(item.db.is_view_all_book??false)==false"
+                                        (click)="viewAllBook(item.db.id, 1)"></button>
+                                    <button mat-menu-item transloco="system.ngung_xem_tat_ca_cac_sach"
+                                        *ngIf="item.db.is_view_all_book==true"
+                                        (click)="viewAllBook(item.db.id, 2)"></button>
+                                    <button mat-menu-item transloco="system.xem_tat_ca_cac_chuong_trinh"
+                                        *ngIf="(item.db.is_view_all_chuong_trinh??false)==false" (click)="
+                                            viewAllChuongTrinhUser(
+                                                item.db.id,
+                                                1
+                                            )
+                                        "></button>
+                                    <button mat-menu-item transloco="system.ngung_xem_tat_ca_cac_chuong_trinh"
+                                        *ngIf="item.db.is_view_all_chuong_trinh==true" (click)="
+                                            viewAllChuongTrinhUser(
+                                                item.db.id,
+                                                2
+                                            )
+                                        "></button> -->
+                                    <button mat-menu-item transloco="system.chinh_sua_thong_tin"
+                                        (click)="openDialogEdit(item, i)"></button>
+                                    <button *ngIf="
+                                            item.status_del == 3 ||
+                                            item.status_del == 2
+                                        " mat-menu-item transloco="system.moi_lai"
+                                        (click)="moi_lai(item.Id, i)"></button>
+                                    <button *ngIf="item.status_del == 3" mat-menu-item transloco="system.go_bo"
+                                        (click)="go_bo(item.Id)"></button>
+                                    <button *ngIf="item.status_del == 2" mat-menu-item transloco="system.revert"
+                                        (click)="revertStatus(item, 1)"></button>
+                                    <button *ngIf="item.status_del == 1" mat-menu-item transloco="stop_use"
+                                        (click)="revertStatus(item, 2)"></button>
+                                    <button mat-menu-item transloco="system.changepass"
+                                        (click)="changePasss(item, i)"></button>
+                                    <button *ngIf="item.quan_tri == 1" mat-menu-item transloco="system.bo_lam_quan_tri"
+                                        (click)="edit_quan_tri(item, i, 2)"></button>
+                                    <button *ngIf="item.quan_tri == 2" mat-menu-item
+                                        transloco="system.chon_lam_quan_tri"
+                                        (click)="edit_quan_tri(item, i, 1)"></button>
+                                </mat-menu>
+                            </td>
+                            <td align="center" class="font-bold">
+                                {{ currentIndex + i + 1 }}
+                            </td>
+                            <!-- <td>{{i+1}}</td> -->
+                            <td class="flex">
+                                <!-- <div class="pr-2 avatar grid items-center rounded-full" style="position: relative">
+                                    <img class="object-cover w-10 mx-auto rounded-full mr-2" [src]="item.hinh_anh_dai_dien"
+                                        alt="" />
+                                </div> -->
+                                <div class="flex flex-col">
+                                    <span></span>
+                                    <span class="text-blue-900 font-bold">
+                                        {{ item.ho_va_ten }}</span>
+                                    <span>{{ item.email }}</span>
+                                    <span>{{ item.phone }}</span>
+                                    <span *ngIf="item.status_del == 3" class="flex text-red-400"
+                                        transloco="system.cho_xac_nhan">
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <span *ngIf="item.loai_dang_nhap == 1">Tài khoản</span>
+                                <span *ngIf="item.loai_dang_nhap == 2">Email</span>
+                                <span *ngIf="item.loai_dang_nhap == 3">Số điện thoại</span>
+                            </td>
+                            <td>
+                                <span class="text-blue-900 font-bold">
+                                    {{ item.nguoi_cap_nhat }}
+                                </span>
+                                <br />
+                                <span>{{
+                                    item.ngay_cap_nhat
+                                    | date : "dd/MM/yyyy HH:mm"
+                                    }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="listData?.length == 0">
+                        <tr class="h-40">
+                            <td colspan="100" class="no-data-available">
+                                <nz-empty
+                                    nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                    [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                    <ng-template #contentTpl>
+                                        <span transloco="no_data"></span>
+                                    </ng-template>
+                                </nz-empty>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

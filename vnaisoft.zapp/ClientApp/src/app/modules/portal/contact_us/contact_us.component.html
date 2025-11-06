@@ -1,0 +1,291 @@
+<!--px-6 sm:px-8-->
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="w-full mx-auto flex flex-col bg-white" *ngIf="loading!=true">
+
+        <!-- Banner web -->
+        <div class="flex flex-col w-full  mx-auto" *ngIf="!isScreenSmall && slides_web.length>0" data-aos="fade-right"
+            data-aos-once="true">
+            <swiper [slidesPerView]="'1'" [navigation]="true" [autoplay]="{delay: 2000}" [pagination]="{
+                        clickable: true
+                        }" class="mySwiperBanner">
+                <ng-template swiperSlide *ngFor="let item of slides_web">
+                    <div class="flex-none   mx-auto">
+                        <div class="flex flex-col">
+                            <div class="relative  cursor-pointer">
+                                <img class="h-auto w-full " src="{{item.image}}">
+                                <!--<div class="absolute object-cover w-full bottom-0" style="background:#161F37;">
+                                    <span class="text-xl p-1 font-semibold tracking-tight text-white">{{item.name}}</span>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </swiper>
+        </div>
+        <!-- Banner mobile -->
+        <div class="flex flex-col w-full  mx-auto" *ngIf="isScreenSmall && slides_mobile.length>0" data-aos="fade-right"
+            data-aos-once="true">
+            <swiper [slidesPerView]="'1'" [navigation]="true" [autoplay]="{delay: 2000}" [pagination]="{
+                        clickable: true
+                        }" class="mySwiperBanner">
+                <ng-template swiperSlide *ngFor="let item of slides_mobile">
+                    <div class="flex-none   mx-auto">
+                        <div class="flex flex-col">
+                            <div class="relative  cursor-pointer">
+                                <img class="h-auto w-full " src="{{item.image}}">
+                                <!--<div class="absolute object-cover w-full bottom-0" style="background:#161F37;">
+                                <span class="text-xl p-1 font-semibold tracking-tight text-white">{{item.name}}</span>
+                            </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </swiper>
+        </div>
+        <div class="flex flex-col w-full  mx-auto min-w-0 md:mt-6 mt-3 mb-16">
+            <div class="bg-card dark:border-b">
+                <div class="flex flex-col w-full md:px-12 max-w-screen-xl mx-auto">
+                    <div class="flex flex-col px-4 flex-auto items-center min-w-0">
+
+
+                    </div>
+                    <!--flex-wrap-->
+                    <div class="flex flex-col space-y-4 md:pr-2  flex-auto sm:items-center min-w-0  px-4">
+                        <!-- Card #59 - Expandable card -->
+                        <div class="flex flex-col w-full bg-card">
+                            <div class="flex items-center">
+
+                                <div class="flex flex-col w-full max-w-screen-xl mx-auto">
+                                    <!-- Logo -->
+
+                                    <div class="w-full">
+                                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-3">
+                                            <!-- <div class="flex-1 space-y-2">
+                                                <div>
+                                                    <p *ngIf="activeLang=='vi'" class="md:text-xl text-lg font-bold">
+                                                        THÔNG TIN LIÊN HỆ</p>
+                                                    <p *ngIf="activeLang!='vi'" class="md:text-xl text-lg font-bold">
+                                                        CONTACT INFO</p>
+                                                </div>
+                                                <div class="mb-8" *ngIf="activeLang=='vi'">
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base text-blue-900 font-bold">{{thong_tin.db.tieu_de}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base text-blue-900 font-bold">{{thong_tin.db.ten_truong}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base">{{thong_tin.db.dia_chi}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="md:text-lg text-base">{{thong_tin.db.email}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base">{{thong_tin.db.di_dong}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base">{{thong_tin.db.dien_thoai}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-8" *ngIf="activeLang!='vi'">
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base text-blue-900 font-bold">{{thong_tin.db.tieu_de_en}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base text-blue-900 font-bold">{{thong_tin.db.ten_truong_en}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base">{{thong_tin.db.dia_chi_en}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="md:text-lg text-base">{{thong_tin.db.email}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base">{{thong_tin.db.di_dong}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            class="md:text-lg text-base">{{thong_tin.db.dien_thoai}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="md:pt-3 pt-1 md:w-3/4 w-full">
+                                                    <iframe [src]="thong_tin.db.google_map_link | safe" width="600"
+                                                        height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                                        referrerpolicy="no-referrer-when-downgrade"
+                                                        class="w-full"></iframe>
+                                                </div>
+                                                <br /> -->
+                                            <!-- Alert -->
+                                            <!-- <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert"
+                                                    [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
+                                                    [@shake]="alert.type === 'error'">
+                                                    {{alert.message}}
+                                                </fuse-alert>
+                                            </div> -->
+                                            <div div class="flex-1 space-y-2">
+                                                <div class="md:pl-5 md:pr-3 pl-0 pr-0">
+
+                                                    <div *ngIf="activeLang=='vi'" class="text-lg italic">Vui lòng cung
+                                                        cấp đầy đủ các thông tin dưới đây, đội ngũ quản trị  có thể liên hệ bạn trong
+                                                        thời gian sớm nhất.</div>
+                                                    <div *ngIf="activeLang!='vi'" class="text-lg italic">Please provide
+                                                        all the information below, team can contact you as soon
+                                                        as possible.</div>
+                                                    <div
+                                                        class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap md:mt-3 mt-2">
+                                                        <div class="flex-1">
+                                                            <cm_input [errorModel]="errorModel"
+                                                                [actionEnum]="actionEnum" [label]="'system.full_name'"
+                                                                [keyError]="'db.name'" [(model)]="record.db.name">
+                                                            </cm_input>
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                        <div class="flex-1 font-bold">
+
+                                                            <cm_input [errorModel]="errorModel"
+                                                                [actionEnum]="actionEnum" [label]="'system.email'"
+                                                                [placeholder]="'system.email'" [keyError]="'db.email'"
+                                                                [(model)]="record.db.email"></cm_input>
+                                                        </div>
+
+                                                    </div>
+                                                    <div
+                                                        class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                        <div class="flex-1">
+                                                            <cm_input [errorModel]="errorModel"
+                                                                [actionEnum]="actionEnum" [label]="'system.phone'"
+                                                                [keyError]="'db.phone'" [(model)]="record.db.phone">
+                                                            </cm_input>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                        <div class="flex-1">
+                                                            <div class="flex space-x-1">
+                                                                <h1 class="font-normal text-gray-700"
+                                                                    transloco="system.content"></h1>
+                                                                <h1 class="font-blod " style="color: red;">
+                                                                    (&nbsp;{{"required" | transloco}}&nbsp;)</h1>
+                                                            </div>
+
+                                                            <mat-form-field
+                                                                class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                                                                <textarea matInput *ngIf="activeLang=='vi'" [rows]="3"
+                                                                    [errorModel]="errorModel" [keyError]="'db.content'"
+                                                                    [placeholder]="'Nội dung...'"
+                                                                    [(ngModel)]="record.db.content"
+                                                                    matTextareaAutosize></textarea>
+                                                                <textarea matInput *ngIf="activeLang!='vi'" [rows]="3"
+                                                                    [errorModel]="errorModel" [keyError]="'db.content'"
+                                                                    [placeholder]="'Content...'"
+                                                                    [(ngModel)]="record.db.content"
+                                                                    matTextareaAutosize></textarea>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div
+                                                        class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap  md:mt-3 mt-2">
+                                                        <div class="flex-1">
+
+                                                            <mat-form-field class="w-full mb-5 mt-3">
+
+                                                                <mat-label>
+                                                                    Captcha <span style="color: red"
+                                                                        *ngFor="let item of errorModel | filter: 'key':'captcha'; index as i">
+                                                                        (<span *ngFor="let msg of item.value"> {{ msg |
+                                                                            transloco}} </span>)
+                                                                    </span>
+                                                                </mat-label>
+                                                                <span matPrefix> <img [src]="srcCaptcha"
+                                                                        (click)="reloadCaptcha()" style="width:100px"
+                                                                        class="h-auto" /></span>
+
+                                                                <input matInput [type]="'text'"
+                                                                    [(ngModel)]="record.captcha">
+                                                                <button mat-icon-button matSuffix
+                                                                    (click)="reloadCaptcha()" type="button">
+                                                                    <mat-icon>refresh</mat-icon>
+                                                                </button>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div> -->
+                                                    <div
+                                                        class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                                                        <div class="flex-1" align="left">
+                                                            <button
+                                                                class="fuse-mat-button-large w-50 md:mb-4 md:mt-1 mt-0"
+                                                                mat-flat-button style="background:#273a88!important"
+                                                                [color]="'primary'" [disabled]="loading"
+                                                                (click)="SendUp()">
+                                                                <span *ngIf="!loading">
+                                                                    Gửi
+                                                                </span>
+                                                                <mat-progress-spinner *ngIf="loading" [diameter]="24"
+                                                                    [mode]="'indeterminate'">
+                                                                </mat-progress-spinner>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-1 w-full">
+                                                <div class="flex flex-row item-center">
+                                                    <p *ngIf="truong_hoc.db.ghim_ban_do != null && truong_hoc.db.ghim_ban_do != ''"
+                                                       class="mx-auto text-xl text-black"
+                                                       [innerHtml]="truong_hoc.db.ghim_ban_do | safeHtml">
+                                                    </p>
+                                                 
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* .mat-form-field.mat-form-field-hide-placeholder .mat-form-field-infix  .mat-input-element::placeholder {
+      color: red !important;
+      -webkit-text-fill-color: red !important;
+}
+.mat-form-field-placeholder {
+    display:block !important;
+} */
+    ::ng-deep .mat-input-element::placeholder {
+        color: red !important;
+    }
+
+    ::ng-deep .mat-input-element:focus::placeholder {
+        color: red !important;
+    }
+</style>

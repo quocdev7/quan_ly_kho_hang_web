@@ -1,0 +1,85 @@
+<div class="fuse-vertical-navigation-item-wrapper" [class.fuse-vertical-navigation-item-has-subtitle]="!!item.subtitle"
+    [ngClass]="item.classes?.wrapper">
+
+    <div class="fuse-vertical-navigation-item" [ngClass]="{'fuse-vertical-navigation-item-active': active,
+                    'fuse-vertical-navigation-item-disabled': item.disabled,
+                    'fuse-vertical-navigation-item-active-forced': item.active}">
+
+        <!-- Icon -->
+        <!-- <mat-icon class="fuse-vertical-navigation-item-icon text-amber-700" [ngClass]="item.classes?.icon"
+            *ngIf="item.icon" [svgIcon]="item.icon"></mat-icon> -->
+        <img src="{{item.icon_img}}" class="fuse-horizontal-navigation-item-icon"
+            style="width: 25px;min-width: 25px;height: 25px;min-height: 25px;" *ngIf="item.icon_img" />
+        <!-- Title & Subtitle -->
+        <div class="fuse-vertical-navigation-item-title-wrapper">
+            <div class="fuse-vertical-navigation-item-title text-white">
+                <span transloco="{{item.title}}" [ngClass]="item.classes?.title">
+                </span>
+            </div>
+            <div class="fuse-vertical-navigation-item-subtitle text-white" *ngIf="item.subtitle">
+                <span [ngClass]="item.classes?.subtitle">
+                    {{item.subtitle}}
+                </span>
+            </div>
+        </div>
+
+        <!-- Badge -->
+        <div class="fuse-vertical-navigation-item-badge text-white" *ngIf="item.badge">
+            <div class="fuse-vertical-navigation-item-badge-content" [ngClass]="item.badge.classes">
+                {{item.badge.title}}
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<ng-container *ngIf="!skipChildren">
+    <div class="fuse-vertical-navigation-item-children">
+        <!-- <div class="flex items-center p-2 flex-auto text-white">
+            <mat-form-field class="border-black flex items-center flex-auto ml-4 lg:ml-0"
+                style="border: 1px solid;height: 34px !important;border-radius: 1.5rem !important;font-size: 12px;">
+                <div class="flex ml-2">
+
+                    <mat-icon class="icon-size-4">search</mat-icon>
+                    <input matInput [autocomplete]="'off'" [placeholder]="'Tìm kiếm trong Workspace'"
+                        (input)="filterByQuery(searchInput.value)" #searchInput>
+                </div>
+            </mat-form-field>
+        </div> -->
+        <div class="p-2" *ngIf="item.children[0].type === 'basic'">
+            <span class="text-white font-bold" style="font-size: 20px !important;" transloco="{{item.title}}">
+            </span>
+        </div>
+        <ng-container *ngFor="let item of item.children; trackBy: trackByFn">
+
+            <!-- Skip the hidden items -->
+            <ng-container *ngIf="(item.hidden && !item.hidden(item)) || !item.hidden">
+
+                <!-- Basic -->
+                <fuse-vertical-navigation-basic-item *ngIf="item.type === 'basic'" [item]="item" [name]="name">
+                </fuse-vertical-navigation-basic-item>
+
+                <!-- Collapsable -->
+                <fuse-vertical-navigation-collapsable-item *ngIf="item.type === 'collapsable'" [item]="item"
+                    [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-collapsable-item>
+
+                <!-- Divider -->
+                <fuse-vertical-navigation-divider-item *ngIf="item.type === 'divider'" [item]="item" [name]="name">
+                </fuse-vertical-navigation-divider-item>
+
+                <!-- Group -->
+                <fuse-vertical-navigation-group-item *ngIf="item.type === 'group'" [item]="item" [name]="name">
+                </fuse-vertical-navigation-group-item>
+
+                <!-- Spacer -->
+                <fuse-vertical-navigation-spacer-item *ngIf="item.type === 'spacer'" [item]="item" [name]="name">
+                </fuse-vertical-navigation-spacer-item>
+
+            </ng-container>
+
+        </ng-container>
+
+    </div>
+
+</ng-container>

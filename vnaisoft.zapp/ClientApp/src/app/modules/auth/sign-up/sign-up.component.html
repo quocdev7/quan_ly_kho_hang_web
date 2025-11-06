@@ -1,0 +1,85 @@
+<div class="flex flex-col sm:flex-col flex-auto min-w-0 h-full" style="background-color: #ffebc1;">
+    <!-- Logo -->
+    <div class="w-full flex flex-col px-5 pt-5">
+        <img src="../assets/images/logo/shungo_horizotal_logo.png" class="h-10 w-30"
+            style="image-rendering: -webkit-optimize-contrast;">
+    </div>
+    <div
+        class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-center flex-auto min-w-0">
+        <div
+            class="md:flex md:items-top md:justify-center w-full sm:w-auto md:h-full md:w-1/2  pb-8 px-4  sm:p-6 md:p-8 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none">
+            <div class="w-full max-w-lg sm:w-lg mx-auto sm:mx-0">
+
+                <!-- Title -->
+                <div class="mt-8 text-center text-4xl font-extrabold tracking-tight leading-tight">Đăng ký tài khoản
+                </div>
+                <div class="mt-4 text-center mb-2 p-2 text-lg tracking-tight leading-tight">Tạo tài khoản để tham gia
+                    vào Workspace tổ chức của bạn</div>
+
+                <!-- Alert -->
+                <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                    [type]="alert.type" [@shake]="alert.type === 'error'">
+                    {{alert.message}}
+                </fuse-alert>
+                <div class="w-full  sm:bg-card rounded-lg p-5">
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1">
+
+                            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.full_name'"  [type]="'login'"  [placeholder]="'Nhập họ tên của bạn'"
+                                [keyError]="'db.full_name'" [maxlength]="200" [(model)]="record.db.full_name">
+                            </cm_input>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1">
+
+                            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.email'"  [type]="'login'"  [placeholder]="'Nhập email của bạn'"
+                                [keyError]="'db.email'" [maxlength]="200" [(model)]="record.db.email"></cm_input>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1">
+                            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'password_login'"  [placeholder]="'Nhập mật khẩu của bạn'"
+                                [label]="'system.password'" [keyError]="'db.password'" [(model)]="record.password">
+                            </cm_input>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1">
+
+                            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'password_login'"  [placeholder]="'Nhập lại mật khẩu của bạn'"
+                                [label]="'system.repassword'" [keyError]="'db.repass'" [(model)]="record.repassword">
+                            </cm_input>
+                        </div>
+                    </div>
+                    <!-- Submit button -->
+                    <button class="h-10 max-h-10 text-white min-h-10 rounded-lg w-full mt-6"
+                        style="background-color: #0d6efd;" mat-flat-button [color]="'primary'" (click)="signUp()">
+                        <span *ngIf="!loading">
+                            Đăng ký
+                        </span>
+                        <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'">
+                        </mat-progress-spinner>
+                    </button>
+                    <!-- <div class="mt-8 text-center text-2xl tracking-tight leading-tight">Hoặc đăng ký
+                        bằng</div>
+                    <div class=" text-center  p-2 text-xl tracking-tight leading-tight">
+                        <div class=" flex flex-row justify-center items-center">
+                            <div class="flex justify-end items-end p-4">
+                                <img class="h-10 w-10" src="../assets/icons/icons8-google-48.png" alt="">
+                            </div>
+                            <div class="flex justify-start items-start p-4">
+                                <img class="h-10 w-10" src="../assets/icons/icons8-facebook-48.png" alt="">
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="  text-center text-2xl tracking-tight leading-tight">Bạn đã có tài khoản? <a
+                            class="text-lg font-medium hover:underline" [routerLink]="['/sign-in']"
+                            style="color: #0d6efd;">Đăng nhập</a></div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

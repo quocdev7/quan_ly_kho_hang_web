@@ -1,0 +1,51 @@
+<!-- <div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto">
+    <div class="flex-auto p-4 sm:pt-4 sm:px-50">
+        <div class="rounded-2xl">
+            <div class="flex mt-2 w-full break-word ">
+                <div class="flex grids items-start">
+                    <img src="../assets/images/logo/logo.png" class="h-20 w-20"
+                         style="image-rendering: -webkit-optimize-contrast;">
+                </div>
+                <div class="flex items-center justify-center text-2xl">
+                    <b transloco="portal.tro_ly_ai_shungo"></b>
+                </div>
+            </div>
+            <div class="w-full break-word mt-2 ">
+                <p class="font-bold" transloco="portal.chao_ban"></p>
+                <p class="" transloco="portal.toi_la_tro_ly_ai_cua_ban"></p>
+                <p class="font-bold" transloco="portal.vi_du_ban_hay_nhap_thu"></p>
+                <p class="" transloco="portal.toi_muon_them_don_hang_ban_le"></p>
+                <p class="" transloco="portal.toi_muon_xem_bao_cao_cong_no_theo_don_hang_ban"></p>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full sm:min-w-80 mt-5" *ngIf="is_loading == true">
+                <div class="w-20 h-20">
+                    <ng-lottie [options]="lottieOptions_search"></ng-lottie>
+                </div>
+                <div class="flex flex-col items-center justify-center w-full break-word mt-2 ">
+                    <b class="font-bold" transloco="portal.tro_ly_ai_dang_xu_ly"></b>
+                    <b class="font-bold" transloco="portal.vui_long_doi_trong_giay_lat"></b>
+                </div>
+
+            </div>
+            
+            <div class="flex mt-2 w-full break-word" *ngIf="is_loading == false">
+               
+                    <p
+                    class="font-semibold"
+                    [innerHTML]="kq"></p>
+
+            </div>
+            <div class="flex flex-col w-full sm:min-w-80">
+                <mat-form-field class="fuse-mat-no-subscript w-full" floatLabel="always">
+                
+                    <input matInput [(ngModel)]="search" (keyup.enter)="send_cau_hoi()" [disabled]="is_loading"
+                           placeholder="{{'nhap_cau_hoi_tai_day' | transloco}}">
+                    <button mat-icon-button (click)="send_cau_hoi()" [disabled]="is_loading">
+                        <mat-icon matPrefix>send</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+      
+    </div>
+</div> -->

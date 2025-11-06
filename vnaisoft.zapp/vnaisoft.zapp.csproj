@@ -1,0 +1,761 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <StartupObject />
+    <AssemblyName>vnaisoft.zapp</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants></DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+	  <PackageReference Include="Azure.AI.FormRecognizer" Version="4.1.0" />
+	  <PackageReference Include="Azure.AI.Vision.ImageAnalysis" Version="1.0.0-beta.2" />
+	  <PackageReference Include="dotAPNS.AspNetCore" Version="2.2.2" />
+	  <PackageReference Include="MailKit" Version="4.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.20" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
+	  <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.15" />
+	  <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.10" />
+
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.6.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+	  <PackageReference Include="NewId" Version="3.0.2" />
+	  <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />
+	  <PackageReference Include="tusdotnet" Version="2.4.0" />
+	  <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    <PackageReference Include="ClosedXML" Version="0.105.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\Authenticator\**" />
+    <Compile Remove="ClientApp\src\app\main\**" />
+    <Compile Remove="ClientApp\src\app\modules\system\sys_log\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\Authenticator\**" />
+    <Content Remove="ClientApp\src\app\main\**" />
+    <Content Remove="ClientApp\src\app\modules\system\sys_log\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\Authenticator\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\main\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\modules\system\sys_log\**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Remove="ClientApp\src\app\Authenticator\**" />
+    <None Remove="ClientApp\src\app\main\**" />
+    <None Remove="ClientApp\src\app\modules\system\sys_log\**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_log\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\@fuse\pipes\money.pipe.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\auth\confirmation-otp\confirmation-otp.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\auth\confirmation-otp\confirmation-otp.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\auth\confirmation-otp\confirmation-otp.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\auth\confirmation-otp-resetpass\confirmation-otp.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\auth\confirmation-otp-resetpass\confirmation-otp.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\auth\confirmation-otp-resetpass\confirmation-otp.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_ban_hang_theo_nhan_vien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_so_cai_tai_khoan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_so_tong_hop_tai_khoan_doi_tuong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_mua_hang_theo_hang_hoa\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_mua_hang_theo_khach_hang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_ke_toan_so_quy_tien_mat\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_cong_no_don_hang_mua - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_ban_hang_theo_hang_hoa\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\bao_cao\bao_cao_cong_no_don_hang_ban\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\dv_dich_vu - Copy\dv_dich_vu.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\dv_dich_vu - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\dv_dich_vu - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\dv_chi_so_tieu_thu\dv_so_luong_su_dung.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\dv_chi_so_tieu_thu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\dv_chi_so_tieu_thu\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_bang_gia_mua\erp_bang_gia_mua.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_bang_gia_mua\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_bang_gia_mua\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_bao_cao_ban_hang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_bao_cao_cong_no_don_hang_mua\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_cau_hinh_he_thong\erp_cau_hinh_he_thong.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_cau_hinh_he_thong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_cau_hinh_he_thong\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_cau_hinh_ma_he_thong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_common\popupChooseDonHangBan.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_common\popupChooseDonHangMua.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_common\popupChooseMatHang.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_cong_ty\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_cong_ty\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_ban\erp_don_hang_ban.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_ban\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_ban\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_ban_le\erp_don_hang_ban_le.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_ban_le\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_ban_le\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_mua\erp_don_hang_mua.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_mua\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_hang_mua\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_vi_tinh\erp_don_vi_tinh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_vi_tinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_don_vi_tinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_khach_hang_nha_cung_cap\erp_khach_hang_nha_cung_cap.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_khach_hang_nha_cung_cap\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_khach_hang_nha_cung_cap\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_kho\erp_kho.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_kho\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_kho\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_mat_hang\erp_loai_mat_hang.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_mat_hang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_mat_hang\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_nhap_xuat\erp_loai_nhap_xuat.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_nhap_xuat\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_nhap_xuat\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_tai_san\erp_loai_tai_san.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_tai_san\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_tai_san\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_thu_chi\erp_loai_thu_chi.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_thu_chi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_loai_thu_chi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mat_hang\erp_mat_hang.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mat_hang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mat_hang\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mau_in\erp_mau_in.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mau_in\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mau_in\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mau_mail\erp_mau_mail.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mau_mail\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_mau_mail\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_nhan_hieu\erp_nhan_hieu.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_nhan_hieu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_nhan_hieu\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_chi\erp_phieu_chi.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_chi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_chi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_chuyen_kho\erp_phieu_chuyen_kho.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_chuyen_kho\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_chuyen_kho\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_nhap_kho\erp_phieu_nhap_kho.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_nhap_kho\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_nhap_kho\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_thu\erp_phieu_thu.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_thu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_thu\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_xuat_kho\erp_phieu_xuat_kho.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_xuat_kho\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phieu_xuat_kho\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phuong_thuc_thanh_toan\erp_phuong_thuc_thanh_toan.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phuong_thuc_thanh_toan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_phuong_thuc_thanh_toan\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_so_quy_tien_mat\erp_so_quy_tien_mat.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_so_quy_tien_mat\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_so_quy_tien_mat\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_khoan_ngan_hang\erp_tai_khoan_ngan_hang.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_khoan_ngan_hang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_khoan_ngan_hang\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_san\erp_tai_san.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_san\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_san\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_san_lich_su_cap_phat\erp_tai_san_lich_su_cap_phat.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_san_lich_su_cap_phat\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_tai_san_lich_su_cap_phat\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_thiet_lap_nguoi_dung\erp_thiet_lap_nguoi_dung.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_thiet_lap_nguoi_dung\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_thiet_lap_nguoi_dung\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_ton_kho_mat_hang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\erp_ton_kho_mat_hang_theo_thang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\sync_data\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp - Copy\sync_data\sync_data.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia - Copy (2)\erp_bang_gia.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia - Copy (2)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bao_cao_dong_tien - Copy\erp_bao_cao_dong_tien.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bao_cao_dong_tien - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bao_cao_dong_tien - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_cau_hinh_ma_he_thong\erp_cau_hinh_ma_he_thong.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_cau_hinh_ma_he_thong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_cau_hinh_ma_he_thong\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia_mua - Copy\erp_bang_gia_mua.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia_mua - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia_mua - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bao_cao_dong_tien\erp_bao_cao_dong_tien.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bao_cao_dong_tien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bao_cao_dong_tien\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia_mua\erp_bang_gia_mua.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia_mua\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_bang_gia_mua\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_dac_tinh_mat_hang_danh_muc\erp_dac_tinh_mat_hang.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_dac_tinh_mat_hang_danh_muc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_dac_tinh_mat_hang_danh_muc\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_don_hang_ban\erp_don_hang_ban.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_don_hang_ban\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_don_hang_ban\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_phieu_chi\erp_don_vi_tinh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_phieu_chi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_phieu_chi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_phieu_nhap_kho\erp_don_vi_tinh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_phieu_nhap_kho\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\erp\erp_phieu_nhap_kho\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\add_writen\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\add_writen\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\add_writen\popupAdd_them_thanh_vien.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\add_writen\popupAdd_user_tags..component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\home_page\bo_suu_tap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\home_page\comment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\home_page\comment_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\home_page\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\home_page\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\loading\loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\setting.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\sys_feed_nhom\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin - Copy\sys_feed_nhom\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\add_writen\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\add_writen\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\add_writen\popupAdd_them_thanh_vien.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\add_writen\popupAdd_user_tags..component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\home_page\bo_suu_tap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\home_page\comment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\home_page\comment_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\home_page\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\home_page\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\loading\loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\setting.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\sys_feed_nhom\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_ban_tin\sys_feed_nhom\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_diem_danh_hoc_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_diem_danh_hoc_sinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_diem_danh_hoc_sinh\popupAddCategory.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_xet_lop\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_hoc_ba_so\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_hoi_dap_ai\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_lop_thoi_khoa_bieu - Copy (2)\gv_qll_thoi_khoa_bieu_index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_lop_thoi_khoa_bieu - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_nhom_tin_tuc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_nhom_tin_tuc\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_nhom_ban_tin\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_nhom_ban_tin\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_quan_li_lop\gv_qll_bai_kiem_tra.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_tin_tuc\home_page\bo_suu_tap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_tin_tuc\home_page\comment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\giao_vien\gv_tin_tuc\home_page\comment_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hoc_sinh.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hoc_sinh.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\add_writen\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\add_writen\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\add_writen\popupAdd_them_thanh_vien.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\add_writen\popupAdd_user_tags..component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\home_page\bo_suu_tap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\home_page\comment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\home_page\comment_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\home_page\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\home_page\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\loading\loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\setting.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\sys_feed_nhom\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_ban_tin\sys_feed_nhom\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_diem_danh_hoc_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_diem_danh_hoc_sinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_bai_hoc\hs_lop_bai_hoc_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_bai_hoc\hs_lop_bai_hoc_popup_view_file_online.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_bai_hoc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_bai_kiem_tra\hs_lop_bai_kiem_tra_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_bai_kiem_tra\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_bai_kiem_tra_mieng\hs_lop_bai_kiem_tra_mieng_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_bai_kiem_tra_mieng\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_phieu_diem\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_lop_thoi_khoa_bieu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_tin_tuc\comment\hs_tin_tuc_comment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_tin_tuc\comment\hs_tin_tuc_comment_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_tin_tuc\home_page\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_tin_tuc\home_page\tin_tuc.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_tin_tuc\hs_tin_tuc_nhom\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_tin_tuc\loading\loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh - Copy\hs_tin_tuc\setting.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_diem_danh_hoc_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_diem_danh_hoc_sinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\add_writen\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\add_writen\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\add_writen\popupAdd_them_thanh_vien.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\add_writen\popupAdd_user_tags..component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\home_page\bo_suu_tap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\home_page\comment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\home_page\comment_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\home_page\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\home_page\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\loading\loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\setting.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\sys_feed_nhom\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_ban_tin\sys_feed_nhom\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\add_writen\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\add_writen\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\add_writen\popupAdd_them_thanh_vien.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\add_writen\popupAdd_user_tags..component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\home_page\bo_suu_tap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\home_page\comment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\home_page\comment_detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\home_page\feed.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\home_page\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\loading\loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\setting.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\sys_feed_nhom\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_tin_tuc\sys_feed_nhom\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_lop_phieu_diem\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_lop_bai_hoc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\hoc_sinh\hs_lop_thoi_khoa_bieu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_bang_can_doi_phat_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_bang_tinh_phan_bo_ccdc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_dinh_khoan_chi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_dinh_khoan_chi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_hoa_don_ban_le\kt_hoa_don_ban_le.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_phieu_ke_toan - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_phieu_ke_toan - Copy\kt_phieu_ke_toan.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_phieu_ke_toan - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_hoa_don_ban_le\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\ke_toan\kt_hoa_don_ban_le\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_cau_truc_thi\sys_cau_truc_thi.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_kho_hoc_lieu\sys_sach_dien_tu_view_file_online.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_nguon_bai_tap\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_nguon_bai_tap\khl_nguon_bai_tap.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_nguon_bai_tap\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_sach_giao_khoa\khl_sach_giao_khoa_bai_tap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_sach_giao_khoa\khl_sach_giao_khoa_hoc_lieu.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_sach_giao_khoa\khl_sach_giao_khoa_view_file_online.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_sach_giao_khoa\khl_sach_giao_khoa_view_sach.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_sach_giao_khoa\popupImport.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\khl_sach_giao_khoa\popupViewCauHoiBaiTap.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\kho_hoc_lieu.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\kho_hoc_lieu\kho_hoc_lieu.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal\ky_yeu\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal\ky_yeu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal\news\type_file.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal_module\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal_ky_yeu\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal_ky_yeu\ky_yeu.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal_ky_yeu\ky_yeu.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\portal_module\portal_module.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_bao_cao_can_bo_theo_chuyen_mon\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_bao_cao_can_bo_theo_bien_che\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_bao_cao_ky_luat\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_bao_cao_khen_thuong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_bao_cao_can_bo_theo_hop_dong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_lich_bao_giang - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_lich_bao_giang - Copy (2)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_lich_bao_giang - Copy (3)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_lich_bao_giang - Copy (3)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_nhat_ky_giang_day\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_nhat_ky_giang_day\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_lich_bao_giang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_lich_bao_giang\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\qlgv_tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\quan_li_hoc_sinh.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\quan_li_hoc_sinh.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\sys_hoc_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\sys_hoc_sinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\sys_lop_hoc_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\sys_lop_hoc_sinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\sys_lop_hoc_sinh\sys_lop_hoc_sinh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh - Copy\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_ket_qua_hoc_tap\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_hoc_ba_so\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_hoc_ba_so\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_hoc_ba_so\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_so_theo_doi\detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_tong_quan - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_tong_quan - Copy (3)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_tong_quan - Copy (4)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_bao_cao_hoc_sinh_nhan_giay_khen\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_xet_lop\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_xet_lop\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_ket_qua_hoc_tap\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_so_theo_doi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_so_theo_doi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_diem_danh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\qlhs_diem_danh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_ban_hanh_lan_dau_hoc_ba\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_ban_hanh_lan_dau_hoc_ba\popup_loai_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_ban_hanh_lan_dau_hoc_ba\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_dong_dau_hoc_ba\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_dong_dau_hoc_ba\popup_loai_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_dong_dau_hoc_ba\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_duyet_khoi_tao_hoc_ba\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_duyet_khoi_tao_hoc_ba\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_ky_so_hoc_ba\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_ky_so_hoc_ba\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_so_suc_khoe\qlssk_so_suc_khoe\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_so_suc_khoe\qlssk_so_suc_khoe\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_so_suc_khoe\qlssk_so_suc_khoe\qlkt_loai_khoan_thu.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_so_suc_khoe\quan_li_khoan_thu.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_so_suc_khoe\quan_li_khoan_thu.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_so_suc_khoe\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem - Copy\so_chu_nhiem.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem - Copy\so_chu_nhiem.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem - Copy\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_ban_can_bo_lop - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_ban_can_bo_lop - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_ban_dai_dien_cha_me - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_ban_dai_dien_cha_me - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_cau_hinh_so_do_lop - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_cau_hinh_so_do_lop\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_dac_diem_tinh_hinh_lop - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_noi_dung_ke_hoach - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\scn_tinh_hinh_lop - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\sdb_khoi_tao\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\sdb_khoi_tao\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\so_chu_nhiem.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\so_chu_nhiem.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_chu_nhiem\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_khoan_thu\quan_li_khoan_thu.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_khoan_thu\quan_li_khoan_thu.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_khoan_thu\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_bao_cao_hien_trang_su_dung\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_bao_cao_tong_hop_tai_san\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_loai_thiet_bi - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_loai_thiet_bi - Copy (2)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_kho\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_kho\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_bao_cao_kiem_ke\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_thiet_bi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_thiet_bi\qltb_thiet_bi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_ly_hoa_don\qlhd_tao_bill\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_ly_hoa_don\qlhd_tao_bill\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\sys_can_ho\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\sys_can_ho\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\dich_vu\sys_can_ho\sys_can_ho.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_ban_hanh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_ban_hanh\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_ban_hanh\popup_loai_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_ban_hanh\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_bao_cao_thong_ke\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_cau_hinh_ma_so_dang_bo\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_cau_hinh_ma_so_dang_bo\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_dong_bo_du_lieu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_dong_bo_du_lieu\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_duyet_khoi_tao\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_duyet_khoi_tao\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_duyet_khoi_tao\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_khoi_tao\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_khoi_tao\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_quan_ly_so_dang_bo\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_quan_ly_so_dang_bo\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_quan_ly_so_dang_bo\popup_dong_dau.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_quan_ly_so_dang_bo\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_quan_ly_so_dang_bo\popup_loai_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_quan_ly_so_dang_bo\popup_xac_nhan_dong_dau.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_quan_ly_so_dang_bo\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\sdb_tra_cuu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\so_dang_bo.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\so_dang_bo.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo - Copy\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo\sdb_ban_hanh\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo\sdb_ban_hanh\popup_loai_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo\sdb_ban_hanh\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo\sdb_duyet_khoi_tao\sign-plugin.service.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_dang_bo\sdb_khoi_tao\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_ghi_dau_bai\sgdb_so_dau_bai\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh - Copy\so_theo_doi_va_danh_gia_hoc_sinh.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh - Copy\so_theo_doi_va_danh_gia_hoc_sinh.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh - Copy\std_khoi_tao\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh - Copy\std_khoi_tao\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh - Copy\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh\std_ky_so_va_dong_dau_gvbm\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh\std_ky_so_va_dong_dau_gvbm\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh\std_ky_so_va_dong_dau_gvbm\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh\std_ky_so_va_dong_dau\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh\std_ky_so_va_dong_dau\popup_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\so_theo_doi_va_danh_gia_hoc_sinh\std_ky_so_va_dong_dau\popup_xac_nhan_ky_so.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\storage\storage.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\storage\storage.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\storage\storage_document\academy.service.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\storage\storage_document\academy.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\storage\storage_document\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\storage\storage_document\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\event_khach_moi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\event_khach_moi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_ma_he_thong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (2)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (2)\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (3)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (3)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (3)\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (4)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (4)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (4)\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (5)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (5)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (5)\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (6)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (6)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (6)\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (7)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (7)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_khoi_lop - Copy (7)\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_contactus\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_contactus\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_contactus\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_danh_muc_mon_hoc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_danh_muc_mon_hoc\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_cau_hinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_cau_hinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_ky_yeu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_ky_yeu\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_ky_yeu\popupComment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_ky_yeu\popupLanguage.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_ky_yeu\popupTinNoiBat.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_ky_yeu\popupView.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_nhom_tin_website\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_nhom_tin_website\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_nhom_tin_website\sys_nhom_tin_website.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\sys_thu_vien_tai_lieu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\sys_thu_vien_tai_lieu\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_tuyen_dung\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_tuyen_dung\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_mau_sac\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_mau_sac\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_co_so_nuoi_trong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_co_so_nuoi_trong\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_don_vi_tinh - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_don_vi_tinh - Copy (2)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_don_vi_tinh - Copy (2)\sys_don_vi_tinh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_don_vi_tinh - Copy (3)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_don_vi_tinh - Copy (3)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_don_vi_tinh - Copy (3)\sys_don_vi_tinh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_giao_vien\sys_giao_vien.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_lop_giao_vien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_lop_hoc_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_phu_huynh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_phu_huynh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_hoc_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_hoc_sinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_hoc_sinh\sys_phu_huynh\sys_phu_huynh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_thanh_vien - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_thanh_vien - Copy (2)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_thanh_vien - Copy (2)\sys_quan_ly_thanh_vien.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_thanh_vien - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_thanh_vien - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_thanh_vien - Copy\sys_quan_ly_thanh_vien.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tieu_chuan_chat_luong\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tieu_chuan_chat_luong\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tieu_chuan_chat_luong\sys_tieu_chuan_chat_luong.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_tai_san\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_tai_san\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_tai_san\sys_loai_tai_san.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_mua_vu\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_mua_vu\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_mua_vu\sys_loai_mua_vu.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_thue_VAT\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_thue_VAT\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_huyen\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_huyen\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tinh_thanh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tinh_thanh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_nhom_san_pham\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_nhom_san_pham\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_hop_tac_xa\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_hop_tac_xa\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_mau_sac\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_mau_sac\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_san_pham\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_loai_san_pham\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_log_mail\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_log_mail\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_help\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_help\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_san_pham\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_san_pham\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quan_ly_san_pham\popupAddImage.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_thong_ke_su_kien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_contactus - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_contactus - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_dien_gia\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_dien_gia\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_duyet_user\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_duyet_user\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_news\popupComment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quyen_loi - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quyen_loi - Copy (2)\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quyen_loi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_quyen_loi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_news\popupTinNoiBat.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_anh_noi_bat_su_kien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_anh_noi_bat_su_kien\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_duyet_su_kien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_cau_hinh_duyet_su_kien\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_template_notification\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_template_notification\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tin_tuc_website\popupComment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tin_tuc_website\popupLanguage.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tin_tuc_website\popupTinNoiBat.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_tin_tuc_website\popupView.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_type_notification - Copy\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_type_notification - Copy\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_type_notification\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_type_notification\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_template_notification\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_template_notification\popupAdd.component.ts" />
+
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_type_notification\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_type_notification\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_san_pham_hop_tac_xa\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_san_pham_hop_tac_xa\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_san_pham_hop_tac_xa\sys_san_pham_hop_tac_xa.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_giao_vien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_giao_vien\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_user_hop_tac_xa\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_user_hop_tac_xa\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_xa_vien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\system\sys_user_typenews\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_rang_buoc_giao_vien\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_han_che_mon_hoc_nang\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_rang_buoc_giao_vien\popupLich.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_tiet_giang_khong_chong_lan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_tiet_hoc_co_dinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_rang_buoc_mon_hoc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_lich_hoc - Copy (2)\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_lich_hoc - Copy (2)\sys_tiet_hoc.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\tkb_phan_cong_giang_day\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\quan_li_can_bo_giao_vien\tkb_phan_cong_giang_day\sys_tiet_hoc.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_thiet_lap_rang_buoc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_thiet_lap_rang_buoc\sys_tiet_hoc.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_lich_hoc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_lich_hoc\sys_tiet_hoc.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tkb_tiet_hoc_co_dinh\popupLich.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thoi_khoa_bieu\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thong_tin_truong_hoc\sys_van_bang_chung_chi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thong_tin_truong_hoc\sys_van_bang_chung_chi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\thong_tin_truong_hoc\sys_van_bang_chung_chi\sys_van_bang_chung_chi.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_ho_so_tuyen_sinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_ho_so_tuyen_sinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_ho_so_tuyen_sinh\popupChuyenTrangThai.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_lap_ke_hoach\addKeHoach.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_lap_ke_hoach\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_lap_ke_hoach\khts_lap_ke_hoach.type.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_lap_ke_hoach\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_lap_ke_hoach\popupThongBao.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_thong_bao\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_thong_bao\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_xep_lop\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\tuyen_sinh\khts_xep_lop\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_banner\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_banner\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_cau_hinh_thong_tin\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_cau_hinh_thong_tin\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_cau_hinh_thong_tin\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_contactus\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_contactus\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_contactus\sys_khoi_lop.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_loai_cau_hinh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_loai_cau_hinh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_nhom_thu_vien_hinh_anh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_nhom_thu_vien_hinh_anh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_nhom_thu_vien_hinh_anh\sys_nhom_thu_vien_hinh_anh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_nhom_tin_website\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_nhom_tin_website\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_nhom_tin_website\sys_nhom_tin_website.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_thu_vien_hinh_anh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_thu_vien_hinh_anh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_thu_vien_hinh_anh\sys_thu_vien_hinh_anh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_tin_tuc_website\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_tin_tuc_website\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_tin_tuc_website\popupComment.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_tin_tuc_website\popupLanguage.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_tin_tuc_website\popupTinNoiBat.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_tin_tuc_website\popupView.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_tin_tuc_website\sys_tin_tuc_website.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_video\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_video\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\sys_video\sys_video.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\website_truong_hoc.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc - Copy\website_truong_hoc.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc\sys_thu_vien_hinh_anh\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc\sys_thu_vien_hinh_anh\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc\sys_thu_vien_hinh_anh\sys_thu_vien_hinh_anh.types.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc\tong_quan\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc\website_truong_hoc.module.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\website_truong_hoc\website_truong_hoc.routing.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\xep_lop_phan_cong_giang_day\pcgd_dinh_muc_tiet_hoc\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\xep_lop_phan_cong_giang_day\sys_van_bang_chung_chi\index.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\xep_lop_phan_cong_giang_day\sys_van_bang_chung_chi\popupAdd.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\modules\xep_lop_phan_cong_giang_day\sys_van_bang_chung_chi\sys_van_bang_chung_chi.types.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\modules\error\error-404\" />
+    <Folder Include="ClientApp\src\assets\images\phieu_bao_hanh\" />
+    <Folder Include="file_upload\news\" />
+    <Folder Include="Views\Shared\qlhd_print_hoa_don\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\sys_post\index.cshtml" />
+    <None Include="Views\sys_post\news_detail.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FireBase.API\FireBase.API.csproj" />
+    <ProjectReference Include="..\SystemModule\vnaisoft.system.data\vnaisoft.system.data.csproj" />
+    <ProjectReference Include="..\SystemModule\vnaisoft.system.web\vnaisoft.system.web.csproj" />
+    <ProjectReference Include="..\vnaisoft.common\vnaisoft.common.csproj" />
+    <ProjectReference Include="..\vnaisoft.DataBase\vnaisoft.DataBase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AuthKey_V84BRK53PH.p8">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+   
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

@@ -1,0 +1,125 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="flex flex-col flex-auto min-w-0 ">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_cau_hinh_anh_mac_dinh"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <mat-form-field class="w-full">
+                            <mat-label>
+                                {{'search' | transloco}} ({{ 'system.name' | transloco }} | {{'system.note' |
+                                transloco}})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()">
+
+                        </mat-form-field>
+                    </div>
+                    <div class="flex-1">
+                        <cm_select [label]="'system.loai_cau_hinh'" [listData]="list_type" [(model)]="filter.type"
+                            [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                    <div class="flex-1">
+                        <cm_select [label]="'system.use_status'" [listData]="list_status_del"
+                            [(model)]="filter.status_del" [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                </div>
+                <div class="listButtonAction" align="right">
+                    <button mat-raised-button transloco="system.search"
+                        class="bg-teal-500 text-white shadow-none hover:bg-teal-600" (click)="rerender()"></button>
+                    <button mat-raised-button transloco="system.add"
+                        class="bg-primary-600 text-white shadow-none hover:bg-primary-700"
+                        (click)="openDialogAdd()"></button>
+
+                </div>
+            </mat-card>
+
+
+
+
+
+            <br />
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+
+                                <th style="width:75px"></th>
+                                <th transloco="system.no_" style="width:50px; text-align:center"></th>
+                                <th transloco="system.loai_cau_hinh"></th>
+                                <th transloco="system.image"></th>
+                                <th transloco="system.avatar"></th>
+                                <th transloco="system.update_by"></th>
+                                <th transloco="system.update_date"></th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                <td>
+                                   
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon class="text-gray-400" svgIcon="heroicons_solid:dots-vertical">
+    </mat-icon>
+</button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item transloco="view"
+                                            (click)="openDialogDetail(item,i)"></button>
+                                        <button *ngIf="item.db.type != 8" mat-menu-item transloco="system.edit"
+                                            (click)="openDialogEdit(item,i)"></button>
+                                        <button *ngIf="item.db.status_del==2 && item.db.type != 8" mat-menu-item transloco="system.revert"
+                                            (click)="revertStatus(item,1)"></button>
+                                        <button *ngIf="item.db.status_del == 1 && item.db.type != 8" mat-menu-item transloco="stop_use"
+                                            (click)="revertStatus(item,2)"></button>
+                                    </mat-menu>
+                                </td>
+                                <td>{{ i+1 }}</td>
+                                <td>
+                                    <span *ngIf="item.db.type==1" transloco="system.hinh_anh_dai_dien"></span>
+                                    <span *ngIf="item.db.type==2" transloco="system.logo"></span>
+                                    <span *ngIf="item.db.type==3" transloco="system.hoc_sinh"></span>
+                                    <span *ngIf="item.db.type==4" transloco="system.giao_vien"></span>
+                                    <span *ngIf="item.db.type==5" transloco="system.phu_huynh"></span>
+                                    <span *ngIf="item.db.type==6" transloco="system.mon_hoc"></span>
+                                    <span *ngIf="item.db.type==7" transloco="system.khac"></span>
+                                    <span *ngIf="item.db.type==8" transloco="system.ma_qr"></span>
+
+                                    <span *ngIf="item.db.type==9" transloco="system.icon_fb"></span>
+                                    <span *ngIf="item.db.type==10" transloco="system.icon_zl"></span>
+                                    <span *ngIf="item.db.type==11" transloco="system.icon_lk"></span>
+                                    <span *ngIf="item.db.type==12" transloco="system.icon_tw"></span>
+                                    <span *ngIf="item.db.type==13" transloco="system.icon_bl"></span>
+                                </td>
+                                <td><img [src]="item.image" style="width:70px" /></td>
+                                <td><img [src]="item.avatar" style="width:70px" /></td>
+
+                                <td>{{ item.nguoi_cap_nhat }}</td>
+                                <td>{{ item.db.ngay_cap_nhat | date: 'dd/MM/yyyy HH:mm' }}</td>
+
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty
+                                        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+            </mat-card>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+new-group-chat{
+    .fuse-mat-rounded .mat-tab-group .mat-tab-header .mat-tab-label-container .mat-tab-list .mat-tab-labels .mat-tab-label {
+        border-radius: 5px !important;
+    }
+    
+    .mat-tab-label-active {
+        background-color: #273a88 !important;
+        opacity: 1 !important;
+        color: white;
+    }
+    
+    .mat-tab-label-active .mat-icon {
+        color: white !important;
+    }
+    .fuse-mat-rounded .mat-tab-group .mat-tab-body-content {
+        padding: 0px !important;
+    }
+    .mat-tab-body-content {
+        padding: 24px;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}

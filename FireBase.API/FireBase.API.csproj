@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Google.Cloud.Firestore" Version="3.7.0" />
+		<PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="7.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\vnaisoft.DataBase\vnaisoft.DataBase.csproj" />
+	</ItemGroup>
+
+
+</Project>

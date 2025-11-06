@@ -1,0 +1,413 @@
+<div class="flex flex-col flex-auto w-full mx-auto h-fit overflow-y-visible mobile:mb-20">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium"><span>Xem </span>{{record.name}}</div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto ">
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center"
+                [disabled]="loading" (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+        </div>
+         <br>
+        <div class="flex  overflow-x-auto">
+            <!-- Card form -->
+            <div class="w-full lg:p-6 sm:p-3 md:py-6 p-3 px-2 space-y-1 overflow-y-auto">
+                <div align="left" class="space-x-2">
+                    <button  (click)="downloadFile(file)">
+                        <a class="text-white shadow-none hover:bg-primary-700 uppercase"  style="background-color: #0d6efd;"
+                            mat-raised-button target="_blank" >Tải file PDF</a>
+                    </button>
+                    <button  (click)="dowloadFileXml(file_xml)">
+                        <a class="text-white shadow-none hover:bg-primary-700 uppercase"  style="background-color: #0d6efd;"
+                            mat-raised-button target="_blank" >Tải file XML</a>
+                    </button>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1 mx-auto">
+                        <!-- <h1 transloco="ho_tro_view_file_toi_da"></h1> -->
+                        <iframe width="100%" height="{{innerHeight+'px'}}" [src]="srcfile | safe"></iframe>
+
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+            <div *ngIf="show_details == true" class="md:w-1/3 sm:w-4/5 w-full">
+
+                <div class="flex flex-col flex-auto md:pt-4 pt-2 sm:pr-4 pr-1  lg:pr-8" *ngIf="file!=null">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-bold">Chi tiết</span>
+                        </div>
+                        <div class="flex justify-end">
+                            <mat-icon *ngIf="show_details == true" class="md:icon-size-6 icon-size-5"
+                                [svgIcon]="'heroicons_solid:x-circle'" (click)="showInfoDetails(false)"></mat-icon>
+                        </div>
+                    </div>
+                    <hr class="my-2 p-0 font-bold text-black">
+                    <!-- Preview -->
+                    <div class="aspect-w-9 aspect-h-6">
+                        <div class="flex items-center justify-center border rounded-lg bg-gray-50 dark:bg-card">
+                            <img class="w-20 h-20" [src]="getFontAwesomeIconFromMIME(file.file_type)" alt="">
+                        </div>
+                    </div>
+                    <!-- Name & Type -->
+                    <div class="flex justify-between items-center">
+                        <div class="lg:text-xl sm:text-lg text-base font-medium">{{file.file_name}}</div>
+                        <!-- <div class="mt-8" *ngIf="file.id_admin == file.user_login">
+                            <button mat-icon-button=""
+                                class="mdc-icon-button mat-mdc-icon-button mat-unthemed mat-mdc-button-base"
+                                (click)="openDialogEditFile(file)">
+                                <span class="mat-mdc-button-persistent-ripple mdc-icon-button__ripple"></span>
+                                <mat-icon svgIcon="heroicons_solid:pencil"></mat-icon>
+                                <span class="mat-mdc-focus-indicator"></span>
+                                <span matripple="" class="mat-ripple mat-mdc-button-ripple"></span>
+                                <span class="mat-mdc-button-touch-target"></span>
+                            </button>
+                        </div> -->
+                    </div>
+
+
+                    <div class="flex justify-between items-center">
+                        <div class="lg:text-lg sm:text-base text-sm font-medium md:mt-8 mt-6" transloco="system.info"></div>
+                        <!-- <div class="md:mt-8 mt-6">
+                            <mat-icon class="icon-size-6" [svgIcon]="'heroicons_solid:arrow-narrow-down'"></mat-icon>
+                        </div> -->
+                    </div>
+                    <div class="flex flex-col lg:text-lg sm:text-base text-sm mt-4 border-t border-b divide-y font-medium">
+                        <div class="flex items-center justify-between py-3">
+                            <div class="text-secondary" transloco="system.create_by"></div>
+                            <div>{{file.ten_nguoi_cap_nhat}}</div>
+                        </div>
+                        <div class="flex items-center justify-between py-3">
+                            <div class="text-secondary" transloco="system.create_date"></div>
+                            <div>{{file.ngay_cap_nhat | date: 'dd/MM/yyyy HH:mm'}}</div>
+                        </div>
+                        <div class="flex items-center justify-between py-3">
+                            <div class="text-secondary" transloco="file_size"></div>
+                            <div>{{formatSizeUnits(file.file_size)}}</div>
+                        </div>
+                    </div>
+                    <!-- Description -->
+                    <ng-container *ngIf="file.description_file!=null&& file.description_file!=''">
+
+                        <div class="flex justify-between items-center">
+                            <div class="lg:text-lg sm:text-base text-sm font-medium mt-8" transloco="system.mo_ta"></div>
+
+                        </div>
+                        <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
+                            <div class="flex items-center justify-between py-3">
+                                <div [innerHtml]="file.description_file | safeHtml"></div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- Actions -->
+                    <div class="grid grid-cols-2 gap-4 w-full mt-8" align="right">
+                        <!-- <a [href]="file.db.file_path">
+                        <button mat-raised-button class="rounded py-2 px-4 font-bold item2s-center"
+                            style="background-color: #0d6efd;" transloco="system.download">
+                        </button>
+                    </a> -->
+                        <button></button>
+                        <!-- <button mat-stroked-button (click)="downloadFile(file.id,file.file_name)"
+                            style="background-color: #0d6efd;">
+                            <p transloco="system.download" class="mb-0 text-white"></p>
+                        </button> -->
+
+                        <!-- <button *ngIf="file.id_admin ==file.user_login" (click)="delete_file(file.id,2)" class="flex-auto"
+                            mat-stroked-button transloco="system.delete">
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-tab-group mat-align-tabs="center" dynamicHeight>
+            <!-- <mat-tab label="XEM FILE HTML">
+                <div class="w-full lg:p-6 sm:p-3 md:py-6 p-3 px-2 space-y-1 overflow-y-auto">
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1 mx-auto">
+                            <div class="max-w-6xl mx-auto px-16 py-8 text-justify leading-relaxed text-black font-serif bg-white">
+                                <div class="flex flex-col items-center justify-center min-h-screen text-center text-black">
+                                    <h1 class="text-xl font-semibold">SỞ GIÁO DỤC VÀ ĐÀO TẠO</h1>
+
+                                    <div class="mt-16">
+                                        <h2 class="text-4xl font-bold">SỔ</h2>
+                                        <h2 class="text-4xl font-bold mt-2">ĐĂNG BỘ</h2>
+                                    </div>
+
+                                    <h3 class="text-lg font-semibold mt-10">MN-TH-THCS-THPT Quảng Ích</h3>
+
+                                    <div class="flex justify-center gap-20 text-left mt-10 w-full max-w-3xl text-sm">
+                                        <div>Quận (Huyện): <span class="font-medium">Thành Phố Thủ Đức</span></div>
+                                        <div>Tỉnh (TP): <span class="font-medium">Thành phố Hồ Chí Minh</span></div>
+                                    </div>
+
+                                    <div class="mt-10 text-base">
+                                        <p>Quyển số ............</p>
+                                        <p class="mt-2">Từ năm ………đến năm ………</p>
+                                    </div>
+
+                                    <div class="flex justify-between w-full max-w-4xl mt-20 text-sm">
+                                        <div class="text-left w-1/2">
+                                            <h4 class="font-semibold">NHỮNG NGƯỜI VÀO SỔ:</h4>
+                                            <p class="italic">(Ghi tên và ký)</p>
+                                            <ul class="mt-2 list-none space-y-2">
+                                                <li>1- ..................................................</li>
+                                                <li>2- ..................................................</li>
+                                                <li>3- ..................................................</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="text-right w-1/2">
+                                            <h4 class="font-semibold">HIỆU TRƯỞNG NHÀ TRƯỜNG</h4>
+                                            <p class="italic">(Ký tên, đóng dấu)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <br />
+                            <div class="max-w-6xl mx-auto px-16 py-8 text-justify text-[15px] leading-relaxed text-black font-serif bg-white">
+                                <h1 class="text-center text-xl font-bold mb-4">HƯỚNG DẪN SỬ DỤNG SỔ ĐĂNG BỘ</h1>
+                                <p class="mb-4">
+                                    Sổ Đăng bộ có <strong>giá trị pháp lý</strong>, dùng để ghi danh sách học sinh nhập học theo từng năm do Hiệu trưởng nhà trường lưu giữ không thời hạn.
+                                </p>
+
+                                <h2 class="font-bold">I - CÁCH GHI VÀO SỔ:</h2>
+                                <ol class="list-decimal list-inside ml-4 mb-4">
+                                    <li>
+                                        Khi vào sổ <strong>tên học sinh phải ghi đầy đủ bằng chữ in hoa</strong>, không được viết tắt hoặc dùng ký hiệu để thay thế cho các chữ hoặc chữ số.
+                                    </li>
+                                    <li>
+                                        Danh sách học sinh vào sổ theo từng năm học, bắt đầu bằng một trang mới, xếp theo vần A, B, C và đánh số thứ tự từ 01 đến hết. Cuối mỗi năm học ghi con số tổng hợp vào mẫu ở cuối các trang, có xác nhận của Hiệu trưởng.
+                                    </li>
+                                    <li>
+                                        Các cột 2, 3, 4, 5: Ghi đúng theo khai sinh,
+                                        <br />
+                                        <strong>Cột 6</strong>: Ghi rõ dân tộc, con liệt sĩ hay con thương binh (hạng)
+                                        <br />
+                                        <strong>Cột 7</strong>: Ghi chỗ ở hiện tại và sự thay đổi địa chỉ trong thời gian theo học ở trường.
+                                        <br />
+                                        <strong>Cột 8</strong>: Họ, tên của cha, mẹ, nghề nghiệp, chức vụ. Nếu đã mất cũng ghi rõ: đã mất (nội dung trên cùng áp dụng cho người đỡ đầu).
+                                        <br />
+                                        <strong>Cột 9, 11, 12</strong>: Ghi đúng theo nội dung của cột, học sinh thôi học cũng ghi rõ lý do ở cột "ra trường".
+                                        <br />
+                                        <strong>Cột 10</strong>: Ghi ghi năng khiếu đặc biệt: Xuất sắc về nghệ thuật, thể thao… Là học sinh giỏi: giỏi môn nào, của cấp nào, năm học được công nhận là học sinh giỏi.
+                                    </li>
+                                </ol>
+
+                                <h2 class="font-bold">II - TRÁCH NHIỆM TRONG SỬ DỤNG VÀ QUẢN LÝ SỔ:</h2>
+                                <h3 class="font-semibold mt-2">1 - Văn phòng nhà trường:</h3>
+                                <ul class="list-disc list-inside ml-4 mb-2">
+                                    <li>Đóng dấu giáp lai vào giữa các trang bằng đầu của nhà trường.</li>
+                                    <li>Ghi danh sách học sinh từng năm học và <strong>phải hoàn thành việc vào sổ trước khi kết thúc năm học</strong>.</li>
+                                    <li>Hướng dẫn nội dung kê khai cá nhân của học sinh.</li>
+                                    <li>Quản lý không thời hạn sổ Đăng Bộ (nếu được Hiệu trưởng ủy quyền).</li>
+                                </ul>
+
+                                <h3 class="font-semibold">2 - Người ghi vào sổ:</h3>
+                                <ul class="list-disc list-inside ml-4 mb-2">
+                                    <li>Đảm bảo vào sổ <strong>chính xác, sạch, đẹp</strong>. Người vào sổ không được tự sửa chữa nếu không có sự đồng ý của Hiệu trưởng nhà trường.</li>
+                                </ul>
+
+                                <h3 class="font-semibold">3 - Giáo viên chủ nhiệm:</h3>
+                                <ul class="list-disc list-inside ml-4 mb-2">
+                                    <li>Tổ chức việc kê khai cá nhân (theo mẫu của văn phòng) đối với tất cả học sinh trong lớp và giao nộp đúng thời hạn theo quy định của nhà trường.</li>
+                                </ul>
+
+                                <h3 class="font-semibold">4 - Hiệu trưởng nhà trường</h3>
+                                <ul class="list-disc list-inside ml-4 mb-2">
+                                    <li>Có trách nhiệm kiểm tra, đôn đốc việc vào sổ và quản lý sổ của văn phòng nhà trường, việc tổ chức kê khai cá nhân học sinh của giáo viên chủ nhiệm lớp và ký xác nhận danh sách học sinh từng năm học.</li>
+                                </ul>
+
+                                <h2 class="font-bold">III -</h2>
+                                <p class="mb-6">
+                                    Sổ Đăng Bộ phải được <strong>quản lý chặt chẽ, giữ gìn cẩn thận</strong>. Các trường học phải thực hiện đúng quy định và hướng dẫn trong sổ này. Cá nhân nào làm sai các quy định sẽ bị thi hành kỷ luật tùy theo mức độ vi phạm.
+                                </p>
+
+                                <p class="text-right font-semibold">SỞ GIÁO DỤC VÀ ĐÀO TẠO</p>
+                            </div>
+                            <br />
+                            <div class="max-w-6xl mx-auto px-16 py-8 text-justify text-[15px] leading-relaxed text-black font-serif bg-white">
+                                <h2 class="text-center text-xl font-semibold mb-4 border-b pb-2">KHÓA HỌC:</h2>
+
+                                <div class="overflow-x-auto">
+                                    <table class="table-auto border-collapse w-full text-center border">
+                                        <thead class="bg-gray-100">
+                                            <tr>
+                                                <th class="border p-2">Số TT</th>
+                                                <th class="border p-2">Họ và tên học sinh</th>
+                                                <th class="border p-2">Nam<br>Nữ</th>
+                                                <th class="border p-2">Ngày tháng<br>năm sinh</th>
+                                                <th class="border p-2">Nơi sinh</th>
+                                                <th class="border p-2">Dân tộc, con liệt sĩ,<br>con thương binh (hạng)</th>
+                                                <th class="border p-2">Chỗ ở hiện tại</th>
+                                                <th class="border p-2">Họ và tên cha, mẹ,<br>Nghề nghiệp (hay người giám hộ)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let hs of hocSinhList; let i = index">
+                                                <td class="border p-1">{{ i + 1 }}</td>
+                                                <td class="border p-1 text-left">{{ hs.ho_ten }}</td>
+                                                <td class="border p-1">{{ hs.gioi_tinh }}</td>
+                                                <td class="border p-1">{{ hs.ngay_sinh }}</td>
+                                                <td class="border p-1 text-left">{{ hs.noi_sinh }}</td>
+                                                <td class="border p-1">{{ hs.dan_toc }}</td>
+                                                <td class="border p-1 text-left">{{ hs.cho_o }}</td>
+                                                <td class="border p-1 text-left whitespace-pre-line">
+                                                    {{ hs.ho_ten_bo }}<br />
+                                                    {{ hs.ho_ten_me }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="mt-4">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            Tổng số học sinh trong năm học: 
+                                            <span class="font-medium">... Đầu năm học: ... Cuối năm học: ...</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between mt-1">
+                                        <div>
+                                            Tổng số học sinh: 
+                                            <span class="font-medium">... Đầu khóa: ... Cuối khóa: ...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab> -->
+            
+            <!-- <mat-tab label="XEM FILE XML">
+                <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 text-on-primary" style="background-color: #3C3C3C;">
+                    <div class="text-lg font-medium">
+                        <span class="inline-flex items-center cursor-pointer">
+                            <span class="mr-3" (click)="close()">
+                                <mat-icon class="secondary-text s-16 mt-2 text-white font-bold">keyboard_backspace</mat-icon>
+                            </span>
+                            <span transloco="view"></span>&nbsp;
+                            <span> {{record.title}}</span>
+                        </span>
+
+                    </div>
+
+                    <div align="right">
+                        <button class="z-20 w-8 h-8 min-h-8 " mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon class="text-white font-bold">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" xPosition="before">
+                            <button mat-menu-item (click)="showInfoDetailsXml(true)">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:information-circle'">
+                                </mat-icon>
+                                <span transloco="system.thong_tin_tai_lieu">
+                                </span>
+                            </button>
+                            <button mat-menu-item (click)="downloadFile(file_xml)">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:document-download'">
+                                </mat-icon>
+                                <span transloco="system.download">
+                                </span>
+                            </button>
+                            <button mat-menu-item (click)="close()">
+                                <mat-icon class="icon-size-5">
+                                    close
+                                </mat-icon>
+                                <span transloco="system.close">
+                                </span>
+                            </button>
+
+                        </mat-menu>
+                    </div>
+
+                </div>
+                <div class="flex  overflow-x-auto">
+                    <div class="w-full overflow-y-auto">
+                        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                            <div class="flex-1 mx-auto">
+                                 <pre class="text-sm whitespace-pre-wrap font-mono bg-white rounded shadow">
+                                    <code [innerHTML]="formattedXml"></code>
+                                </pre>
+                            </div>
+                        </div>
+                        <br />
+
+                    </div>
+
+                    <div *ngIf="show_details_xml == true" class="md:w-1/3 sm:w-4/5 w-full">
+
+                        <div class="flex flex-col flex-auto md:pt-4 pt-2 sm:pr-4 pr-1  lg:pr-8" *ngIf="file_xml!=null">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="font-bold">Chi tiết</span>
+                                </div>
+                                <div class="flex justify-end">
+                                    <mat-icon *ngIf="show_details_xml == true" class="md:icon-size-6 icon-size-5"
+                                        [svgIcon]="'heroicons_solid:x-circle'" (click)="showInfoDetailsXml(false)"></mat-icon>
+                                </div>
+                            </div>
+                            <hr class="my-2 p-0 font-bold text-black">
+                            <div class="aspect-w-9 aspect-h-6">
+                                <div class="flex items-center justify-center border rounded-lg bg-gray-50 dark:bg-card">
+                                    <img class="w-20 h-20" [src]="getFontAwesomeIconFromMIME(file_xml.file_type)" alt="">
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="lg:text-xl sm:text-lg text-base font-medium">{{file_xml.file_name}}</div>
+                            </div>
+
+
+                            <div class="flex justify-between items-center">
+                                <div class="lg:text-lg sm:text-base text-sm font-medium md:mt-8 mt-6" transloco="system.info"></div>
+                            </div>
+                            <div class="flex flex-col lg:text-lg sm:text-base text-sm mt-4 border-t border-b divide-y font-medium">
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="text-secondary" transloco="system.create_by"></div>
+                                    <div>{{file_xml.ten_nguoi_cap_nhat}}</div>
+                                </div>
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="text-secondary" transloco="system.create_date"></div>
+                                    <div>{{file_xml.ngay_cap_nhat | date: 'dd/MM/yyyy HH:mm'}}</div>
+                                </div>
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="text-secondary" transloco="file_size"></div>
+                                    <div>{{formatSizeUnits(file_xml.file_size)}}</div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="file_xml.description_file!=null&& file_xml.description_file!=''">
+
+                                <div class="flex justify-between items-center">
+                                    <div class="lg:text-lg sm:text-base text-sm font-medium mt-8" transloco="system.mo_ta"></div>
+
+                                </div>
+                                <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
+                                    <div class="flex items-center justify-between py-3">
+                                        <div [innerHtml]="file_xml.description_file | safeHtml"></div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <div class="grid grid-cols-2 gap-4 w-full mt-8" align="right">
+                                <button></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab> -->
+        </mat-tab-group>
+
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center"
+                [disabled]="loading" (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+        </div>
+    </div>
+</div>

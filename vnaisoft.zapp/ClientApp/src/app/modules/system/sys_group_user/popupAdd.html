@@ -1,0 +1,183 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible mobile:mb-20">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_group_user"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto ">
+        <!-- <div class="flex flex-row justify-end space-x-2">
+
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600" *ngIf="actionEnum!=3"  [disabled]="loading"
+           
+            (click)="save()">
+            <p transloco="save" class="mb-0 text-white"></p>
+            </button>
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center"  [disabled]="loading"
+           
+                (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+            
+           
+        </div> -->
+        <div class="mb-2">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'name'"
+                        [keyError]="'db.name'" [(model)]="record.db.name"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'note'"
+                        [keyError]="'db.note'" [(model)]="record.db.note"></cm_input>
+                </div>
+            </div>
+            <br />
+            <mat-tab-group dynamicHeight>
+                <mat-tab label="{{'system.thanh_vien_quan_tri' | transloco}}">
+
+
+                    <div class="flex flex-col md:flex-row lg:flex-row  w-full flex-wrap">
+                        <div class="flex flex-col md:flex-row lg:flex-row flex-wrap w-full" style="overflow-y:auto">
+                            <span style="color:red"
+                                *ngFor="let item of errorModel | filter : 'Key' : 'list_item' ;  index as i;">
+                                (<span *ngFor="let msg of item.Value">
+                                    {{msg | transloco}}
+                                </span>)
+                            </span>
+                            <table class="w-full">
+                                <tr>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="flex-1 w-full">
+                                            <mat-label>
+                                                {{ 'search' | transloco }}
+                                            </mat-label>
+                                            <input matInput [(ngModel)]="searchUser">
+
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="example-list-section" [hidden]="actionEnum==3 || searchUser!=''">
+                                            <mat-checkbox class="example-margin" [checked]="allCompleteUser"
+                                                [indeterminate]="someCompleteUser()"
+                                                (change)="setAllUser($event.checked)">
+                                                <span transloco="all"></span>
+                                            </mat-checkbox>
+                                        </span>
+                                        <span class="example-list-section">
+                                            <ul style="list-style-type: none;">
+                                                <li class="my-1"
+                                                    *ngFor="let item of record.list_item | filter : 'user_name' : searchUser ;  index as i;"
+                                                    [hidden]="actionEnum==3 && item.isCheck==false">
+                                                    <p *ngIf="i==0 || item.department_name !== record.list_item[(i==0?1:i)-1].department_name"
+                                                        class="text-lg font-semibold my-1">
+                                                        {{ item.department_name | transloco}}
+                                                    </p>
+                                                    <label nz-checkbox [(ngModel)]="item.isCheck" class="ml-5"
+                                                        [disabled]="actionEnum==3"
+                                                        (ngModelChange)="updateAllCompleteUser()">
+                                                        {{ item.user_name }}
+                                                        <span *ngIf="item.position_name !=null ">
+                                                            - {{ item.position_name }}
+                                                        </span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+
+                                        </span>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </mat-tab>
+                <br />
+
+
+                <mat-tab label="{{'role' | transloco}}">
+
+
+                    <div class="flex flex-col md:flex-row lg:flex-row  flex-wrap">
+                        <div class="flex-1">
+
+                            <table class="w-full">
+                                <tr>
+                                    <td>
+                                        <mat-form-field appearance="outline" class="flex-1">
+                                            <mat-label>
+                                                {{ 'search' | transloco }}
+                                            </mat-label>
+                                            <input matInput [(ngModel)]="searchRole">
+
+                                        </mat-form-field>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span style="color:red;font-weight:bold"
+                                            *ngFor="let item of errorModel | filter : 'key' : 'list_role' ;  index as i;">
+                                            (<span *ngFor="let msg of item.value">
+                                                {{msg | transloco}}
+                                            </span>)
+                                        </span>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="example-list-section" [hidden]="actionEnum==3">
+                                            <mat-checkbox class="example-margin" [checked]="allComplete"
+                                                [indeterminate]="someComplete()" (change)="setAll($event.checked)">
+                                                <span transloco="all"></span>
+                                            </mat-checkbox>
+                                        </span>
+                                        <span class="example-list-section">
+                                            <ul style="list-style-type: none;">
+                                                <li class="my-1"
+                                                    *ngFor="let item of listRoleFilter | filter : 'name' : searchRole ;  index as i;">
+                                                    <h3 *ngIf="i==0 || item.controller_name !== listRoleFilter[(i==0?1:i)-1].controller_name"
+                                                        class="text-lg font-semibold my-1">
+                                                        {{ item.controller_name | transloco}}
+                                                    </h3>
+                                                    <label nz-checkbox [(ngModel)]="item.completed" class="ml-5"
+                                                        (ngModelChange)="updateAllComplete()">
+                                                        <!-- {{item.controller_name |
+                                                            transloco
+                                                            }}- -->
+
+                                                        {{item.role.name | transloco}}
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <br />
+        </div>
+
+        <div class="flex flex-row justify-end space-x-2">
+
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+                <p transloco="save" class="mb-0 text-white"></p>
+            </button>
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center"
+                [disabled]="loading" (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+
+
+        </div>
+    </div>
+</div>

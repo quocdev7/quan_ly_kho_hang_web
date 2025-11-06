@@ -1,0 +1,54 @@
+<div
+    class="flex flex-col sm:flex-col items-center md:items-center sm:justify-center md:justify-center flex-auto min-w-0">
+    <div class="w-full max-w-2xl sm:w-lg mx-auto sm:mx-0">
+        <!-- Title -->
+        <div class="mt-8 text-center text-4xl font-extrabold tracking-tight leading-tight">
+            Lời mời
+        </div>
+        <div class="mt-4 text-center mb-2 p-2 text-lg tracking-tight leading-tight">Lời mời tham gia Workspace của tổ
+            chức sẽ hiển thị ở đây</div>
+    </div>
+    <!-- not invitation -->
+    <div class="flex sm:flex-col md:flex-row" *ngIf="record==null || record==undefined">
+        <div class="flex flex-1 md:my-0 md:mx-4 sm:mx-auto flex-col rounded-xl bg-card" style="min-width: 200px;">
+            <div class="flex justify-center items-center p-8">
+                <img src="../assets/images/portal/empty_box_1.png"
+                    style="image-rendering: -webkit-optimize-contrast;width: 200px; height: 200px;min-width: 200px;">
+            </div>
+            <div class="mt-4 text-center mb-2 p-8 text-lg tracking-tight leading-tight">Bạn chưa có lời mời tham gia Workspace nào.</div>
+        </div>
+    </div>
+    <!-- card view detail invitation -->
+    <div class="flex w-full max-w-2xl mx-auto" *ngIf="record!=null">
+        <div class="flex flex-1 md:my-0 md:mx-4 sm:mx-auto flex-col rounded-xl bg-card" style="min-width: 200px;">
+            <div class="text-center text-3xl font-bold border-b-2 border-black p-4 tracking-tight leading-tight">
+                {{record.name_workspace}}</div>
+            <div class="flex justify-center items-center p-8">
+                <img [src]="record.company_image"
+                    style="image-rendering: -webkit-optimize-contrast;width: 200px; height: 200px;min-width: 200px;">
+            </div>
+            <div class="text-center text-lg tracking-tight leading-tight">
+                {{record.name_workspace}} Workspace mời bạn tham gia</div>
+            <div class="mt-4 text-center text-lg tracking-tight leading-tight" *ngIf="record.chuc_danh!=null">
+                <span>
+                    <span>Vị trí :</span>
+                    <span class="font-bold">{{record.chuc_danh}}</span>
+                </span>
+            </div>
+            <div class="mt-4 text-center text-lg tracking-tight leading-tight" *ngIf="record.phong_ban!=null">
+                <span>
+                    <span>Phòng ban :</span>
+                    <span class="font-bold">{{record.phong_ban}}</span>
+                </span>
+            </div>
+            <div class="justify-center items-center py-6 flex flex-auto">
+                <button class="h-10 max-h-10 min-h-10 rounded-lg w-20 text-white" (click)="success_workspace()" style="background-color: #0d6efd;"
+                    mat-flat-button>
+                    <span>
+                        Đồng ý
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

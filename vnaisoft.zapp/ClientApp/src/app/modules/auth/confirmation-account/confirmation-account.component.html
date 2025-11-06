@@ -1,0 +1,63 @@
+<div class="flex flex-col sm:flex-col flex-auto min-w-0 h-full" style="background-color: #ffebc1;">
+    <!-- Logo -->
+    <div class="w-full flex flex-col px-5 pt-5">
+        <img src="../assets/images/logo/shungo_horizotal_logo.png" class="h-10 w-30"
+            style="image-rendering: -webkit-optimize-contrast;">
+    </div>
+    <div
+        class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-center flex-auto min-w-0">
+        <div
+            class="md:flex md:items-top md:justify-center w-full sm:w-auto md:h-full md:w-1/2  pb-8 px-4  sm:p-6 md:p-8 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none">
+            <div class="w-full max-w-lg sm:w-lg mx-auto sm:mx-0">
+
+                <!-- Title -->
+                <div class="mt-8 text-center text-4xl font-extrabold tracking-tight leading-tight">Xác thực email
+                </div>
+                <div class="mt-4 text-center mb-2 p-2 text-lg tracking-tight leading-tight">
+                    <span>
+                        Chúng tôi đã gửi mã xác nhận
+                        đến email
+                        <span class="font-bold">
+                            {{user.email}}
+                        </span>
+                    </span> <br>
+                    <span>
+                        Vui lòng kiểm tra email của
+                        bạn và nhập mã xác thực bên dưới
+                    </span>
+                </div>
+                <!-- Alert -->
+                <fuse-alert class="mt-8 -mb-4" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false"
+                    [type]="alert.type" [@shake]="alert.type === 'error'">
+                    {{alert.message}}
+                </fuse-alert>
+                <div class="w-full  sm:bg-card rounded-lg p-5">
+                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                        <div class="flex-1">
+                            <cm_input [placeholder]="'Nhập mã xác thực'" [type]="'login'" [label]="'system.ma_xac_thuc'" [(model)]="code">
+                            </cm_input>
+                        </div>
+                    </div>
+                    <!-- Submit button -->
+                    <button class="h-10 max-h-10 text-white min-h-10 rounded-lg w-full mt-6" (click)="xac_nhan()"
+                        style="background-color: #0d6efd;" mat-flat-button [color]="'primary'">
+                        <span *ngIf="!loading">
+                            Xác nhận
+                        </span>
+                        <mat-progress-spinner *ngIf="loading" [diameter]="24" [mode]="'indeterminate'">
+                        </mat-progress-spinner>
+                    </button>
+                    <div class="inline-flex items-end justify-center w-full  mt-6">
+                        <span class="text-md mr-2" transloco="system.chua_nhan_duoc_ma">
+                        </span>
+                        <a class="text-md ml-2 font-medium hover:underline" style="color: #0d6efd;"
+                            transloco="system.goi_lai_ma">
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

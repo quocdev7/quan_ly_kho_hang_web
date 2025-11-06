@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Entities\**" />
+		<EmbeddedResource Remove="Entities\**" />
+		<None Remove="Entities\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.AI.OpenAI" Version="1.0.0-beta.15" />
+		<PackageReference Include="Google.Cloud.AIPlatform.V1" Version="2.28.0" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.10" />
+		<PackageReference Include="MongoDB.Driver" Version="2.19.2" />
+		<PackageReference Include="OpenAI" Version="2.2.0-beta.3" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.7" />
+		<PackageReference Include="Syncfusion.Presentation.Net.Core" Version="25.1.40" />
+		<PackageReference Include="Syncfusion.PresentationRenderer.Net.Core" Version="25.1.40" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+		<PackageReference Include="TiktokenSharp" Version="1.0.6" />
+	
+	</ItemGroup>
+</Project>

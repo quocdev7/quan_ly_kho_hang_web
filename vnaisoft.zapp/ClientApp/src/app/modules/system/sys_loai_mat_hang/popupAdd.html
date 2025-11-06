@@ -1,0 +1,66 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible mobile:mb-20">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.sys_loai_mat_hang"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <div class="flex-1">
+                    <!-- <cm_input [errorModel]="errorModel" [actionEnum]="3" [label]="'system.ma_don_hang'"
+                        [keyError]="'db.ma_don_hang'" [type]="'readonly'" [(model)]="record.db.ma_don_hang">
+                    </cm_input> -->
+                    <mat-form-field class="w-full" floatLabel="always">
+                        <mat-label>
+                            {{'system.code' | transloco}}
+                        </mat-label>
+                        <input matInput [(ngModel)]="record.db.ma" disabled="true">
+                        <!-- <button mat-icon-button color="primary" class="mr-4" (click)="get_code()" *ngIf="actionEnum==1">
+                            Làm mới
+                        </button> -->
+                    </mat-form-field>
+                </div>
+                <!-- <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label> {{'system.code' | transloco}}<span style="color: red"
+                            *ngFor="let item of errorModel | filter: 'key':'db.ma'; index as i">
+                            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                        </span>
+                    </mat-label>
+                    <input matInput [(ngModel)]="record.db.ma" disabled="true">
+                    <button mat-icon-button color="primary" class="mr-4" (click)="get_code()">
+                        Làm mới
+                    </button>
+                </mat-form-field> -->
+                <!-- <cm_input [errorModel]="errorModel" [maxlength]="10" [actionEnum]="actionEnum" [label]="'system.code'" [keyError]="'db.ma'" [(model)]="record.db.ma"></cm_input> -->
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ten_loai_mat_hang'"
+                    [keyError]="'db.ten'" [(model)]="record.db.ten"></cm_input>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'"
+                    [type]="'textarea'" [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu"></cm_input>
+            </div>
+        </div>
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+                <p transloco="save" class="mb-0 text-white"></p>
+            </button>
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center"
+                [disabled]="loading" (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+
+
+        </div>
+    </div>
+</div>

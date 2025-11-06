@@ -1,0 +1,70 @@
+<div class="flex flex-col flex-auto p-6 md:p-8" *ngIf="file!=null && show_detail_file==true">
+    <!-- Preview -->
+    <div class="aspect-w-9 aspect-h-6 mt-8" >
+        <div class="flex items-center justify-center border rounded-lg bg-gray-50 dark:bg-card">
+            <img class="w-20 h-20" [src]="getFontAwesomeIconFromMIME(file.db.file_type)" alt="">
+        </div>
+    </div>
+    <!-- Name & Type -->
+    <div class="flex justify-between items-center">
+        <div class="text-xl font-medium">{{file.db.file_name}}</div>
+        <div class="mt-8" *ngIf="file.db.id_admin == user_login.Id">
+            <button mat-icon-button="" class="mdc-icon-button mat-mdc-icon-button mat-unthemed mat-mdc-button-base"
+                (click)="openDialogEditFile(file)">
+                <span class="mat-mdc-button-persistent-ripple mdc-icon-button__ripple"></span>
+                <mat-icon svgIcon="heroicons_solid:pencil"></mat-icon>
+                <span class="mat-mdc-focus-indicator"></span>
+                <span matripple="" class="mat-ripple mat-mdc-button-ripple"></span>
+                <span class="mat-mdc-button-touch-target"></span>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="flex justify-between items-center">
+        <div class="text-lg font-medium mt-8" transloco="system.info"></div>
+    </div>
+    <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary" transloco="storage.create_by"></div>
+            <div>{{file.ten_nguoi_cap_nhat}}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary" transloco="storage.modified_at"></div>
+            <div>{{file.db.ngay_cap_nhat | date: 'dd/MM/yyyy HH:mm'}}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary" transloco="file_size"></div>
+            <div>{{formatSizeUnits(file.db.file_size)}}</div>
+        </div>
+    </div>
+    <!-- Description -->
+    <ng-container *ngIf="file.db.description_file!=null&& file.db.description_file!=''">
+
+        <div class="flex justify-between items-center">
+            <div class="text-lg font-medium mt-8" transloco="system.mo_ta"></div>
+
+        </div>
+        <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
+            <div class="flex items-center justify-between py-3">
+                <div [innerHtml]="file.db.description_file | safeHtml"></div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Actions -->
+    <div class="grid grid-cols-2 gap-4 w-full mt-8">
+        <!-- <a [href]="file.db.file_path">
+            <button mat-raised-button class="rounded py-2 px-4 font-bold item2s-center"
+                style="background-color: #0d6efd;" transloco="system.download">
+            </button>
+        </a> -->
+        <button mat-stroked-button (click)="downloadFile(file.db.id,file.db.file_name)"
+            style="background-color: #0d6efd;">
+            <p transloco="system.download" class="mb-0 text-white"></p>
+        </button>
+
+        <button *ngIf="file.db.id_admin == user_login.Id" (click)="delete_file(file.db.id,2)" class="flex-auto"
+            mat-stroked-button transloco="system.delete">
+        </button>
+    </div>
+</div>

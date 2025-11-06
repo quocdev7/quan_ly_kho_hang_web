@@ -1,0 +1,268 @@
+<h1 mat-dialog-title class="dark:text-white" class="dark:text-white" transloco="NAV.sys_approval"></h1>
+<div mat-dialog-content>
+    <div class="flex-1 flex md:flex-row lg:flex-row">
+        <div >
+        </div>
+    </div>
+    <mat-tab-group dynamicHeight>
+        <mat-tab label="{{'common.step_process_approval'| transloco }}">
+            <div class="w-full">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                                <th transloco="no_"></th>
+                                <th transloco="common.step_num"></th>
+                                <th transloco="common.step_name"></th>
+                                <th transloco="common.user_name"></th>
+                                <th transloco="common.duration_hours"></th>
+                                <th transloco="note"></th>
+                                <th class="text-center" transloco="approval_status"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let item of record.list_step;  index as i;">
+                                <td>{{ i+1 }}</td>
+                                <td>{{ item.db.step_num }}</td>
+                                <td>{{ item.db.name }}</td>
+                                <td>{{ item.user_name }}</td>
+                                <td align="right">{{ item.db.duration_hours | number }}</td>
+                                <td>{{ item.db.note }}</td>
+                                <td>
+                                    <table style="color:blue" *ngIf="item.db.status==1">
+                                        <tr>
+                                            <td style="padding:0px">
+                                                <mat-icon>loop</mat-icon>
+                                            </td>
+                                            <td>
+                                                <span transloco="common.waiting_approval"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table *ngIf="item.db.status==2">
+                                        <td style="background-color: inherit; border:none" class="text-md">
+                                            <span
+                                                class="relative inline-block font-bold py-2 px-4 text-gray-700 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-green-200 dark:bg-green-500 opacity-50 rounded-full"></span>
+                                                <span transloco="common.approved" class="text-gray-900 dark:text-gray-50"></span>
+                                            </span>
+                                        </td>
+                                    </table>
+                                    <table style="color:orange" *ngIf="item.db.status==3">
+                                        <tr style="background-color: inherit;" align="center">
+                                            <td class="text-md">
+                                                <span
+                                                    class="relative inline-block font-bold py-2 px-4 text-purple-900 dark:text-purple-50 leading-tight">
+                                                    <span aria-hidden
+                                                        class="absolute inset-0 bg-purple-300 opacity-50 rounded-full"></span>
+                                                    <span class="relative " transloco="common.return"></span>
+
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+
+
+
+
+
+
+
+
+                            <tr *ngIf="record.db.status_finish == 4">
+                                <table>
+                                    <tr style="background-color: inherit;" style="border: none;">
+                                        <td class="text-md">
+                                            <span
+                                                class="relative inline-block font-bold py-2 px-4 text-red-900 dark:text-red-50 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-red-200 dark:bg-red-500 opacity-50 rounded-full"></span>
+                                                <span class="relative" transloco="common.cancel"></span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: inherit;" style="border: none;">
+                                        <td colspan="2">
+                                            <span
+                                                class="relative inline-block font-bold py-2 px-4 text-blue-900 dark:text-blue-50 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-blue-300 opacity-50 rounded-full"></span>
+                                                <span class="relative " transloco="common.reason"></span>:&nbsp;
+                                                <span class="font-bold  leading-tight">{{record.db.last_note}}</span>
+                                            </span>
+
+                                        </td>
+                                    </tr>
+                                </table>
+                            </tr>
+                            <tr *ngIf="record.db.status_finish == 6">
+                                <div>
+                                    <div style="background-color: inherit;" align="center">
+                                        <td class="text-md">
+                                            <span
+                                                class="relative inline-block font-bold py-2 px-4 text-gray-900 dark:text-gray-50 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-gray-200 dark:bg-gray-500 opacity-50 rounded-full"></span>
+                                                <span class="relative" transloco="common.close"></span>
+                                            </span>
+                                        </td>
+                                    </div>
+                                    <div style="background-color: inherit;" align="center">
+                                        <td colspan="2">
+                                            <span
+                                                class="relative inline-block font-bold py-2 px-4 text-blue-900 dark:text-blue-50 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-blue-300 opacity-50 rounded-full"></span>
+                                                <span class="relative " transloco="common.reason"></span>:&nbsp;
+                                                <span class="font-bold  leading-tight">{{record.db.last_note}}</span>
+                                            </span>
+
+                                        </td>
+                                    </div>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="{{'common.history_process_approval' |transloco}}">
+            <div class="flex-1 flex md:flex-row lg:flex-row">
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full" >
+                        <thead>
+                            <tr>
+                                <th transloco="no_"></th>
+                                <th transloco="common.from_user"></th>
+                                <th transloco="common.to_user"></th>
+                                <th transloco="common.step_num"></th>
+                                <th transloco="common.step_name"></th>
+                                <th transloco="common.action_date"></th>
+                                <th align="center" transloco="common.action"></th>
+                                <th transloco="note"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of record.list_item;  index as i;">
+                                <td>{{ i+1 }}</td>
+                                <td>{{ item.from_user_name }}</td>
+                                <td>{{ item.to_user_name }}</td>
+                                <td>{{ item.db.step_num }}</td>
+                                <td>{{ item.db.step_name }}</td>
+                                <td>{{ item.db.date_action | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                <td class="w-full">
+                                    <table *ngIf="item.db.status_action==1" class="w-full">
+                                        <tr style="background-color: inherit;" align="center">
+                                            <td class="text-md">
+                                                <span
+                                                    class="relative inline-block font-bold py-2 px-4 text-pink-900 dark:text-pink-50 leading-tight">
+                                                    <span aria-hidden
+                                                        class="absolute inset-0 bg-pink-300 opacity-50 rounded-full"></span>
+                                                    <span class="relative" transloco="common.start_approval"></span>
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+                                    <table class="w-full">
+                                        <tr style="background-color: inherit;" align="center">
+                                            <td class="text-md">
+                                                <span
+                                                    class="relative inline-block font-bold py-2 px-4 text-purple-900 dark:text-purple-50 leading-tight">
+                                                    <span aria-hidden
+                                                        class="absolute inset-0 bg-purple-300 opacity-50 rounded-full"></span>
+                                                    <span class="relative " transloco="common.return"></span>:&nbsp;
+                                                    <span
+                                                        class="font-bold  leading-tight">{{item.from_user_name}}</span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr style="background-color: inherit;" align="center">
+                                            <td colspan="2">
+                                                <span
+                                                    class="relative inline-block font-bold py-2 px-4 text-blue-900 dark:text-blue-50 leading-tight">
+                                                    <span aria-hidden
+                                                        class="absolute inset-0 bg-blue-300 opacity-50 rounded-full"></span>
+                                                    <span class="relative " transloco="common.reason"></span>:&nbsp;
+                                                    <span class="font-bold  leading-tight">{{item.db.note}}</span>
+                                                </span>
+
+                                            </td>
+                                        </tr>
+
+
+                                    </table>
+
+
+                                    <table *ngIf="item.db.status_action==2" class="w-full">
+                                        <td style="background-color: inherit; border:none" class="text-md">
+                                            <span
+                                                class="relative inline-block font-bold py-2 px-4 text-gray-700 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-green-200 dark:bg-green-500 opacity-50 rounded-full"></span>
+                                                <span transloco="common.approved" class="text-gray-900 dark:text-gray-50"></span>
+                                            </span>
+                                        </td>
+                                    </table>
+
+                                    <table style="color:orangered" *ngIf="item.db.status_action==4" class="w-full">
+                                        <tr>
+                                            <td style="padding:0px">
+                                                <mat-icon>
+                                                    cancel
+                                                </mat-icon>
+                                            </td>
+                                            <td>
+                                                <span transloco="common.cancel"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="color:dodgerblue" *ngIf="item.db.status_action==5" class="w-full">
+                                        <tr>
+                                            <td style="padding:0px">
+                                                <mat-icon>
+                                                    open_with
+                                                </mat-icon>
+                                            </td>
+                                            <td>
+                                                <span transloco="common.open"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table style="color:orangered" *ngIf="item.db.status_action==6" class="w-full">
+                                        <td class="text-md">
+                                            <span
+                                                class="relative inline-block font-bold py-2 px-4 text-gray-900 dark:text-gray-50 leading-tight">
+                                                <span aria-hidden
+                                                    class="absolute inset-0 bg-gray-200 dark:bg-gray-500 opacity-50 rounded-full"></span>
+                                                <span class="relative" transloco="common.close"></span>
+                                            </span>
+                                        </td>
+                                    </table>
+                                </td>
+                                <td>
+                                    {{ item.db.note }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+    <div>
+
+
+
+    </div>
+</div>
+<div >
+
+    <button [disabled]="loading" mat-raised-button (click)="close()" transloco="close"></button>
+</div>

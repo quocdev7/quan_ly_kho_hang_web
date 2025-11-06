@@ -1,0 +1,66 @@
+<div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="lst_hoi_dong.length>0 &&  id_nhom_hoi_dong=='01'">
+    <!--flex-wrap-->
+    <div class="grids items-center mt-5 gap-6 w-full min-w-0">
+        <div class="flex-none bg-card shadow  w-full  mx-auto m-1 p-4 mb-2 rounded-lg" >
+            <div class="flex items-start justify-between">
+                <img class="mx-auto rounded-full"  style="height:200px;width:200px" src="{{lst_hoi_dong[0].image}}" />
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-primary font-bold" align="center">{{lst_hoi_dong[0].name}}</div>
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-blue-900 italic" align="center"><span [innerHtml]="lst_hoi_dong[0].name_company | safeHtml"></span></div>
+            </div>
+          
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-black italic" align="center" style="font-size: 14px">{{lst_hoi_dong[0].chuc_danh_hoi_dong}}</div>
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-black italic" align="center">{{lst_hoi_dong[0].nien_khoa}}</div>
+            </div>
+        </div>
+     </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-5 gap-6  w-full min-w-0">
+        <div class="flex-none bg-card shadow  w-full  mx-auto m-1 p-4 mb-2 rounded-lg"  *ngFor="let slide of lst_hoi_dong | slice:1; let i = index">
+            <div class="flex items-start justify-between">
+                <img class="mx-auto rounded-full"  style="height:200px;width:200px" src="{{slide.image}}" />
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-primary font-bold text-title-color"align="center">{{slide.name}}</div>
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-blue-900 italic" align="center"><span [innerHtml]="slide.name_company | safeHtml"></span></div>
+            </div>
+          
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-black italic" align="center" style="font-size: 14px">{{slide.chuc_danh_hoi_dong}}</div>
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-black italic" align="center">{{slide.nien_khoa}}</div>
+            </div>
+        </div>
+     </div>
+</div>
+
+<div class="flex flex-col w-full mx-auto" data-aos="fade-right" data-aos-once="true" *ngIf="lst_hoi_dong.length>0 &&  id_nhom_hoi_dong!='01'">
+  
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mt-5 gap-6  w-full min-w-0">
+        <div class="flex-none bg-card shadow  w-full  mx-auto m-1 p-4 mb-2 rounded-lg"  *ngFor="let slide of lst_hoi_dong; let i = index">
+            <div class="flex items-start justify-between">
+                <img class="mx-auto rounded-full"  style="height:200px;width:200px" src="{{slide.image}}" />
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-primary font-bold text-title-color" align="center">{{slide.name}}</div>
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-blue-900 italic" align="center"><span [innerHtml]="slide.name_company | safeHtml"></span></div>
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-black italic" align="center" style="font-size: 14px">{{slide.chuc_danh_hoi_dong}}</div>
+            </div>
+            <div class="flex flex-col items-center mt-1">
+                <div class="text-black italic" align="center">{{slide.nien_khoa}}</div>
+            </div>
+        </div>
+     </div>
+</div>

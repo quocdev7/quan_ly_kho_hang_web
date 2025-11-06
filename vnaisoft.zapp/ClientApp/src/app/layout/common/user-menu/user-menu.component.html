@@ -1,0 +1,83 @@
+<!-- Button -->
+<!-- <button class="h-full" mat-button mat-button-base style="padding: 0px 10px !important;" [matMenuTriggerFor]="userActions">
+    <div class="flex flex-row grids items-center">
+        <img
+            class="w-7 h-7 rounded-full"
+            *ngIf="showAvatar && user.avatar_path"
+            [src]="user.avatar_path">
+        <mat-icon
+            *ngIf="!showAvatar || !user.avatar_path"
+            [svgIcon]="'heroicons_solid:user-circle'" style="font-size: 12px!important;"></mat-icon>
+         <span *ngIf="!isScreenSmall"  class="text-black text-base truncate ml-1" >Xin chào {{user.last_name}}</span>
+    </div>
+</button> -->
+
+<button class="h-full" mat-button mat-button-base style="padding: 0px 10px !important; background-color: #273a87 "
+    [matMenuTriggerFor]="userActions">
+    <div class="flex flex-row grids items-center">
+        <img class="w-7 h-7 rounded-full" *ngIf="showAvatar && user.hinh_anh_dai_dien" [src]="user.hinh_anh_dai_dien">
+        <mat-icon *ngIf="!showAvatar || !user.hinh_anh_dai_dien" [svgIcon]="'heroicons_solid:user-circle'"
+            style="font-size: 12px!important;"></mat-icon>
+        <span class="text-white text-base truncate ml-1">Xin chào {{user.ho_va_ten}}</span>
+    </div>
+</button>
+
+
+<mat-menu [xPosition]="'before'" #userActions="matMenu">
+
+    <!-- <button mat-menu-item (click)="approval_user()"  *ngIf="user.Username =='administrator'">
+        <mat-icon class="text-base" [svgIcon]="'heroicons_solid:pencil'" ></mat-icon>
+        <span class="text-base" transloco="portal.duyet_nguoi_dung"></span>
+    </button> -->
+    <!-- <button mat-menu-item (click)="mypost()">
+        <mat-icon [svgIcon]="'heroicons_solid:pencil'"  ></mat-icon>
+        <span transloco="portal.my_post_page"></span>
+    </button> -->
+    <!-- <button mat-menu-item>
+        <mat-icon [svgIcon]="'heroicons_solid:cog'"></mat-icon>
+        <span>Settings</span>
+    </button> -->
+<!--     
+    <button mat-menu-item (click)="profile()">
+        <mat-icon  class="text-base" [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+        <span class="text-base">Thông tin cá nhân</span>
+    </button> -->
+    <mat-divider class="my-2"></mat-divider>
+
+    <button mat-menu-item (click)="changePass()" *ngIf="is_hide==false">
+        <mat-icon class="text-base">donut_large</mat-icon>
+        <span class="text-base">Đổi mật khẩu</span>
+    </button>
+   
+    <!-- <button
+        mat-menu-item
+        [matMenuTriggerFor]="userStatus">
+        <mat-icon [svgIcon]="'heroicons_solid:dots-circle-horizontal'"></mat-icon>
+        <span>Status</span>
+    </button> -->
+
+    <mat-divider class="my-2"></mat-divider>
+    <button mat-menu-item (click)="signOut()">
+        <mat-icon class="text-base" [svgIcon]="'heroicons_solid:logout'"></mat-icon>
+        <span class="text-base">Đăng xuất</span>
+    </button>
+</mat-menu>
+
+<mat-menu class="user-status-menu" #userStatus="matMenu">
+    <button mat-menu-item (click)="updateUserStatus('online')">
+        <span class="w-4 h-4 mr-3 rounded-full bg-green-500"></span>
+        <span>Online</span>
+    </button>
+    <button mat-menu-item (click)="updateUserStatus('away')">
+        <span class="w-4 h-4 mr-3 rounded-full bg-amber-500"></span>
+        <span>Away</span>
+    </button>
+    <button mat-menu-item (click)="updateUserStatus('busy')">
+        <span class="w-4 h-4 mr-3 rounded-full bg-red-500"></span>
+        <span>Busy</span>
+    </button>
+    <button mat-menu-item (click)="updateUserStatus('not-visible')">
+        <span class="w-4 h-4 mr-3 rounded-full bg-gray-400"></span>
+        <span>Invisible</span>
+    </button>
+</mat-menu>

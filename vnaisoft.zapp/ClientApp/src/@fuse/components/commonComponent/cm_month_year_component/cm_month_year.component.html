@@ -1,0 +1,10 @@
+<mat-form-field class="w-full">
+    <mat-label>
+        {{label|transloco}}
+    </mat-label>
+    <input matInput [matDatepicker]="dp_tu" [(ngModel)]="model">
+    <mat-datepicker-toggle matSuffix [for]="dp_tu"></mat-datepicker-toggle>
+    <mat-datepicker #dp_tu startView="multi-year" (yearSelected)="chosenYearHandler_tu_ngay($event)"
+        (monthSelected)="chosenMonthHandler_tu_ngay($event, dp_tu)">
+    </mat-datepicker>
+</mat-form-field>

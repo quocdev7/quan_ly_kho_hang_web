@@ -1,0 +1,107 @@
+<mat-progress-bar *ngIf="pageLoading" mode="indeterminate" class="absolute top-0"></mat-progress-bar>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto">
+    <!-- Main -->
+    <div class="flex-auto p-3 sm:pt-3 sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div class="rounded-2xl">
+            <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_don_vi_tinh"></h1>
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_select [label]="'system.use_status'" [listData]="list_status_del"
+                            [(model)]="filter.status_del" [callbackChange]="rerender.bind(this)"></cm_select>
+                    </div>
+                    <div class="flex-1">
+                        <mat-form-field class="w-full" floatLabel="always">
+                            <mat-label>
+                                {{'search' | transloco}} ({{ 'system.ma' | transloco }} | {{ 'system.ten' | transloco }} | {{ 'system.ghi_chu' | transloco }})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()"
+                                placeholder="{{'go_tu_khoa_tim_kiem' | transloco}}">
+                            <button mat-icon-button color="primary" class="mr-4" (click)="rerender()">
+                                <span transloco="search"></span>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    
+                </div>
+                <div align="right" class="space-x-2">
+                    <button class="rounded py-2 px-4 font-bold  bg-primary-500  hover:bg-primary-600  item2s-center"
+                        (click)="openDialogAdd()">
+                        <p transloco="system.add" class="mb-0 text-white"></p>
+                    </button>
+                    <!-- <button class="rounded py-2 px-4 font-bold  bg-yellow-500  hover:bg-yellow-600  item2s-center"
+                        (click)="exportToExcel()">
+                        <p transloco="system.xuat_excel" class="mb-0 text-white"></p>
+                    </button> -->
+                </div>
+            </mat-card>
+            <br />
+          
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                                <th style="width:50px !important"></th>
+                                <th style="max-width:50px !important" transloco="system.no_"></th>
+                                <th transloco="system.ten_don_vi"></th>
+                                <th  transloco="system.ghi_chu"></th>
+                                <th style="width:120px !important" transloco="system.update_by"></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                <td align="center">
+                                    <!-- <button class="mat-button-action" mat-button [matMenuTriggerFor]="menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button> -->
+                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item transloco="view"
+                                            (click)="openDialogDetail(item,i)"></button>
+                                        <button mat-menu-item transloco="system.edit"
+                                            (click)="openDialogEdit(item,i)"></button>
+                                        <button *ngIf="item.db.status_del==2" mat-menu-item transloco="system.revert"
+                                            (click)="revertStatus(item,1)"></button>
+                                        <button *ngIf="item.db.status_del == 1" mat-menu-item transloco="stop_use"
+                                            (click)="revertStatus(item,2)"></button>
+                                    </mat-menu>
+                                </td>
+                                  <td align="center"> <span class="font-bold"> {{currentIndex+ i+1 }}</span> </td>
+                                <td>
+                                    <span class="text-blue-900 font-bold"> {{ item.db.ma }}</span>
+                                    <br />
+                                    {{ item.db.ten }}
+                                </td>
+                                <td>{{ item.db.ghi_chu }}</td>
+                                <td>
+                                    <span class="text-blue-900 font-bold">
+                                        {{ item.ten_nguoi_cap_nhat }}
+                                    </span>
+                                    <br />
+                                    <span>{{ item.db.ngay_cap_nhat | date: 'dd/MM/yyyy HH:mm' }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty
+                                        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+          
+        </div>
+    </div>
+</div>

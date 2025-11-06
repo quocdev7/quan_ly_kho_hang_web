@@ -1,0 +1,121 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl  h-fit overflow-y-visible p-4">
+
+    <div class="py-4 border-b border-gray-300">
+        <div class="px-4 flex justify-between items-center">
+            <div></div>
+            <div>
+                <h3 class="text-2xl font-bold" transloco="system.cai_dat_chat"></h3>
+            </div>
+            <div class="flex items-center justify-end">
+                <mat-icon class="icon-size-7 rounded-full bg-gray-300" [svgIcon]="'mat_solid:close'" (click)="close()">
+                </mat-icon>
+            </div>
+
+        </div>
+    </div>
+    <!-- Card form -->
+    <div class="py-4 border-b border-gray-300">
+        <div class="flex">
+            <h3 class="font-bold text-xl">Tài khoản</h3>
+        </div>
+        <div class="flex">
+            <div class="flex items-center mr-1 cursor-pointer">
+                <div class="w-12 h-12">
+                    <ng-container *ngIf="profile.avatar!=''">
+                        <img class="object-cover w-full h-full rounded-full" [src]="profile.avatar"
+                            alt="Profile avatar" />
+                    </ng-container>
+                    <ng-container *ngIf="profile.avatar==='' || profile.avatar=== null || profile.avatar=== undefined">
+                        <div
+                            class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                            {{profile.name.charAt(0)}}
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="ml-4 font-medium truncate">{{profile.name}} <br>
+                    <span class="font-thin">
+                        Xem trang cá nhân của bạn
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-4 border-b border-gray-300">
+        <div class="flex">
+            <div class="flex items-center mr-1 cursor-pointer">
+                <div class="flex  justify-center items-center  font-medium truncate text-black">
+                    <div
+                        style="margin-right: 10px;height: 10px;border: 2px solid green;background-color: white;width: 10px;border-radius: 100%;">
+                    </div>
+                    <span class="font-medium">
+                        Trạng thái hoạt động:
+                        <span class="uppercase font-bold">
+                            đang bật
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-4 border-b border-gray-300">
+        <div class="flex">
+            <h3 class="font-bold text-xl">Thông báo</h3>
+        </div>
+        <div class="flex flex-col">
+            <div class="flex my-2 justify-center items-center">
+                <div class="flex justify-center items-center">
+                    <mat-icon class="mr-4">volume_up</mat-icon>
+                    <span>
+                        <span class="font-medium">Âm thanh thông báo</span> <br>
+                        <span>Dùng thông báo bằng âm thanh để biết tin nhắn cuộc gọi đến, đoạn chat video và âm thanh
+                            trong ứng dụng</span>
+                    </span>
+                </div>
+                <div class="flex-1" align="right">
+                    <mat-slide-toggle></mat-slide-toggle>
+                </div>
+            </div>
+            <div class="flex my-2 justify-center items-center">
+                <div class="flex justify-center items-center">
+                    <mat-icon class="mr-4">volume_up</mat-icon>
+                    <span>
+                        <span class="font-medium">Không làm phiền</span> <br>
+                        <span>Tắt thông báo trong một khoản thời gian cụ thể</span>
+                    </span>
+                </div>
+                <div class="flex-1" align="right">
+                    <mat-slide-toggle></mat-slide-toggle>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-4">
+        <div class="flex flex-col">
+            <div class="flex my-2">
+                <div class="flex">
+                    <mat-icon class="mr-4">monetization_on</mat-icon>
+                    <span>
+                        <span class="font-medium">Quản lý khoản thanh toán</span>
+                    </span>
+                </div>
+            </div>
+            <div class="flex my-2">
+                <div class="flex">
+                    <mat-icon class="mr-4">chat</mat-icon>
+                    <span>
+                        <span class="font-medium">Quản lý hoạt động gởi tin nhắn</span>
+                    </span>
+                </div>
+            </div>
+            <div class="flex my-2">
+                <div class="flex">
+                    <mat-icon class="mr-4">block</mat-icon>
+                    <span>
+                        <span class="font-medium">Quản lý phần chặn</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

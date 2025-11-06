@@ -1,0 +1,1492 @@
+{
+    "listbank": [
+        {
+            "stt": "1",
+            "id": "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+            "name": "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam",
+            "name_en": "Joint Stock Commercial Bank for Investment and Development of Vietnam",
+            "brand_name": "BIDV"
+        },
+        {
+            "stt": "2",
+            "id": "Ngân hàng TMCP Công thương Việt Nam",
+            "name": "Ngân hàng TMCP Công thương Việt Nam",
+            "name_en": "Vietnam Joint Stock Commercial Bank of Industry and Trade",
+            "brand_name": "VietinBank"
+        },
+        {
+            "stt": "3",
+            "id": "Ngân hàng TMCP Ngoại Thương Việt Nam",
+            "name": "Ngân hàng TMCP Ngoại Thương Việt Nam",
+            "name_en": "Joint Stock Commercial Bank for Foreign Trade of Vietnam",
+            "brand_name": "Vietcombank"
+        },
+        {
+            "stt": "4",
+            "id": "Ngân hàng TMCP Việt Nam Thịnh Vượng",
+            "name": "Ngân hàng TMCP Việt Nam Thịnh Vượng",
+            "name_en": "Vietnam Commercial Joint Stock Bank for Private Enterprise",
+            "brand_name": "VPBank"
+        },
+        {
+            "stt": "5",
+            "id": "Ngân hàng TMCP Quân Đội",
+            "name": "Ngân hàng TMCP Quân Đội",
+            "name_en": "Military Commercial Joint Stock Bank",
+            "brand_name": "MB"
+        },
+        {
+            "stt": "6",
+            "id": "Ngân hàng TMCP Kỹ Thương",
+            "name": "Ngân hàng TMCP Kỹ Thương",
+            "name_en": "Vietnam Technological and Commercial Joint Stock Bank",
+            "brand_name": "Techcombank"
+        },
+        {
+            "stt": "7",
+            "id": "Ngân hàng NN&PT Nông thôn Việt Nam",
+            "name": "Ngân hàng NN&PT Nông thôn Việt Nam",
+            "name_en": "Vietnam Bank for Agriculture and Rural Development",
+            "brand_name": "Agribank"
+        },
+        {
+            "stt": "8",
+            "id": "Ngân hàng TMCP Á Châu",
+            "name": "Ngân hàng TMCP Á Châu",
+            "name_en": "Asia Commercial Joint Stock Bank",
+            "brand_name": "ACB"
+        },
+        {
+            "stt": "9",
+            "id": "Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh",
+            "name": "Ngân hàng TMCP Phát triển Thành phố Hồ Chí Minh",
+            "name_en": "Ho Chi Minh city Development Joint Stock Commercial Bank",
+            "brand_name": "HDBank"
+        },
+        {
+            "stt": "10",
+            "id": "Ngân hàng TMCP Sài Gòn – Hà Nội",
+            "name": "Ngân hàng TMCP Sài Gòn – Hà Nội",
+            "name_en": "Saigon-Hanoi Commercial Joint Stock Bank",
+            "brand_name": "SHB"
+        },
+        {
+            "stt": "11",
+            "id": "Ngân hàng TMCP Sài Gòn Thương Tín",
+            "name": "Ngân hàng TMCP Sài Gòn Thương Tín",
+            "name_en": "Saigon Thuong Tin Commercial Joint Stock Bank",
+            "brand_name": "Sacombank"
+        },
+        {
+            "stt": "12",
+            "id": "Ngân hàng Chính sách xã hội Việt Nam",
+            "name": "Ngân hàng Chính sách xã hội Việt Nam",
+            "name_en": "Vietnam Bank for Social Policies",
+            "brand_name": "VBSP"
+        },
+        {
+            "stt": "13",
+            "id": "Ngân hàng TMCP Quốc Tế Vietnam",
+            "name": "Ngân hàng TMCP Quốc Tế Vietnam",
+            "name_en": "International Commercial Joint Stock Bank",
+            "brand_name": "VIB"
+        },
+        {
+            "stt": "14",
+            "id": "Ngân hàng TMCP Hàng Hải",
+            "name": "Ngân hàng TMCP Hàng Hải",
+            "name_en": "The Maritime Commercial Joint Stock Bank",
+            "brand_name": "MSB"
+        },
+        {
+            "stt": "15",
+            "id": "Ngân hàng TMCP Sài Gòn",
+            "name": "Ngân hàng TMCP Sài Gòn",
+            "name_en": "Sai Gon Commercial Joint Stock Bank",
+            "brand_name": "SCB"
+        },
+        {
+            "stt": "16",
+            "id": "Ngân hàng Phát triển Việt Nam",
+            "name": "Ngân hàng Phát triển Việt Nam",
+            "name_en": "Vietnam Development Bank",
+            "brand_name": "VDB"
+        },
+        {
+            "stt": "17",
+            "id": "Ngân hàng TMCP Đông Nam Á",
+            "name": "Ngân hàng TMCP Đông Nam Á",
+            "name_en": "Southeast Asia Commercial Joint Stock Bank",
+            "brand_name": "SeABank"
+        },
+        {
+            "stt": "18",
+            "id": "Ngân hàng TMCP Phương Đông",
+            "name": "Ngân hàng TMCP Phương Đông",
+            "name_en": "Orient Commercial Joint Stock Bank",
+            "brand_name": "OCB"
+        },
+        {
+            "stt": "19",
+            "id": "Ngân hàng TMCP Xuất Nhập Khẩu",
+            "name": "Ngân hàng TMCP Xuất Nhập Khẩu",
+            "name_en": "Vietnam Export Import Commercial Joint Stock",
+            "brand_name": "Eximbank"
+        },
+        {
+            "stt": "20",
+            "id": "Ngân hàng TMCP Bưu điện Liên Việt",
+            "name": "Ngân hàng TMCP Bưu điện Liên Việt",
+            "name_en": "LienViet Commercial Joint Stock Bank",
+            "brand_name": "LienVietPostBank"
+        },
+        {
+            "stt": "21",
+            "id": "Ngân hàng TMCP Tiên Phong",
+            "name": "Ngân hàng TMCP Tiên Phong",
+            "name_en": "TienPhong Commercial Joint Stock Bank",
+            "brand_name": "TPBank"
+        },
+        {
+            "stt": "22",
+            "id": "Ngân hàng TMCP Đại Chúng Việt Nam",
+            "name": "Ngân hàng TMCP Đại Chúng Việt Nam",
+            "name_en": "Public Vietnam Bank",
+            "brand_name": "PVcomBank"
+        },
+        {
+            "stt": "23",
+            "id": "Ngân hàng TNHH MTV Woori Việt Nam",
+            "name": "Ngân hàng TNHH MTV Woori Việt Nam",
+            "name_en": "Woori Bank Vietnam Limited",
+            "brand_name": "Woori"
+        },
+        {
+            "stt": "24",
+            "id": "Ngân hàng TMCP Bắc Á",
+            "name": "Ngân hàng TMCP Bắc Á",
+            "name_en": "BAC A Commercial Joint Stock Bank",
+            "brand_name": "Bac A Bank"
+        },
+        {
+            "stt": "25",
+            "id": "Ngân hàng TNHH MTV HSBC Việt Nam",
+            "name": "Ngân hàng TNHH MTV HSBC Việt Nam",
+            "name_en": "HSBC Bank Vietnam Limited",
+            "brand_name": "HSBC"
+        },
+        {
+            "stt": "26",
+            "id": "Ngân hàng TNHH MTV Standard Chartered Việt Nam",
+            "name": "Ngân hàng TNHH MTV Standard Chartered Việt Nam",
+            "name_en": "Standard Chartered Bank Vietnam Limited",
+            "brand_name": "SCBVL"
+        },
+        {
+            "stt": "27",
+            "id": "Ngân hàng TNHH MTV Public Bank Việt Nam",
+            "name": "Ngân hàng TNHH MTV Public Bank Việt Nam",
+            "name_en": "Public Bank Vietnam Limited",
+            "brand_name": "PBVN"
+        },
+        {
+            "stt": "28",
+            "id": "Ngân hàng TMCP An Bình",
+            "name": "Ngân hàng TMCP An Bình",
+            "name_en": "An Binh Commercial Joint Stock Bank",
+            "brand_name": "ABBANK"
+        },
+        {
+            "stt": "29",
+            "id": "Ngân hàng TNHH MTV Shinhan Việt Nam",
+            "name": "Ngân hàng TNHH MTV Shinhan Việt Nam",
+            "name_en": "Shinhan Bank Vietnam Limited",
+            "brand_name": "SHBVN"
+        },
+        {
+            "stt": "30",
+            "id": "Ngân hàng TMCP Việt Á",
+            "name": "Ngân hàng TMCP Việt Á",
+            "name_en": "Viet A Commercial Joint Stock Bank",
+            "brand_name": "VietABank"
+        },
+        {
+            "stt": "31",
+            "id": "Ngân hàng TMCP Đông Á",
+            "name": "Ngân hàng TMCP Đông Á",
+            "name_en": "DONG A Commercial Joint Stock Bank",
+            "brand_name": "DongA Bank"
+        },
+        {
+            "stt": "32",
+            "id": "Ngân hàng TNHH MTV UOB Việt Nam",
+            "name": "Ngân hàng TNHH MTV UOB Việt Nam",
+            "name_en": "UOB Vietnam Limited",
+            "brand_name": "UOB"
+        },
+        {
+            "stt": "33",
+            "id": "Ngân hàng TMCP Việt Nam Thương Tín",
+            "name": "Ngân hàng TMCP Việt Nam Thương Tín",
+            "name_en": "Vietnam Thuong Tin Commercial Joint Stock Bank",
+            "brand_name": "Vietbank"
+        },
+        {
+            "stt": "34",
+            "id": "Ngân hàng TMCP Nam Á",
+            "name": "Ngân hàng TMCP Nam Á",
+            "name_en": "Nam A Commercial Joint Stock Bank",
+            "brand_name": "Nam A Bank"
+        },
+        {
+            "stt": "35",
+            "id": "Ngân hàng TMCP Quốc dân",
+            "name": "Ngân hàng TMCP Quốc dân",
+            "name_en": "National Citizen bank",
+            "brand_name": "NCB"
+        },
+        {
+            "stt": "36",
+            "id": "Ngân hàng TNHH MTV Đại Dương",
+            "name": "Ngân hàng TNHH MTV Đại Dương",
+            "name_en": "Ocean Commercial One Member Limited Liability Bank",
+            "brand_name": "OceanBank"
+        },
+        {
+            "stt": "37",
+            "id": "Ngân hàng TNHH MTV CIMB Việt Nam",
+            "name": "Ngân hàng TNHH MTV CIMB Việt Nam",
+            "name_en": "CIMB Bank Vietnam Limited",
+            "brand_name": "CIMB"
+        },
+        {
+            "stt": "38",
+            "id": "Ngân hàng TMCP Bản Việt",
+            "name": "Ngân hàng TMCP Bản Việt",
+            "name_en": "Viet Capital Commercial Joint Stock Bank",
+            "brand_name": "Viet Capital Bank"
+        },
+        {
+            "stt": "39",
+            "id": "Ngân hàng TMCP Kiên Long",
+            "name": "Ngân hàng TMCP Kiên Long",
+            "name_en": "Kien Long Commercial Joint Stock Bank",
+            "brand_name": "Kienlongbank"
+        },
+        {
+            "stt": "40",
+            "id": "Ngân hàng TNHH Indovina",
+            "name": "Ngân hàng TNHH Indovina",
+            "name_en": "Indovina Bank Ltd.",
+            "brand_name": "IVB"
+        },
+        {
+            "stt": "41",
+            "id": "Ngân hàng TMCP Bảo Việt",
+            "name": "Ngân hàng TMCP Bảo Việt",
+            "name_en": "Bao Viet Joint Stock commercial Bank",
+            "brand_name": "BAOVIET Bank"
+        },
+        {
+            "stt": "42",
+            "id": "Ngân hàng TMCP Sài Gòn Công Thương",
+            "name": "Ngân hàng TMCP Sài Gòn Công Thương",
+            "name_en": "Saigon Bank for Industry & Trade",
+            "brand_name": "SAIGONBANK"
+        },
+        {
+            "stt": "43",
+            "id": "Ngân hàng Hợp tác xã Việt Nam",
+            "name": "Ngân hàng Hợp tác xã Việt Nam",
+            "name_en": "Co-operative bank of VietNam",
+            "brand_name": "Co-opBank"
+        },
+        {
+            "stt": "44",
+            "id": "Ngân hàng TNHH MTV Dầu khí toàn cầu",
+            "name": "Ngân hàng TNHH MTV Dầu khí toàn cầu",
+            "name_en": "Global Petro Sole Member Limited Commercial Bank",
+            "brand_name": "GPBank"
+        },
+        {
+            "stt": "45",
+            "id": "Ngân hàng Liên doanh Việt Nga",
+            "name": "Ngân hàng Liên doanh Việt Nga",
+            "name_en": "Vietnam Russia Joint Venture Bank",
+            "brand_name": "VRB"
+        },
+        {
+            "stt": "46",
+            "id": "Ngân hàng TNHH MTV Xây dựng",
+            "name": "Ngân hàng TNHH MTV Xây dựng",
+            "name_en": "Construction Commercial One Member Limited Liability Bank",
+            "brand_name": "CB"
+        },
+        {
+            "stt": "47",
+            "id": "Ngân hàng TMCP Xăng dầu Petrolimex",
+            "name": "Ngân hàng TMCP Xăng dầu Petrolimex",
+            "name_en": "Petrolimex Group Commercial Joint Stock Bank",
+            "brand_name": "PG Bank"
+        },
+        {
+            "stt": "48",
+            "id": "Ngân hàng TNHH MTV ANZ Việt Nam",
+            "name": "Ngân hàng TNHH MTV ANZ Việt Nam",
+            "name_en": "ANZ Bank Vietnam Limited",
+            "brand_name": "ANZVL"
+        },
+        {
+            "stt": "49",
+            "id": "Ngân hàng TNHH MTV Hong Leong Việt Nam",
+            "name": "Ngân hàng TNHH MTV Hong Leong Việt Nam",
+            "name_en": "Hong Leong Bank Vietnam Limited",
+            "brand_name": "HLBVN"
+        }
+    ],
+    "listLoaiIn":[
+        {
+            "id": 1,
+            "name": "Đơn hàng bán"
+        },
+        {
+            "id": 2,
+            "name": "Đơn hàn mua"
+        },
+        {
+            "id": 3,
+            "name": "Phiếu thu"
+        },
+        {
+            "id": 4,
+            "name": "Phiếu chi"
+        },
+        {
+            "id": 5,
+            "name": "Phiếu xuất kho"
+        },
+        {
+            "id": 6,
+            "name": "Phiếu nhập kho"
+        }
+    ],
+    "listVat": [
+        {
+            "id": 1,
+            "name": "0%"
+        },
+        {
+            "id": 2,
+            "name": "2%"
+        },
+        {
+            "id": 3,
+            "name": "5%"
+        },
+        {
+            "id": 4,
+            "name": "8%"
+        },
+        {
+            "id": 5,
+            "name": "10%"
+        }
+    ],
+    "listCountry": [
+        {
+            "id": 1,
+            "ma_vung": 1,
+            "name": "Canada"
+        },
+        {
+            "id": 2,
+            "ma_vung": 1,
+            "name": "United States (Mỹ)"
+        },
+        {
+            "id": 3,
+            "ma_vung": 7,
+            "name": "Russia (Nga)"
+        },
+        {
+            "id": 4,
+            "ma_vung": 20,
+            "name": "Egypt (Ai Cập)"
+        },
+        {
+            "id": 5,
+            "ma_vung": 27,
+            "name": "South Africa (Nam Phi)"
+        },
+        {
+            "id": 6,
+            "ma_vung": 30,
+            "name": "Greece (Hy Lạp)"
+        },
+        {
+            "id": 7,
+            "ma_vung": 31,
+            "name": "Netherlands (Hà Lan)"
+        },
+        {
+            "id": 8,
+            "ma_vung": 32,
+            "name": "Belgium (Bỉ)"
+        },
+        {
+            "id": 9,
+            "ma_vung": 33,
+            "name": "France (Pháp)"
+        },
+        {
+            "id": 10,
+            "ma_vung": 34,
+            "name": "Spain (Tây Ban Nha)"
+        },
+        {
+            "id": 11,
+            "ma_vung": 36,
+            "name": "Hungary"
+        },
+        {
+            "id": 12,
+            "ma_vung": 39,
+            "name": "Italy"
+        },
+        {
+            "id": 13,
+            "ma_vung": 40,
+            "name": "Romania"
+        },
+        {
+            "id": 14,
+            "ma_vung": 41,
+            "name": "Switzerland (Thụy Sĩ)"
+        },
+        {
+            "id": 15,
+            "ma_vung": 43,
+            "name": "Austria (Áo)"
+        },
+        {
+            "id": 16,
+            "ma_vung": 44,
+            "name": "United Kingdom (Vương Quốc Anh)"
+        },
+        {
+            "id": 17,
+            "ma_vung": 45,
+            "name": "Denmark (Đan Mạch)"
+        },
+        {
+            "id": 18,
+            "ma_vung": 46,
+            "name": "Sweden (Thụy Điển)"
+        },
+        {
+            "id": 19,
+            "ma_vung": 47,
+            "name": "Norway (Na Uy)"
+        },
+        {
+            "id": 20,
+            "ma_vung": 48,
+            "name": "Poland (Ba Lan)"
+        },
+        {
+            "id": 21,
+            "ma_vung": 49,
+            "name": "Germany (Đức)"
+        },
+        {
+            "id": 22,
+            "ma_vung": 51,
+            "name": "Peru"
+        },
+        {
+            "id": 23,
+            "ma_vung": 52,
+            "name": "Mexico"
+        },
+        {
+            "id": 24,
+            "ma_vung": 53,
+            "name": "Cuba"
+        },
+        {
+            "id": 25,
+            "ma_vung": 54,
+            "name": "Argentina"
+        },
+        {
+            "id": 26,
+            "ma_vung": 55,
+            "name": "Brazil"
+        },
+        {
+            "id": 27,
+            "ma_vung": 56,
+            "name": "Chile"
+        },
+        {
+            "id": 28,
+            "ma_vung": 57,
+            "name": "Colombia"
+        },
+        {
+            "id": 29,
+            "ma_vung": 58,
+            "name": "Venezuela"
+        },
+        {
+            "id": 30,
+            "ma_vung": 60,
+            "name": "Malaysia"
+        },
+        {
+            "id": 31,
+            "ma_vung": 61,
+            "name": "Australia"
+        },
+        {
+            "id": 32,
+            "ma_vung": 62,
+            "name": "Indonesia"
+        },
+        {
+            "id": 33,
+            "ma_vung": 63,
+            "name": "Philippines"
+        },
+        {
+            "id": 34,
+            "ma_vung": 64,
+            "name": "New Zealand"
+        },
+        {
+            "id": 35,
+            "ma_vung": 65,
+            "name": "Singapore"
+        },
+        {
+            "id": 36,
+            "ma_vung": 66,
+            "name": "Thái Lan"
+        },
+        {
+            "id": 37,
+            "ma_vung": "+76, +77",
+            "name": "Kazakhstan"
+        },
+        {
+            "id": 38,
+            "ma_vung": 81,
+            "name": "Japan (Nhật Bản)"
+        },
+        {
+            "id": 39,
+            "ma_vung": 82,
+            "name": "Hàn Quốc"
+        },
+        {
+            "id": 40,
+            "ma_vung": 84,
+            "name": "Vietnam"
+        },
+        {
+            "id": 41,
+            "ma_vung": 86,
+            "name": "China (Trung Quốc)"
+        },
+        {
+            "id": 42,
+            "ma_vung": 90,
+            "name": "Turkey (Thổ Nhĩ Kì)"
+        },
+        {
+            "id": 43,
+            "ma_vung": 91,
+            "name": "India (Ấn Độ)"
+        },
+        {
+            "id": 44,
+            "ma_vung": 92,
+            "name": "Pakistan"
+        },
+        {
+            "id": 45,
+            "ma_vung": 93,
+            "name": "Afghanistan"
+        },
+        {
+            "id": 46,
+            "ma_vung": 94,
+            "name": "Sri Lanka"
+        },
+        {
+            "id": 47,
+            "ma_vung": 95,
+            "name": "Myanmar (Burma)"
+        },
+        {
+            "id": 48,
+            "ma_vung": 98,
+            "name": "Iran"
+        },
+        {
+            "id": 49,
+            "ma_vung": 212,
+            "name": "Morocco"
+        },
+        {
+            "id": 50,
+            "ma_vung": 213,
+            "name": "Algeria"
+        },
+        {
+            "id": 51,
+            "ma_vung": 216,
+            "name": "Tunisia"
+        },
+        {
+            "id": 52,
+            "ma_vung": 218,
+            "name": "Libya"
+        },
+        {
+            "id": 53,
+            "ma_vung": 220,
+            "name": "Gambia"
+        },
+        {
+            "id": 54,
+            "ma_vung": 221,
+            "name": "Senegal"
+        },
+        {
+            "id": 55,
+            "ma_vung": 222,
+            "name": "Mauritania"
+        },
+        {
+            "id": 56,
+            "ma_vung": 223,
+            "name": "Mali"
+        },
+        {
+            "id": 57,
+            "ma_vung": 224,
+            "name": "Guinea"
+        },
+        {
+            "id": 58,
+            "ma_vung": 225,
+            "name": "Côte d’lvoire"
+        },
+        {
+            "id": 59,
+            "ma_vung": 225,
+            "name": "Ivory Coast"
+        },
+        {
+            "id": 60,
+            "ma_vung": 226,
+            "name": "Burkina Faso"
+        },
+        {
+            "id": 61,
+            "ma_vung": 227,
+            "name": "Niger Republic"
+        },
+        {
+            "id": 62,
+            "ma_vung": 228,
+            "name": "Togo"
+        },
+        {
+            "id": 63,
+            "ma_vung": 229,
+            "name": "Benin"
+        },
+        {
+            "id": 64,
+            "ma_vung": 230,
+            "name": "Mauritius"
+        },
+        {
+            "id": 65,
+            "ma_vung": 231,
+            "name": "Liberia"
+        },
+        {
+            "id": 66,
+            "ma_vung": 232,
+            "name": "Sierra Leone"
+        },
+        {
+            "id": 67,
+            "ma_vung": 233,
+            "name": "Ghana"
+        },
+        {
+            "id": 68,
+            "ma_vung": 234,
+            "name": "Nigeria"
+        },
+        {
+            "id": 69,
+            "ma_vung": 235,
+            "name": "Chad"
+        },
+        {
+            "id": 70,
+            "ma_vung": 236,
+            "name": "Central African Republic"
+        },
+        {
+            "id": 71,
+            "ma_vung": 237,
+            "name": "Cameroon"
+        },
+        {
+            "id": 72,
+            "ma_vung": 238,
+            "name": "Cape Verde"
+        },
+        {
+            "id": 73,
+            "ma_vung": 239,
+            "name": "Sใo Tom้ & Principe"
+        },
+        {
+            "id": 74,
+            "ma_vung": 240,
+            "name": "Equatorial Guinea"
+        },
+        {
+            "id": 75,
+            "ma_vung": 241,
+            "name": "Gabon"
+        },
+        {
+            "id": 76,
+            "ma_vung": 242,
+            "name": "Congo"
+        },
+        {
+            "id": 77,
+            "ma_vung": 243,
+            "name": "Bahamas"
+        },
+        {
+            "id": 78,
+            "ma_vung": 243,
+            "name": "Congo, Dem. Rep. of"
+        },
+        {
+            "id": 79,
+            "ma_vung": 243,
+            "name": "Zaire"
+        },
+        {
+            "id": 80,
+            "ma_vung": 244,
+            "name": "Angola"
+        },
+        {
+            "id": 81,
+            "ma_vung": 245,
+            "name": "Guinea-Bissau"
+        },
+        {
+            "id": 82,
+            "ma_vung": 246,
+            "name": "Chagos Archipelago"
+        },
+        {
+            "id": 83,
+            "ma_vung": 247,
+            "name": "Barbados"
+        },
+        {
+            "id": 84,
+            "ma_vung": 248,
+            "name": "Seychelles"
+        },
+        {
+            "id": 85,
+            "ma_vung": 249,
+            "name": "Sudan"
+        },
+        {
+            "id": 86,
+            "ma_vung": 250,
+            "name": "Rwanda"
+        },
+        {
+            "id": 87,
+            "ma_vung": 251,
+            "name": "Ethiopia"
+        },
+        {
+            "id": 88,
+            "ma_vung": 252,
+            "name": "Somalia"
+        },
+        {
+            "id": 89,
+            "ma_vung": 253,
+            "name": "Djibouti"
+        },
+        {
+            "id": 90,
+            "ma_vung": 254,
+            "name": "Kenya"
+        },
+        {
+            "id": 91,
+            "ma_vung": 255,
+            "name": "Tanzania"
+        },
+        {
+            "id": 92,
+            "ma_vung": 256,
+            "name": "Uganda"
+        },
+        {
+            "id": 93,
+            "ma_vung": 257,
+            "name": "Burundi"
+        },
+        {
+            "id": 94,
+            "ma_vung": 258,
+            "name": "Mozambique"
+        },
+        {
+            "id": 95,
+            "ma_vung": 260,
+            "name": "Zambia"
+        },
+        {
+            "id": 96,
+            "ma_vung": 261,
+            "name": "Madagascar"
+        },
+        {
+            "id": 97,
+            "ma_vung": 262,
+            "name": "Reunion Island"
+        },
+        {
+            "id": 98,
+            "ma_vung": 263,
+            "name": "Zimbabwe"
+        },
+        {
+            "id": 99,
+            "ma_vung": 264,
+            "name": "Namibia"
+        },
+        {
+            "id": 100,
+            "ma_vung": 265,
+            "name": "Malawi"
+        },
+        {
+            "id": 101,
+            "ma_vung": 266,
+            "name": "Lesotho"
+        },
+        {
+            "id": 102,
+            "ma_vung": 267,
+            "name": "Botswana"
+        },
+        {
+            "id": 103,
+            "ma_vung": 268,
+            "name": "Swaziland"
+        },
+        {
+            "id": 104,
+            "ma_vung": 269,
+            "name": "Comoros"
+        },
+        {
+            "id": 105,
+            "ma_vung": 297,
+            "name": "Aruba"
+        },
+        {
+            "id": 106,
+            "ma_vung": 298,
+            "name": "Faeroe Islands"
+        },
+        {
+            "id": 107,
+            "ma_vung": 299,
+            "name": "Greenland"
+        },
+        {
+            "id": 108,
+            "ma_vung": 350,
+            "name": "Gibraltar"
+        },
+        {
+            "id": 109,
+            "ma_vung": 351,
+            "name": "Portugal (Bồ Đào Nha)"
+        },
+        {
+            "id": 110,
+            "ma_vung": 352,
+            "name": "Luxembourg"
+        },
+        {
+            "id": 111,
+            "ma_vung": 353,
+            "name": "Ireland"
+        },
+        {
+            "id": 112,
+            "ma_vung": 354,
+            "name": "Iceland"
+        },
+        {
+            "id": 113,
+            "ma_vung": 355,
+            "name": "Albania"
+        },
+        {
+            "id": 114,
+            "ma_vung": 356,
+            "name": "Malta"
+        },
+        {
+            "id": 115,
+            "ma_vung": 357,
+            "name": "Cyprus"
+        },
+        {
+            "id": 116,
+            "ma_vung": 358,
+            "name": "Finland (Phần Lan)"
+        },
+        {
+            "id": 117,
+            "ma_vung": 359,
+            "name": "Bulgaria"
+        },
+        {
+            "id": 118,
+            "ma_vung": 370,
+            "name": "Lithuania"
+        },
+        {
+            "id": 119,
+            "ma_vung": 371,
+            "name": "Latvia"
+        },
+        {
+            "id": 120,
+            "ma_vung": 372,
+            "name": "Estonia"
+        },
+        {
+            "id": 121,
+            "ma_vung": 373,
+            "name": "Moldova"
+        },
+        {
+            "id": 122,
+            "ma_vung": 374,
+            "name": "Armenia"
+        },
+        {
+            "id": 123,
+            "ma_vung": 375,
+            "name": "Belarus"
+        },
+        {
+            "id": 124,
+            "ma_vung": 376,
+            "name": "Andorra"
+        },
+        {
+            "id": 125,
+            "ma_vung": 377,
+            "name": "Monaco"
+        },
+        {
+            "id": 126,
+            "ma_vung": 378,
+            "name": "San Marino"
+        },
+        {
+            "id": 127,
+            "ma_vung": 380,
+            "name": "Ukraine"
+        },
+        {
+            "id": 128,
+            "ma_vung": 381,
+            "name": "Montenegro & Serbia"
+        },
+        {
+            "id": 129,
+            "ma_vung": 381,
+            "name": "Yugoslavia"
+        },
+        {
+            "id": 130,
+            "ma_vung": 385,
+            "name": "Croatia"
+        },
+        {
+            "id": 131,
+            "ma_vung": 386,
+            "name": "Slovenia"
+        },
+        {
+            "id": 132,
+            "ma_vung": 387,
+            "name": "Bosnia & Herzegovina"
+        },
+        {
+            "id": 133,
+            "ma_vung": 389,
+            "name": "Macedonia"
+        },
+        {
+            "id": 134,
+            "ma_vung": 420,
+            "name": "Czech Republic (Cộng hòa Séc)"
+        },
+        {
+            "id": 135,
+            "ma_vung": 421,
+            "name": "Slovak Republic"
+        },
+        {
+            "id": 136,
+            "ma_vung": 423,
+            "name": "Liechtenstein"
+        },
+        {
+            "id": 137,
+            "ma_vung": 442,
+            "name": "Bermuda"
+        },
+        {
+            "id": 138,
+            "ma_vung": 500,
+            "name": "Falkland Islands"
+        },
+        {
+            "id": 139,
+            "ma_vung": 501,
+            "name": "Belize"
+        },
+        {
+            "id": 140,
+            "ma_vung": 502,
+            "name": "Guatemala"
+        },
+        {
+            "id": 141,
+            "ma_vung": 503,
+            "name": "El Salvador"
+        },
+        {
+            "id": 142,
+            "ma_vung": 504,
+            "name": "Honduras"
+        },
+        {
+            "id": 143,
+            "ma_vung": 505,
+            "name": "Nicaragua"
+        },
+        {
+            "id": 144,
+            "ma_vung": 506,
+            "name": "Costa Rica"
+        },
+        {
+            "id": 145,
+            "ma_vung": 507,
+            "name": "Panama"
+        },
+        {
+            "id": 146,
+            "ma_vung": 509,
+            "name": "Haiti"
+        },
+        {
+            "id": 147,
+            "ma_vung": 590,
+            "name": "Guadeloupe"
+        },
+        {
+            "id": 148,
+            "ma_vung": 591,
+            "name": "Bolivia"
+        },
+        {
+            "id": 149,
+            "ma_vung": 592,
+            "name": "Guyana"
+        },
+        {
+            "id": 150,
+            "ma_vung": 593,
+            "name": "Ecuador"
+        },
+        {
+            "id": 151,
+            "ma_vung": 594,
+            "name": "French Guiana"
+        },
+        {
+            "id": 152,
+            "ma_vung": 595,
+            "name": "Paraguay"
+        },
+        {
+            "id": 153,
+            "ma_vung": 596,
+            "name": "French Antilles"
+        },
+        {
+            "id": 154,
+            "ma_vung": 596,
+            "name": "Martinique"
+        },
+        {
+            "id": 155,
+            "ma_vung": 597,
+            "name": "Suriname"
+        },
+        {
+            "id": 156,
+            "ma_vung": 598,
+            "name": "Uruguay"
+        },
+        {
+            "id": 157,
+            "ma_vung": 599,
+            "name": "Netherlands Antilles"
+        },
+        {
+            "id": 158,
+            "ma_vung": 673,
+            "name": "Brunei Darussalam"
+        },
+        {
+            "id": 159,
+            "ma_vung": 675,
+            "name": "Papua New Guinea"
+        },
+        {
+            "id": 160,
+            "ma_vung": 676,
+            "name": "Tonga"
+        },
+        {
+            "id": 161,
+            "ma_vung": 677,
+            "name": "Solomon Islands"
+        },
+        {
+            "id": 162,
+            "ma_vung": 678,
+            "name": "Vanuatu"
+        },
+        {
+            "id": 163,
+            "ma_vung": 679,
+            "name": "Fiji"
+        },
+        {
+            "id": 164,
+            "ma_vung": 680,
+            "name": "Palau"
+        },
+        {
+            "id": 165,
+            "ma_vung": 682,
+            "name": "Cook Islands"
+        },
+        {
+            "id": 166,
+            "ma_vung": 684,
+            "name": "American Samoa"
+        },
+        {
+            "id": 167,
+            "ma_vung": 685,
+            "name": "Western Samoa"
+        },
+        {
+            "id": 168,
+            "ma_vung": 687,
+            "name": "New Caledonia"
+        },
+        {
+            "id": 169,
+            "ma_vung": 688,
+            "name": "Tuvalu"
+        },
+        {
+            "id": 170,
+            "ma_vung": 689,
+            "name": "French Polynesia"
+        },
+        {
+            "id": 171,
+            "ma_vung": 692,
+            "name": "Marshall Islands"
+        },
+        {
+            "id": 172,
+            "ma_vung": 808,
+            "name": "Midway Islands"
+        },
+        {
+            "id": 173,
+            "ma_vung": 850,
+            "name": "Triều Tiên"
+        },
+        {
+            "id": 174,
+            "ma_vung": 852,
+            "name": "Hong Kong"
+        },
+        {
+            "id": 175,
+            "ma_vung": 853,
+            "name": "Macau"
+        },
+        {
+            "id": 176,
+            "ma_vung": 855,
+            "name": "Cambodia (Campuchia)"
+        },
+        {
+            "id": 177,
+            "ma_vung": 856,
+            "name": "Laos (Lào)"
+        },
+        {
+            "id": 178,
+            "ma_vung": 880,
+            "name": "Bangladesh"
+        },
+        {
+            "id": 179,
+            "ma_vung": 886,
+            "name": "Taiwan (Đài Loan)"
+        },
+        {
+            "id": 180,
+            "ma_vung": 960,
+            "name": "Maldives"
+        },
+        {
+            "id": 181,
+            "ma_vung": 961,
+            "name": "Lebanon"
+        },
+        {
+            "id": 182,
+            "ma_vung": 962,
+            "name": "Jordan"
+        },
+        {
+            "id": 183,
+            "ma_vung": 963,
+            "name": "Syria"
+        },
+        {
+            "id": 184,
+            "ma_vung": 964,
+            "name": "Iraq"
+        },
+        {
+            "id": 185,
+            "ma_vung": 965,
+            "name": "Kuwait"
+        },
+        {
+            "id": 186,
+            "ma_vung": 966,
+            "name": "Saudi Arabia"
+        },
+        {
+            "id": 187,
+            "ma_vung": 967,
+            "name": "Yemen"
+        },
+        {
+            "id": 188,
+            "ma_vung": 968,
+            "name": "Oman"
+        },
+        {
+            "id": 189,
+            "ma_vung": 971,
+            "name": "United Arab Emirates (các Tiểu vương quốc Ả Rập Thống Nhất)"
+        },
+        {
+            "id": 190,
+            "ma_vung": 972,
+            "name": "Israel"
+        },
+        {
+            "id": 191,
+            "ma_vung": 973,
+            "name": "Bahrain"
+        },
+        {
+            "id": 192,
+            "ma_vung": 974,
+            "name": "Qatar"
+        },
+        {
+            "id": 193,
+            "ma_vung": 975,
+            "name": "Bhutan"
+        },
+        {
+            "id": 194,
+            "ma_vung": 976,
+            "name": "Mongolia"
+        },
+        {
+            "id": 195,
+            "ma_vung": 977,
+            "name": "Nepal"
+        },
+        {
+            "id": 196,
+            "ma_vung": 992,
+            "name": "Tajikistan"
+        },
+        {
+            "id": 197,
+            "ma_vung": 993,
+            "name": "Turkmenistan"
+        },
+        {
+            "id": 198,
+            "ma_vung": 994,
+            "name": "Azerbaijan"
+        },
+        {
+            "id": 199,
+            "ma_vung": 995,
+            "name": "Georgia"
+        },
+        {
+            "id": 200,
+            "ma_vung": 996,
+            "name": "Kyrgyzstan"
+        },
+        {
+            "id": 201,
+            "ma_vung": 998,
+            "name": "Uzbekistan"
+        },
+        {
+            "id": 202,
+            "ma_vung": 1264,
+            "name": "Anguilla"
+        },
+        {
+            "id": 203,
+            "ma_vung": 1268,
+            "name": "Antigua & Barbuda"
+        },
+        {
+            "id": 204,
+            "ma_vung": 1284,
+            "name": "Virgin Islands, British"
+        },
+        {
+            "id": 205,
+            "ma_vung": 1340,
+            "name": "Virgin Islands, U.S."
+        },
+        {
+            "id": 206,
+            "ma_vung": 1345,
+            "name": "Cayman Islands"
+        },
+        {
+            "id": 207,
+            "ma_vung": 1473,
+            "name": "Grenada"
+        },
+        {
+            "id": 208,
+            "ma_vung": 1649,
+            "name": "Turks & Caicos Islands"
+        },
+        {
+            "id": 209,
+            "ma_vung": 1664,
+            "name": "Montserrat"
+        },
+        {
+            "id": 210,
+            "ma_vung": 1670,
+            "name": "Northern Mariana Isl."
+        },
+        {
+            "id": 211,
+            "ma_vung": 1671,
+            "name": "Guam"
+        },
+        {
+            "id": 212,
+            "ma_vung": 1758,
+            "name": "St. Lucia"
+        },
+        {
+            "id": 213,
+            "ma_vung": 1767,
+            "name": "Dominica"
+        },
+        {
+            "id": 214,
+            "ma_vung": 1784,
+            "name": "St. Vincents & Grenadines"
+        },
+        {
+            "id": 215,
+            "ma_vung": "+1787, +1939",
+            "name": "Puerto Rico"
+        },
+        {
+            "id": 216,
+            "ma_vung": "+1809, +1829, +1849",
+            "name": "Dominican Republic"
+        },
+        {
+            "id": 217,
+            "ma_vung": 1868,
+            "name": "Trinidad & Tobago"
+        },
+        {
+            "id": 218,
+            "ma_vung": 1869,
+            "name": "St. Kitts & Nevis"
+        },
+        {
+            "id": 219,
+            "ma_vung": 1876,
+            "name": "Jamaica"
+        }
+    ]
+}

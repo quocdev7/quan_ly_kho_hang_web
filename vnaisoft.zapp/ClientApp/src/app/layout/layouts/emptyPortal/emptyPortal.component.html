@@ -1,0 +1,16 @@
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full">
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+    <div  class="flex flex-col mt-5 md:flex-row lg:flex-row md:space-x-4 mb-4 flex-wrap w-full max-w-screen-xl mx-auto">
+    <div class="flex-1 mx-auto text-base text-center">
+        <a href="https://vnaisoft.com/" class="text-black "> Copyright © {{currentYear}}
+            SV IUH <br> All right reserved</a>
+    </div>
+</div>
+</div>

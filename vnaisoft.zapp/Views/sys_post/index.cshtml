@@ -1,0 +1,97 @@
+﻿@using vnaisoft.DataBase.System
+@{
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>@Html.Raw("QUẢN LÝ TRƯỜNG HỌC -"+ViewBag.title)</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="/assets/favicon-32x32.png">
+    <base href="/">
+    <meta name="description" content="QUẢN LÝ TRƯỜNG HỌC">
+    <meta name="keywords" content="QUẢN LÝ TRƯỜNG HỌC">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+    <!-- <script src="/path/to/tinymce.min.js"></script> -->
+    <!-- Facebook Meta Tags-->
+    <!-- <meta property:"og:url" content="https://bka.edu.vn/">
+    <meta property:"og:type" content="website">
+    <meta property:"og:title" content="BKA">
+    <meta property:"og:description" content="BKA des">
+    <meta property:"og:image" content="https://mdbootstrap.com/img/new/textures/small/52.jpg"> -->
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta property="og:title" content="@Html.Raw(ViewBag.title)">
+    <meta property="og:url" content="@Html.Raw("https://"+ViewBag.Host+"/sys_post.ctr/index?id="+ViewBag.id)" +>
+    <meta property="og:image" content="@Html.Raw("https://"+ ViewBag.Host+ViewBag.image)">
+    <meta property="og:description" content="Xelex">
+
+    <style type="text/css">
+        html {
+            overflow: auto;
+        }
+
+        html,
+        body,
+        div,
+        iframe {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+            border: none;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            border: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    @*<script>
+          window.location.href='@Html.Raw("/portal-news-detail/"+ViewBag.id)'
+        </script>*@
+
+
+    <iframe id="mainframe" src="@Html.Raw("//"+ViewBag.id)"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            width="100%"
+            height="100%"
+            scrolling="auto">
+    </iframe>
+    <script>
+        function iframeURLChange(iframe, callback) {
+            var unloadHandler = function () {
+                // Timeout needed because the URL changes immediately after
+                // the `unload` event is dispatched.
+                setTimeout(function () {
+                    callback(iframe.contentWindow.location.href);
+                }, 0);
+            };
+
+            function attachUnload() {
+                // Remove the unloadHandler in case it was already attached.
+                // Otherwise, the change will be dispatched twice.
+                iframe.contentWindow.removeEventListener("unload", unloadHandler);
+                iframe.contentWindow.addEventListener("unload", unloadHandler);
+            }
+
+            iframe.addEventListener("load", attachUnload);
+            attachUnload();
+        }
+
+        iframeURLChange(document.getElementById("mainframe"), function (newURL) {
+            if (!newURL.endsWith("@Html.Raw("//"+ViewBag.id)")) window.location.href = newURL;
+        });
+    </script>
+</body>
+
+</html>

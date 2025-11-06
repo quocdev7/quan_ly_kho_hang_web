@@ -1,0 +1,42 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl  h-fit overflow-y-visible">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8">
+        <div class="text-lg font-medium" *ngIf="actionEnum!=3" transloco="system.tat_thong_bao_trong"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full p-3 space-y-1" *ngIf="actionEnum!=3">
+        <div class="rounded-2xl py-6 px-6 overflow-hidden">
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap border-b-2 border-gray-50 pb-2">
+                <div class="flex-1">
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button  [checked]="true" value="1" (change)="change_value(1)">
+                            <span> 8 Giờ</span>
+                        </mat-radio-button> <br>
+                        <mat-radio-button value="2" (change)="change_value(2)">
+                            <span> 1 Tuần</span>
+                        </mat-radio-button> <br>
+                        <mat-radio-button value="3" (change)="change_value(3)">
+                            <span> Luôn luôn</span>
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <mat-checkbox  (change)="change_value(4)"> Bật thông báo lại</mat-checkbox>
+                </div>
+            </div>
+            <div class="flex flex-row justify-end space-x-2  mt-5">
+                <button class="bg-teal-500 text-white shadow-none hover:bg-teal-600" *ngIf="actionEnum!=3"
+                    [disabled]="loading" mat-raised-button (click)="compressFile()" transloco="save"></button>
+                <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" [disabled]="loading"
+                    mat-raised-button (click)="close()" transloco="close"></button>
+            </div>
+            <div class="h-20" *ngIf="isScreenSmall"></div>
+        </div>
+
+    </div>
+
+</div>

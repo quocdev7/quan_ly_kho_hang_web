@@ -1,0 +1,129 @@
+<div class="relative flex flex-auto w-full bg-card dark:bg-transparent" >
+    <mat-drawer-container class="flex-auto h-full" [hasBackdrop]="false">
+        <!-- Drawer -->
+        <mat-drawer class="w-full sm:w-100 lg:border-r lg:shadow-none dark:bg-gray-900" [autoFocus]="false"
+            [(opened)]="drawerOpened" #drawer>
+            <!-- New chat -->
+            <ng-container *ngIf="drawerComponent === 'new-chat'">
+                <chat-new-chat [drawer]="drawer"></chat-new-chat>
+            </ng-container>
+            <!-- Profile -->
+            <ng-container *ngIf="drawerComponent === 'profile'">
+                <chat-profile [drawer]="drawer"></chat-profile>
+            </ng-container>
+        </mat-drawer>
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex overflow-hidden">
+            <!-- Chats list -->
+            <ng-container>
+                <div
+                    class="relative flex flex-auto flex-col w-full min-w-0 lg:min-w-100 lg:max-w-100 bg-card dark:bg-transparent">
+                    <!-- Header -->
+                    <div class="flex flex-col flex-0 py-4 px-8 border-b bg-gray-50 dark:bg-transparent">
+                        <div class="flex items-center">
+                            <div class="flex items-center mr-1 cursor-pointer">
+                                <div class="w-10 h-10">
+                                    <ng-container *ngIf="profile.avatar_path!=''">
+                                        <img class="object-cover w-full h-full rounded-full" [src]="profile.avatar_path"
+                                            alt="Profile avatar" />
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="profile.avatar_path==='' || profile.avatar_path=== null || profile.avatar_path=== undefined">
+                                        <div
+                                            class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                            {{profile.full_name.charAt(0)}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="ml-4 font-medium truncate">{{profile.full_name}}</div>
+                            </div>
+                            <button class="ml-auto" mat-icon-button (click)="openNewChat()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <button class="ml-auto" mat-icon-button (click)="openDialogNewGroupChat()">
+                                <mat-icon>create</mat-icon>
+                            </button>
+                            <button class="ml-auto" mat-icon-button (click)="openDialogSetting()">
+                                <mat-icon>settings</mat-icon>
+                            </button>
+                        </div>
+                        <!-- Search -->
+                        <div class="mt-4">
+                            <mat-form-field class="fuse-mat-no-subscript fuse-mat-rounded fuse-mat-dense w-full"
+                                [floatLabel]="'always'">
+                                <mat-icon matPrefix class="icon-size-5" [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                <input matInput [autocomplete]="'off'" [placeholder]="'Tìm kiếm trên Chat'"
+                                    (input)="filterChats(searchField.value)" #searchField>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <!-- Chats -->
+                    <div class="flex-auto overflow-y-auto">
+                        <ng-container *ngIf="list_chat.length > 0; else noChats">
+                            <ng-container *ngFor="let chat of list_chat">
+                                <a class="z-20 flex items-center py-5 px-8 cursor-pointer border-b" [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedChat || selectedChat.id !== chat.id,
+                                   'bg-primary-50 dark:bg-hover': selectedChat && selectedChat.id === chat.id}"
+                                   [routerLink]="['./message/'+ chat.id]">
+                                    <div class="relative flex flex-0 items-center justify-center w-10 h-10">
+                                        <!-- <ng-container *ngIf="chat.conversation_group_image!=''">
+                                            <img class="w-full h-full rounded-full object-cover" [src]="chat.conversation_group_image"
+                                                alt="" />
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="chat.conversation_group_image==='' || chat.conversation_group_image=== null || chat.conversation_group_image=== undefined">
+                                            <div
+                                                class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                                {{chat.conversation_group_name.charAt(0)}}
+                                            </div>
+                                        </ng-container> -->
+                                        <!-- https://bka.edu.vn/assets/images/groupchat.png -->
+                                        <ng-container>
+                                            <img class="w-full h-full rounded-full object-cover" src="https://bka.edu.vn/assets/images/groupchat.png"
+                                                alt="" />
+                                        </ng-container>
+                                    </div>
+                                    <div class="min-w-0 ml-4">
+                                        <div class="font-medium leading-5 truncate">{{chat.conversation_group_name}}</div>
+                                        <div class="leading-5 truncate text-secondary">
+                                            {{chat.conversation_group_name}}
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end self-start ml-auto pl-2">
+                                        <!-- <div class="text-sm leading-5 text-secondary">{{chat.update_time_micro_epoch | date:
+                                            'dd/MM/yyyy HH:mm' }}</div> -->
+                                        <!-- <ng-container *ngIf="chat.muted">
+                                            <mat-icon class="icon-size-5 text-hint"
+                                                [svgIcon]="'heroicons_solid:volume-off'"></mat-icon>
+                                        </ng-container> -->
+                                    </div>
+                                </a>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+                </div>
+
+            </ng-container>
+
+            <!-- No chats template -->
+            <ng-template #noChats>
+                <div class="flex flex-auto flex-col items-center justify-center h-full">
+                    <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:chat'"></mat-icon>
+                    <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary"></div>
+                </div>
+            </ng-template>
+
+            <!-- Conversation -->
+            <ng-container>
+                <div class="flex-auto border-l" [ngClass]="{'z-20 absolute inset-0 lg:static lg:inset-auto flex': selectedChat && selectedChat.id,
+                                'hidden lg:flex': !selectedChat || !selectedChat.id}">
+                    <router-outlet></router-outlet>
+                </div>
+            </ng-container>
+
+        </mat-drawer-content>
+
+    </mat-drawer-container>
+
+</div>

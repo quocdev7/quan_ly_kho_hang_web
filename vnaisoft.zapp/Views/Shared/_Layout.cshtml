@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bach Khoa Alumni</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Bach Khoa Alumni">
+    <meta name="keywords" content="Bach Khoa Alumni">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+
+    <base href="/">
+    <link rel="shortcut icon" type="image/png" href="/assets/favicon-32x32.png">
+    <!-- Fonts -->
+    <link href="assets/fonts/inter/inter.css" rel="stylesheet">
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+          rel="stylesheet">
+
+    <!-- Icon fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Splash screen styles -->
+    <link href="assets/styles/splash-screen.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <a style="color:blue" href="https://vnaisoft.com.vn/">Powered by vnaisoft Corporation</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

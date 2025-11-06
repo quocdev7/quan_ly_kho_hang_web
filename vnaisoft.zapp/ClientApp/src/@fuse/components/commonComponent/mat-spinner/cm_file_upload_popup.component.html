@@ -1,0 +1,141 @@
+<div class="flex flex-col flex-auto w-full   h-fit overflow-y-visible">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.file_upload"></div>
+    </div>
+
+    <!-- Card form -->
+    <div class="w-full mt-3 px-6 sm:px-8 space-y-1">
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="bg-teal-500 text-white rounded shadow-none hover:bg-teal-600" mat-raised-button
+                (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+
+
+
+    <div class="w-full p-6 sm:p-8 space-y-1">
+
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1">
+
+                <div align="center">
+                    <span style="color:red"
+                        *ngFor="let item of errorModel | filter : 'key' : 'db.image' ;  index as i;">
+                        (<span *ngFor="let msg of item.value">
+                            {{msg | transloco}}
+                        </span>)
+                    </span>
+                </div>
+
+                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                    (onFileDropped)="DragAndDropProgress($event)" align="center">
+                    <h3 style="margin:auto" transloco="system.chose_file"></h3>
+                    <input hidden type="file" #fileInput (change)="fileProgress($event)" accept="*" multiple>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="rounded-2xl py-6 px-6 shadow">
+            <div class="w-full overflow-auto">
+                <table class="cell-border myTable hover w-full">
+                    <thead>
+                        <tr>
+                            <td style="width:50px" *ngIf="actionEnum!=3"></td>
+                            <th transloco="no_" style="width:50px"></th>
+                            <th transloco="system.file_name" style="width:200px !important"></th>
+                            <th transloco="system.file_size"></th>
+                            <th transloco="system.file"></th>
+                            <!-- <th transloco="erp.tai_ve"></th> -->
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="list_file?.length != 0">
+                        <tr *ngFor="let item of list_file; index as i;">
+                            <td align="center" *ngIf="actionEnum!=3">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <a mat-menu-item transloco="system.tai_file" href="{{item.file_path}}">
+                                    </a>
+                                    <button mat-menu-item transloco="delete" (click)="deleteFile(item,i)"></button>
+                                </mat-menu>
+                            </td>
+                            <!-- <td *ngIf="actionEnum!=3">
+                                <button color="warn" mat-raised-button transloco="delete" (click)="deleteFile(item,i)">
+
+                                </button>
+                            </td> -->
+                            <td align="center">{{i+1 }}</td>
+                            <td align="center">{{item.file_name}}
+                                <!-- <cm_input [maxlength]="100" [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                    [keyError]="'file_name'+ i" [(model)]="item.file_name"></cm_input> -->
+                                <!-- <div style="position: relative"
+                                    *ngIf="item.percent_complete!=null && item.percent_complete!=100 ">
+                                    <mat-progress-bar mode="determinate" [value]="item.percent_complete"
+                                        style="height: 2em;" color="'Warn'"></mat-progress-bar>
+                                    <span style="position: absolute; top: 0.5em;"
+                                        [ngStyle]="{'left': item.percent_complete + '%'}">{{item.percent_complete}}%</span>
+                                </div> -->
+                            </td>
+                            <td align="center">{{formatSizeUnits(item.file_size)}}</td>
+                            <!-- <td>
+                                <a class="mb-1 h-10 w-10" target="_blank" (click)="copy(item.db.id,item.db.file_path)" *ngIf="copied && item.db.id == item_current"
+                                    matTooltip="Đã sao chép đường dẫn">
+                                    <mat-icon role="img" click="copy()"
+                                        class=" mat-icon notranslate secondary-text s-48 material-icons mat-icon-no-color">
+                                        file_copy</mat-icon>
+                                </a>
+                                <a class="mb-1 h-10 w-10" target="_blank" (click)="copy(item.db.id,item.db.file_path)" *ngIf="!copied"
+                                    matTooltip="Link sao chép đường dẫn">
+                                    <mat-icon role="img" click="copy()"
+                                        class=" mat-icon notranslate secondary-text s-48 material-icons mat-icon-no-color">
+                                        file_copy</mat-icon>
+                                </a>
+                                <a class="mb-1 h-10 w-10" target="_blank" (click)="copy(item.db.id,item.db.file_path)" *ngIf="copied && item.db.id != item_current"
+                                    matTooltip="Link sao chép đường dẫn">
+                                    <mat-icon role="img" click="copy()"
+                                        class=" mat-icon notranslate secondary-text s-48 material-icons mat-icon-no-color">
+                                        file_copy</mat-icon>
+                                </a>
+                            </td> -->
+
+                            <td align="center">
+
+
+
+                                <img *ngIf="item.file_type!='application/json'" style="width:50px"
+                                    [src]="getFontAwesomeIconFromMIME(item.file_type)" />
+
+
+                                <sys_animation_options_index *ngIf="item.file_type=='application/json'"
+                                    [file_path]="item.file_path"></sys_animation_options_index>
+
+                            </td>
+
+                            <!-- <td align="center">
+                                <a href="{{item.file_path}}"><button mat-raised-button
+                                        class="bg-teal-500 text-white shadow-none hover:bg-teal-600"
+                                        transloco="system.tai_file">
+
+                                    </button></a>
+
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+
+        <div class="flex flex-row justify-end space-x-2">
+            <!-- <button class="bg-primary-600 text-white shadow-none hover:bg-primary-700" *ngIf="actionEnum!=3"
+                [disabled]="loading" mat-raised-button (click)="save_file()" transloco="save"></button> -->
+            <button class="bg-teal-500 rounded text-white shadow-none hover:bg-teal-600" mat-raised-button
+                (click)="close()" transloco="close"></button>
+        </div>
+    </div>
+</div>

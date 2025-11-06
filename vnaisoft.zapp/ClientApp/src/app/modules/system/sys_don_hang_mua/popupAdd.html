@@ -1,0 +1,614 @@
+<div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <div class="text-lg font-medium" transloco="NAV.erp_don_hang_mua"></div>
+</div>
+
+<mat-card class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+    <div class="flex flex-row justify-end space-x-2 mr-4 mb-4">
+
+        <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+            *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+            <p transloco="save" class="mb-0 text-white"></p>
+        </button>
+        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
+            <p transloco="erp.print" class="mb-0 text-white"></p>
+        </button>
+        <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center" [disabled]="loading"
+            (click)="close()">
+            <p transloco="close" class="mb-0 text-white"></p>
+        </button>
+    </div>
+    <div class="flex flex-row justify-start space-x-2  mb-4 border-b border-gray-300">
+        <button transloco="system.thong_tin_phieu" (click)="toggleTabs(1)"
+            class="px-4 py-3 rounded text-white text-xl font-bold bg-blue-500">
+        </button>
+
+
+        <cm_file_upload_button [(id_file_upload)]="record.db.id_file_upload" *ngIf="actionEnum !=2">
+        </cm_file_upload_button>
+    </div>
+    <div *ngIf="openTab==1">
+        <!-- thong tin don hang -->
+        <h3 transloco="erp.thong_tin_don_hang" class="text-2xl font-bold underline"></h3>
+
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <!-- <cm_input [errorModel]="errorModel" [actionEnum]="3" [label]="'system.ma_don_hang'"
+                    [keyError]="'db.ma_don_hang'" [type]="'readonly'" [(model)]="record.db.ma_don_hang">
+                </cm_input> -->
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>
+                        {{'system.ma_don_hang' | transloco}}
+                    </mat-label>
+                    <input matInput [(ngModel)]="record.db.ma" disabled="true">
+                    <!-- <button mat-icon-button color="primary" class="mr-4" (click)="get_code()" *ngIf="actionEnum == 1">
+                        Làm mới
+                    </button> -->
+                </mat-form-field>
+            </div>
+
+            <div class="flex-1">
+                <cm_select [label]="'erp.loai_giao_dich'" [errorModel]="errorModel" [actionEnum]="actionEnum"
+                    [disabled]="actionEnum!=1" [listData]="list_loai_giao_dich" [(model)]="record.db.loai_giao_dich"
+                    [callbackChange]="resetDonHang.bind(this)" [keyError]="'db.loai_giao_dich'">
+                </cm_select>
+            </div>
+            <!-- <div class="flex-1">
+                <cm_select [label]="'erp.kho_nhap'" [errorModel]="errorModel" [actionEnum]="actionEnum"
+                    [listData]="list_kho" [(model)]="record.db.id_kho_nhap" [keyError]="'db.id_kho_nhap'">
+                </cm_select>
+            </div> -->
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <mat-form-field class="w-full" floatLabel="always">
+                    <mat-label>
+                        {{'system.ten_don_hang' | transloco}}
+                    </mat-label>
+                    <input matInput [(ngModel)]="record.db.ten" disabled="true">
+                    <!-- <button mat-icon-button color="primary" class="mr-4" (click)="get_code()" *ngIf="actionEnum==1">
+                        Làm mới
+                    </button> -->
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <mat-label for="" class="text-lg" style="font-weight: 450;" transloco="system.ghi_chu"></mat-label>
+                <mat-form-field class="mt-1 fuse-mat-textarea fuse-mat-no-subscript w-full" [actionEnum]="actionEnum">
+                    <textarea maxlength="1000" matInput [rows]="3" [(ngModel)]="record.db.ghi_chu"
+                        *ngIf="actionEnum ==3" disabled="true" [placeholder]="'Bấm vào đây để nhập'"
+                        matTextareaAutosize></textarea>
+                    <textarea maxlength="1000" matInput [rows]="3" [(ngModel)]="record.db.ghi_chu"
+                        *ngIf="actionEnum !=3" [placeholder]="'Bấm vào đây để nhập'" matTextareaAutosize></textarea>
+                </mat-form-field>
+            </div>
+            <div class="flex-1" *ngIf="actionEnum ==2">
+                <mat-label>
+                    <span class="text-lg" style="font-weight: 450;" transloco="system.ly_do_chinh_sua"></span>
+                    <span style="color: red"
+                        *ngFor="let item of errorModel | filter: 'key':'db.ly_do_chinh_sua'; index as i">
+                        (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                    </span>
+                </mat-label>
+
+                <mat-form-field class="mt-1 fuse-mat-textarea fuse-mat-no-subscript w-full" [actionEnum]="actionEnum">
+                    <textarea maxlength="1000" matInput [rows]="3" [(ngModel)]="record.db.ly_do_chinh_sua"
+                        *ngIf="actionEnum ==3" disabled="true" [placeholder]="'Bấm vào đây để nhập'"
+                        matTextareaAutosize></textarea>
+                    <textarea maxlength="1000" matInput [rows]="3" [(ngModel)]="record.db.ly_do_chinh_sua"
+                        *ngIf="actionEnum !=3" [placeholder]="'Bấm vào đây để nhập'" matTextareaAutosize></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <!-- thong tin khách hàng -->
+        <ng-container>
+            <h3 transloco="erp.thong_tin_nha_cung_cap" class="text-2xl font-bold underline"></h3>
+            <div class="mb-3">
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group space-x-4"
+                    [disabled]="actionEnum==3" [(ngModel)]="record.check_doi_tuong">
+                    <mat-radio-button class="example-radio-button" [disabled]="actionEnum==3" [value]="1"
+                        (click)="set_doi_tuong(1)">
+                        <span transloco="system.nha_cung_cap_tu_do"></span>
+                    </mat-radio-button>
+                    <mat-radio-button class="example-radio-button" [disabled]="actionEnum==3" [value]="2"
+                        (click)="set_doi_tuong(2)">
+                        <span transloco="system.chon_nha_cung_cap"></span>
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap"
+                *ngIf="actionEnum !=3 && record.check_doi_tuong == 2">
+                <div class="flex-1 pb-2">
+                    <mat-error>
+                        <span style="color: red"
+                            *ngFor="let item of errorModel | filter: 'key':'db.id_doi_tuong'; index as i">
+                            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                        </span>
+                    </mat-error>
+                    <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                        (click)="openDialogChooseDoiTuong(record.db.id)">
+                        <p transloco="common.chon" class="mb-0 text-white"></p>
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="record.check_doi_tuong == 2"
+                class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+
+                    <span *ngIf="record.db.hinh_thuc_doi_tuong==1">
+                        <span class="text-blue-900 font-bold" transloco="system.hinh_thuc"></span>
+                        <span> : Cá nhân</span>
+                        <br>
+                    </span>
+                    <span *ngIf="record.db.hinh_thuc_doi_tuong==2">
+                        <span class="text-blue-900 font-bold" transloco="system.hinh_thuc"></span>
+                        <span> : Tổ chức</span>
+                        <br>
+                    </span>
+                    <span class="font-bold" transloco="system.ten_nha_cung_cap"
+                        *ngIf="record.db.ten_doi_tuong!=null  && record.db.ten_doi_tuong!=''"></span>
+                    <span *ngIf="record.db.ten_doi_tuong!=null  && record.db.ten_doi_tuong!=''">:</span>
+                    {{record.db.ten_doi_tuong }}
+                    <br>
+                    <span *ngIf="record.ten_ngan_hang_doi_tuong!=null && record.db.so_tai_khoan_doi_tuong!=null">
+                        <span class="font-bold" transloco="system.tai_khoan_ngan_hang"></span> :
+                        <span> {{record.ten_ngan_hang_doi_tuong}} - {{record.db.so_tai_khoan_doi_tuong}}</span>
+                        <br>
+                    </span>
+                    <span *ngIf="record.db.dien_thoai!=null && record.db.dien_thoai!=''">
+                        <span class="font-bold" transloco="system.dien_thoai"></span>
+                        <span> : {{ record.db.dien_thoai }}</span>
+                        <br>
+                    </span>
+                    <span *ngIf="record.db.hinh_thuc_doi_tuong==2">
+                        <span class="font-bold" transloco="system.ma_so_thue"></span>
+                        <span> : {{ record.db.ma_so_thue }}</span>
+                        <br>
+                    </span>
+                    <span *ngIf="record.db.email!=null && record.db.email!=''">
+                        <span class="font-bold" transloco="system.email"></span>
+                        <span> : {{ record.db.email }} </span>
+                        <br>
+                    </span>
+                    <span *ngIf="record.db.dia_chi_doi_tuong!=null && record.db.dia_chi_doi_tuong!=''">
+                        <span class="font-bold" transloco="system.dia_chi_nha_cung_cap"></span>
+                        <span> : {{ record.db.dia_chi_doi_tuong }}</span>
+                        <br>
+                    </span>
+                </div>
+
+            </div>
+        </ng-container>
+        <!-- thong tin thanh toán -->
+        <ng-container>
+            <h3 transloco="erp.thong_tin_thanh_toan" class="text-2xl font-bold underline"></h3>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1 mb-4">
+                        <mat-label> {{'system.phuong_thuc_thanh_toan' | transloco}}<span style="color: red"
+                                *ngFor="let item of errorModel | filter: 'key':'db.phuong_thuc_thanh_toan'; index as i">
+                                (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                            </span>
+                        </mat-label>
+                        <br>
+                        <mat-radio-group aria-labelledby="example-radio-group-label"
+                            class="example-radio-group space-x-4" [disabled]="actionEnum==3"
+                            [(ngModel)]="record.db.phuong_thuc_thanh_toan">
+                            <mat-radio-button class="example-radio-button "
+                                *ngFor="let item of list_phuong_thuc_thanh_toan" [value]="item.id"
+                                (click)="set_phuong_thuc_thanh_toan()">
+                                {{item.name}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap"
+                *ngIf="record.db.phuong_thuc_thanh_toan==3">
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.vi_dien_tu'"
+                        [keyError]="'db.vi_dien_tu'" [listData]="list_vi_dien_tu" [(model)]="record.db.vi_dien_tu">
+                    </cm_select>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap"
+                *ngIf="record.db.phuong_thuc_thanh_toan==2">
+                <div class="flex-1">
+                    <div class="flex">
+                        <div class="flex-1">
+                            <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                                [label]="'system.tai_khoan_chuyen_tien'" [keyError]="'db.id_tai_khoan_ngan_hang'"
+                                [listData]="list_ngan_hang" [callbackChange]="change_ma_ngan_hang.bind(this)"
+                                [(model)]="record.db.id_tai_khoan_ngan_hang">
+                            </cm_select>
+                        </div>
+                        <div class="items-center ml-2 flex" *ngIf="actionEnum!=3">
+                            <button mat-raised-button color="accent"
+                                class="text-white shadow-none hover:bg-emerald-700 rounded-md mt-2 sm:w-48"
+                                (click)="openDialogAddTaiKhoanNganHang()">
+                                <mat-icon svgIcon="mat_solid:add"></mat-icon>
+                                <span transloco="system.them_moi"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--đơn hàng hàng hóa sinh phiếu chi và phiếu nhap-->
+            <div class="flex-1" *ngIf="record.db.loai_giao_dich == 1 && actionEnum==1">
+                <mat-checkbox class="h-auto flex text-center  font-medium"
+                    [disabled]="actionEnum == 3" [checked]="record.db.is_chi_du"
+                    [(ngModel)]="record.db.is_chi_du">
+                    <span transloco="erp.da_chi_tien"></span>
+                </mat-checkbox>
+                <mat-checkbox class="h-auto mt-1 flex text-center  font-medium"
+                    [disabled]="actionEnum == 3" [checked]="record.db.is_nhap_du" (change)="checkKho($event)"
+                    [(ngModel)]="record.db.is_nhap_du">
+                    <span transloco="erp.da_nhap_kho"></span>
+                </mat-checkbox>
+            </div>
+            <div class="flex-1" *ngIf="record.db.loai_giao_dich == 1 && actionEnum==2">
+                <mat-checkbox class="h-auto flex text-center  font-medium"
+                    [disabled]="record.db.is_chi_du==true"
+                    [checked]="record.db.is_chi_du" [(ngModel)]="record.db.is_chi_du">
+                    <span transloco="erp.da_chi_tien"></span>
+                </mat-checkbox>
+                <mat-checkbox class="h-auto mt-1 flex text-center  font-medium"
+                    [disabled]="record.db.is_nhap_du==true" (change)="checkKho($event)"
+                    [checked]="record.db.is_nhap_du" [(ngModel)]="record.db.is_nhap_du">
+                    <span transloco="erp.da_nhap_kho"></span>
+                </mat-checkbox>
+            </div>
+            <div class="flex-1" *ngIf="record.db.loai_giao_dich == 1 && actionEnum==3">
+                <mat-checkbox class="h-auto flex text-center  font-medium"
+                    [disabled]="actionEnum==3" [checked]="record.db.is_chi_du"
+                    [(ngModel)]="record.db.is_chi_du">
+                    <span transloco="erp.da_chi_tien"></span>
+                </mat-checkbox>
+                <mat-checkbox class="h-auto mt-1 flex text-center  font-medium"
+                    [disabled]="actionEnum==3" (change)="checkKho($event)" [checked]="record.db.is_nhap_du"
+                    [(ngModel)]="record.db.is_nhap_du">
+                    <span transloco="erp.da_nhap_kho"></span>
+                </mat-checkbox>
+            </div>
+            <!--đơn hàng dịch vụ sinh phiếu chi-->
+            <div class="flex-1" *ngIf="record.db.loai_giao_dich == 2 && actionEnum==1">
+                <mat-checkbox class="h-auto flex text-center  font-medium"
+                    [disabled]="actionEnum == 3" [checked]="record.db.is_chi_du"
+                    [(ngModel)]="record.db.is_chi_du">
+                    <span transloco="erp.da_chi_tien"></span>
+                </mat-checkbox>
+            </div>
+            <div class="flex-1" *ngIf="record.db.loai_giao_dich == 2 && actionEnum==2">
+                <mat-checkbox class="h-auto flex text-center  font-medium"
+                    [disabled]="record.db.is_chi_du==true"
+                    [checked]="record.db.is_chi_du" [(ngModel)]="record.db.is_chi_du">
+                    <span transloco="erp.da_chi_tien"></span>
+                </mat-checkbox>
+            </div>
+            <div class="flex-1" *ngIf="record.db.loai_giao_dich == 2 && actionEnum==3">
+                <mat-checkbox class="h-auto flex text-center  font-medium"
+                    [disabled]="actionEnum==3" [checked]="record.db.is_chi_du"
+                    [(ngModel)]="record.db.is_chi_du">
+                    <span transloco="erp.da_chi_tien"></span>
+                </mat-checkbox>
+            </div>
+            <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap"
+                *ngIf="record.db.phuong_thuc_thanh_toan==2">
+                <div class="flex-1">
+                    <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum"
+                        [label]="'system.tai_khoan_ngan_hang_nhan_tien'" [keyError]="'db.id_ngan_hang_doi_tuong'"
+                        [listData]="list_tai_khoan_ngan_hang" [(model)]="record.db.id_ngan_hang_doi_tuong">
+                    </cm_select>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum"
+                        [label]="'system.so_tai_khoan_nhan_tien'" [keyError]="'db.so_tai_khoan_doi_tuong'"
+                        [(model)]="record.db.so_tai_khoan_doi_tuong"></cm_input>
+                </div>
+            </div> -->
+        </ng-container>
+        <!-- thong tin mua hàng -->
+        <ng-container>
+
+            <h3 transloco="erp.thong_tin_mua_hang" class="mt-3 text-2xl font-bold underline"></h3>
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" 
+                        [keyError]="'db.ngay_dat_hang'"
+                        [label]="'system.ngay_dat_hang'" 
+                        [type]="'datepicker'" [readonly]="'false'"
+                        [callbackChange]="load_ngay_du_kien.bind(this)" [(model)]="record.db.ngay_dat_hang"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum"
+                        [label]="'system.so_ngay_du_kien_giao'" [(model)]="record.db.so_ngay_du_kien" [type]="'number'"
+                        [callbackChange]="load_ngay_du_kien.bind(this)" [keyError]="'db.so_ngay_du_kien'"></cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'erp.ngay_du_kien_nhan_hang'"
+                        [(model)]="record.db.ngay_du_kien_nhan_hang" [type]="'datepicker'" [readonly]="'false'"
+                        [keyError]="'db.ngay_du_kien_nhan_hang'">
+                    </cm_input>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.chi_phi_van_chuyen'"
+                        [(model)]="record.db.tien_van_chuyen" [type]="'number'"
+                        [callbackChange]="load_thanh_tien_sau_thue_van_chuyen.bind(this)"
+                        [keyError]="'db.tien_van_chuyen'">
+                    </cm_input>
+                </div>
+                <div class="flex-1">
+                    <cm_select [label]="'system.thue_van_chuyen'" [listData]="list_vat" [errorModel]="errorModel"
+                        [actionEnum]="actionEnum" [(model)]="record.db.vat_van_chuyen"
+                        [callbackChange]="load_thanh_tien_sau_thue_van_chuyen.bind(this)"
+                        [keyError]="'db.vat_van_chuyen'">
+                    </cm_select>
+                </div>
+                <div class="flex-1">
+                    <cm_input [errorModel]="errorModel" [actionEnum]="3"
+                        [label]="'system.thanh_tien_sau_thue_van_chuyen'" [(model)]="thanh_tien_sau_thue_van_chuyen"
+                        [type]="'readonly_number'"></cm_input>
+                </div>
+            </div>
+        </ng-container>
+        <h3 transloco="erp.thong_tin_mat_hang" class="text-2xl font-bold underline"></h3>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1" *ngIf="actionEnum!=3">
+                <div class="flex items-center border-b border-blue-500 py-2">
+                    <div class="flex w-full items-center justify-center bg-grey-lighter">
+                        <label
+                            class="w-full p-1 flex flex-row items-center bg-white text-blue rounded-lg tracking-wide uppercase  cursor-pointer hover:bg-blue-600 hover:text-white">
+                            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                            </svg>
+                            &nbsp;&nbsp;
+                            <span *ngIf="file" class="text-base leading-normal"> {{file.name}}</span>
+                            <span *ngIf="!file" class="text-base leading-normal"> Chọn file để import</span>
+                            <input type='file' class="hidden" (change)="onFileSelected($event)" #fileUpLoad />
+                        </label>
+                    </div>
+
+                    <button
+                        class="flex-shrink-0 border-transparent border-4 text-blue-500 hover:bg-blue-600 hover:text-white text-base py-1 px-2 rounded"
+                        type="button" (click)="dowloadFileMau()">
+                        <span transloco="system.import_form"></span>
+                    </button>
+                    <button
+                        class="flex-shrink-0 border-transparent border-4 text-blue-500 hover:bg-blue-600 hover:text-white text-base py-1 px-2 rounded"
+                        type="button" (click)="onSubmitFile($event)">
+                        <span transloco="system.improt"></span>
+                    </button>
+                </div>
+            </div>
+            
+        </div>
+        <br />
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
+            <div class="flex-1 mt-6">
+                <mat-form-field class="w-full" floatLabel="always">
+                    <input matInput [(ngModel)]="ma_mat_hang" (keyup.enter)="add_mat_hang()"
+                        placeholder="{{'erp.nhap_ma_mat_hang' | transloco}}">
+
+                    <button mat-icon-button color="primary" class="mr-4" (click)="openDialogChooseMatHang()">
+                        <span transloco="common.chon"></span>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" (keyup.enter)="add_mat_hang()"
+                    [keyError]="'so_luong_mh'" [label]="'system.so_luong'" [(model)]="record.so_luong_mh"
+                    [type]="'number'"></cm_input>
+            </div>
+        </div>
+        <mat-label class="ml-2" *ngIf="actionEnum!=3">
+            <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'list_mat_hang'; index as i">
+                (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+            </span>
+        </mat-label>
+        <div class="w-full overflow-auto">
+            <table class="cell-border hover w-full overflow-auto ">
+                <thead class="bg-blue-500 text-center text-white h-8">
+                    <tr>
+                        <th *ngIf="actionEnum !=3" style="width:50px"></th>
+                        <th transloco="no_" style="width:50px"></th>
+                        <th style="min-width: 140px"> <span transloco="system.mat_hang"></span></th>
+                        <th transloco="system.so_luong" style="min-width: 100px"></th>
+                        <th transloco="system.don_gia" style="min-width: 100px"></th>
+                        <th transloco="system.so_luong_quy_doi" style="min-width: 100px"></th>
+                        <th transloco="system.don_gia_quy_doi" style="min-width: 100px"></th>
+                        <th transloco="system.chiet_khau" style="min-width: 100px"></th>
+                        <th transloco="system.thanh_tien_sau_chiet_khau" style="min-width: 100px"></th>
+
+                        <th style="min-width: 100px">
+                            <span transloco="system.vat"></span> (%)
+                        </th>
+                        <th transloco="system.tien_thue" style="min-width: 100px"></th>
+                        <th transloco="system.thanh_tien_sau_thue" style="min-width: 100px"></th>
+                        <th transloco="system.ghi_chu"></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="record.list_mat_hang?.length != 0">
+                    <ng-container *ngFor="let item of record.list_mat_hang;  index as i;">
+                        <tr>
+                            <td *ngIf="actionEnum !=3" align="center">
+                                <button color="warn" mat-raised-button transloco="delete"
+                                    (click)="delete_mat_hang(i,item.ten_mat_hang)">
+                                </button>
+                            </td>
+                            <td style="text-align:center">{{i+1 }}</td>
+                            <td>
+                                <span class="text-blue-900 font-bold"> {{ item.ma_mat_hang }}</span>
+                                <br />
+                                <span>{{ item.ten_mat_hang }} </span>
+                                <br *ngIf="actionEnum ==1" />
+                                <span *ngIf="actionEnum ==1">
+                                    <span class="font-bold" transloco="erp.ton_kho"></span>:
+                                    <span>{{item.ton_kho | number}}</span>
+                                </span>
+                            </td>
+                            <td>
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
+                                    [keyError]="'so_luong'+i" [suffixstring]="item.ten_don_vi_tinh" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.db.so_luong">
+                                </cm_input>
+                            </td>
+                            <td>
+                                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
+                                    [keyError]="'don_gia'+i" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.db.don_gia"></cm_input>
+                            </td>
+                            <td>
+                                <cm_input [errorModel]="errorModel" [actionEnum]="3" [type]="'number'"
+                                    [keyError]="'so_luong_quy_doi'+i" [suffixstring]="item.ten_don_vi_tinh" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.so_luong_quy_doi">
+                                </cm_input>
+                            </td>
+                            <td>
+                                <cm_input [errorModel]="errorModel" [actionEnum]="3" [type]="'number'"
+                                    [keyError]="'don_gia_quy_doi'+i" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.don_gia_quy_doi"></cm_input>
+                            </td>
+                            <td>
+                                <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
+                                    [keyError]="'chiet_khau'+i" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.db.chiet_khau"></cm_input>
+                            </td>
+                            <td>
+                                <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
+                                    [keyError]="'thanh_tien_chiet_khau'+i" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.db.thanh_tien_chiet_khau"></cm_input>
+                            </td>
+                            <td>
+                                <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [keyError]="'vat'+i"
+                                    [pos]="i" [listData]="list_vat"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.db.vat">
+                                </cm_select>
+                            </td>
+                            <td>
+                                <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
+                                    [keyError]="'tien_vat'+i" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHangChangeTienThue.bind(this)"
+                                    [(model)]="item.db.tien_vat"></cm_input>
+                            </td>
+                            <td>
+                                <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
+                                    [keyError]="'thanh_tien_sau_thue'+i" [pos]="i"
+                                    [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
+                                    [(model)]="item.db.thanh_tien_sau_thue"></cm_input>
+                            </td>
+                            <td>
+                                <cm_input [type]="'text'" [actionEnum]="actionEnum" [(model)]="item.db.ghi_chu">
+                                </cm_input>
+                            </td>
+                        </tr>
+                    </ng-container>
+
+                    <tr class="mt-5">
+                        <td colspan="5" align="right">
+                            <span class="font-bold  text-blue-600" transloco="system.chi_phi_van_chuyen"></span>
+                        </td>
+                        <td colspan="8" align="right" class="font-bold">
+                            {{record.chi_phi_van_chuyen | number}}
+                        </td>
+                    </tr>
+                    <tr class="mt-5">
+                        <td colspan="5" align="right">
+                            <span span class="font-bold text-blue-600">Tổng</span>&nbsp;<span
+                                class="font-bold  text-blue-600"
+                                transloco="system.thanh_tien_sau_chiet_khau"></span>&nbsp;<span
+                                class="font-bold  text-blue-600">(bao gồm phí vận chuyển)</span>
+                        </td>
+                        <td colspan="8" align="right" class="font-bold">
+                            {{record.db.tong_tien_sau_chiet_khau | number}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" align="right">
+
+                            <span span class="font-bold text-blue-600">Tổng</span>&nbsp;<span
+                                class="font-bold  text-blue-600" transloco="system.tien_thue"></span>&nbsp;<span
+                                class="font-bold  text-blue-600">(bao gồm thuế vận chuyển)</span>
+                        </td>
+                        <td colspan="8" align="right" class="font-bold">
+                            {{record.db.tong_tien_thue | number}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" align="right">
+                            <span span class="font-bold text-blue-600">Tổng</span>&nbsp;<span
+                                class="font-bold  text-blue-600"
+                                transloco="system.thanh_tien_sau_thue"></span>&nbsp;<span
+                                class="font-bold  text-blue-600">(bao gồm phí vận chuyển)</span>
+                        </td>
+                        <td colspan="8" align="right" class="font-bold">
+                            {{record.db.tong_tien_sau_thue | number}}
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+        <div class="flex flex-row justify-end space-x-2 mr-4 py-4">
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+                <p transloco="save" class="mb-0 text-white"></p>
+            </button>
+            <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogEdit(record)">
+                <p transloco="system.edit" class="mb-0 text-white"></p>
+            </button>
+            <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
+                <p transloco="erp.print" class="mb-0 text-white"></p>
+            </button>
+            <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center"
+                [disabled]="loading" (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="openTab==2">
+        <div style="max-height: 400px;">
+            <div
+                class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap p-4 border rounded-xl border-gray-300 mt-8">
+                <div class="flex-1  bg-gray-300 rounded-lg">
+                    <div (click)="fileInput1.click()" appDragDrop (onFileDropped)="DragAndDropProgress($event)"
+                        align="center">
+                        <div class="w-full h-full flex justify-center items-center" *ngIf="list_file_upload==null">
+                            <div class="my-10">
+                                <div class="h-10 w-10 flex justify-center items-center bg-gray-400 rounded-full">
+                                    <mat-icon svgIcon="heroicons_solid:document-add"
+                                        class="icon-size-7 font-bold text-black"></mat-icon>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium text-2xl m-0">Thêm ảnh/video</h3>
+                                    <p class="m-0 text-gray-600" text>Hoặc kéo và thả</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input hidden type="file" #fileInput1 (change)="fileProgress($event)" accept="image/*" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>

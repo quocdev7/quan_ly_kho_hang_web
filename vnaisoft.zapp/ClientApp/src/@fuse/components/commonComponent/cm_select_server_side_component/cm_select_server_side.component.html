@@ -1,0 +1,82 @@
+
+<mat-form-field    [class.mat-form-field-disabled]="actionEnum === 3"
+ class="w-full"  class="w-full" *ngIf="type=='single'">
+    <mat-label>
+        {{label | transloco}}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+
+    <mat-select [(ngModel)]="model"   [disabled]="actionEnum === 3" (ngModelChange)="modelChange.emit(model);setChose($event)" #singleSelect>
+        <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+        <mat-option>
+            <ngx-mat-select-search [(ngModel)]="search" (ngModelChange)="onChange($event)" *ngIf="placeholder==''"
+                                   placeholderLabel="{{ 'type_something_to_search' | transloco }}"></ngx-mat-select-search>
+            <ngx-mat-select-search [(ngModel)]="search" (ngModelChange)="onChange($event)" *ngIf="placeholder!=''"
+                                   placeholderLabel="{{ placeholder | transloco }}"></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngIf="loading==true">
+            <mat-progress-spinner class="progressSpinner" [color]="color"
+                                  [diameter]="40"
+                                  [mode]="mode"
+                                  [value]="value">
+            </mat-progress-spinner>
+        </mat-option>
+        <mat-option *ngIf="search !='' && listData?.length==0 && loading==false">
+            <span>{{'no_data' | transloco }}</span>
+        </mat-option>
+        <ng-container *ngIf="loading==false">
+            <mat-option *ngFor="let it of listData" [value]="it.id">
+                {{it.name}}
+            </mat-option>
+        </ng-container>
+
+
+    </mat-select>
+
+</mat-form-field>
+
+
+<mat-form-field class="w-full"  [class.mat-form-field-disabled]="actionEnum === 3" *ngIf="type=='multiple'">
+
+    <mat-label>
+        {{label | transloco}}
+        <span style="color:red" *ngFor="let item of errorModel | filter : 'key' : keyError ;  index as i;">
+            (<span *ngFor="let msg of item.value">
+                {{msg | transloco}}
+            </span>)
+        </span>
+    </mat-label>
+
+    <mat-select #mySel [(ngModel)]="model"  [disabled]="actionEnum === 3" (ngModelChange)="modelChange.emit(model);setChose($event)"  multiple>
+        <!-- place ngx-mat-select-search inside mat-option to allow opening without initial selection -->
+        <mat-option>
+            <ngx-mat-select-search [(ngModel)]="search" (ngModelChange)="onChange($event)" *ngIf="placeholder==''"
+                                   placeholderLabel="{{ 'type_something_to_search' | transloco }}"></ngx-mat-select-search>
+            <ngx-mat-select-search [(ngModel)]="search" (ngModelChange)="onChange($event)" *ngIf="placeholder!=''"
+                                   placeholderLabel="{{ placeholder | transloco }}"></ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngIf="loading==true">
+            <mat-progress-spinner class="progressSpinner" [color]="color"
+                                  [diameter]="40"
+                                  [mode]="mode"
+                                  [value]="value">
+            </mat-progress-spinner>
+        </mat-option>
+        <mat-option *ngIf="search !='' && listData?.length==0 && loading==false">
+            <span>{{'no_data' | transloco }}</span>
+        </mat-option>
+        <ng-container *ngIf="loading==false">
+            <mat-option *ngFor="let it of listData" [value]="it.id">
+                {{it.name}}
+            </mat-option>
+        </ng-container>
+
+
+    </mat-select>
+
+  
+</mat-form-field>

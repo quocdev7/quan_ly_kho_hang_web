@@ -1,0 +1,315 @@
+<!-- loading -->
+<div class="flex flex-col flex-auto min-w-0 ">
+    <progress_spinner *ngIf="loading==true"></progress_spinner>
+    <div class="bg-bka-header dark:border-b min-w-0" *ngIf="loading!=true">
+        <div class="flex flex-col flex-auto min-w-0">
+            <div class="bg-card dark:border-b">
+                <div class="flex flex-col w-full mx-auto">
+
+                    <div class="flex flex-col mx-auto  w-full h-full bg-card shadow rounded-lg">
+                        <div class="flex flex-col w-full max-w-screen-md mx-auto my-3">
+                            <div class="flex flex-row w-full">
+                                <div class="flex flex-col w-full"
+                                    style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;">
+                                    <div class="flex flex-col flex-0 rounded-lg items-center lg:items-start bg-white"
+                                        style="min-height: 480px;">
+                                        <!-- Avatar -->
+                                        <div
+                                            class="flex items-center md:mt-10 md:mb-10 mt-6 mb-4 cursor-pointer dark:bg-hover">
+                                            <div
+                                                class="flex flex-col flex-0 space-x-1 md:flex-row items-center max-w-5xl w-full mx-auto px-8 lg:h-18">
+                                                <div class="flex flex-col rounded-full"
+                                                    style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;">
+                                                    <div class="relative">
+                                                        <img class="w-32 h-32 rounded-full ring-4 ring-bg-card"
+                                                            [src]="record?.db?.logo" alt="Logo">
+                                                        <div
+                                                            class="absolute bottom-2 right-1 ring-2 ring-blue-500 w-8 h-8 flex items-center justify-center p-2 rounded-full bg-gray-300 mx-auto">
+                                                            <div class="flex items-center">
+                                                                <mat-icon class="icon-size-5"
+                                                                    [svgIcon]="'heroicons_solid:camera'"></mat-icon>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- User Info -->
+                                        <div class="w-full mt-1">
+                                            <div
+                                                class="md:flex md:px-8 px-4 mb-1 lg:flex-row md:space-x-4 flex-wrap mx-auto w-full">
+                                                <div class="md:flex justify-between items-start w-full">
+                                                    <div class="flex-1 flex-col items-start w-full text-black">
+                                                        <!-- Tên trường -->
+                                                        <div class="flex items-start w-full break-word md:mb-6 mb-3">
+                                                            <div class="flex grids items-center">
+                                                                <mat-icon class="icon-size-5 mr-2 pt-2 text-black"
+                                                                    [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                                            </div>
+                                                            <div class="flex-row items-start text-xl">
+                                                                <span transloco="system.name"
+                                                                    class="text-black font-bold"></span>:&nbsp;
+                                                                <span class="text-black">
+                                                                    {{ record?.db?.name || '---' }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Số điện thoại -->
+                                                        <div class="flex w-full break-word md:mb-6 mb-3">
+                                                            <div class="flex grids items-start">
+                                                                <mat-icon class="icon-size-5 mr-2 pt-1 text-black"
+                                                                    [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                                                            </div>
+                                                            <div class="flex-row items-start text-xl">
+                                                                <span transloco="system.phone"
+                                                                    class="text-black font-bold"></span>:&nbsp;
+                                                                <span class="text-black">
+                                                                    {{ record?.db?.dien_thoai || '---' }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Email -->
+                                                        <div class="flex items-start w-full break-word md:mb-6 mb-3">
+                                                            <div class="flex grids items-center">
+                                                                <mat-icon class="icon-size-5 mr-2 pt-2 text-black"
+                                                                    [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                                                            </div>
+                                                            <div class="flex-row items-start text-xl">
+                                                                <span class="text-black font-bold">Email</span>:&nbsp;
+                                                                <span class="text-black">
+                                                                    {{ record?.db?.email || '---' }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="flex-1 flex-col items-start w-full text-black">
+                                                        <!-- Tên viết tắt -->
+                                                        <div class="flex items-start w-full break-word md:mb-6 mb-3">
+                                                            <div class="flex grids items-center">
+                                                                <mat-icon class="icon-size-5 mr-2 pt-2 text-black"
+                                                                    [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                                            </div>
+                                                            <div class="flex-row items-start text-xl">
+                                                                <span transloco="system.ten_viet_tat"
+                                                                    class="text-black font-bold"></span>:&nbsp;
+                                                                <span class="text-black">{{ record?.db?.ten_viet_tat ||
+                                                                    '---' }}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Địa chỉ -->
+                                                        <div class="flex w-full break-word md:mb-6 mb-3">
+                                                            <div class="flex grids items-start">
+                                                                <mat-icon class="icon-size-5 mr-2 pt-1 text-black"
+                                                                    svgIcon="heroicons_solid:location-marker"></mat-icon>
+                                                            </div>
+                                                            <div class="flex-row items-start text-xl">
+                                                                <span class="text-black font-bold">Địa chỉ</span>:&nbsp;
+                                                                <span class="text-black">
+                                                                    {{ record?.db?.dia_chi || '---' }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Website -->
+                                                        <div class="flex w-full break-word">
+                                                            <div class="flex grids items-start">
+                                                                <mat-icon class="icon-size-5 mr-2 pt-1 text-black"
+                                                                    svgIcon="heroicons_solid:external-link"></mat-icon>
+                                                            </div>
+                                                            <div class="flex-row items-start text-xl">
+                                                                <span class="text-black font-bold">Website</span>:&nbsp;
+                                                                <span class="text-black">
+                                                                    <a *ngIf="record?.db?.website"
+                                                                        [href]="record?.db?.website">{{
+                                                                        record?.db?.website }}</a>
+                                                                    <span *ngIf="!record?.db?.website">---</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Thông tin chung -->
+                                            <div class="md:flex px-8 lg:flex-row md:space-x-4 flex-wrap mx-auto w-full">
+                                                <div class="p-1">
+                                                    <div class="flex w-full break-word">
+                                                        <div class="flex grids items-start">
+                                                            <mat-icon
+                                                                class="icon-size-5 mr-2 pt-1 text-black">error</mat-icon>
+                                                        </div>
+                                                        <div class="flex-col items-start text-xl">
+                                                            <span class="text-black font-bold">Thông tin
+                                                                chung</span>:&nbsp;
+                                                            <span class="text-xl text-black"
+                                                                *ngIf="!record?.db?.note">---</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Nội dung HTML (giới thiệu) -->
+                                            <div
+                                                class="md:flex px-8 pb-8 lg:flex-row md:space-x-4 flex-wrap mx-auto w-full">
+                                                <div class="p-1">
+                                                    <div class="flex w-full break-word">
+                                                        <div class="flex-col items-start text-xl">
+                                                            <p *ngIf="record?.db?.note" class="text-xl text-black"
+                                                                [innerHtml]="record?.db?.note | safeHtml"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Google Map -->
+                                            <div class="flex flex-row item-center">
+                                                <p *ngIf="record?.db?.ghim_ban_do" class="mx-auto text-xl text-black"
+                                                    [innerHtml]="record?.db?.ghim_ban_do | safeHtml">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <mat-drawer-container class="flex-auto  w-full mx-auto bg-white"
+                            style="min-height: 90vh;max-height: 90vh;padding-left: 20px;">
+                            <!-- Drawer -->
+                            <mat-drawer class="w-96  bg-white" [autoFocus]="false" [mode]="drawerMode"
+                                [opened]="drawerOpened" #drawer>
+                                <div class="flex flex-col divide-y border-t border-b">
+
+                                    <ng-container *ngFor="let panel of panels; trackBy: trackByFn; let i = index">
+
+
+                                        <div class="flex px-8 py-3 cursor-pointer"
+                                            *ngIf="i==0 || panel.type !== panels[(i==0?1:i)-1].type">
+                                            <div class="font-bold text-2xl text-blue-900 leading-6">
+                                                <span *ngIf="panel.type==1" transloco="system.gioi_thieu"></span>
+                                                <span *ngIf="panel.type==2" transloco="NAV.sys_to_chuc"></span>
+                                            </div>
+                                        </div>
+                                        <div class="flex px-5 py-3 cursor-pointer"
+                                            [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedPanel || selectedPanel !== panel.id,
+                                                            'bg-primary-50 dark:bg-hover': selectedPanel && selectedPanel === panel.id}"
+                                            (click)="goToPanel(panel.id)">
+                                            <!--<mat-icon
+                                                [ngClass]="{'text-hint': !selectedPanel || selectedPanel !== panel.id,
+                                                            'text-blue-900': selectedPanel && selectedPanel === panel.id}"
+                                                  >menu</mat-icon>-->
+                                            <div class="ml-3 py-2">
+
+                                                <div class="font-medium leading-6"
+                                                    [ngClass]="{'text-blue-900': selectedPanel && selectedPanel === panel.id}">
+                                                    <span *ngIf="activeLang=='vi'">{{panel.title}}</span>
+
+                                                    <span *ngIf="activeLang!='vi'">{{panel.title_en}}</span>
+                                                </div>
+                                                <div class="mt-0.5 text-secondary text-lg">
+                                                    {{panel.description}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </mat-drawer>
+
+                            <!-- Drawer content -->
+                            <mat-drawer-content class="flex flex-col bg-white"
+                                style="min-height: 90vh;max-height: 90vh;">
+                                <div *ngIf="isScreenSmall"
+                                    class="flex  flex-row flex-auto sm:items-center bg-card  shadow  fix_top_mobile z-50"
+                                    [ngClass]="{ 'fixed' :(windowScrolled)}" data-aos="fade-right" data-aos-once="true"
+                                    style="height:40px;max-height: 40px;width: 100% !important;"
+                                    (click)="scrollToTop();drawer.toggle()">
+                                    <div class="flex flex-auto items-center min-w-0 pl-4 z-50">
+                                        <img style="width:20px;height:20px" src="assets/images/portal/menu.png" />
+                                        <span *ngIf="activeLang=='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                            style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                            {{getPanelInfo(selectedPanel).title}}</span>
+                                        <span *ngIf="activeLang!='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                            style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                            {{getPanelInfo(selectedPanel).title_en}}</span>
+                                    </div>
+                                </div>
+                                <!-- Main -->
+                                <div
+                                    class="flex-auto px-3  w-full mx-auto max-w-screen-xl md:px-6 md:pt-9 pb-12 md:p-8 md:pb-12 lg:p-12 bg-white ">
+
+                                    <!-- Panel header -->
+                                    <div class="flex items-center">
+
+                                        <!-- Drawer toggle -->
+                                        <div *ngIf="!isScreenSmall"
+                                            class="ml-2 text-blue-900  text-3xl font-bold tracking-tight leading-none">
+                                            <div class="flex flex-auto items-center min-w-0 invisible">
+                                                <img style="width:20px;height:20px"
+                                                    src="assets/images/portal/narrow_right.png" />
+                                                <span *ngIf="activeLang=='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                                    style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                                    {{getPanelInfo(selectedPanel).title}}</span>
+                                                <span *ngIf="activeLang!='vi'" class="text-2xl m-1 ml-3 text-blue-900"
+                                                    style=" font-family: 'Arial, sans-serif;' ; font-size: 17px !important; font-weight: 400; ">
+                                                    {{getPanelInfo(selectedPanel).title_en}}</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Load settings panel -->
+                                    <div class="mt-2">
+                                        <ng-container *ngFor="let panel of panels;">
+                                            <div *ngIf="panel.id==selectedPanel">
+
+                                                <about_us_detail [id_detail]="panel.id">
+                                                </about_us_detail>
+                                                <!-- <portal_nang_luc *ngIf="panel.type==4" ></portal_nang_luc>
+                                                        <about_us_cot_moc *ngIf="panel.type==3" ></about_us_cot_moc> -->
+                                                <!--<div *ngIf="panel.id =='1'">
+                                                    <about_us_cot_moc></about_us_cot_moc>
+                                                </div>
+                                                <div *ngIf="panel.id !='1'">
+                                                    <div class="w-full" style="word-break: break-word;"
+                                                        *ngIf="!isScreenSmall">
+                                                        <span *ngIf="activeLang=='vi'"
+                                                            [innerHtml]="panel.noi_dung | safeHtml"></span>
+                                                        <span *ngIf="activeLang!='vi'"
+                                                            [innerHtml]="panel.noi_dung_en | safeHtml"></span>
+                                                    </div>
+                                                    <div class="w-full" style="word-break: break-word;"
+                                                        *ngIf="isScreenSmall">
+                                                        <span *ngIf="activeLang=='vi' && panel.noi_dung_mobile!='null'"
+                                                            [innerHtml]="panel.noi_dung_mobile | safeHtml"></span>
+                                                        <span
+                                                            *ngIf="activeLang!='vi' && panel.noi_dung_mobile_en!='null'"
+                                                            [innerHtml]="panel.noi_dung_mobile_en | safeHtml"></span>
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                        </ng-container>
+
+                                    </div>
+
+                                </div>
+
+                            </mat-drawer-content>
+
+                        </mat-drawer-container>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>

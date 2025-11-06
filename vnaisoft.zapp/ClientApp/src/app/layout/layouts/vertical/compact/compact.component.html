@@ -1,0 +1,328 @@
+<!-- Navigation -->
+<fuse-vertical-navigation class="dark bg-gray-900 print:hidden" [appearance]="'compact'"
+                          [mode]="isScreenSmall ? 'over' : 'side'" [name]="'mainNavigation'" [navigation]="data.navigation.compact"
+                          [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <!-- Logo -->
+        <div class="flex items-center justify-center h-20 mt-3 mb-4 flex-col">
+            <!-- <img class="w-20" src="assets/images/logo/logo.png"
+                 style="image-rendering: -webkit-optimize-contrast;" alt="Logo image"> -->
+            <!-- <span class="font-bold">Shungo</span> -->
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0 relative">
+    <!-- Header -->
+    <div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <button mat-icon-button (click)="toggleNavigation('mainNavigation')">
+            <mat-icon [svgIcon]="'heroicons_solid:menu'"></mat-icon>
+        </button>
+
+        <div class="flex items-center pl-2 ml-auto space-x-2">
+            <!-- <search [appearance]="'bar'"></search> -->
+            <search_admin [appearance]="'bar'"></search_admin>
+            <fuse-fullscreen *ngIf="!isScreenSmall"></fuse-fullscreen>
+            <notifications [notifications]="data.notifications"></notifications>
+            <user-menu [isScreenSmall]="isScreenSmall"></user-menu>
+            <a mat-flat-button style="background-color: #273a87  !important; border-radius: 1.25rem !important; "
+                class="text-white" [routerLink]="'/portal-module'">
+                <span transloco="portal.phan_he"></span>
+            </a>
+          
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto overflow-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+
+    <!--<button class="z-999 text-white flex flex-col shrink-0 grow-0 justify-around
+            fixed bottom-0 right-0 rounded-lg
+            lg:mr-5 lg:mb-5 xl:mr-10 xl:mb-10"
+            (click)="openChatBot()">
+        <div class="rounded-full border-4">
+            <img src="assets/images/logo/v2-customer-service.png" alt="" style="width: 45px;height: 45px;"
+                 class="rounded-full  ring-4 ring-bg-card">
+
+        </div>
+    </button>-->
+
+ 
+
+    <!-- Footer -->
+    <div class="relative flex flex-0 items-center w-full h-10 sm:h-10 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+        <!-- <div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden"> -->
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap w-full max-w-screen-xl mx-auto px-6 sm:px-2">
+            <div align="right" class="flex-1 text-base text-center">
+                <a *ngIf="!isScreenSmall" href="https://vnaisoft.com/" class="text-black ">
+                    Copyright ©
+                    {{currentYear}} SV IUH - All right reserved
+                </a>
+
+                <a *ngIf="isScreenSmall" href="https://vnaisoft.com/" class="text-black ">
+                    Copyright ©
+                    {{currentYear}} SV IUH <br> All right reserved
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+
+    
+  
+
+    <div class="fixed bottom-24 right-12  border z-99  flex flex-col bg-card  w-80 md:w-140 lg:w-160" *ngIf="opened">
+     
+            <!-- Header -->
+            <div class="flex flex-0 items-center justify-start cursor-pointer" >
+                <!-- Toggle -->
+                    <div class="flex flex-auto items-center justify-center">
+                        <!-- <div class="relative flex flex-0 items-center justify-center w-16">
+                            <ng-container>
+                                <div
+                                    class="absolute bottom-0 right-0 flex-0 w-2 h-2 -ml-0.5 rounded-full ring-2 ring-bg-card dark:ring-gray-900 bg-primary dark:bg-primary-500 text-on-primary"
+                                    [class.ring-primary-50]="true"></div>
+                            </ng-container>
+                            <ng-container>
+
+                                <img  class="w-full h-full rounded-full object-cover" src="assets/images/logo/logo.png"
+                                style="image-rendering: -webkit-optimize-contrast;" alt="Contact avatar">
+
+
+                           
+                            </ng-container>
+                           
+                        </div> -->
+                        <div class="flex flex-0 items-center justify-center w-16">
+                            <img class="w-10" src="assets/images/logo/logo.png"
+                            style="image-rendering: -webkit-optimize-contrast;" alt="Logo image">
+                        
+                        </div> 
+                        <div class="text-lg font-medium text-secondary">Shungo Chat </div>
+                        <button  (click)="openChatBot()"
+                            class="ml-auto mr-4"
+                            mat-icon-button>
+                            <mat-icon svgIcon="mat_solid:close" ></mat-icon>
+                            <!-- <mat-icon [svgIcon]="'heroicons_outline:x'"></mat-icon> -->
+                        </button>
+                    </div>
+             
+
+            </div>
+    
+            <!-- Content -->
+            <div class="flex flex-auto border-t  overflow-hidden">
+    
+                <!-- Chat list -->
+                <!-- <div
+                    class="flex-0 w-16 h-full overflow-y-auto overscroll-y-contain sm:overflow-hidden sm:overscroll-auto"
+                    fuseScrollbar
+                  >
+                    <div class="flex-auto">
+                     
+                            <div
+                                class="flex items-center py-3 px-4 cursor-pointer hover:bg-gray-100 dark:hover:bg-hover"
+                              
+                                
+                                >
+                                <div class="relative flex flex-0 items-center justify-center w-8 h-8">
+                                    <ng-container>
+                                        <div
+                                            class="absolute bottom-0 right-0 flex-0 w-2 h-2 -ml-0.5 rounded-full ring-2 ring-bg-card dark:ring-gray-900 bg-primary dark:bg-primary-500 text-on-primary"
+                                            [class.ring-primary-50]="true"></div>
+                                    </ng-container>
+                                    <ng-container>
+
+                                        <img  class="w-full h-full rounded-full object-cover" src="assets/images/logo/logo.png"
+                                        style="image-rendering: -webkit-optimize-contrast;" alt="Contact avatar">
+
+
+                                   
+                                    </ng-container>
+                                   
+                                </div>
+                            </div>
+                       
+                    </div>
+                </div>
+     -->
+                <!-- Conversation    <ng-container *ngIf="chat; else selectChatOrStartNew"> -->
+                <div class="flex flex-col justify-between flex-auto  overflow-hidden bg-gray-50 dark:bg-transparent">
+                    <ng-container>
+                        <!-- scroll bottom div dùng flex-col-reverse -->
+                        <div class="flex  flex-col-reverse  h-80 md:h-120 lg:h-140  overflow-y-auto overscroll-y-contain"     
+                        [ngClass]="{'items-center': lst_message.length==0}">
+                            <div class="flex flex-col flex-auto shrink p-6">
+                                <ng-container *ngFor="let message of lst_message; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                    <!-- Start of the day -->
+                                    <ng-container *ngIf="first || (lst_message[i - 1].ngay_tao | date:'d') !== (message.ngay_tao | date:'d')">
+                                        <div class="flex items-center justify-center my-3 -mx-6">
+                                            <div class="flex-auto border-b"></div>
+                                            <div class="flex-0 mx-4 text-sm font-medium leading-5 text-secondary">
+                                                <!-- {{message.ngay_tao | date: 'longDate'}} -->
+                                                {{message.ngay_tao | date:'dd-MM-yyyy'}}
+                                            </div>
+                                            <div class="flex-auto border-b"></div>
+                                        </div>
+                                    </ng-container>
+
+                                    <div [ngClass]="{'items-end': message.is_mine,
+                                                    'items-start': !message.is_mine,
+                                                    'mt-0.5': i > 0 && lst_message[i - 1].isMis_mineine === message.is_mine,
+                                                    'mt-3': i > 0 && lst_message[i - 1].is_mine !== message.is_mine}">
+                                      
+                                                    <div [ngClass]="{
+                                                        'items-center': !message.is_mine,
+                                                    'justify-center': !message.is_mine,
+                                                    'items-end': message.is_mine,
+                                                    'justify-end': message.is_mine
+                                                }" class="flex flex-auto" >
+                                                        <div class="flex flex-0 items-center justify-center w-16" *ngIf="!message.is_mine">
+                                                            <img class="w-10" src="assets/images/logo/logo.png"
+                                                            style="image-rendering: -webkit-optimize-contrast;" alt="Logo image">
+                                                        </div>
+                                                        <div  class="flex flex-col">
+                                                            <div class="relative max-w-3/4 px-3 py-2 rounded-lg break-words"
+                                                                [ngClass]="{'bg-blue-500 text-blue-50': message.is_mine,
+                                                                            'bg-gray-700 text-gray-50': !message.is_mine}">
+                                                                <!-- Speech bubble tail -->
+                                                                <ng-container *ngIf="last || lst_message[i + 1].is_mine !== message.is_mine">
+                                                                    <div
+                                                                        class="absolute bottom-0 w-3"
+                                                                        [ngClass]="{'text-blue-500 -right-1 -mr-px mb-px': message.is_mine,
+                                                                                    'text-gray-500 -left-1 -ml-px mb-px -scale-x-1': !message.is_mine}">
+                                                                        <ng-container *ngTemplateOutlet="speechBubbleExtension"></ng-container>
+                                                                    </div>
+                                                                </ng-container>
+                                                                <!-- Message -->
+                                                                <div
+                                                                    class="leading-5"
+                                                                    [ngClass]="{'min-w-10':message.new_messsage!=null && message.new_messsage.length < 10,
+                                                                    'min-w-20':message.new_messsage!=null && message.new_messsage.length < 20 && message.new_messsage.length >= 10,
+                                                                    'w-auto':message.new_messsage!=null && message.new_messsage.length > 20}"
+
+                                                                    [innerHTML]="message.new_messsage">
+                                                                </div>
+                                                            </div>
+                                                            <!-- Time -->
+                                                            <ng-container
+                                                                *ngIf="first
+                                                            || last
+                                                            || lst_message[i + 1].is_mine !== message.is_mine
+                                                            || lst_message[i + 1].ngay_tao !== message.ngay_tao">
+                                                                <div
+                                                                    class="my-0.5 text-sm font-medium text-secondary"
+                                                                    [ngClass]="{'mr-3': message.is_mine,
+                                                                                'ml-3': !message.is_mine}">
+                                                                    {{message.ngay_tao | date:'HH:mm'}}
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                    </div>
+                                </ng-container>
+                                <div class="flex flex-col items-center justify-center w-full break-word mt-2 " *ngIf="is_loading == true">
+                                    <ng-lottie class="w-20 h-20" [options]="lottieOptions_search"></ng-lottie>
+                                    <b class="font-bold" transloco="portal.tro_ly_ai_dang_xu_ly"></b>
+                                    <b class="font-bold" transloco="portal.vui_long_doi_trong_giay_lat"></b>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-center justify-center  sm:min-w-80 mt-5 p-x-2" *ngIf="is_loading == false && lst_message.length==0">
+                                <b transloco="portal.chao_ban"></b>
+                                <b class="px-2" transloco="portal.toi_la_tro_ly_ai_cua_ban"></b>
+                            </div>
+                        </div>
+                    
+                        
+                     
+                      
+                        <!-- Message field -->
+                        <div class="flex items-end p-4  border-t bg-gray-50 dark:bg-transparent">
+
+
+                            <mat-form-field class="fuse-mat-no-subscript w-full" floatLabel="always">
+                  
+                                <textarea cdkTextareaAutosize  matInput [(ngModel)]="search" (keyup.enter)="send_cau_hoi()" [disabled]="is_loading"
+                                       placeholder="{{'nhap_cau_hoi_tai_day' | transloco}}"></textarea>
+                                <button mat-icon-button (click)="send_cau_hoi()" [disabled]="is_loading">
+                                    <mat-icon matPrefix>send</mat-icon>
+                                </button>
+                            </mat-form-field>
+
+                           <!-- <mat-form-field
+                                class="fuse-mat-dense fuse-mat-rounded fuse-mat-bold w-full"
+                                [subscriptSizing]="'dynamic'">
+                                <textarea
+                                    matInput
+                                    cdkTextareaAutosize
+                                    #messageInput></textarea>
+                            </mat-form-field>
+                            <div class="flex items-center h-11 my-px ml-4">
+                                <button
+                                    mat-icon-button>
+                                    <mat-icon
+                                        class="rotate-90"
+                                        [svgIcon]="'heroicons_outline:paper-airplane'"></mat-icon>
+                                </button>
+                            </div>  -->
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+       
+    </div>
+    
+
+</div>
+<!-- <div *ngIf="chatFlag" class="chatbox z-99 bg-gray-400">
+    <h4>Angular ChatBot</h4>
+    <ng-container *ngFor="let message of messages">
+        <div class="message" [ngClass]="{ 'from': message.author === 'bot','to': message.author === 'user' }">
+            <span>  {{ message.content }}  </span>
+        </div>
+    </ng-container>
+    <div class="message" class="from">
+        <span>  AI  </span>
+    </div>
+    <div class="message" class="to">
+        <span> USER  </span>
+    </div>
+    <input [(ngModel)]="value" (keyup.enter)="sendMessage()" type="text" placeholder="type here">
+    <button (click)="sendMessage()">Send</button>
+</div> -->
+
+<!-- Select chat or start new template -->
+<ng-template #selectChatOrStartNew>
+    <div class="flex flex-col flex-auto items-center justify-center w-full h-full p-4">
+        <mat-icon
+            class="icon-size-24"
+            [svgIcon]="'heroicons_outline:chat'"></mat-icon>
+        <div class="mt-4 text-xl text-center font-medium tracking-tight text-secondary">Bạn cần hỗ trợ ?</div>
+    </div>
+</ng-template>
+
+<!-- Speech bubble tail SVG -->
+<!-- @formatter:off -->
+<ng-template #speechBubbleExtension>
+    <svg width="100%" height="100%" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <path d="M1.01522827,0.516204834 C-8.83532715,54.3062744 61.7609863,70.5215302 64.8009949,64.3061218 C68.8074951,54.8859711 30.1663208,52.9997559 37.5036011,0.516204834 L1.01522827,0.516204834 Z" fill="currentColor" fill-rule="nonzero"></path>
+        </g>
+    </svg>
+</ng-template>
+<!-- @formatter:on -->
+
+
+<style>
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        border-color: black;
+    }
+</style>
