@@ -39,7 +39,7 @@ namespace vnaisoft.system.web.Controller
         private IConfiguration _configuration;
         private IMailService _mailService;
         public AppSettings _appsetting;
-        public SendNotificationApi firebaseAPI;
+        //public SendNotificationApi firebaseAPI;
         private IUserService _userService;
         public sys_loai_mat_hangController(IConfiguration configuration, IUserService userService, IMailService mailService, MongoDBContext context, IOptions<AppSettings> appsetting) : base(userService)
         {
@@ -47,7 +47,7 @@ namespace vnaisoft.system.web.Controller
             repo = new sys_loai_mat_hang_repo(context);
             _userService = userService;
             _mailService = mailService;
-            firebaseAPI = new SendNotificationApi(context);
+            //firebaseAPI = new SendNotificationApi(context);
             _configuration = configuration;
             config = new MongoClientFactory(configuration);
         }

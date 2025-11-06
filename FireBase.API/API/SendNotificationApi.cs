@@ -23,7 +23,7 @@ namespace vnaisoft.fireBase.API
         public SendNotificationApi(MongoDBContext context)
         {
 
-            fireStoreDb = getFirebase();
+            //fireStoreDb = getFirebase();
             _context = context;
         }
         public async Task update_fireBase_noti(List<string> listIdUser)
@@ -63,21 +63,21 @@ namespace vnaisoft.fireBase.API
             }
         }
 
-        public FirestoreDb getFirebase()
-        {
-            var currentpath = Directory.GetCurrentDirectory();
-            string newPath = Path.Combine(currentpath);
-            if (!Directory.Exists(newPath))
-                Directory.CreateDirectory(newPath);
-            //AppDomain.CurrentDomain.BaseDirectory
-            var pathgoogle = newPath + @"\\firebaseShungo.json";
+        //public FirestoreDb getFirebase()
+        //{
+        //    var currentpath = Directory.GetCurrentDirectory();
+        //    string newPath = Path.Combine(currentpath);
+        //    if (!Directory.Exists(newPath))
+        //        Directory.CreateDirectory(newPath);
+        //    //AppDomain.CurrentDomain.BaseDirectory
+        //    var pathgoogle = newPath + @"\\firebaseShungo.json";
 
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", pathgoogle);
-            FirestoreDb fireStoreDb;
-            fireStoreDb = FirestoreDb.Create("shungo-982a5");
+        //    Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", pathgoogle);
+        //    FirestoreDb fireStoreDb;
+        //    fireStoreDb = FirestoreDb.Create("shungo-982a5");
 
-            return fireStoreDb;
-        }
+        //    return fireStoreDb;
+        //}
 
         //public async Task send_notificatin_web(string useridSend, string type, dynamic model, List<string> listIdUser)
         //{

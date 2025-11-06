@@ -50,7 +50,7 @@ namespace vnaisoft.system.web.Controller
         private IConfiguration _configuration;
         private IMailService _mailService;
         public AppSettings _appsetting;
-        public SendNotificationApi firebaseAPI;
+        //public SendNotificationApi firebaseAPI;
         private IUserService _userService;
 
         public common_mongo_repo _common_repo;
@@ -61,7 +61,7 @@ namespace vnaisoft.system.web.Controller
             repo = new sys_user_repo(context);
             _userService = userService;
             _mailService = mailService;
-            firebaseAPI = new SendNotificationApi(context);
+            //firebaseAPI = new SendNotificationApi(context);
             _configuration = configuration;
             config = new MongoClientFactory(configuration);
             _common_repo = new common_mongo_repo(context);
