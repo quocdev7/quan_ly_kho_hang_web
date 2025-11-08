@@ -9,7 +9,7 @@ export interface sys_don_hang_mua_col {
     ma_ngan_hang: string;
     so_tai_khoan: string;
     ngay_dat_hang: Date | null;
-    list_mat_hang: sys_don_hang_mua_mat_hang;
+    list_mat_hang: sys_don_hang_mua_mat_hang[];
     tong_thanh_tien: number | null;
     ghi_chu: string;
     nguoi_cap_nhat: string;

@@ -274,44 +274,21 @@ export class sys_don_hang_mua_indexComponent extends BaseIndexDatatableComponent
         });
     }
     openDialogAdd(): void {
-        this.http
-            .post(this.controller + '.ctr/check_kho/', {
-            }
-            ).subscribe(resp => {
-                var id_kho = resp;
-                const dialogRef = this.dialog.open(sys_don_hang_mua_popUpAddComponent, {
-                    disableClose: true,
-                    autoFocus: false,
-                    width: '100%',
-                    data: {
-                        actionEnum: 1,
-                        db: {
-                            id: 0,
-                            loai_giao_dich: 1,
-                            phuong_thuc_thanh_toan: 2,
-                            ngay_dat_hang: new Date(),
-                            ngay_du_kien_nhan_hang: new Date(),
-                            tien_van_chuyen: null,
-                            tien_vat_van_chuyen: null,
-                            thanh_tien_sau_thue_van_chuyen: null,
-                            tien_khac: null,
-                            vat_khac: null,
-                            thanh_tien_sau_thue_chi_phi_khac: null,
-                            tong_tien_truoc_thue: null,
-                            tong_tien_thue: null,
-                            tong_tien_sau_thue: null,
-                            id_kho_nhap: id_kho,
-
-                        },
-                        id_mat_hangs: "",
-                        list_mat_hang: []
-                    },
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    this.rerender();
-                    if (result.db.id == 0) return;
-                });
-            });
+        const dialogRef = this.dialog.open(sys_don_hang_mua_popUpAddComponent, {
+            disableClose: true,
+            autoFocus: false,
+            width: '90%',
+            data: {
+                actionEnum: 1,
+                db: {
+                    id: "",
+                }
+            },
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.rerender();
+            if (result.db.id == 0) return;
+        });
     }
     openDialogEdit(item, pos): void {
         const dialogRef = this.dialog.open(sys_don_hang_mua_popUpAddComponent, {
@@ -405,11 +382,9 @@ export class sys_don_hang_mua_indexComponent extends BaseIndexDatatableComponent
     ngOnInit(): void {
         this.baseInitData();
 
-        var title = 'ERP-' + this._translocoService.translate('NAV.sys_don_hang_mua');
+        var title = this._translocoService.translate('NAV.sys_don_hang_mua');
         var metaTag = [
-
-
-            { property: 'og:title', content: 'ERP' },
+            { property: 'og:title', content: 'sys_don_hang_mua' },
             { property: 'og:image', content: "" },
             { property: 'og:description', content: "" },
 

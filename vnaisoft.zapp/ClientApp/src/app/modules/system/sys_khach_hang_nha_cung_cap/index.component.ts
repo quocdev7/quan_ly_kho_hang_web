@@ -227,7 +227,7 @@ export class sys_khach_hang_nha_cung_cap_indexComponent extends BaseIndexDatatab
     ngOnInit(): void {
         this.baseInitData();
         this.load_list_loai_hinh();
-        var title = 'SHUNGO-' + this._translocoService.translate('NAV.sys_khach_hang_nha_cung_cap');
+        var title = this._translocoService.translate('NAV.sys_khach_hang_nha_cung_cap');
         var metaTag = [
 
 

@@ -75,53 +75,13 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
         this.Oldrecord = JSON.parse(JSON.stringify(data));
         this.actionEnum = data.actionEnum;
         if (this.actionEnum == 1) {
-            //this.record.check_doi_tuong = 1;
-            //this.set_doi_tuong(1);
-            //this.record.db.ngay_du_kien_nhan_hang = null;
             this.get_code();
             this.record.db.ten = "Tự động tạo";
-            this.baseInitData();
-            // this.record.db.is_sinh_tu_dong = false;
-            // if (this.record.db.tien_van_chuyen == null) {
-            //     this.record.chi_phi_van_chuyen = 0;
-            // }
-            // this.record.so_luong_mh = 1
         }
-        if (this.actionEnum == 2) {
-            this.getElementById();
-            //this.baseInitData();
-        }
-        if (this.actionEnum == 3) {
+        else{
             this.getElementById();
         }
-        this.list_tai_khoan_ngan_hang = listbank;
     }
-    // checkKho($event) {
-    //     if ($event.checked == true) {
-    //         if (this.record.db.id_kho_nhap == null || this.record.db.id_kho_nhap == "") {
-    //             Swal.fire("Bạn chưa được thiết lập kho nhập mua. Vui lòng liên hệ người quản trị để được thiết lập.", "", "warning").then(() => {
-    //                 this.record.db.is_sinh_tu_dong = false
-    //                 $event.checked = false
-    //             });
-    //         }
-    //     }
-    // }
-    // openDialogAddTaiKhoanNganHang(): void {
-    //     const dialogRef = this.dialogModal.open(sys_tai_khoan_ngan_hang_popUpAddComponent, {
-    //         disableClose: true,
-    //         width: '768px',
-    //         data: {
-    //             actionEnum: 1,
-    //             db: {
-    //                 id: 0,
-    //             }
-    //         },
-    //     });
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         this.get_list_ngan_hang();
-    //         this.record.db.id_tai_khoan_ngan_hang = result.db.id
-    //     });
-    // }
     openDialogEdit(item, pos): void {
         const dialogRef = this.dialog.open(sys_don_hang_mua_popUpAddComponent, {
             disableClose: true,
@@ -131,7 +91,7 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
                 actionEnum: 2,
                 db: {
                     id: item.db.id,
-                    id_doi_tuong: item.db.id_doi_tuong
+                    //id_doi_tuong: item.db.id_doi_tuong
                 },
             }
             //data: model
@@ -142,13 +102,8 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
         });
     }
     ngOnInit(): void {
-        //this.get_list_kho();
-        //this.get_hinh_thuc_doi_tuong();
-        //this.get_loai_giao_dich();
-        //this.get_list_vat();
-        this.get_list_don_vi_tinh();
-        //this.get_list_ngan_hang();
-        this.get_list_phuong_thuc_thanh_toan();
+        this.baseInitData();
+        //this.get_list_don_vi_tinh();
     };
     combinedCode = ""
     startFrom = new Date().getTime();
@@ -173,7 +128,7 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
     // set_phuong_thuc_thanh_toan() {
     //     debugger
     //     if (this.actionEnum != 3) {
-    //         this.record.ten_ngan_hang = null;
+    //         //this.record.ten_ngan_hang = null;
     //         this.record.db.id_tai_khoan_ngan_hang = null;
     //     }
     // };
@@ -231,23 +186,23 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
     //             });
     //         });
     // }
-    get_list_phuong_thuc_thanh_toan() {
-        this.list_phuong_thuc_thanh_toan = [
-            {
-                id: 1,
-                name: this._translocoService.translate('system.tien_mat')
-            },
-            {
-                id: 2,
-                name: this._translocoService.translate('system.chuyen_khoan')
-            }
-            // {
-            //     id: 3,
-            //     name: this._translocoService.translate('system.vi_dien_tu')
-            // }
-        ];
+    // get_list_phuong_thuc_thanh_toan() {
+    //     this.list_phuong_thuc_thanh_toan = [
+    //         {
+    //             id: 1,
+    //             name: this._translocoService.translate('system.tien_mat')
+    //         },
+    //         {
+    //             id: 2,
+    //             name: this._translocoService.translate('system.chuyen_khoan')
+    //         }
+    //         // {
+    //         //     id: 3,
+    //         //     name: this._translocoService.translate('system.vi_dien_tu')
+    //         // }
+    //     ];
 
-    }
+    // }
     // load_ngay_du_kien() {
     //     var so_ngay_du_kien_giao = this.record.db.so_ngay_du_kien;
     //     var date = new Date(this.record.db.ngay_dat_hang);
@@ -265,51 +220,7 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
     //     this.record.db.ma_ngan_hang = bank.ma_ngan_hang;
     //     this.record.db.so_tai_khoan = bank.so_tai_khoan;
     // }
-    // onFileSelected(event: any) {
-    //     this.file = event.target.files[0];
-    // }
-    // dowloadFileMau() {
-    //     var url = '/sys_don_hang_mua.ctr/downloadtempdetail';
-    //     window.location.href = url;
-    // }
-    // onSubmitFile(event: any) {
-    //     if (this.file == null || this.file == undefined) {
-    //         Swal.fire('Phải chọn file import', '', 'warning')
-    //     } else {
-    //         this.record.list_mat_hang = [];
-    //         var formData = new FormData();
-    //         formData.append('file', this.file);
-    //         formData.append('model', JSON.stringify(this.record));
-
-    //         this.http.post('/sys_don_hang_mua.ctr/ImportFromExcelMatHang/', formData, {
-    //             reportProgress: true,
-    //             observe: 'events'
-    //         })
-    //             .subscribe(res => {
-    //                 if (res.type == HttpEventType.UploadProgress) {
-    //                 } else if (res.type === HttpEventType.Response) {
-    //                     debugger
-    //                     var item: any;
-    //                     item = res.body;
-    //                     if (item.error == "") {
-    //                         for (let i = 0; i < item.list_mat_hang.length; i++) {
-    //                             var model = item.list_mat_hang[i]
-    //                             model.db.ten = model.ten_mat_hang
-    //                             model.db.ma = model.ma_mat_hang
-    //                             model.db.id = model.id_mat_hang
-    //                             item.list_mat_hang[i].db.ghi_chu = model.db.ghi_chu
-    //                             item.list_mat_hang[i].db.don_gia = Number(item.list_mat_hang[i].db.don_gia);
-    //                             item.list_mat_hang[i].db.so_luong = Number(item.list_mat_hang[i].db.so_luong);
-    //                             item.list_mat_hang[i].db.chiet_khau = Number(item.list_mat_hang[i].db.chiet_khau);
-    //                         }
-    //                         this.load_list_choose_import(item.list_mat_hang);
-    //                     } else {
-    //                         Swal.fire(item.error, "", "warning")
-    //                     }
-    //                 }
-    //             })
-    //     }
-    // }
+    
     // resetDonHang(): void {
     //     var loai_giao_dich = this.record.db.loai_giao_dich;
     //     var ma = this.record.db.ma;
@@ -484,14 +395,14 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
     //     this.list_vat = list_vat;
 
     // }
-    get_list_don_vi_tinh(): void {
-        this.http.post('/sys_don_vi_tinh.ctr/getListUse/', {
+    // get_list_don_vi_tinh(): void {
+    //     this.http.post('/sys_don_vi_tinh.ctr/getListUse/', {
 
-        }).subscribe(resp => {
-            this.list_don_vi_tinh = resp;
+    //     }).subscribe(resp => {
+    //         this.list_don_vi_tinh = resp;
 
-        })
-    }
+    //     })
+    // }
     toggleTabs($tabNumber: number) {
         this.openTab = $tabNumber;
 

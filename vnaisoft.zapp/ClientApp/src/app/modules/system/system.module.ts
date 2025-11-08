@@ -91,6 +91,7 @@ import { sys_don_hang_ban_indexComponent } from './sys_don_hang_ban/index.compon
 import { sys_don_hang_ban_popUpAddComponent } from './sys_don_hang_ban/popupAdd.component';
 import { sys_don_hang_mua_indexComponent } from './sys_don_hang_mua/index.component';
 import { sys_don_hang_mua_popUpAddComponent } from './sys_don_hang_mua/popupAdd.component';
+import { sys_common_popupChooseMatHangComponent } from './sys_common/popupChooseMatHang';
 
 
 
@@ -108,6 +109,7 @@ export function playerFactory() {
         // { provide: MAT_DATE_LOCALE, useValue: 'vi-VN' }
     ],
     declarations: [
+        sys_common_popupChooseMatHangComponent,
         sys_mat_hang_indexComponent,
         sys_mat_hang_popUpAddComponent,
         sys_mat_hang_popupChooseDacTinhComponent,

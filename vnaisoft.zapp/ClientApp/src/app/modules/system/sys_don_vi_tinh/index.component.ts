@@ -174,7 +174,7 @@ export class sys_don_vi_tinh_indexComponent extends BaseIndexDatatableComponent 
     ngOnInit(): void {
         this.baseInitData();
 
-        var title = 'SHUNGO-' + this._translocoService.translate('NAV.sys_don_vi_tinh');
+        var title = this._translocoService.translate('NAV.sys_don_vi_tinh');
         var metaTag = [
 
 

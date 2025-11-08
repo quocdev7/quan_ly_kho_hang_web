@@ -41,11 +41,11 @@
                     </div>
                 </div>
                 <br> -->
-                <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-                    <div class="flex-1">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <!-- <div class="flex-1">
                         <cm_select [label]="'system.loai_giao_dich'" [callbackChange]="rerender.bind(this)"
                             [listData]="list_loai_giao_dich" [(model)]="filter.id_loai_giao_dich"></cm_select>
-                    </div>
+                    </div> -->
                     <div class="flex-1">
                         <cm_input [label]="'system.tu_ngay_dat_hang'" [type]="'datepicker'" [readonly]="'false'"
                             [callbackChange]="rerender.bind(this)" [(model)]="filter.tu_ngay"></cm_input>
@@ -54,7 +54,7 @@
                         <cm_input [label]="'system.den_ngay_dat_hang'" [type]="'datepicker'" [readonly]="'false'"
                             [callbackChange]="rerender.bind(this)" [(model)]="filter.den_ngay"></cm_input>
                     </div>
-                </div> -->
+                </div>
                 <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
                     <div class="flex-1">
                         <cm_select [label]="'system.status_del'" [listData]="list_status_del"

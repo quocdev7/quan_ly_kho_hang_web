@@ -131,28 +131,28 @@ namespace vnaisoft.system.web.Controller
                 //}
             }
 
-            if (item.db.list_mat_hang.Count == 0)
-            {
-                ModelState.AddModelError("db.list_mat_hang", "sys.phai_chon_mat_hang");
-            }
-            else
-            {
-                for (int i = 0; i < item.db.list_mat_hang.Count; i++)
-                {
-                    var mat_hang = item.db.list_mat_hang[i];
-                    if (mat_hang.so_luong == null)
-                    {
-                        ModelState.AddModelError("db.so_luong" + i, "required");
-                    }
-                    else
-                    {
-                        if (mat_hang.so_luong <= 0)
-                        {
-                            ModelState.AddModelError("db.so_luong" + i, "sys.phai_lon_hon_0");
-                        }
-                    }
-                }
-            }
+            //if (item.db.list_mat_hang.Count == 0)
+            //{
+            //    ModelState.AddModelError("db.list_mat_hang", "sys.phai_chon_mat_hang");
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < item.db.list_mat_hang.Count; i++)
+            //    {
+            //        var mat_hang = item.db.list_mat_hang[i];
+            //        if (mat_hang.so_luong == null)
+            //        {
+            //            ModelState.AddModelError("db.so_luong" + i, "required");
+            //        }
+            //        else
+            //        {
+            //            if (mat_hang.so_luong <= 0)
+            //            {
+            //                ModelState.AddModelError("db.so_luong" + i, "sys.phai_lon_hon_0");
+            //            }
+            //        }
+            //    }
+            //}
             //if (item.check_doi_tuong == 1)
             //{
             //}
