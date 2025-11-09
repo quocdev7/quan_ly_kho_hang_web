@@ -37,8 +37,14 @@ namespace vnaisoft.DataBase.Mongodb
             sys_phieu_xuat_kho_col = database.GetCollection<sys_phieu_xuat_kho_col>("sys_phieu_xuat_kho_col");
             sys_phieu_nhap_kho_chi_tiet_col = database.GetCollection<sys_phieu_nhap_kho_chi_tiet_col>("sys_phieu_nhap_kho_chi_tiet_col");
             sys_phieu_xuat_kho_chi_tiet_col = database.GetCollection<sys_phieu_xuat_kho_chi_tiet_col>("sys_phieu_xuat_kho_chi_tiet_col");
+            sys_ton_kho_mat_hang_col = database.GetCollection<sys_ton_kho_mat_hang_col>("sys_ton_kho_mat_hang_col");
+            sys_don_hang_ban_mat_hang_col = database.GetCollection<sys_don_hang_ban_mat_hang_col>("sys_don_hang_ban_mat_hang_col");
+            sys_don_hang_mua_mat_hang_col = database.GetCollection<sys_don_hang_mua_mat_hang_col>("sys_don_hang_mua_mat_hang_col");
         }
-        
+
+        public readonly IMongoCollection<sys_don_hang_mua_mat_hang_col> sys_don_hang_mua_mat_hang_col;
+        public readonly IMongoCollection<sys_don_hang_ban_mat_hang_col> sys_don_hang_ban_mat_hang_col;
+        public readonly IMongoCollection<sys_ton_kho_mat_hang_col> sys_ton_kho_mat_hang_col;
         public readonly IMongoCollection<sys_phieu_xuat_kho_chi_tiet_col> sys_phieu_xuat_kho_chi_tiet_col;
         public readonly IMongoCollection<sys_phieu_nhap_kho_chi_tiet_col> sys_phieu_nhap_kho_chi_tiet_col;
         public readonly IMongoCollection<sys_phieu_xuat_kho_col> sys_phieu_xuat_kho_col;

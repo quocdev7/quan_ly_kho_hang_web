@@ -282,7 +282,8 @@ export class sys_don_hang_mua_indexComponent extends BaseIndexDatatableComponent
                 actionEnum: 1,
                 db: {
                     id: "",
-                }
+                },
+                list_mat_hang: [],
             },
         });
         dialogRef.afterClosed().subscribe(result => {

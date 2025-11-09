@@ -10,9 +10,34 @@ import { sys_khach_hang_nha_cung_cap_indexComponent } from './sys_khach_hang_nha
 import { sys_mat_hang_indexComponent } from './sys_mat_hang/index.component';
 import { sys_don_hang_mua_indexComponent } from './sys_don_hang_mua/index.component';
 import { sys_don_hang_ban_indexComponent } from './sys_don_hang_ban/index.component';
+import { sys_phieu_nhap_kho_indexComponent } from './sys_phieu_nhap_kho/index.component';
+import { sys_phieu_xuat_kho_indexComponent } from './sys_phieu_xuat_kho/index.component';
+import { bao_cao_ton_kho_mat_hang_indexComponent } from './sys_bao_cao_ton_kho/index.component';
+import { bao_cao_nhap_kho_indexComponent } from './sys_bao_cao_nhap_kho/index.component';
+import { bao_cao_xuat_kho_indexComponent } from './sys_bao_cao_xuat_kho/index.component';
 
 export const systemsRoutes: Route[] = [  
 
+    {
+        path: 'bao_cao_xuat_kho_index',
+        component: bao_cao_xuat_kho_indexComponent,
+    },
+    {
+        path: 'bao_cao_nhap_kho_index',
+        component: bao_cao_nhap_kho_indexComponent,
+    },
+    {
+        path: 'bao_cao_ton_kho_mat_hang_index',
+        component: bao_cao_ton_kho_mat_hang_indexComponent,
+    },
+    {
+        path: 'sys_phieu_xuat_kho_index',
+        component: sys_phieu_xuat_kho_indexComponent,
+    },
+    {
+        path: 'sys_phieu_nhap_kho_index',
+        component: sys_phieu_nhap_kho_indexComponent,
+    },
     {
         path: 'sys_don_hang_ban_index',
         component: sys_don_hang_ban_indexComponent,

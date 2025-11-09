@@ -9,24 +9,13 @@
     <mat-card class="rounded-2xl py-6 px-6 shadow">
         <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-4">
             <div class="flex-1">
-                <cm_select [label]="'NAV.erp_loai_mat_hang'" [callbackChange]="rerender.bind(this)"
+                <cm_select [label]="'system.loai_mat_hang'" [callbackChange]="rerender.bind(this)"
                     [listData]="list_loai_mat_hang" [(model)]="filter.id_loai_mat_hang"></cm_select>
-            </div>
-            <div class="flex-1">
-                <cm_select [label]="'system.thuoc_tinh'" [listData]="list_thuoc_tinh" [(model)]="filter.id_thuoc_tinh"
-                    [callbackChange]="rerender.bind(this)"></cm_select>
-            </div>
-
-        </div>
-        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-            <div class="flex-1">
-                <cm_select [label]="'erp.kho'" [listData]="list_kho" [(model)]="filter.id_kho"
-                    [callbackChange]="rerender.bind(this)"></cm_select>
             </div>
             <div class="flex-1">
                 <mat-form-field class="w-full" floatLabel="always">
                     <mat-label>
-                        {{'search' | transloco}} ({{ 'system.ten_mat_hang' | transloco }} | {{ 'erp.ma_mat_hang'
+                        {{'search' | transloco}} ({{ 'system.ten_mat_hang' | transloco }} | {{ 'system.ma_mat_hang'
                         |transloco}})
                     </mat-label>
                     <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()"
@@ -69,12 +58,10 @@
                         </th>
                         <th transloco="system.ten_mat_hang"></th>
                         <th transloco="system.don_vi_tinh" style="width: 100px;"></th>
-                        <th transloco="system.ma_vach" style="width: 100px;"></th>
                         <th transloco="erp.ton_kho" style="width: 100px;"></th>
                         <th transloco="system.gia_ban_si" *ngIf="record.db.kieu_ban==1" style="width: 120px;"></th>
                         <th transloco="system.gia_ban_le" *ngIf="record.db.kieu_ban==2" style="width: 120px;"></th>
                         <th style="width: 50px;"> <span transloco="system.vat"></span>&nbsp;(%)</th>
-                        <th style="width: 50px;"> <span transloco="system.chiet_khau"></span></th>
 
 
 
@@ -99,9 +86,6 @@
                         <td>
                             {{item.ten_don_vi_tinh}}
                         </td>
-                        <td>
-                            {{item.db.ma_vach}}
-                        </td>
                         <td align="right">
                             {{item.ton_kho}}
                         </td>
@@ -109,7 +93,6 @@
                         <td *ngIf="record.db.kieu_ban==2" class="text-right">{{ item.db.gia_ban_le | number }}</td>
 
                         <td align="right">{{item.db.vat}}</td>
-                        <td align="right">{{item.db.ty_le_chiet_khau}}</td>
 
 
                     </tr>

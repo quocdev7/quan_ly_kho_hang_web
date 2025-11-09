@@ -1,12 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using vnaisoft.common.Common;
 using vnaisoft.DataBase.commonFunc;
 using vnaisoft.DataBase.Helper;
 using vnaisoft.DataBase.Mongodb;
@@ -587,7 +584,7 @@ namespace vnaisoft.system.data.DataAccess
         //    await _context.erp_khach_hang_nha_cung_caps.UpdateOneAsync(filter, update);
         //    return 1;
         //}
-        
+
         public async Task<int> update(sys_don_hang_mua_model model)
         {
             //tinhTongTien(model);
@@ -603,7 +600,6 @@ namespace vnaisoft.system.data.DataAccess
                 .Set(x => x.ma_ngan_hang, model.db.ma_ngan_hang)
                 .Set(x => x.so_tai_khoan, model.db.so_tai_khoan)
                 .Set(x => x.ngay_dat_hang, model.db.ngay_dat_hang)
-                .Set(x => x.list_mat_hang, model.db.list_mat_hang)
                 .Set(x => x.tong_thanh_tien, model.db.tong_thanh_tien)
                 .Set(x => x.ghi_chu, model.db.ghi_chu)
                 .Set(x => x.ngay_cap_nhat, model.db.ngay_cap_nhat)
@@ -746,7 +742,7 @@ namespace vnaisoft.system.data.DataAccess
         //                  });
         //    return result;
         //}
-        
+
         public IQueryable<sys_don_hang_mua_model> FindAll(IQueryable<sys_don_hang_mua_col> query)
         {
             var result = (from d in query.OrderByDescending(d => d.ngay_dat_hang)

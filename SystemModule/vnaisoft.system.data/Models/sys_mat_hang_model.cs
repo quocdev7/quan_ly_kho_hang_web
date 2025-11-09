@@ -13,6 +13,7 @@ namespace vnaisoft.system.data.Models
         public string ten_don_vi_tinh { get; set; }
         public string nguoi_tao { get; set; }
         public string nguoi_cap_nhat { get; set; }
+        public decimal? ton_kho { get; set; }
     }
 
 }

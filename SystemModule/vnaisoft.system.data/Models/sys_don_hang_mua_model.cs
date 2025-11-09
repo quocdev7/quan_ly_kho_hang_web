@@ -1,8 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System.Collections.Generic;
-using System.Linq;
-using vnaisoft.common.Helpers;
+﻿using System.Collections.Generic;
 using vnaisoft.DataBase.Mongodb.Collection.system;
 
 namespace vnaisoft.system.data.Models
@@ -12,10 +8,12 @@ namespace vnaisoft.system.data.Models
         public sys_don_hang_mua_model()
         {
             db = new sys_don_hang_mua_col();
-            //list_mat_hang = new List<erp_don_hang_mua_mat_hang_model>();
+            list_mat_hang = new List<sys_don_hang_mua_mat_hang_col>();
         }
         public sys_don_hang_mua_col db { get; set; }
         public string ten_nguoi_cap_nhat { get; set; }
+        public List<sys_don_hang_mua_mat_hang_col> list_mat_hang { get; set; }
+
         //public string ten_ngan_hang_doi_tuong
         //{
         //    get
@@ -36,7 +34,6 @@ namespace vnaisoft.system.data.Models
         //public string tong_tien_bang_chu { get; set; }
         //public decimal? tong_tien_sau_thue { get; set; }
         //public decimal? chi_phi_van_chuyen { get; set; }
-        //public List<erp_don_hang_mua_mat_hang_model> list_mat_hang { get; set; }
         //public int? check_doi_tuong { get; set; }
         //public string ma_doi_tuong { get; set; }
         //public string ma_ngan_hang_nhan { get; set; }

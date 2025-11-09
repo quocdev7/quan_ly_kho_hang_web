@@ -1,0 +1,213 @@
+<div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+    <div class="text-lg font-medium" transloco="NAV.sys_phieu_nhap_kho"></div>
+</div>
+
+<mat-card class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+    <div class="flex flex-row justify-end space-x-2 mr-4 mb-4">
+
+        <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+            *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+            <p transloco="save" class="mb-0 text-white"></p>
+        </button>
+        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
+            <p transloco="system.print" class="mb-0 text-white"></p>
+        </button>
+        <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center" [disabled]="loading"
+            (click)="close()">
+            <p transloco="close" class="mb-0 text-white"></p>
+        </button>
+    </div>
+    <!-- thong tin don hang -->
+    <h3 transloco="system.thong_tin_phieu" class="text-2xl font-bold underline"></h3>
+    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+        <div class="flex-1">
+            <mat-form-field class="w-full" floatLabel="always">
+                <mat-label>
+                    {{'system.ma_phieu' | transloco}}
+                </mat-label>
+                <input matInput [(ngModel)]="record.db.ma" disabled="true">
+            </mat-form-field>
+        </div>
+        <div class="flex-1">
+            <cm_select [disabled]="actionEnum!=1" [errorModel]="errorModel" [actionEnum]="actionEnum"
+                [label]="'system.loai_nhap'" [listData]="list_loai_nhap" [keyError]="'db.id_loai_nhap'"
+                [(model)]="record.db.id_loai_nhap" [callbackChange]="change_loai_nhap.bind(this)">
+            </cm_select>
+        </div>
+    </div>
+    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+        <div class="flex-1">
+            <mat-form-field class="w-full" floatLabel="always">
+                <mat-label>
+                    {{'system.ten_phieu' | transloco}}
+                </mat-label>
+                <input matInput [(ngModel)]="record.db.ten" disabled="true">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+        <!-- <div class="flex-1">
+            <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.kho'" [listData]="list_kho"
+                [keyError]="'db.id_kho'" [(model)]="record.db.id_kho"></cm_select>
+        </div> -->
+        <div class="flex-1">
+            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ngay_nhap'"
+                [type]="'datepicker'" [keyError]="'db.ngay_nhap'" [(model)]="record.db.ngay_nhap"></cm_input>
+        </div>
+        <div class="flex-1">
+            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'" [maxlength]="500"
+                [type]="'textarea'" [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu">
+            </cm_input>
+        </div>
+    </div>
+    <ng-container *ngIf="record.db.nguon =='1' || record.db.nguon =='2'">
+
+        <h3 transloco="NAV.sys_don_hang_ban_buon" *ngIf="record.db.nguon =='1'" class="text-2xl font-bold underline">
+        </h3>
+        <h3 transloco="NAV.sys_don_hang_mua" *ngIf="record.db.nguon =='2'" class="text-2xl font-bold underline">
+        </h3>
+
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1 pb-2">
+                <mat-error>
+                    <span style="color: red"
+                        *ngFor="let item of errorModel | filter: 'key':'db.id_don_hang'; index as i">
+                        (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                    </span>
+                </mat-error>
+                <!-- type == 2 đơn hàng mua
+                        type == 1 đơn hàng bán -->
+                <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                    *ngIf="record.db.nguon=='2' && actionEnum !=3"
+                    (click)="openDialogChooseDonHang(record.db.id_don_hang,2)">
+                    <p transloco="common.chon" class="mb-0 text-white"></p>
+                </button>
+                <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                    *ngIf="record.db.nguon=='1' && actionEnum !=3"
+                    (click)="openDialogChooseDonHang(record.db.id_don_hang,1)">
+                    <p transloco="common.chon" class="mb-0 text-white"></p>
+                </button>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+
+                <span class="text-blue-900 font-bold" *ngIf="record.db.id_don_hang_ban != null">
+                    <a class="text-blue-500" (click)="openDialogDetailDonHangBan(record.db.id_don_hang_ban,i)">{{
+                        record.ma_don_hang }}</a>
+                </span>
+                <span class="text-blue-900 font-bold" *ngIf="record.db.id_don_hang_mua != null">
+                    <a class="text-blue-500" (click)="openDialogDetailDonHangMua(record.db.id_don_hang_mua,i)">{{
+                        record.ma_don_hang }}</a>
+                </span>
+                <br>
+                <span class="font-bold" transloco="system.ghi_chu" *ngIf="record.ghi_chu_don_hang != null"></span>
+                <span *ngIf="record.ghi_chu_don_hang != null">
+                    :
+                </span> {{ record.ghi_chu_don_hang }}
+                <span class="text-cyan-600" *ngIf="record.loai_giao_dich==1" transloco="system.hang_hoa"></span>
+                <span class="text-purple-600" *ngIf="record.loai_giao_dich==2" transloco="system.dich_vu"></span>
+            </div>
+        </div>
+    </ng-container>
+    <!--Thong tin mat hang-->
+    <h3 transloco="system.thong_tin_mat_hang" class="mt-3 text-2xl font-bold underline"></h3>
+    <div *ngIf="actionEnum !=3" class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+        <div class="flex-1  mt-6">
+            <mat-form-field class="w-full" floatLabel="always">
+                <input matInput [(ngModel)]="ma_mat_hang" (keyup.enter)="add_mat_hang()"
+                    placeholder="{{'system.nhap_ma_mat_hang' | transloco}}">
+
+                <button mat-icon-button color="primary" class="mr-4" (click)="openDialogChooseMatHang()">
+                    <span transloco="common.chon"></span>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="flex-1">
+            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" (keyup.enter)="add_mat_hang()"
+                [keyError]="'so_luong_mh'" [label]="'system.so_luong'" [(model)]="record.so_luong_mh" [type]="'number'">
+            </cm_input>
+        </div>
+    </div>
+    <mat-label class="ml-2">
+        <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'list_mat_hang'; index as i">
+            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+        </span>
+    </mat-label>
+    <div class="w-full overflow-auto">
+        <table class="cell-border hover w-full overflow-auto ">
+            <thead class="bg-blue-500 text-center text-white h-8">
+                <tr>
+                    <th *ngIf="actionEnum !=3" style="width:50px"></th>
+                    <th transloco="no_" style="width:50px"></th>
+                    <th style="width: 140px"> <span transloco="system.mat_hang"></span></th>
+                    <th transloco="system.so_luong" style="width: 100px"></th>
+                    <th transloco="system.ghi_chu"></th>
+                </tr>
+            </thead>
+            <tbody *ngIf="record.list_mat_hang?.length != 0">
+                <ng-container *ngFor="let item of record.list_mat_hang;  index as i;">
+                    <tr>
+                        <td align="left" colspan="3"></td>
+                        <td align="left" colspan="2">
+                            <mat-error>
+                                <span style="color: red"
+                                    *ngFor="let item of errorModel | filter: 'key':'db.so_luong'+i; index as i">
+                                    (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
+                                </span>
+                            </mat-error>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td *ngIf="actionEnum !=3" align="center">
+                            <button color="warn" mat-raised-button transloco="delete"
+                                (click)="delete_mat_hang(i,item.ten_mat_hang)">
+                            </button>
+                        </td>
+                        <td style="text-align:center">{{i+1 }}</td>
+                        <td>
+                            <span class="text-blue-900 font-bold"> {{ item.ma_mat_hang }}</span>
+                            <br />
+                            <span>{{ item.ten_mat_hang }} </span>
+                        </td>
+                        <td>
+                            <cm_input [actionEnum]="actionEnum" [type]="'number'" [suffixstring]="item.ten_don_vi_tinh"
+                                [(model)]="item.db.so_luong"></cm_input>
+                        </td>
+                        <td>
+                            <cm_input [type]="'text'" [actionEnum]="actionEnum" [(model)]="item.db.ghi_chu">
+                            </cm_input>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+            <tbody *ngIf="record.list_mat_hang?.length == 0">
+                <tr class="h-40">
+                    <td colspan="100" class="no-data-available">
+                        <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                            [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                            <ng-template #contentTpl>
+                                <span transloco="no_data"></span>
+                            </ng-template>
+                        </nz-empty>
+                    </td>
+                </tr>
+            <tbody>
+        </table>
+    </div>
+    <div class="flex flex-row justify-end space-x-2 mr-4 py-4">
+        <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+            *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+            <p transloco="save" class="mb-0 text-white"></p>
+        </button>
+        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
+            <p transloco="system.print" class="mb-0 text-white"></p>
+        </button>
+        <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center" [disabled]="loading"
+            (click)="close()">
+            <p transloco="close" class="mb-0 text-white"></p>
+        </button>
+    </div>
+</mat-card>

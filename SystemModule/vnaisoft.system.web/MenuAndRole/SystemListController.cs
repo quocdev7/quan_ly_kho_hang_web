@@ -28,6 +28,11 @@ namespace vnaisoft.system.web.MenuAndRole
             sys_mat_hangController.declare,
             sys_don_hang_muaController.declare,
             sys_don_hang_banController.declare,
+            sys_phieu_nhap_khoController.declare,
+            sys_phieu_xuat_khoController.declare,
+            bao_cao_nhap_khoController.declare,
+            bao_cao_xuat_khoController.declare,
+            bao_cao_ton_kho_mat_hangController.declare,
 
         };
     }

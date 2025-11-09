@@ -242,7 +242,11 @@
     "chuong_trinh_hoc": "Import chương trình học"
   },
   "NAV": {
-    
+    "sys_phieu_xuat_kho": "Phiếu xuất kho",
+    "sys_phieu_nhap_kho": "Phiếu nhập kho",
+    "bao_cao_xuat_kho": "Báo cáo xuất kho",
+    "bao_cao_nhap_kho": "Báo cáo nhập kho",
+    "bao_cao_ton_kho_mat_hang": "Báo cáo tồn kho mặt hàng",
     "sys_don_hang_mua":"Đơn hàng mua",
     "sys_don_hang_ban":"Đơn hàng bán",
     "sys_mat_hang":"Mặt hàng",
@@ -573,6 +577,22 @@
     "ket_noi_voi_chung_toi": "Kết nối với chúng tôi"
   },
   "system": {
+    "loai_xuat":" Loại xuất",
+    "tu_ngay_xuat":"Từ ngày xuất",
+    "den_ngay_xuat":"Đến ngày xuất",
+    "ten_phieu":"Tên phiếu",
+    "loai_nhap":" Loại nhập",
+    "ma_phieu":"Mã phiếu",
+    "thong_tin_phieu": "Thông tin phiếu",
+    "tong_thanh_tien":"Tổng thành tiền",
+    "ngay_xuat":"Ngày xuất",
+    "phieu_xuat_kho":"Phiếu xuất kho",
+    "ngay_nhap":"Ngày nhập",
+    "phieu_nhap_kho":"Phiếu nhập kho",
+    "den_ngay_nhap": "Đến ngày nhập",
+    "tu_ngay_nhap": "Từ ngày nhập",
+    "ma_mat_hang":"Mã mặt hàng",
+    "ten_mat_hang":"Tên mặt hàng",
     "den_ngay_dat_hang":"Đến ngày đặt hàng",
     "tu_ngay_dat_hang":"Từ ngày đặt hàng",
     "so_luong":"Số lượng",

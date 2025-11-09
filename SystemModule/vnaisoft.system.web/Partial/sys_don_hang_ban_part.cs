@@ -1,10 +1,6 @@
 ﻿using MongoDB.Driver;
-using NPOI.SS.Formula.Functions;
-using Opc.Ua;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using vnaisoft.common.BaseClass;
 using vnaisoft.common.Models;
 using vnaisoft.system.data.Models;
@@ -123,11 +119,6 @@ namespace vnaisoft.system.web.Controller
                     ModelState.AddModelError("db.id_tai_khoan_ngan_hang", "required");
                 }
             }
-
-            if (item.db.list_mat_hang.Count == 0)
-            {
-                ModelState.AddModelError("list_mat_hang", "erp.phai_chon_mat_hang");
-            }
             //else
             //{
             //    for (int i = 0; i < item.db.list_mat_hang.Count; i++)
@@ -204,7 +195,7 @@ namespace vnaisoft.system.web.Controller
             //        ModelState.AddModelError("db.dia_chi_giao_hang", "required");
             //    }
             //}
-            
+
             var queryTable = repo._context.sys_don_hang_ban_col.AsQueryable().Where(q => q.id == item.db.id.Trim());
             var search = repo.FindAll(queryTable).Where(d => d.db.ma == item.db.ma && d.db.id != item.db.id).Count();
             if (search > 0)
@@ -407,6 +398,6 @@ namespace vnaisoft.system.web.Controller
         //    }
         //    return error;
         //}
-    
+
     }
 }

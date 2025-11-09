@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -21,7 +20,7 @@ namespace vnaisoft.DataBase.Mongodb.Collection.system
         public string ma_ngan_hang { get; set; }
         public string so_tai_khoan { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_dat_hang { get; set; }
-        public List<sys_don_hang_mua_mat_hang> list_mat_hang { get; set; }
+        // public List<sys_don_hang_mua_mat_hang> list_mat_hang { get; set; }
         [BsonRepresentation(BsonType.Decimal128)] public decimal? tong_thanh_tien { get; set; }
         public string ghi_chu { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_tao { get; set; }
@@ -71,13 +70,13 @@ namespace vnaisoft.DataBase.Mongodb.Collection.system
         //[BsonRepresentation(BsonType.Decimal128)] public decimal? so_tien_da_thu { get; set; }
         //[BsonRepresentation(BsonType.Decimal128)] public decimal? so_tien_da_chi { get; set; }
 
-        
+
     }
-    public class sys_don_hang_mua_mat_hang
-    {
-        public string id { get; set; }
-        [BsonRepresentation(BsonType.Decimal128)] public decimal? so_luong { get; set; }
-        [BsonRepresentation(BsonType.Decimal128)] public decimal? don_gia { get; set; }
-        [BsonRepresentation(BsonType.Decimal128)] public decimal? thanh_tien { get; set; }
-    }
+    //public class sys_don_hang_mua_mat_hang
+    //{
+    //    public string id { get; set; }
+    //    [BsonRepresentation(BsonType.Decimal128)] public decimal? so_luong { get; set; }
+    //    [BsonRepresentation(BsonType.Decimal128)] public decimal? don_gia { get; set; }
+    //    [BsonRepresentation(BsonType.Decimal128)] public decimal? thanh_tien { get; set; }
+    //}
 }

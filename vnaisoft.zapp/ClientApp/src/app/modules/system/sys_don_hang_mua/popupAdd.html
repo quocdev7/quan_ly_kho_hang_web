@@ -68,39 +68,6 @@
         </div>
     </div>
     <h3 transloco="system.thong_tin_mat_hang" class="text-2xl font-bold underline"></h3>
-    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-        <div class="flex-1" *ngIf="actionEnum!=3">
-            <div class="flex items-center border-b border-blue-500 py-2">
-                <div class="flex w-full items-center justify-center bg-grey-lighter">
-                    <label
-                        class="w-full p-1 flex flex-row items-center bg-white text-blue rounded-lg tracking-wide uppercase  cursor-pointer hover:bg-blue-600 hover:text-white">
-                        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 20 20">
-                            <path
-                                d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                        </svg>
-                        &nbsp;&nbsp;
-                        <span *ngIf="file" class="text-base leading-normal"> {{file.name}}</span>
-                        <span *ngIf="!file" class="text-base leading-normal"> Chọn file để import</span>
-                        <input type='file' class="hidden" (change)="onFileSelected($event)" #fileUpLoad />
-                    </label>
-                </div>
-
-                <button
-                    class="flex-shrink-0 border-transparent border-4 text-blue-500 hover:bg-blue-600 hover:text-white text-base py-1 px-2 rounded"
-                    type="button" (click)="dowloadFileMau()">
-                    <span transloco="system.import_form"></span>
-                </button>
-                <button
-                    class="flex-shrink-0 border-transparent border-4 text-blue-500 hover:bg-blue-600 hover:text-white text-base py-1 px-2 rounded"
-                    type="button" (click)="onSubmitFile($event)">
-                    <span transloco="system.improt"></span>
-                </button>
-            </div>
-        </div>
-        
-    </div>
-    <br />
     <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
         <div class="flex-1 mt-6">
             <mat-form-field class="w-full" floatLabel="always">
@@ -132,20 +99,14 @@
                     <th style="min-width: 140px"> <span transloco="system.mat_hang"></span></th>
                     <th transloco="system.so_luong" style="min-width: 100px"></th>
                     <th transloco="system.don_gia" style="min-width: 100px"></th>
-                    <th transloco="system.so_luong_quy_doi" style="min-width: 100px"></th>
-                    <th transloco="system.don_gia_quy_doi" style="min-width: 100px"></th>
-                    <th transloco="system.chiet_khau" style="min-width: 100px"></th>
-                    <th transloco="system.thanh_tien_sau_chiet_khau" style="min-width: 100px"></th>
-
                     <th style="min-width: 100px">
                         <span transloco="system.vat"></span> (%)
                     </th>
-                    <th transloco="system.tien_thue" style="min-width: 100px"></th>
                     <th transloco="system.thanh_tien_sau_thue" style="min-width: 100px"></th>
                     <th transloco="system.ghi_chu"></th>
                 </tr>
             </thead>
-            <tbody *ngIf="record.db.list_mat_hang?.length != 0">
+            <tbody *ngIf="record.list_mat_hang?.length != 0">
                 <ng-container *ngFor="let item of record.list_mat_hang;  index as i;">
                     <tr>
                         <td *ngIf="actionEnum !=3" align="center">
@@ -158,11 +119,11 @@
                             <span class="text-blue-900 font-bold"> {{ item.ma_mat_hang }}</span>
                             <br />
                             <span>{{ item.ten_mat_hang }} </span>
-                            <br *ngIf="actionEnum ==1" />
+                            <!-- <br *ngIf="actionEnum ==1" />
                             <span *ngIf="actionEnum ==1">
                                 <span class="font-bold" transloco="system.ton_kho"></span>:
                                 <span>{{item.ton_kho | number}}</span>
-                            </span>
+                            </span> -->
                         </td>
                         <td>
                             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
@@ -178,42 +139,11 @@
                                 [(model)]="item.db.don_gia"></cm_input>
                         </td>
                         <td>
-                            <cm_input [errorModel]="errorModel" [actionEnum]="3" [type]="'number'"
-                                [keyError]="'so_luong_quy_doi'+i" [suffixstring]="item.ten_don_vi_tinh" [pos]="i"
-                                [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.so_luong_quy_doi">
-                            </cm_input>
-                        </td>
-                        <td>
-                            <cm_input [errorModel]="errorModel" [actionEnum]="3" [type]="'number'"
-                                [keyError]="'don_gia_quy_doi'+i" [pos]="i"
-                                [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.don_gia_quy_doi"></cm_input>
-                        </td>
-                        <td>
-                            <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
-                                [keyError]="'chiet_khau'+i" [pos]="i"
-                                [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.db.chiet_khau"></cm_input>
-                        </td>
-                        <td>
-                            <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
-                                [keyError]="'thanh_tien_chiet_khau'+i" [pos]="i"
-                                [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.db.thanh_tien_chiet_khau"></cm_input>
-                        </td>
-                        <td>
                             <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [keyError]="'vat'+i"
                                 [pos]="i" [listData]="list_vat"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
                                 [(model)]="item.db.vat">
                             </cm_select>
-                        </td>
-                        <td>
-                            <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
-                                [keyError]="'tien_vat'+i" [pos]="i"
-                                [callbackChangeWithParamPos]="loadThanhTienSauThueMatHangChangeTienThue.bind(this)"
-                                [(model)]="item.db.tien_vat"></cm_input>
                         </td>
                         <td>
                             <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
@@ -228,42 +158,11 @@
                     </tr>
                 </ng-container>
 
-                <tr class="mt-5">
-                    <td colspan="5" align="right">
-                        <span class="font-bold  text-blue-600" transloco="system.chi_phi_van_chuyen"></span>
-                    </td>
-                    <td colspan="8" align="right" class="font-bold">
-                        {{record.chi_phi_van_chuyen | number}}
-                    </td>
-                </tr>
-                <tr class="mt-5">
-                    <td colspan="5" align="right">
-                        <span span class="font-bold text-blue-600">Tổng</span>&nbsp;<span
-                            class="font-bold  text-blue-600"
-                            transloco="system.thanh_tien_sau_chiet_khau"></span>&nbsp;<span
-                            class="font-bold  text-blue-600">(bao gồm phí vận chuyển)</span>
-                    </td>
-                    <td colspan="8" align="right" class="font-bold">
-                        {{record.db.tong_tien_sau_chiet_khau | number}}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="5" align="right">
-
-                        <span span class="font-bold text-blue-600">Tổng</span>&nbsp;<span
-                            class="font-bold  text-blue-600" transloco="system.tien_thue"></span>&nbsp;<span
-                            class="font-bold  text-blue-600">(bao gồm thuế vận chuyển)</span>
-                    </td>
-                    <td colspan="8" align="right" class="font-bold">
-                        {{record.db.tong_tien_thue | number}}
-                    </td>
-                </tr>
                 <tr>
                     <td colspan="5" align="right">
                         <span span class="font-bold text-blue-600">Tổng</span>&nbsp;<span
                             class="font-bold  text-blue-600"
-                            transloco="system.thanh_tien_sau_thue"></span>&nbsp;<span
-                            class="font-bold  text-blue-600">(bao gồm phí vận chuyển)</span>
+                            transloco="system.tong_thanh_tien"></span>
                     </td>
                     <td colspan="8" align="right" class="font-bold">
                         {{record.db.tong_tien_sau_thue | number}}

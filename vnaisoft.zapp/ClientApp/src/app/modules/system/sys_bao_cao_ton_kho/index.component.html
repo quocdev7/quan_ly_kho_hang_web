@@ -10,24 +10,11 @@
                 <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
                     <div class="flex-1">
                         <cm_select 
-                                   [label]="'bao_cao.kho'"
-                                   [listData]="list_kho"
-                                   [(model)]="filter.id_kho"
-                                   [callbackChange]="rerender.bind(this)"></cm_select>
-                    </div>
-                    <div class="flex-1">
-                        <cm_select 
                                    [label]="'system.loai_mat_hang'"
                                    [listData]="list_loai_mat_hang"
                                    [(model)]="filter.id_loai_mat_hang"
                                    [callbackChange]="rerender.bind(this)"></cm_select>
                     </div>
-                    
-
-
-                 
-                </div>
-                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
                     <div class="flex-1">
                         <mat-form-field class="w-full" floatLabel="always">
                             <mat-label>
@@ -40,7 +27,6 @@
                             </button>
                         </mat-form-field>
                     </div>
-                    <div class="flex-1"></div>
                 </div>
       
               
@@ -62,24 +48,17 @@
                             <tr>
                                 <!-- <th style="width:50px !important"></th> -->
                                 <th style="max-width:50px !important" transloco="system.no_"></th>
-                                <th transloco="bao_cao.kho"></th>
                                 <th transloco="system.loai_mat_hang"></th>
                                 <th transloco="system.ten_mat_hang"></th>
                               
-                                <th style="max-width:120px !important" transloco="bao_cao.so_luong"></th>
-                                <th style="max-width:120px !important" transloco="bao_cao.don_vi_tinh"></th>
+                                <th style="max-width:120px !important" transloco="system.so_luong"></th>
+                                <th style="max-width:120px !important" transloco="system.don_vi_tinh"></th>
                             </tr>
                         </thead>
                         <tbody *ngIf="listData?.length != 0">
                             <tr *ngFor="let item of listData;  index as i;">
                               
-                                  <td align="center"> <span class="font-bold"> {{currentIndex+ i+1 }}</span> </td>
-                                  <td >
-                                    <span class="text-blue-900 font-bold cursor-pointer" (click)="get_kho(item.ma_kho)"> {{ item.ma_kho }}</span>
-                                    <br />
-                                   
-                                    {{item.ten_kho}}
-                                </td>
+                                <td align="center"> <span class="font-bold"> {{currentIndex+ i+1 }}</span> </td>
                                 <td> 
                                     <span class="text-blue-900 font-bold cursor-pointer " (click)="get_loai_mat_hang(item.ma_loai_mat_hang)"> {{ item.ma_loai_mat_hang }}</span>
                                     <br />

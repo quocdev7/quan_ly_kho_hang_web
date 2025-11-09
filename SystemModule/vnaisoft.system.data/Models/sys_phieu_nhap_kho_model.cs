@@ -13,6 +13,7 @@ namespace vnaisoft.system.data.Models
             list_mat_hang = new List<sys_phieu_nhap_kho_chi_tiet_model>();
         }
         public sys_phieu_nhap_kho_col db { get; set; }
+        public decimal? tong_so_luong { get; set; }
         public string ten_nguoi_cap_nhat { get; set; }
         public string ngay_cap_nhap_str { get; set; }
         public string ngay_nhap_str { get; set; }
@@ -34,7 +35,7 @@ namespace vnaisoft.system.data.Models
         public List<sys_phieu_nhap_kho_chi_tiet_model> list_mat_hang { get; set; }
         public int? check_doi_tuong { get; set; }
     }
-    
+
 }
 
 
