@@ -122,7 +122,7 @@ export class sys_common_popupChooseMatHangComponent extends BasePopupDatatabbleC
                         },
                         ma_mat_hang: model.db.ma,
                         ten_mat_hang: model.db.ten,
-                        ten_don_vi_tinh: model.db.id_don_vi_tinh,
+                        ten_don_vi_tinh: model.ten_don_vi_tinh,
                     }
                     this.record.list_mat_hang.push(obj_mat_hang);
                 }
