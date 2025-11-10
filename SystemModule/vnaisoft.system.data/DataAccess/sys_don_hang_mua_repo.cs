@@ -221,10 +221,14 @@ namespace vnaisoft.system.data.DataAccess
         public async Task<int> insert(sys_don_hang_mua_model model)
         {
             //tinhTongTien(model);
-            model.db.ten = generate_ten(model);
+            //model.db.ten = generate_ten(model);
             model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
             //model.db.id_file_upload = model.db.id + "sys_don_hang_mua";
             await _context.sys_don_hang_mua_col.InsertOneAsync(model.db);
+            if (model.list_mat_hang.Count() > 0)
+            {
+                await upset_detail(model);
+            }
             //var doi_tuong = _context.sys_khach_hang_nha_cung_cap_col.AsQueryable().Where(q => q.id == model.db.id_khach_hang_nha_cung_cap).SingleOrDefault();
             //if (doi_tuong != null)
             //{
@@ -233,10 +237,7 @@ namespace vnaisoft.system.data.DataAccess
             //        await update_doituong(model);
             //    }
             //}
-            //if (model.db.list_mat_hang.Count() > 0)
-            //{
-            //    await upset_detail(model);
-            //}
+
             //await _common_repo.insert_file(model.db.id, "sys_don_hang_mua");
             //if (model.db.is_chi_du == true)
             //{
@@ -304,6 +305,27 @@ namespace vnaisoft.system.data.DataAccess
             //}
             //await insert_log(model);
             //await upset_doituong(model);
+            return 1;
+        }
+        public async Task<int> upset_detail(sys_don_hang_mua_model model)
+        {
+            var filter = Builders<sys_don_hang_mua_mat_hang_col>.Filter.Eq(x => x.id_don_hang, model.db.id);
+            await _context.sys_don_hang_mua_mat_hang_col.DeleteManyAsync(filter);
+            for (int i = 0; i < model.list_mat_hang.Count(); i++)
+            {
+                var mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == model.list_mat_hang[i].id_mat_hang).SingleOrDefault();
+                var sotutang = 100 + i;
+                model.list_mat_hang[i].id = model.db.ma + sotutang.ToString();
+                model.list_mat_hang[i].id_don_hang = model.db.id;
+                model.list_mat_hang[i].nguoi_tao = model.db.nguoi_cap_nhat;
+                model.list_mat_hang[i].ngay_tao = DateTime.Now;
+                model.list_mat_hang[i].nguoi_cap_nhat = model.db.nguoi_cap_nhat;
+                model.list_mat_hang[i].ngay_cap_nhat = DateTime.Now;
+                model.list_mat_hang[i].status_del = 1;
+                model.list_mat_hang[i].ten_mat_hang = mat_hang.ten;
+                model.list_mat_hang[i].id_loai_mat_hang = mat_hang.id_loai_mat_hang;
+                await _context.sys_don_hang_mua_mat_hang_col.InsertOneAsync(model.list_mat_hang[i]);
+            }
             return 1;
         }
         //public async Task<int> insert_import(sys_don_hang_mua_model model)

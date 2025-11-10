@@ -56,42 +56,6 @@
   <span matSuffix> &nbsp;{{ suffixstring }}</span>
 </mat-form-field>
 
-<!--
-<mat-form-field floatLabel="always" *ngIf="type == 'textarea'" class="w-full"
-    [class.mat-form-field-disabled]="actionEnum == 3">
-    <mat-label> {{ label | transloco }} {{ labelAddString }}<span style="color: red"
-            *ngFor="let item of errorModel | filter: 'key':keyError; index as i">
-            (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)
-        </span>
-    </mat-label>
-
-    <textarea [readonly]="actionEnum == 3" matInput [placeholder]="placeholder" [(ngModel)]="model"
-        (keyup.enter)="enterAction()" (change)="modelChange.emit(model); setChose()" rows="3"></textarea>
-
-    <mat-error *ngIf="errorModel?.length!=0">
-        <ng-container *ngFor="let item of errorModel | filter: 'key':keyError; index as i">
-            <ng-container *ngFor="let msg of item.value"> {{ msg | transloco }} </ng-container>
-        </ng-container>
-    </mat-error>
-    <mat-hint class="text-right">{{ model?.length }} / {{ maxlength }}</mat-hint>
-    <span matSuffix> &nbsp;{{ suffixstring }}</span>
-</mat-form-field> -->
-<!-- <mat-form-field floatLabel="always" *ngIf="type == 'text_valid'" class="w-full"
-    [class.mat-form-field-disabled]="actionEnum == 3">
-    <mat-label>
-        {{ label | transloco }} {{ labelAddString }}
-        <span style="color: red" *ngIf="control_text?.invalid && (control_text?.touched || control_text?.dirty)">
-            <ng-container *ngFor="let error of getErrorMessages()">
-                ({{ error | transloco }})
-            </ng-container>
-        </span>
-    </mat-label>
-    <input [readonly]="actionEnum == 3" matInput [formControl]="control_text" [placeholder]="placeholder" maxlength="{{ maxlength }}"
-        (keyup.enter)="enterAction()" (change)="setChose()" />
-    <mat-hint class="text-right">{{ model?.length }} / {{ maxlength }}</mat-hint>
-    <span matSuffix> &nbsp;{{ suffixstring }}</span>
-</mat-form-field> -->
-
 <mat-form-field floatLabel="always" *ngIf="type == 'text'" class="w-full" [class.mat-form-field-disabled]="actionEnum == 3">
   <mat-label *ngIf="stt != ''">
     {{ label | transloco }} [{{ stt }}] {{ labelAddString

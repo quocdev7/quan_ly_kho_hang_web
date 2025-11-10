@@ -47,7 +47,6 @@ export class sys_common_popupChooseMatHangComponent extends BasePopupDatatabbleC
 
 
         this.record = data;
-        this.filter.id_doi_tuong = this.record.db.id_doi_tuong;
         this.actionEnum = data.actionEnum;  
 
         if (this.record.list_mat_hang == undefined) {
@@ -64,7 +63,7 @@ export class sys_common_popupChooseMatHangComponent extends BasePopupDatatabbleC
                 let str = "";
                 str = model.ma_mat_hang + "(" + model.ten_mat_hang + ")" + ";";
                 this.list_choose += str;
-                this.ignore_ids += model.db.id_mat_hang + ",";
+                this.ignore_ids += model.id_mat_hang + ",";
             }
             this.filter.ignore_ids = this.ignore_ids;
         }
@@ -109,8 +108,7 @@ export class sys_common_popupChooseMatHangComponent extends BasePopupDatatabbleC
                     this.list_choose += str;
                     don_gia = model.db.gia_ban_le;
                     let obj_mat_hang = {
-                        db: {
-                            id_mat_hang: model.db.id,
+                        id_mat_hang: model.db.id,
                             id_don_vi_tinh: model.db.id_don_vi_tinh,
                             don_gia: don_gia,
                             so_luong: 0,
@@ -119,7 +117,6 @@ export class sys_common_popupChooseMatHangComponent extends BasePopupDatatabbleC
                             tien_vat: 0,
                             ghi_chu: null,
                             thanh_tien_sau_thue: 0,
-                        },
                         ma_mat_hang: model.db.ma,
                         ten_mat_hang: model.db.ten,
                         ten_don_vi_tinh: model.ten_don_vi_tinh,

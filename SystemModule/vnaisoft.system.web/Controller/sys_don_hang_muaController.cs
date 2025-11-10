@@ -206,6 +206,7 @@ namespace vnaisoft.system.web.Controller
             model.db.id = model.db.ma;
             model.db.status_del = 1;
             model.db.nguoi_cap_nhat = getUserId();
+            model.db.nguoi_tao = getUserId();
             model.db.ngay_cap_nhat = DateTime.Now;
             model.db.ngay_tao = DateTime.Now;
             await repo.insert(model);

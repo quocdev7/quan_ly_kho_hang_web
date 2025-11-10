@@ -9,10 +9,6 @@
             *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
             <p transloco="save" class="mb-0 text-white"></p>
         </button>
-        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
-            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
-            <p transloco="system.print" class="mb-0 text-white"></p>
-        </button>
         <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center" [disabled]="loading"
             (click)="close()">
             <p transloco="close" class="mb-0 text-white"></p>
@@ -22,18 +18,16 @@
     <h3 transloco="system.thong_tin_don_hang" class="text-2xl font-bold underline"></h3>
     <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
         <div class="flex-1">
-            <!-- <cm_input [errorModel]="errorModel" [actionEnum]="3" [label]="'system.ma_don_hang'"
-                [keyError]="'db.ma_don_hang'" [type]="'readonly'" [(model)]="record.db.ma_don_hang">
-            </cm_input> -->
-            <mat-form-field class="w-full" floatLabel="always">
+            <cm_input [errorModel]="errorModel" [actionEnum]="3" [label]="'system.ma_don_hang'"
+                [keyError]="'db.ma'"  [(model)]="record.db.ma">
+            </cm_input>
+
+            <!-- <mat-form-field class="w-full" floatLabel="always">
                 <mat-label>
                     {{'system.ma_don_hang' | transloco}}
                 </mat-label>
                 <input matInput [(ngModel)]="record.db.ma" disabled="true">
-                <!-- <button mat-icon-button color="primary" class="mr-4" (click)="get_code()" *ngIf="actionEnum == 1">
-                    Làm mới
-                </button> -->
-            </mat-form-field>
+            </mat-form-field> -->
         </div>
 
         <div class="flex-1">
@@ -41,7 +35,7 @@
                 <mat-label>
                     {{'system.ten_don_hang' | transloco}}
                 </mat-label>
-                <input matInput [(ngModel)]="record.db.ten" disabled="true">
+                <input matInput [(ngModel)]="record.db.ten" placeholder="Bấm vào đây để nhập">
                 <!-- <button mat-icon-button color="primary" class="mr-4" (click)="get_code()" *ngIf="actionEnum==1">
                     Làm mới
                 </button> -->
@@ -129,30 +123,30 @@
                             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
                                 [keyError]="'so_luong'+i" [suffixstring]="item.ten_don_vi_tinh" [pos]="i"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.db.so_luong">
+                                [(model)]="item.so_luong">
                             </cm_input>
                         </td>
                         <td>
                             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
                                 [keyError]="'don_gia'+i" [pos]="i"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.db.don_gia"></cm_input>
+                                [(model)]="item.don_gia"></cm_input>
                         </td>
                         <td>
                             <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [keyError]="'vat'+i"
                                 [pos]="i" [listData]="list_vat"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.db.vat">
+                                [(model)]="item.vat">
                             </cm_select>
                         </td>
                         <td>
-                            <cm_input [type]="'number'" [actionEnum]="actionEnum" [errorModel]="errorModel"
-                                [keyError]="'thanh_tien_sau_thue'+i" [pos]="i"
+                            <cm_input [type]="'number'" [actionEnum]="3" [errorModel]="errorModel"
+                                [keyError]="'thanh_tien'+i" [pos]="i"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.db.thanh_tien_sau_thue"></cm_input>
+                                [(model)]="item.thanh_tien"></cm_input>
                         </td>
                         <td>
-                            <cm_input [type]="'text'" [actionEnum]="actionEnum" [(model)]="item.db.ghi_chu">
+                            <cm_input [type]="'text'" [actionEnum]="actionEnum" [(model)]="item.ghi_chu">
                             </cm_input>
                         </td>
                     </tr>
@@ -160,12 +154,12 @@
 
                 <tr>
                     <td colspan="5" align="right">
-                        <span span class="font-bold text-blue-600">Tổng</span>&nbsp;<span
+                        <span
                             class="font-bold  text-blue-600"
                             transloco="system.tong_thanh_tien"></span>
                     </td>
                     <td colspan="8" align="right" class="font-bold">
-                        {{record.db.tong_tien_sau_thue | number}}
+                        {{record.db.tong_thanh_tien | number}}
                     </td>
                 </tr>
 

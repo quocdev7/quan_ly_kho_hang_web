@@ -77,12 +77,13 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
         this.actionEnum = data.actionEnum;
         if (this.actionEnum == 1) {
             this.get_code();
-            this.record.db.ten = "Tự động tạo";
+            //this.record.db.ten = "Tự động tạo";
             this.record.db.ngay_dat_hang = new Date();
         }
         else{
             this.getElementById();
         }
+        this.list_vat = list_vat;
     }
     openDialogEdit(item, pos): void {
         const dialogRef = this.dialog.open(sys_don_hang_mua_popUpAddComponent, {
@@ -518,22 +519,27 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
         if (vat_mat_hang == undefined || vat_mat_hang == null) {
             vat_mat_hang = 0;
         }
-        // mat_hang.db.thanh_tien_truoc_thue = Math.round(Number(mat_hang.db.so_luong ?? 0) * Number(mat_hang.db.don_gia));
-        // if (isNaN(mat_hang.db.thanh_tien_truoc_thue)) {
-        //     mat_hang.db.thanh_tien_truoc_thue = 0;
-        // }
-        // ;
-        // gan gia tri cho list mat hang ban
         var don_gia = mat_hang.don_gia ?? null;
         this.record.list_mat_hang[pos].don_gia = Number(don_gia);
         this.record.list_mat_hang[pos].so_luong = Number(mat_hang.so_luong ?? 0);
-
-
         // this.record.list_mat_hang[pos].db.tien_vat = Math.round(tien_vat);
         this.record.list_mat_hang[pos].ghi_chu = mat_hang.ghi_chu;
         this.record.list_mat_hang[pos].vat = mat_hang.vat;
+        const thanh_tien = this.record.list_mat_hang[pos].don_gia * this.record.list_mat_hang[pos].so_luong * (1 + vat_mat_hang / 100);
+        this.record.list_mat_hang[pos].thanh_tien = Math.round(thanh_tien);
         this._changeDetectorRef.markForCheck();
-        //this.generate_total_mat_hang();
+        this.generate_total_mat_hang();
+    }
+    public generate_total_mat_hang(): void {
+        this.record.db.tong_thanh_tien = this.record.list_mat_hang.reduce((prev, next) => {
+            const donGia = Number(next.don_gia) || 0;
+            const soLuong = Number(next.so_luong) || 0;
+            const vat = Number(next.vat) || 0; 
+            const thanhTien = (donGia * soLuong) * (1 + vat / 100);
+
+        return prev + thanhTien;
+        }, 0);
+        //this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.don_gia), 0) + Number(this.record.db.tien_van_chuyen);
     }
     // loadThanhTienSauThueMatHangChangeTienThue(pos): void {
     //     var mat_hang = this.record.list_mat_hang[pos];
@@ -564,13 +570,7 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
     //     this._changeDetectorRef.markForCheck();
     //     this.generate_total_mat_hang();
     // }
-    // public generate_total_mat_hang(): void {
-    //     this.record.db.tong_tien_truoc_thue = this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.db.thanh_tien_truoc_thue), 0) + Number(this.record.db.tien_van_chuyen);
-    //     this.record.db.tong_tien_chiet_khau = this.record.list_mat_hang.reduce((prev, next) => prev + (Number(next.db.thanh_tien_truoc_thue) - Number(next.db.thanh_tien_chiet_khau)), 0)
-    //     this.record.db.tong_tien_thue = this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.db.tien_vat), 0) + Number(this.record.db.tien_vat_van_chuyen);;
-    //     this.record.db.tong_tien_sau_chiet_khau = this.record.db.tong_tien_truoc_thue - this.record.db.tong_tien_chiet_khau;
-    //     this.record.db.tong_tien_sau_thue = this.record.db.tong_tien_sau_chiet_khau + this.record.db.tong_tien_thue;
-    // }
+    
 
     // public sum_so_luong(arr): any {
     //     var value = 0;
