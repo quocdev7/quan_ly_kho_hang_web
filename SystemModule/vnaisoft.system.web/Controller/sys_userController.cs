@@ -1059,17 +1059,17 @@ namespace vnaisoft.system.web.Controller
         {
             var user_id = getUserId();
             var result = repo.FindAll().Where(d => d.id == user_id).FirstOrDefault();
-            if (result != null)
-            {
-                if (string.IsNullOrEmpty(result.hinh_anh_dai_dien))
-                {
-                    var cau_hinh_anh = repo._context.sys_cau_hinh_anh_mac_dinh_col.AsQueryable().Where(q => q.type == 7).FirstOrDefault();
+            //if (result != null)
+            //{
+            //    if (string.IsNullOrEmpty(result.hinh_anh_dai_dien))
+            //    {
+            //        var cau_hinh_anh = repo._context.sys_cau_hinh_anh_mac_dinh_col.AsQueryable().Where(q => q.type == 7).FirstOrDefault();
 
-                    var file_path = repo._context.sys_file_upload_col.AsQueryable().Where(q => q.id == cau_hinh_anh.image).Select(q => q.file_path).SingleOrDefault();
+            //        var file_path = repo._context.sys_file_upload_col.AsQueryable().Where(q => q.id == cau_hinh_anh.image).Select(q => q.file_path).SingleOrDefault();
 
-                    result.hinh_anh_dai_dien = file_path;
-                }
-            }
+            //        result.hinh_anh_dai_dien = file_path;
+            //    }
+            //}
             return Json(result);
         }
 
@@ -1173,7 +1173,7 @@ namespace vnaisoft.system.web.Controller
             model.db.ho_va_ten = model.ho_va_ten;
             // model.db.Username = model.email.ToLower();
             model.db.nguoi_cap_nhat = getUserId();
-            model.db.hinh_anh_dai_dien = _common_repo.get_anh_dai_dien(model.hinh_anh_dai_dien, 1);
+            //model.db.hinh_anh_dai_dien = _common_repo.get_anh_dai_dien(model.hinh_anh_dai_dien, 1);
             model.db.ngay_cap_nhat = DateTime.Now;
             model.db.status_del = 1;
             model.db.loai = 1;
@@ -1391,7 +1391,7 @@ namespace vnaisoft.system.web.Controller
             model.db.Username = model.Username;
             model.db.ho_va_ten = model.ho_va_ten;
             model.db.id = model.id;
-            model.db.hinh_anh_dai_dien = _common_repo.get_anh_dai_dien(model.hinh_anh_dai_dien, 1);
+            //model.db.hinh_anh_dai_dien = _common_repo.get_anh_dai_dien(model.hinh_anh_dai_dien, 1);
             //model.db.type = model.type == true ? 1 : 0;
             //;
             model.db.nguoi_cap_nhat = getUserId();

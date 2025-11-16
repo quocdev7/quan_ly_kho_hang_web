@@ -65,8 +65,6 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { FuseNavigationModule } from '@fuse/components/navigation';
-import { sys_cau_hinh_anh_mac_dinh_indexComponent } from './sys_cau_hinh_anh_mac_dinh/index.component';
-import { sys_cau_hinh_anh_mac_dinh_popUpAddComponent } from './sys_cau_hinh_anh_mac_dinh/popupAdd.component';
 import { sys_template_mail_indexComponent } from './sys_template_mail/index.component';
 import { sys_template_mail_popUpAddComponent } from './sys_template_mail/popupAdd.component';
 
@@ -137,8 +135,6 @@ export function playerFactory() {
         changePassComponent,
         sys_group_user_indexComponent,
         sys_group_user_popUpAddComponent,
-        sys_cau_hinh_anh_mac_dinh_indexComponent,
-        sys_cau_hinh_anh_mac_dinh_popUpAddComponent,
         sys_template_mail_indexComponent,
         sys_template_mail_popUpAddComponent,
         

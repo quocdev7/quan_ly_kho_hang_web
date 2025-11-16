@@ -1,7 +1,6 @@
 import { Route } from '@angular/router';
 import { sys_group_user_indexComponent } from './sys_group_user/index.component';
 import { sys_user_indexComponent } from './sys_user/index.component';
-import { sys_cau_hinh_anh_mac_dinh_indexComponent } from './sys_cau_hinh_anh_mac_dinh/index.component';
 import { sys_template_mail_indexComponent } from './sys_template_mail/index.component';
 import { sys_loai_mat_hang_indexComponent } from './sys_loai_mat_hang/index.component';
 import { sys_don_vi_tinh_indexComponent } from './sys_don_vi_tinh/index.component';
@@ -63,10 +62,6 @@ export const systemsRoutes: Route[] = [
     {
         path: 'sys_group_user_index',
         component: sys_group_user_indexComponent,
-    },
-    {
-        path: 'sys_cau_hinh_anh_mac_dinh_index',
-        component: sys_cau_hinh_anh_mac_dinh_indexComponent,
     },
     {
         path: 'sys_template_mail_index',

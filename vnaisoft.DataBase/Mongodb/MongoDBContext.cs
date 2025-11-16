@@ -25,7 +25,6 @@ namespace vnaisoft.DataBase.Mongodb
             sys_send_otp_col = database.GetCollection<sys_send_otp_col>("sys_send_otp_col");
             sys_log_email_col = database.GetCollection<sys_log_email_col>("sys_log_email_col");
             sys_file_upload_col = database.GetCollection<sys_file_upload_col>("sys_file_upload_col");
-            sys_cau_hinh_anh_mac_dinh_col = database.GetCollection<sys_cau_hinh_anh_mac_dinh_col>("sys_cau_hinh_anh_mac_dinh_col");
             sys_loai_mat_hang_col = database.GetCollection<sys_loai_mat_hang_col>("sys_loai_mat_hang_col");
             sys_don_vi_tinh_col = database.GetCollection<sys_don_vi_tinh_col>("sys_don_vi_tinh_col");
             sys_mat_hang_col = database.GetCollection<sys_mat_hang_col>("sys_mat_hang_col");
@@ -52,7 +51,6 @@ namespace vnaisoft.DataBase.Mongodb
         public readonly IMongoCollection<sys_mat_hang_col> sys_mat_hang_col;
         public readonly IMongoCollection<sys_don_vi_tinh_col> sys_don_vi_tinh_col;
         public readonly IMongoCollection<sys_loai_mat_hang_col> sys_loai_mat_hang_col;
-        public readonly IMongoCollection<sys_cau_hinh_anh_mac_dinh_col> sys_cau_hinh_anh_mac_dinh_col;
         public readonly IMongoCollection<sys_file_upload_col> sys_file_upload_col;
         public readonly IMongoCollection<sys_log_email_col> sys_log_email_col;
         public readonly IMongoCollection<sys_template_mail_col> sys_template_mail_col;

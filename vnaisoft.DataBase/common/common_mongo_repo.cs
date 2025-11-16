@@ -39,14 +39,14 @@ namespace vnaisoft.DataBase.commonFunc
 
 
 
-        public string get_anh_dai_dien(string hinh_anh_dai_dien, int? type)
-        {
-            var id = _context.sys_cau_hinh_anh_mac_dinh_col.AsQueryable().Where(q => q.type == type).Select(q => q.image).SingleOrDefault();
-            var hinh_anh_dai_dien_default = _context.sys_file_upload_col.AsQueryable().Where(q => q.id == id).Select(q => q.file_path).SingleOrDefault();
+        //public string get_anh_dai_dien(string hinh_anh_dai_dien, int? type)
+        //{
+        //    var id = _context.sys_cau_hinh_anh_mac_dinh_col.AsQueryable().Where(q => q.type == type).Select(q => q.image).SingleOrDefault();
+        //    var hinh_anh_dai_dien_default = _context.sys_file_upload_col.AsQueryable().Where(q => q.id == id).Select(q => q.file_path).SingleOrDefault();
 
-            hinh_anh_dai_dien = hinh_anh_dai_dien == null ? hinh_anh_dai_dien_default : hinh_anh_dai_dien;
-            return hinh_anh_dai_dien;
-        }
+        //    hinh_anh_dai_dien = hinh_anh_dai_dien == null ? hinh_anh_dai_dien_default : hinh_anh_dai_dien;
+        //    return hinh_anh_dai_dien;
+        //}
         public long? getDateTime(DateTime currentime)
         {
             long unixTimeMilliseconds = new DateTimeOffset(currentime).ToUnixTimeMilliseconds();

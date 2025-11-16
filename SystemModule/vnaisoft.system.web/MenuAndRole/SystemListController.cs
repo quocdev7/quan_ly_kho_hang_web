@@ -16,7 +16,6 @@ namespace vnaisoft.system.web.MenuAndRole
             sys_userController.declare,
             sys_group_userController.declare,
             //scn_ban_can_bo_lopController.declare,
-            sys_cau_hinh_anh_mac_dinhController.declare,
             sys_template_mailController.declare,
             //sys_videoController.declare,
 
