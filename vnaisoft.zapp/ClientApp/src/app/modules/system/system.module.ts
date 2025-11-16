@@ -77,13 +77,10 @@ import { drag_dropModule } from '@fuse/directives/drag_drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
-import { sys_cau_hinh_ma_he_thong_indexComponent } from './sys_cau_hinh_ma_he_thong/index.component';
 import { sys_loai_mat_hang_indexComponent } from './sys_loai_mat_hang/index.component';
 import { sys_loai_mat_hang_popUpAddComponent } from './sys_loai_mat_hang/popupAdd.component';
 import { sys_don_vi_tinh_indexComponent } from './sys_don_vi_tinh/index.component';
 import { sys_don_vi_tinh_popUpAddComponent } from './sys_don_vi_tinh/popupAdd.component';
-import { sys_khach_hang_nha_cung_cap_indexComponent } from './sys_khach_hang_nha_cung_cap/index.component';
-import { sys_khach_hang_nha_cung_cap_popUpAddComponent } from './sys_khach_hang_nha_cung_cap/popupAdd.component';
 import { sys_mat_hang_indexComponent } from './sys_mat_hang/index.component';
 import { sys_mat_hang_popUpAddComponent } from './sys_mat_hang/popupAdd.component';
 import { sys_mat_hang_popupChooseDacTinhComponent } from './sys_mat_hang/popupChooseDacTinh.component';
@@ -131,13 +128,10 @@ export function playerFactory() {
         sys_don_hang_ban_popUpAddComponent,
         sys_don_hang_mua_indexComponent,
         sys_don_hang_mua_popUpAddComponent,
-        sys_khach_hang_nha_cung_cap_indexComponent,
-        sys_khach_hang_nha_cung_cap_popUpAddComponent,
         sys_don_vi_tinh_popUpAddComponent,
         sys_don_vi_tinh_indexComponent,
         sys_loai_mat_hang_popUpAddComponent,
         sys_loai_mat_hang_indexComponent,
-        sys_cau_hinh_ma_he_thong_indexComponent,
         sys_user_popUpAddComponent,
         sys_user_indexComponent,
         changePassComponent,

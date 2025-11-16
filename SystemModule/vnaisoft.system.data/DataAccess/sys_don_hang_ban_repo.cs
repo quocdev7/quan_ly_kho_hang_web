@@ -127,28 +127,28 @@ namespace vnaisoft.system.data.DataAccess
         //    return obj;
         //}
 
-        public string generate_ten(sys_don_hang_ban_model model)
-        {
-            var ten = "";
-            var pttt = "";
-            var ngay = model.db.ngay_dat_hang.Value.ToString("dd/MM/yyyy");
+        //public string generate_ten(sys_don_hang_ban_model model)
+        //{
+        //    var ten = "";
+        //    var pttt = "";
+        //    var ngay = model.db.ngay_dat_hang.Value.ToString("dd/MM/yyyy");
 
-            if (model.db.phuong_thuc_thanh_toan == 1)
-            {
-                pttt = "Tiền mặt";
-            }
-            else if (model.db.phuong_thuc_thanh_toan == 2)
-            {
+        //    if (model.db.phuong_thuc_thanh_toan == 1)
+        //    {
+        //        pttt = "Tiền mặt";
+        //    }
+        //    else if (model.db.phuong_thuc_thanh_toan == 2)
+        //    {
 
-                //var ngan_hang = _context.erp_tai_khoan_ngan_hangs.AsQueryable().Where(q => q.id == model.db.id_tai_khoan_ngan_hang).SingleOrDefault();
-                pttt = model.db.ma_ngan_hang + "-" + model.db.so_tai_khoan;
-            }
-            var tong_tien = model.db.tong_thanh_tien;
-            //var ten_kh = model.db.ten_doi_tuong + "(" + model.db.id_doi_tuong + ")";
+        //        //var ngan_hang = _context.erp_tai_khoan_ngan_hangs.AsQueryable().Where(q => q.id == model.db.id_tai_khoan_ngan_hang).SingleOrDefault();
+        //        pttt = model.db.ma_ngan_hang + "-" + model.db.so_tai_khoan;
+        //    }
+        //    var tong_tien = model.db.tong_thanh_tien;
+        //    //var ten_kh = model.db.ten_doi_tuong + "(" + model.db.id_doi_tuong + ")";
 
-            ten = "Đơn hàng bán " + " " + model.ten_doi_tuong + " " + ngay + ", " + pttt + ", " + String.Format("{0:#,##0}", tong_tien) + "đ";
-            return ten;
-        }
+        //    ten = "Đơn hàng bán " + " " + model.ten_doi_tuong + " " + ngay + ", " + pttt + ", " + String.Format("{0:#,##0}", tong_tien) + "đ";
+        //    return ten;
+        //}
 
         //public string get_code_bao_gia()
         //{
@@ -183,7 +183,7 @@ namespace vnaisoft.system.data.DataAccess
             //    model.db.ten_doi_tuong = "Đối tượng tự do";
             //}
             //tinhTongTien(model);
-            model.db.ten = generate_ten(model);
+            //model.db.ten = generate_ten(model);
             model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
             //model.db.id_file_upload = model.db.id + "sys_don_hang_ban";
             await _context.sys_don_hang_ban_col.InsertOneAsync(model.db);
@@ -476,7 +476,7 @@ namespace vnaisoft.system.data.DataAccess
         public async Task<int> update(sys_don_hang_ban_model model)
         {
             //tinhTongTien(model);
-            model.db.ten = generate_ten(model);
+            // model.db.ten = generate_ten(model);
             model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
             var update = Builders<sys_don_hang_ban_col>.Update
                 .Set(x => x.ma, model.db.ma)

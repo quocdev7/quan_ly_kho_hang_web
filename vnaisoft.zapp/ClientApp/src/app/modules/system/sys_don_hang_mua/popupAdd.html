@@ -172,14 +172,6 @@
             *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
             <p transloco="save" class="mb-0 text-white"></p>
         </button>
-        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
-            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogEdit(record)">
-            <p transloco="system.edit" class="mb-0 text-white"></p>
-        </button>
-        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
-            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
-            <p transloco="system.print" class="mb-0 text-white"></p>
-        </button>
         <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center"
             [disabled]="loading" (click)="close()">
             <p transloco="close" class="mb-0 text-white"></p>

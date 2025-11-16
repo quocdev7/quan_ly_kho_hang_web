@@ -432,30 +432,23 @@ export class sys_don_hang_ban_indexComponent extends BaseIndexDatatableComponent
 
     }
     openDialogAdd(): void {
-        this.http
-            .post(this.controller + '.ctr/check_kho/', {
-            }
-            ).subscribe(resp => {
-                var id_kho = resp;
-                const dialogRef = this.dialog.open(sys_don_hang_ban_popUpAddComponent, {
-                    disableClose: true,
-                    autoFocus: false,
-                    width: '100%',
-                    height: '100%',
-                    data: {
-                        actionEnum: 1,
-                        db: {
-                            id: 0,
-                        },
-                        list_mat_hang: [],
-                    },
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    this.rerender();
-                    if (result.db.id == 0) return;
-                });
-
-            });
+        const dialogRef = this.dialog.open(sys_don_hang_ban_popUpAddComponent, {
+            disableClose: true,
+            autoFocus: false,
+            width: '100%',
+            height: '100%',
+            data: {
+                actionEnum: 1,
+                db: {
+                    id: 0,
+                },
+                list_mat_hang: [],
+            },
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.rerender();
+            if (result.db.id == 0) return;
+        });
 
     }
     openDialogFile(item, i): void {

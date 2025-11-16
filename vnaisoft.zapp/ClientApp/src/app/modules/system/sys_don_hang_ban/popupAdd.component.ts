@@ -20,6 +20,7 @@ import { mode } from 'crypto-js';
 import { cm_mau_in_popupComponent } from '@fuse/components/commonComponent/cm_mau_in/cm_mau_in_popup.component';
 import { doi_tuong_tu_do } from 'app/core/data/data';
 import { sys_don_hang_ban_model } from './sys_don_hang_ban.types';
+import { sys_common_popupChooseMatHangComponent } from '../sys_common/popupChooseMatHang';
 //import { sys_don_vi_van_chuyen_popUpAddComponent } from '../sys_don_vi_van_chuyen/popupAdd.component';
 //import { sys_common_popupChooseCaNhanToChucComponent } from '../sys_common/popupChooseCaNhanToChuc.component';
 // import { sys_common_popupChooseMatHangTonKhoComponent } from '../sys_common/popupChooseMatHangTonKho.component';
@@ -89,38 +90,14 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
         this.Oldrecord = JSON.parse(JSON.stringify(data));
         this.actionEnum = data.actionEnum;
         if (this.actionEnum == 1) {
-            this.record.db.phuong_thuc_thanh_toan = 2;
-            this.record.check_doi_tuong = 1;
-            this.record.db.tinh_trang_don_hang = "2";
-            this.record.cau_hinh_gia_ban = data.cau_hinh_gia_ban;
-            this.set_doi_tuong(1);
-            this.record.db.is_sinh_tu_dong = false;
             this.get_code();
-            this.record.db.ten = "Tự động tạo";
+            this.record.db.ngay_dat_hang = new Date();
             this.baseInitData();
-            if (this.record.db.tien_van_chuyen == null) {
-                this.record.chi_phi_van_chuyen = 0;
-            }
-            this.record.so_luong_mh = 1
         }
         if (this.actionEnum != 1) {
-
             this.getElementById();
-            this.get_cau_hinh_he_thong_gia_ban();
-            this.record.check_doi_tuong = doi_tuong_tu_do.id == this.record.db.id_doi_tuong ? 1 : 2;
-            this.record.cau_hinh_gia_ban = data.cau_hinh_gia_ban;
         }
-        this.get_tinh_trang_don_hang();
-    }
-    checkKho($event) {
-        if ($event.checked == true) {
-            if (this.record.db.id_kho_xuat_ban_le == null || this.record.db.id_kho_xuat_ban_le == "") {
-                Swal.fire("Bạn chưa được thiết lập kho xuất bán. Vui lòng liên hệ người quản trị để được thiết lập.", "", "warning").then(() => {
-                    this.record.db.is_sinh_tu_dong = false
-                    $event.checked = false
-                });
-            }
-        }
+        this.list_vat = list_vat;
     }
     get_cau_hinh_he_thong_gia_ban(): void {
         this.http
@@ -185,34 +162,6 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
             if (result.db.id == 0) return;
             this.close();
         });
-    }
-    openDialogPrint(item): void {
-
-        this.http
-            .post(this.controller + '.ctr/getPrint/', {
-                id: item.db.id
-            }
-            ).subscribe(resp => {
-                var data: any;
-                data = resp;
-                const dialogRef = this.dialog.open(cm_mau_in_popupComponent, {
-                    width: '878px',
-                    disableClose: true,
-                    data: {
-                        tieu_de: data.tieu_de,
-                        noi_dung: data.noi_dung,
-                    },
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result != undefined && result != null) {
-                        // this.rerender();
-                    }
-
-
-                });
-
-            });
-
     }
     set_phuong_thuc_thanh_toan() {
         this.record.ten_ngan_hang = null;
@@ -415,28 +364,63 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
     //     });
 
     // }
-    
+    get_code() {
+        this.http
+            .post('/sys_don_hang_ban.ctr/get_code/', {
+                //tinh_trang_don_hang: this.record.db.tinh_trang_don_hang
+            }
+            ).subscribe(resp => {
+                var data: any;
+                data = resp;
+                this.record.db.ma = "Tự động tạo";
+            });
+    }
     openDialogChooseMatHang(): void {
 
-        // if (this.record.db.kieu_ban == null) {
-        //     Swal.fire(this._translocoService.translate('erp.phai_chon_kieu_ban'), '', 'warning')
-        // } else {
-        //     const dialogRef = this.dialogModal
-        //         .open(sys_common_popupChooseMatHangDuocChonLaiComponent, {
-        //             disableClose: true,
-        //             width: '95%',
-        //             height: '95%',
-        //             data: this.record
-        //         });
-        //     dialogRef.afterClosed().subscribe(result => {
+         const dialogRef = this.dialogModal
+            .open(sys_common_popupChooseMatHangComponent, {
+                disableClose: true,
+                width: '95%',
+                height: '95%',
+                data: this.record
+            });
+        dialogRef.afterClosed().subscribe(result => {
 
-        //         var data: any;
-        //         data = result;
-        //         if (data == undefined) return;
-        //         this.record.list_mat_hang = data;
-        //         this.loadThanhTienSauThueMatHangPopup();
-        //     })
-        // }
+            var data: any;
+            data = result;
+            if (data == undefined) return;
+            this.record.list_mat_hang = data;
+            //this.loadThanhTienSauThueMatHangPopup();
+        })
+    }
+    loadThanhTienSauThueMatHang(pos): void {
+        debugger
+        var mat_hang = this.record.list_mat_hang[pos];
+        var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.vat)[0].value;
+        if (vat_mat_hang == undefined || vat_mat_hang == null) {
+            vat_mat_hang = 0;
+        }
+        var don_gia = mat_hang.don_gia ?? null;
+        this.record.list_mat_hang[pos].don_gia = Number(don_gia);
+        this.record.list_mat_hang[pos].so_luong = Number(mat_hang.so_luong ?? 0);
+        // this.record.list_mat_hang[pos].db.tien_vat = Math.round(tien_vat);
+        this.record.list_mat_hang[pos].ghi_chu = mat_hang.ghi_chu;
+        this.record.list_mat_hang[pos].vat = mat_hang.vat;
+        const thanh_tien = this.record.list_mat_hang[pos].don_gia * this.record.list_mat_hang[pos].so_luong * (1 + vat_mat_hang / 100);
+        this.record.list_mat_hang[pos].thanh_tien = Math.round(thanh_tien);
+        this._changeDetectorRef.markForCheck();
+        this.generate_total_mat_hang();
+    }
+    public generate_total_mat_hang(): void {
+        this.record.db.tong_thanh_tien = this.record.list_mat_hang.reduce((prev, next) => {
+            const donGia = Number(next.don_gia) || 0;
+            const soLuong = Number(next.so_luong) || 0;
+            const vat = Number(next.vat) || 0; 
+            const thanhTien = (donGia * soLuong) * (1 + vat / 100);
+
+        return prev + thanhTien;
+        }, 0);
+        //this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.don_gia), 0) + Number(this.record.db.tien_van_chuyen);
     }
     // openDialogChooseDoiTuong(id): void {
     //     const dialogRef = this.dialogModal
@@ -552,17 +536,7 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
             }
         }
     }
-    get_code() {
-        this.http
-            .post('/sys_don_hang_ban.ctr/get_code/', {
-                tinh_trang_don_hang: this.record.db.tinh_trang_don_hang
-            }
-            ).subscribe(resp => {
-                var data: any;
-                data = resp;
-                this.record.db.ma = "Tự động tạo";
-            });
-    }
+    
     get_list_phuong_thuc_thanh_toan() {
         this.list_phuong_thuc_thanh_toan = [
             {
@@ -839,74 +813,7 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
 
         this.generate_total_mat_hang();
     }
-    loadThanhTienSauThueMatHang(pos): void {
-        //var pos = this.pos
-        if (this.record.cau_hinh_gia_ban == "true") {
-            var mat_hang = this.record.list_mat_hang[pos];
-            var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.db.vat)[0].value;
-            if (vat_mat_hang == undefined || vat_mat_hang == null) {
-                vat_mat_hang = 0;
-            }
-            this.record.list_mat_hang[pos].db.so_luong = Number(mat_hang.db.so_luong ?? 0);
-            this.record.list_mat_hang[pos].db.ghi_chu = mat_hang.db.ghi_chu;
-            this.record.list_mat_hang[pos].db.vat = mat_hang.db.vat;
-            this.record.list_mat_hang[pos].db.don_gia_gom_thue = Number(mat_hang.db.don_gia);
-
-            var thanh_tien_truoc_thue = (Number(mat_hang.db.don_gia_gom_thue) * 100) / (100 + Number(vat_mat_hang)) * Number(mat_hang.db.so_luong);
-            mat_hang.db.thanh_tien_truoc_thue = Math.round(thanh_tien_truoc_thue);
-
-
-
-            mat_hang.db.don_gia = Number(mat_hang.db.thanh_tien_truoc_thue) / Number(mat_hang.db.so_luong);
-
-
-            var tien_chiet_khau = Number(mat_hang.db.thanh_tien_truoc_thue) * Number(mat_hang.db.chiet_khau / 100);
-            var thanh_tien_chiet_khau = Number(mat_hang.db.thanh_tien_truoc_thue) - Number(tien_chiet_khau);
-            mat_hang.db.thanh_tien_chiet_khau = Math.round(thanh_tien_chiet_khau);
-
-            var tien_vat = Number(mat_hang.db.thanh_tien_chiet_khau) * Number(vat_mat_hang / 100);
-            mat_hang.db.tien_vat = Math.round(tien_vat);
-
-            mat_hang.db.thanh_tien_sau_thue = Math.round(Number(mat_hang.db.thanh_tien_chiet_khau) + Number(mat_hang.db.tien_vat));
-
-
-            // mat_hang.db.thanh_tien_truoc_thue =  Number(mat_hang.db.thanh_tien_sau_thue) / ( 1 -  Number(mat_hang.db.chiet_khau/100) + Number(vat_mat_hang/100) ) ;
-
-            // if (isNaN(mat_hang.db.thanh_tien_truoc_thue)) {
-            //      mat_hang.db.thanh_tien_truoc_thue = 0;
-            // }
-            this._changeDetectorRef.markForCheck();
-        }
-        else {
-            var mat_hang = this.record.list_mat_hang[pos];
-            var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.db.vat)[0].value;
-            if (vat_mat_hang == undefined || vat_mat_hang == null) {
-                vat_mat_hang = 0;
-            }
-            mat_hang.db.thanh_tien_truoc_thue = Number(mat_hang.db.so_luong ?? 0) * Number(mat_hang.db.don_gia);
-            if (isNaN(mat_hang.db.thanh_tien_truoc_thue)) {
-                mat_hang.db.thanh_tien_truoc_thue = 0;
-            }
-
-            // gan gia tri cho list mat hang ban
-            this.record.list_mat_hang[pos].db.don_gia = Number(mat_hang.db.don_gia);
-            this.record.list_mat_hang[pos].db.so_luong = Number(mat_hang.db.so_luong ?? 0);
-            this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue = Math.round(Number(mat_hang.db.thanh_tien_truoc_thue));
-            this.record.list_mat_hang[pos].db.chiet_khau = Number(mat_hang.db.chiet_khau);
-            var thanh_tien_chiet_khau = this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue - (this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue * Number(mat_hang.db.chiet_khau / 100));
-            this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau = Math.round(thanh_tien_chiet_khau);
-
-            var tien_vat = Number(mat_hang.db.thanh_tien_chiet_khau) * Number(vat_mat_hang / 100);
-            this.record.list_mat_hang[pos].db.tien_vat = Math.round(tien_vat);
-            var thanh_tien_sau_thue = Number(this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau) + Number(mat_hang.db.tien_vat);
-            this.record.list_mat_hang[pos].db.thanh_tien_sau_thue = Math.round(thanh_tien_sau_thue);
-            this.record.list_mat_hang[pos].db.ghi_chu = mat_hang.db.ghi_chu;
-            this.record.list_mat_hang[pos].db.vat = mat_hang.db.vat;
-            this._changeDetectorRef.markForCheck();
-
-        }
-        this.generate_total_mat_hang();
-    }
+    
 
     loadThanhTienSauThueMatHangChangeTienThue(pos): void {
         //var pos = this.pos
@@ -982,13 +889,6 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
         }).subscribe(resp => {
             //this.list_file_upload = resp; 
         })
-    }
-    public generate_total_mat_hang(): void {
-        this.record.db.tong_tien_truoc_thue = this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.db.thanh_tien_truoc_thue), 0) + Number(this.record.db.tien_van_chuyen);
-        this.record.db.tong_tien_chiet_khau = this.record.list_mat_hang.reduce((prev, next) => prev + (Number(next.db.thanh_tien_truoc_thue) - Number(next.db.thanh_tien_chiet_khau)), 0)
-        this.record.db.tong_tien_thue = this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.db.tien_vat), 0) + Number(this.record.db.tien_vat_van_chuyen);;
-        this.record.db.tong_tien_sau_chiet_khau = this.record.db.tong_tien_truoc_thue - this.record.db.tong_tien_chiet_khau;
-        this.record.db.tong_tien_sau_thue = this.record.db.tong_tien_sau_chiet_khau + this.record.db.tong_tien_thue;
     }
     public sum_so_luong(arr): any {
         var value = 0;

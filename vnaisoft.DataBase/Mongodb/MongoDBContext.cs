@@ -27,9 +27,7 @@ namespace vnaisoft.DataBase.Mongodb
             sys_file_upload_col = database.GetCollection<sys_file_upload_col>("sys_file_upload_col");
             sys_cau_hinh_anh_mac_dinh_col = database.GetCollection<sys_cau_hinh_anh_mac_dinh_col>("sys_cau_hinh_anh_mac_dinh_col");
             sys_loai_mat_hang_col = database.GetCollection<sys_loai_mat_hang_col>("sys_loai_mat_hang_col");
-            sys_cau_hinh_ma_he_thong_col = database.GetCollection<sys_cau_hinh_ma_he_thong_col>("sys_cau_hinh_ma_he_thong_col");
             sys_don_vi_tinh_col = database.GetCollection<sys_don_vi_tinh_col>("sys_don_vi_tinh_col");
-            sys_khach_hang_nha_cung_cap_col = database.GetCollection<sys_khach_hang_nha_cung_cap_col>("sys_khach_hang_nha_cung_cap_col");
             sys_mat_hang_col = database.GetCollection<sys_mat_hang_col>("sys_mat_hang_col");
             sys_don_hang_mua_col = database.GetCollection<sys_don_hang_mua_col>("sys_don_hang_mua_col");
             sys_don_hang_ban_col = database.GetCollection<sys_don_hang_ban_col>("sys_don_hang_ban_col");
@@ -52,9 +50,7 @@ namespace vnaisoft.DataBase.Mongodb
         public readonly IMongoCollection<sys_don_hang_ban_col> sys_don_hang_ban_col;
         public readonly IMongoCollection<sys_don_hang_mua_col> sys_don_hang_mua_col;
         public readonly IMongoCollection<sys_mat_hang_col> sys_mat_hang_col;
-        public readonly IMongoCollection<sys_khach_hang_nha_cung_cap_col> sys_khach_hang_nha_cung_cap_col;
         public readonly IMongoCollection<sys_don_vi_tinh_col> sys_don_vi_tinh_col;
-        public readonly IMongoCollection<sys_cau_hinh_ma_he_thong_col> sys_cau_hinh_ma_he_thong_col;
         public readonly IMongoCollection<sys_loai_mat_hang_col> sys_loai_mat_hang_col;
         public readonly IMongoCollection<sys_cau_hinh_anh_mac_dinh_col> sys_cau_hinh_anh_mac_dinh_col;
         public readonly IMongoCollection<sys_file_upload_col> sys_file_upload_col;

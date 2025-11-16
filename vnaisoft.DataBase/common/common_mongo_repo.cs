@@ -1,12 +1,10 @@
 ﻿using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 
 using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
 
 namespace vnaisoft.DataBase.commonFunc
 {
@@ -70,63 +68,25 @@ namespace vnaisoft.DataBase.commonFunc
         }
         public commonConfigCode get_code_config(bool isDanhMuc, string maController, string defaultPrefix)
         {
-            var cau_hinh_ma = _context.sys_cau_hinh_ma_he_thong_col.AsQueryable().Where(q => q.controller == maController).FirstOrDefault();
-            var code = "";
-            var dictionary = new Dictionary<int?, string>();
-            if (cau_hinh_ma != null)
+            if (isDanhMuc)
             {
-                if (!string.IsNullOrEmpty(cau_hinh_ma.tien_to))
-                {
-                    code += cau_hinh_ma.tien_to;
-                }
 
-                if (cau_hinh_ma.is_ngay_gio == true)
-                {
-                    if (code != "") code += "-";
-
-                    var cau_hinh_ngay_gio = "";
-
-                    cau_hinh_ngay_gio = DateTime.Now.ToString("yyMMdd");
-
-                    //cau_hinh_ngay_gio = DateTime.Now.ToString("yyyy_MM_dd");
-
-                    code += cau_hinh_ngay_gio;
-
-                    //dictionary.Add(cauhinh.vi_tri_ngay_gio, cau_hinh_ngay_gio);
-                }
-
-                // var lst_doc = dictionary.OrderBy(q => q.Key).ToList();
-
-
-
+                var sotutang = 6;
                 return new commonConfigCode
                 {
-                    prefix = code,
-                    numIncrease = cau_hinh_ma.so_chu_so_tu_tang ?? 4
+                    prefix = defaultPrefix,
+                    numIncrease = sotutang
                 };
             }
             else
             {
-                if (isDanhMuc)
+                string nam = DateTime.Now.ToString("yyMMdd");
+                var sotutang = 4;
+                return new commonConfigCode
                 {
-
-                    var sotutang = 6;
-                    return new commonConfigCode
-                    {
-                        prefix = defaultPrefix,
-                        numIncrease = sotutang
-                    };
-                }
-                else
-                {
-                    string nam = DateTime.Now.ToString("yyMMdd");
-                    var sotutang = 4;
-                    return new commonConfigCode
-                    {
-                        prefix = defaultPrefix + nam,
-                        numIncrease = sotutang
-                    };
-                }
+                    prefix = defaultPrefix + nam,
+                    numIncrease = sotutang
+                };
             }
 
         }

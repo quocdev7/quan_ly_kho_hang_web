@@ -3,10 +3,8 @@ import { sys_group_user_indexComponent } from './sys_group_user/index.component'
 import { sys_user_indexComponent } from './sys_user/index.component';
 import { sys_cau_hinh_anh_mac_dinh_indexComponent } from './sys_cau_hinh_anh_mac_dinh/index.component';
 import { sys_template_mail_indexComponent } from './sys_template_mail/index.component';
-import { sys_cau_hinh_ma_he_thong_indexComponent } from './sys_cau_hinh_ma_he_thong/index.component';
 import { sys_loai_mat_hang_indexComponent } from './sys_loai_mat_hang/index.component';
 import { sys_don_vi_tinh_indexComponent } from './sys_don_vi_tinh/index.component';
-import { sys_khach_hang_nha_cung_cap_indexComponent } from './sys_khach_hang_nha_cung_cap/index.component';
 import { sys_mat_hang_indexComponent } from './sys_mat_hang/index.component';
 import { sys_don_hang_mua_indexComponent } from './sys_don_hang_mua/index.component';
 import { sys_don_hang_ban_indexComponent } from './sys_don_hang_ban/index.component';
@@ -51,20 +49,12 @@ export const systemsRoutes: Route[] = [
         component: sys_mat_hang_indexComponent,
     },
     {
-        path: 'sys_khach_hang_nha_cung_cap_index',
-        component: sys_khach_hang_nha_cung_cap_indexComponent,
-    },
-    {
         path: 'sys_don_vi_tinh_index',
         component: sys_don_vi_tinh_indexComponent,
     },
     {
         path: 'sys_loai_mat_hang_index',
         component: sys_loai_mat_hang_indexComponent,
-    },
-    {
-        path: 'sys_cau_hinh_ma_he_thong_index',
-        component: sys_cau_hinh_ma_he_thong_indexComponent,
     },
     {
         path: 'sys_user_index',
