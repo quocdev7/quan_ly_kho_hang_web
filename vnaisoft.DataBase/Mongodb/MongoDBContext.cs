@@ -37,8 +37,10 @@ namespace vnaisoft.DataBase.Mongodb
             sys_ton_kho_mat_hang_col = database.GetCollection<sys_ton_kho_mat_hang_col>("sys_ton_kho_mat_hang_col");
             sys_don_hang_ban_mat_hang_col = database.GetCollection<sys_don_hang_ban_mat_hang_col>("sys_don_hang_ban_mat_hang_col");
             sys_don_hang_mua_mat_hang_col = database.GetCollection<sys_don_hang_mua_mat_hang_col>("sys_don_hang_mua_mat_hang_col");
+            sys_loai_nhap_xuat_col = database.GetCollection<sys_loai_nhap_xuat_col>("sys_loai_nhap_xuat_col");
         }
 
+        public readonly IMongoCollection<sys_loai_nhap_xuat_col> sys_loai_nhap_xuat_col;
         public readonly IMongoCollection<sys_don_hang_mua_mat_hang_col> sys_don_hang_mua_mat_hang_col;
         public readonly IMongoCollection<sys_don_hang_ban_mat_hang_col> sys_don_hang_ban_mat_hang_col;
         public readonly IMongoCollection<sys_ton_kho_mat_hang_col> sys_ton_kho_mat_hang_col;

@@ -12,9 +12,14 @@ import { sys_phieu_xuat_kho_indexComponent } from './sys_phieu_xuat_kho/index.co
 import { bao_cao_ton_kho_mat_hang_indexComponent } from './sys_bao_cao_ton_kho/index.component';
 import { bao_cao_nhap_kho_indexComponent } from './sys_bao_cao_nhap_kho/index.component';
 import { bao_cao_xuat_kho_indexComponent } from './sys_bao_cao_xuat_kho/index.component';
+import { sys_loai_nhap_xuat_indexComponent } from './sys_loai_nhap_xuat/index.component';
 
 export const systemsRoutes: Route[] = [  
 
+    {
+        path: 'sys_loai_nhap_xuat_index',
+        component: sys_loai_nhap_xuat_indexComponent,
+    },
     {
         path: 'bao_cao_xuat_kho_index',
         component: bao_cao_xuat_kho_indexComponent,

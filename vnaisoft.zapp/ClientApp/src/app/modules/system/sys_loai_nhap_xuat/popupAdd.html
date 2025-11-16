@@ -1,0 +1,49 @@
+<div class="flex flex-col flex-auto w-full max-w-3xl mx-auto h-fit overflow-y-visible mobile:mb-20">
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="NAV.erp_loai_nhap_xuat"></div>
+    </div>
+    <!-- Card form -->
+    <div class="w-full p-6 sm:p-8 space-y-1 overflow-y-auto">
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+        <div class="flex-1">
+            <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [keyError]="'db.loai'" [label]="'system.type'" [listData]="list_type"
+                [(model)]="record.db.loai">
+            </cm_select>
+        </div>
+        <div class="flex-1">
+            <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [keyError]="'db.nguon'" [label]="'system.nguon'" [listData]="list_nguon"
+                [(model)]="record.db.nguon">
+            </cm_select>
+        </div>
+    </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [maxlength]="20" [actionEnum]="actionEnum" [label]="'system.code'"
+                    [keyError]="'db.ma'" [(model)]="record.db.ma"></cm_input>
+            </div>
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [maxlength]="20" [actionEnum]="actionEnum" [label]="'system.name'"
+                    [keyError]="'db.ten'" [(model)]="record.db.ten"></cm_input>
+            </div>
+           
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+            <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'" [type]="'textarea'"
+                    [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu"></cm_input>
+            </div>
+        </div>
+        <br />
+        <div class="flex flex-row justify-end space-x-2">
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
+                <p transloco="save" class="mb-0 text-white"></p>
+            </button>
+            <button class="py-2 px-4 font-bold rounded bg-teal-500  hover:bg-teal-600  item2s-center" [disabled]="loading"
+                (click)="close()">
+                <p transloco="close" class="mb-0 text-white"></p>
+            </button>
+        </div>
+    </div>
+</div>

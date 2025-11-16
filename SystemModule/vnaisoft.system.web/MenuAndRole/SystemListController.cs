@@ -21,6 +21,7 @@ namespace vnaisoft.system.web.MenuAndRole
 
             //Quản lý danh mục
             sys_don_vi_tinhController.declare,
+            sys_loai_nhap_xuatController.declare,
             sys_loai_mat_hangController.declare,
             sys_mat_hangController.declare,
             sys_don_hang_muaController.declare,
