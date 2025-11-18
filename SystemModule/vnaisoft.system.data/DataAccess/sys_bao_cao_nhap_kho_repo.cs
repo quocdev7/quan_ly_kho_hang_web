@@ -108,9 +108,13 @@ namespace vnaisoft.system.data.DataAccess
         {
 
             var result = (from d in query.OrderByDescending(q => q.ngay_nhap)
-                          join dvt in _context.sys_don_vi_tinh_col.AsQueryable() on d.id_don_vi_tinh equals dvt.id into gdvt
 
+                          join dvt in _context.sys_don_vi_tinh_col.AsQueryable() on d.id_don_vi_tinh equals dvt.id into gdvt
                           from dvt in gdvt.DefaultIfEmpty()
+
+                          join pn in _context.sys_phieu_nhap_kho_col.AsQueryable() on d.id_phieu_nhap_kho equals pn.id into gpx
+                          from pn in gpx.DefaultIfEmpty()
+
                           select new bao_cao_nhap_kho_model
                           {
                               status_del = d.status_del,
@@ -123,9 +127,8 @@ namespace vnaisoft.system.data.DataAccess
                               id_don_vi_tinh = d.id_don_vi_tinh,
                               ngay_cap_nhat = d.ngay_cap_nhat,
                               ten_don_vi_tinh = dvt.ten,
-                              ma_loai_nhap = d.id_loai_nhap,
+                              ma_loai_nhap = pn.id_loai_nhap,
                               don_gia = d.don_gia ?? 0,
-                              gia_tri = d.gia_tri ?? 0,
                           });
             return result;
 

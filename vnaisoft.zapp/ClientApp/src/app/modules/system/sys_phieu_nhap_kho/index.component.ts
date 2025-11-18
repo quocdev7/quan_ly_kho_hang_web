@@ -138,17 +138,6 @@ export class sys_phieu_nhap_kho_indexComponent extends BaseIndexDatatableCompone
                 });
             });
     }
-    get_list_loai_nhap_kho() {
-        this.http
-            .post('sys_loai_nhap_xuat.ctr/getListUse', {
-            }
-            ).subscribe(resp => {
-                var data: any = resp;
-                this.list_loai_nhap_kho = data.filter(q => q.loai == 1);
-                this.list_loai_nhap_kho.splice(0, 0, { id: '-1', name: this._translocoService.translate('system.all') })
-            });
-
-    }
     go_to_create_edit_phieu_nhap_kho(id, action): void {
 
         const url = '/sys_phieu_nhap_kho_createEdit/' + id + "/" + action;
@@ -344,7 +333,6 @@ export class sys_phieu_nhap_kho_indexComponent extends BaseIndexDatatableCompone
     }
     ngOnInit(): void {
         this.baseInitData();
-        this.get_list_loai_nhap_kho();
         this.load_trang_thai();
         //this.load_tien_te();
         this.load_date();

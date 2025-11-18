@@ -15,6 +15,5 @@ export interface sys_loai_nhap_xuat_col {
     ngay_cap_nhat: Date | null;
     nguoi_cap_nhat: string;
     status_del: number | null;
-    stt: number | null;
     nguon: string;
 }

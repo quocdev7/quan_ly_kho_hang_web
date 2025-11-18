@@ -1,0 +1,104 @@
+<div class="flex flex-col flex-auto w-full mx-auto h-fit overflow-y-visible">
+
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium" transloco="system.don_hang_mua"></div>
+    </div>
+
+            <mat-card class="rounded-2xl py-6 px-6 shadow">
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <cm_input [label]="'system.tu_ngay_dat_hang'" [type]="'datepicker'"
+                            [callbackChange]="rerender.bind(this)" [(model)]="filter.tu_ngay"></cm_input>
+                    </div>
+                    <div class="flex-1">
+                        <cm_input [label]="'system.den_ngay_dat_hang'" [type]="'datepicker'"
+                            [callbackChange]="rerender.bind(this)" [(model)]="filter.den_ngay"></cm_input>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+                    <div class="flex-1">
+                        <mat-form-field class="w-full" floatLabel="always">
+                            <mat-label>
+                                {{'search' | transloco}} ({{ 'system.don_hang' | transloco }})
+                            </mat-label>
+                            <input matInput [(ngModel)]="filter.search" (keyup.enter)="rerender()"
+                                placeholder="{{'go_tu_khoa_tim_kiem' | transloco}}">
+                            <button mat-icon-button color="primary" class="mr-4" (click)="rerender()">
+                                Tìm kiếm
+                            </button>
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div align="right" class="space-x-2">
+                    <button class="py-2 px-4 rounded font-bold  bg-teal-500  hover:bg-teal-600  item2s-center"
+                        [disabled]="loading" (click)="dong()">
+                        <p transloco="close" class="mb-0 text-white"></p>
+                    </button>
+                </div>
+            </mat-card>
+            <br />
+       
+                <div class="w-full">
+                    <table datatable [dtOptions]="dtOptions" class="cell-border myTable hover w-full">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">
+                                   
+                                </th>
+                                <th style="width:50px" transloco="system.no_" style="text-align:center"></th>
+                                <th transloco="system.don_hang"></th>
+                                <th style="width:120px" transloco="system.tong_thanh_tien"></th>
+                                <th style="width:120px" transloco="system.update_by"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="listData?.length != 0">
+                            <tr *ngFor="let item of listData;  index as i;">
+                                 <td>
+                                    <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                                    [disabled]="loading" (click)="chon(item)">
+                                    <p transloco="common.chon" class="mb-0 text-white"></p>
+                                </button>
+                                </td>
+                                <td style="width:50px" align="center">{{i+1 }}</td>
+                                <td>
+                                    <span>
+    
+                                        <span class="text-blue-900 font-bold"> {{ item.db.ma }}</span>
+                                    </span>
+                                    <br />
+                                    <span>
+                                        <span>{{ item.db.ten }}</span>
+                                    </span>
+                                </td>
+                                <td align="end">{{ item.db.tong_thanh_tien | number }}</td>
+                                <td>
+                                    <span class="text-blue-900 font-bold">
+                                        {{ item.ten_nguoi_cap_nhat }}
+                                    </span>
+                                    <br />
+                                    <span>{{ item.db.ngay_cap_nhat | date: 'dd/MM/yyyy HH:mm' }}</span>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="listData?.length == 0">
+                            <tr class="h-40">
+                                <td colspan="100" class="no-data-available">
+                                    <nz-empty
+                                        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                                        [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+                                        <ng-template #contentTpl>
+                                            <span transloco="no_data"></span>
+                                        </ng-template>
+                                    </nz-empty>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </div>
+          
+</div>

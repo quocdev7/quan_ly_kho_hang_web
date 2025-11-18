@@ -30,31 +30,23 @@
             </mat-form-field>
         </div>
         <div class="flex-1">
+            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ten_phieu'"
+                    [keyError]="'db.ten'" [(model)]="record.db.ten"></cm_input>
+        </div>
+    </div>
+    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+        <div class="flex-1">
             <cm_select [disabled]="actionEnum!=1" [errorModel]="errorModel" [actionEnum]="actionEnum"
                 [label]="'system.loai_nhap'" [listData]="list_loai_nhap" [keyError]="'db.id_loai_nhap'"
                 [(model)]="record.db.id_loai_nhap" [callbackChange]="change_loai_nhap.bind(this)">
             </cm_select>
         </div>
-    </div>
-    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-        <div class="flex-1">
-            <mat-form-field class="w-full" floatLabel="always">
-                <mat-label>
-                    {{'system.ten_phieu' | transloco}}
-                </mat-label>
-                <input matInput [(ngModel)]="record.db.ten" disabled="true">
-            </mat-form-field>
-        </div>
-    </div>
-    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-        <!-- <div class="flex-1">
-            <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.kho'" [listData]="list_kho"
-                [keyError]="'db.id_kho'" [(model)]="record.db.id_kho"></cm_select>
-        </div> -->
         <div class="flex-1">
             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ngay_nhap'"
                 [type]="'datepicker'" [keyError]="'db.ngay_nhap'" [(model)]="record.db.ngay_nhap"></cm_input>
         </div>
+    </div>
+    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
         <div class="flex-1">
             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'" [maxlength]="500"
                 [type]="'textarea'" [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu">
@@ -62,8 +54,7 @@
         </div>
     </div>
     <ng-container *ngIf="record.db.nguon =='1' || record.db.nguon =='2'">
-
-        <h3 transloco="NAV.sys_don_hang_ban_buon" *ngIf="record.db.nguon =='1'" class="text-2xl font-bold underline">
+        <h3 transloco="NAV.sys_don_hang_ban" *ngIf="record.db.nguon =='1'" class="text-2xl font-bold underline">
         </h3>
         <h3 transloco="NAV.sys_don_hang_mua" *ngIf="record.db.nguon =='2'" class="text-2xl font-bold underline">
         </h3>

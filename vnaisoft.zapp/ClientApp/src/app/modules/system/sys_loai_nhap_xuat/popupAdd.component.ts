@@ -45,15 +45,12 @@ export class sys_loai_nhap_xuat_popUpAddComponent extends BasePopUpAddTypeCompon
         this.list_nguon = [
             {
                 id: "1",
-                name: this._translocoService.translate('erp.don_hang_ban')
+                name: this._translocoService.translate('system.don_hang_ban')
             },
             {
                 id: "2",
-                name: this._translocoService.translate('erp.don_hang_mua')
-            }, {
-                id: "3",
-                name: this._translocoService.translate('erp.chuyen_kho')
-            }
+                name: this._translocoService.translate('system.don_hang_mua')
+            },
         ];
     }
 }

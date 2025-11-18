@@ -11,9 +11,7 @@ import { AuthCallbackComponent } from './modules/auth/auth_callback/auth_callbac
 // tslint:disable:max-line-length
 export const appRoutes: Route[] = [
 
-    // Redirect empty path to '/example'
     { path: '', pathMatch: 'full', redirectTo: '/home' },
-    // { path: '', pathMatch: 'full', redirectTo: 'homepage-index'},
 
     // Redirect signed in user to the '/example'
     //
@@ -23,49 +21,6 @@ export const appRoutes: Route[] = [
     //{ path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'home' },
 
     { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: '/home' },
-
-
-    // { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'homepage-index' },
-    // Auth routes for guests
-
-
-    // {
-    //     path: '',
-    //     component: LayoutComponent,
-    //     data: {
-    //         layout: 'empty'
-    //     },
-    //     children: [
-    //         { path: '', loadChildren: () => import('app/modules/help/help.module').then(m => m.helpModule) },
-    //     ]
-    // },
-    // {
-    //     // ĐÂY LÀ ROUTE ĐÃ ĐƯỢC SỬA LẠI
-    //     // Nó phải khớp chính xác với đường dẫn mà Sở GD&ĐT trả về
-    //     path: 'authcallback',
-    //     component: AuthCallbackComponent
-    // },
-    // {
-    //     path: '',
-    //     component: LayoutComponent,
-    //     data: {
-    //         layout: 'empty'
-    //     },
-    //     children: [
-    //         { path: 'chat', loadChildren: () => import('app/modules/chat/chat.module').then(m => m.ChatModule) },
-    //     ]
-    // },
-
-    {
-        path: 'portal_ky_yeu_index',
-        component: LayoutComponent,
-        data: {
-            layout: 'portalempty'
-        },
-        children: [
-            { path: '', loadChildren: () => import('app/modules/portal/portal.module').then(m => m.PortalModule) },
-        ]
-    },
     {
         path: '',
         component: LayoutComponent,
@@ -170,11 +125,6 @@ export const appRoutes: Route[] = [
         children: [
             { path: 'home', loadChildren: () => import('app/modules/home/home.module').then(m => m.HomeModule) },
             { path: '', loadChildren: () => import('app/modules/system/system.module').then(m => m.SystemModule) },
-            //   { path: '', loadChildren: () => import('app/modules/giao_vien/giao_vien.module').then(m => m.GiaoVienModule) },
-            // { path: '', loadChildren: () => import('app/modules/thoi_khoa_bieu/thoi_khoa_bieu.module').then(m => m.thoi_khoa_bieuModule) },
-            //  { path: '', loadChildren: () => import('app/modules/ke_hoach_tuyen_sinh/ke_hoach_tuyen_sinh.module').then(m => m.ke_hoach_tuyen_sinhModule) },
-            { path: '', loadChildren: () => import('app/modules/file_manager/file_manger.module').then(m => m.FileManagerModule) },
-            //{ path: '', loadChildren: () => import('app/modules/portal_ky_yeu/ky_yeu.module').then(m => m.KyYeuModule) },
             
         ]
     },

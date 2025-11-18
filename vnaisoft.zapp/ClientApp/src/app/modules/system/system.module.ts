@@ -96,6 +96,8 @@ import { bao_cao_nhap_kho_indexComponent } from './sys_bao_cao_nhap_kho/index.co
 import { bao_cao_xuat_kho_indexComponent } from './sys_bao_cao_xuat_kho/index.component';
 import { sys_loai_nhap_xuat_indexComponent } from './sys_loai_nhap_xuat/index.component';
 import { sys_loai_nhap_xuat_popUpAddComponent } from './sys_loai_nhap_xuat/popupAdd.component';
+import { sys_common_popupChooseDonHangMuaComponent } from './sys_common/popupChooseDonHangMua.component';
+import { sys_common_popupChooseDonHangBanComponent } from './sys_common/popupChooseDonHangBan.component';
 
 
 
@@ -113,6 +115,8 @@ export function playerFactory() {
         // { provide: MAT_DATE_LOCALE, useValue: 'vi-VN' }
     ],
     declarations: [
+        sys_common_popupChooseDonHangBanComponent,
+        sys_common_popupChooseDonHangMuaComponent,
         sys_loai_nhap_xuat_popUpAddComponent,
         sys_loai_nhap_xuat_indexComponent,
         bao_cao_xuat_kho_indexComponent,

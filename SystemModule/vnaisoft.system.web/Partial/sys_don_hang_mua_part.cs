@@ -31,19 +31,11 @@ namespace vnaisoft.system.web.Controller
                 "sys_don_hang_mua;update_status_del",
                 "sys_don_hang_mua;get_list_don_vi_tinh",
                 "sys_don_hang_mua;get_code",
-                "sys_don_hang_mua;ImportFromExcel",
-                "sys_don_hang_mua;exportExcel",
                 "sys_don_hang_mua;getElementById",
                 "sys_don_hang_mua;getListUseDetails",
                 "sys_don_hang_mua;get_list_don_hang_mua",
-                "sys_don_hang_mua;ImportFromExcelDetail",
-                "sys_don_hang_mua;ImportFromExcelMatHang",
                 "sys_don_hang_mua;getPrint",
-                "sys_don_hang_mua;DataHandlerDonHangMuaHH",
-                "sys_don_hang_mua;check_kho",
-                "sys_don_hang_mua;getElementByIdLog",
-                "sys_don_hang_mua;DataHandlerLog",
-                "sys_don_hang_mua;exportExcelDetails",
+                "sys_don_hang_mua;DataHandlerDonHangMua",
             },
             list_controller_action_publicNonLogin = new List<string>(){
                    "sys_don_hang_mua;downloadtempdetail",
@@ -115,21 +107,13 @@ namespace vnaisoft.system.web.Controller
             //{
             //    ModelState.AddModelError("db.loai_giao_dich", "required");
             //}
-            if (item.db.phuong_thuc_thanh_toan == 2)
-            {
-                if (string.IsNullOrEmpty(item.db.id_tai_khoan_ngan_hang))
-                {
-                    ModelState.AddModelError("db.id_tai_khoan_ngan_hang", "required");
-                }
-                //if (string.IsNullOrEmpty(item.db.id_ngan_hang_doi_tuong))
-                //{
-                //    ModelState.AddModelError("db.id_ngan_hang_doi_tuong", "required");
-                //}
-                //if (string.IsNullOrEmpty(item.db.so_tai_khoan_doi_tuong))
-                //{
-                //    ModelState.AddModelError("db.so_tai_khoan_doi_tuong", "required");
-                //}
-            }
+            //if (item.db.phuong_thuc_thanh_toan == 2)
+            //{
+            //    if (string.IsNullOrEmpty(item.db.id_tai_khoan_ngan_hang))
+            //    {
+            //        ModelState.AddModelError("db.id_tai_khoan_ngan_hang", "required");
+            //    }
+            //}
 
             //if (item.db.list_mat_hang.Count == 0)
             //{

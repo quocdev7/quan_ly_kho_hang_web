@@ -18,6 +18,8 @@ import { sys_don_hang_ban_popUpAddComponent } from '../sys_don_hang_ban/popupAdd
 import { sys_don_hang_mua_popUpAddComponent } from '../sys_don_hang_mua/popupAdd.component';
 import { cm_mau_in_popupComponent } from '@fuse/components/commonComponent/cm_mau_in/cm_mau_in_popup.component';
 import { doi_tuong_tu_do } from 'app/core/data/data';
+import { sys_common_popupChooseDonHangMuaComponent } from '../sys_common/popupChooseDonHangMua.component';
+import { sys_common_popupChooseDonHangBanComponent } from '../sys_common/popupChooseDonHangBan.component';
 // import { sys_common_popupChooseDonHangMuaHHComponent } from '../sys_common/popupChooseDonHangMuaHH.component';
 // import { sys_common_popupChooseDonHangBanHHComponent } from '../sys_common/popupChooseDonHangBanHH.component';
 
@@ -35,8 +37,6 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
     public additem: any;
     public item_chose: any;
     public dtOptions: any;
-    public list_cong_ty: any;
-    public id_don_hang: any;
 
     public list_doi_tuong: any;
     public record: any;
@@ -60,15 +60,8 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
     public total_thanh_tien_sau_chiet_khau: any;
     public total_tien_thue: any;
     public total_thanh_tien_sau_thue: any;
-    public openTab: any = 1;
     public list_loai_nhap: any = [];
-    public list_don_hang: any = [];
-    public list_don_hang_ban_thuc_hien: any = [];
-    public list_nguon: any = [];
     public file: any;
-    public check_doi_tuong: any = true;
-    public doi_tuong_tu_do: any;
-    public data_doi_tuong: any;
     constructor(public dialogRef: MatDialogRef<sys_phieu_nhap_kho_popUpAddComponent>,
         http: HttpClient, _translocoService: TranslocoService,
         _fuseNavigationService: FuseNavigationService, route: ActivatedRoute,
@@ -89,23 +82,30 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             });
         }
         if (this.actionEnum == 1) {
+            this.baseInitData();
 
             this.get_code();
-            this.record.db.ten = "Tự động tạo";
             this.record.db.ngay_nhap = new Date();
-            this.doi_tuong_tu_do = doi_tuong_tu_do;
-            this.baseInitData();
+            this.get_list_loai_nhap();
+
         }
         if (this.actionEnum != 1) {
             this.load_list_mat_hang_nhap_kho();
         }
         this.record.so_luong_mh = 1
-        this.get_list_loai_nhap();
-        this.get_list_don_hang();
-        this.get_list_kho();
-        this.load_nguon()
     }
-    
+    public get_list_loai_nhap(): void {
+        this.http
+            .post('/sys_loai_nhap_xuat.ctr/getListUse/', {
+            }
+            ).subscribe(resp => {
+                if (this.actionEnum == 1) {
+                    this.list_loai_nhap = resp;
+                    this.record.db.id_loai_nhap = this.list_loai_nhap[0].id;
+                    this.record.db.nguon = this.list_loai_nhap[0].nguon;
+                }
+            });
+    }
     openDialogPrint(item): void {
         this.http
             .post(this.controller + '.ctr/getPrint/', {
@@ -229,96 +229,71 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             if (result.db.id == 0) return;
         });
     }
-    // openDialogChooseDonHang(id, type): void {
+    openDialogChooseDonHang(id, type): void {
 
-    //     //type == 1 nhap mua
-    //     //type == 2 nhap tra hang
-    //     if (type == 2) {
-    //         const dialogRef = this.dialogModal
-    //             .open(sys_common_popupChooseDonHangMuaHHComponent, {
-    //                 disableClose: true,
-    //                 width: '100%',
-    //                 height: '100%',
-    //                 data: {
-    //                     db: {
-    //                         id: id,
-    //                         nguon: type + "pn"
-    //                     },
-    //                 }
-    //             });
-    //         dialogRef.afterClosed().subscribe(result => {
+        //type == 1 nhap mua
+        //type == 2 nhap tra hang
+        if (type == 2) {
+            const dialogRef = this.dialogModal
+                .open(sys_common_popupChooseDonHangMuaComponent, {
+                    disableClose: true,
+                    width: '100%',
+                    height: '100%',
+                    data: {
+                        db: {
+                            id: id,
+                            nguon: type + "pn"
+                        },
+                    }
+                });
+            dialogRef.afterClosed().subscribe(result => {
 
-    //             var data: any;
-    //             this.data_doi_tuong = result;
-    //             data = result;
-    //             if (data == undefined) return;
-    //             this.record.db.nguon = 2;
-    //             this.record.db.id_don_hang_mua = data.id;
-    //             this.record.ma_don_hang = data.ma;
-    //             this.record.ghi_chu_don_hang = data.ghi_chu;
-    //             this.record.loai_giao_dich = data.loai_giao_dich;
-    //             this.record.list_mat_hang = [];
+                var data: any;
+                data = result;
+                if (data == undefined) return;
+                this.record.db.nguon = 2;
+                this.record.db.id_don_hang_mua = data.id;
+                this.record.ma_don_hang = data.ma;
+                this.record.ghi_chu_don_hang = data.ghi_chu;
+                this.record.loai_giao_dich = data.loai_giao_dich;
+                this.record.list_mat_hang = [];
 
-    //             this.record.db.hinh_thuc_doi_tuong = data.hinh_thuc_doi_tuong;
-    //             this.record.db.id_doi_tuong = data.id_doi_tuong;
-    //             this.record.db.ma_so_thue = data.ma_so_thue;
-    //             this.record.db.dien_thoai = data.dien_thoai;
-    //             this.record.db.email = data.email;
-    //             this.record.db.dia_chi_doi_tuong = data.dia_chi_doi_tuong;
-    //             this.record.db.ten_doi_tuong = data.ten_doi_tuong;
-    //             if (data.id_doi_tuong == "DTTD")
-    //                 this.record.check_doi_tuong = 1;
-    //             else
-    //                 this.record.check_doi_tuong = 2;
-
-    //             this.get_list_mat_hang_theo_don_hang_mua();
+                this.get_list_mat_hang_theo_don_hang_mua();
 
 
 
-    //         })
+            })
 
-    //     } else {
-    //         const dialogRef = this.dialogModal
-    //             .open(sys_common_popupChooseDonHangBanHHComponent, {
-    //                 disableClose: true,
-    //                 width: '100%',
-    //                 height: '100%',
-    //                 data: {
-    //                     db: {
-    //                         id: id,
-    //                         nguon: type + "pn"
-    //                     },
+        } else {
+            const dialogRef = this.dialogModal
+                .open(sys_common_popupChooseDonHangBanComponent, {
+                    disableClose: true,
+                    width: '100%',
+                    height: '100%',
+                    data: {
+                        db: {
+                            id: id,
+                            nguon: type + "pn"
+                        },
 
-    //                 }
-    //             });
-    //         dialogRef.afterClosed().subscribe(result => {
+                    }
+                });
+            dialogRef.afterClosed().subscribe(result => {
 
-    //             var data: any;
-    //             this.data_doi_tuong = result;
-    //             data = result;
-    //             if (data == undefined) return;
-    //             this.record.db.nguon = 1;
-    //             this.record.db.id_don_hang_ban = data.id;
-    //             this.record.ma_don_hang = data.ma;
-    //             this.record.ghi_chu_don_hang = data.ghi_chu;
-    //             this.record.loai_giao_dich = data.loai_giao_dich;
-    //             this.record.list_mat_hang = [];
+                var data: any;
+                data = result;
+                if (data == undefined) return;
+                this.record.db.nguon = 1;
+                this.record.db.id_don_hang_ban = data.id;
+                this.record.ma_don_hang = data.ma;
+                this.record.ghi_chu_don_hang = data.ghi_chu;
+                this.record.loai_giao_dich = data.loai_giao_dich;
+                this.record.list_mat_hang = [];
 
-    //             this.record.db.hinh_thuc_doi_tuong = data.hinh_thuc_doi_tuong;
-    //             this.record.db.id_doi_tuong = data.id_doi_tuong;
-    //             this.record.db.ma_so_thue = data.ma_so_thue;
-    //             this.record.db.dien_thoai = data.dien_thoai;
-    //             this.record.db.email = data.email;
-    //             this.record.db.dia_chi_doi_tuong = data.dia_chi_doi_tuong;
-    //             this.record.db.ten_doi_tuong = data.ten_doi_tuong;
-    //             if (data.id_doi_tuong == "DTTD")
-    //                 this.record.check_doi_tuong = 1;
-    //             else
-    //                 this.record.check_doi_tuong = 2;
-    //             this.get_list_mat_hang_theo_don_hang_ban();
-    //         })
-    //     }
-    // }
+                this.get_list_mat_hang_theo_don_hang_ban();
+            })
+        }
+    }
     load_list_mat_hang_nhap_kho(): void {
 
         this.http
@@ -352,70 +327,7 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         }
         window.open(link);
     }
-    load_nguon(): void {
-        this.list_nguon = [
-            {
-                id: 1,
-                name: this._translocoService.translate('erp.khac')
-            },
-            // {
-            //     id: 2,
-            //     name: this._translocoService.translate('erp.thu_tien_tu_don_hang_ban')
-            // },
-            // {
-            //     id: 3,
-            //     name: this._translocoService.translate('erp.nhan_hoan_tien_tu_don_hang_mua')
-            // }
-        ];
-    }
-    public get_list_loai_nhap(): void {
-        this.http
-            .post('/sys_loai_nhap_xuat.ctr/getListUse/', {
-            }
-            ).subscribe(resp => {
-                if (this.actionEnum == 1) {
-                    this.list_loai_nhap = resp;
-                    this.list_loai_nhap = this.list_loai_nhap.filter(q => q.loai == '1' && q.ma != "NCK");
-                    this.record.db.id_loai_nhap = this.list_loai_nhap.filter(q => q.ma == "NGT")[0].id;
-                    this.record.ma_loai_nhap = this.list_loai_nhap.filter(q => q.ma == "NGT")[0].ma;
-                    this.record.nguon = this.list_loai_nhap.filter(q => q.ma == "NGT")[0].nguon;
-                }
-                if (this.actionEnum != 1) {
-                    this.list_loai_nhap = resp;
-                    this.list_loai_nhap = this.list_loai_nhap.filter(q => q.loai == '1');
-                    this.record.db.nguon = this.record.db.nguon;
-                    this.record.db.id_loai_nhap = this.record.db.id_loai_nhap;
-                }
-            });
-    }
-    public get_list_don_hang(): void {
-        this.http
-            .post('/sys_don_hang_ban.ctr/getListUse/', {
-            }
-            ).subscribe(resp => {
-                this.list_don_hang = resp;
-            });
-    }
-    public load_don_hang_ban(): void {
-        this.http
-            .post('/sys_don_hang_ban.ctr/getListUse/', {
-                //id_cong_ty: this.record.db.id_cong_ty
-            }
-            ).subscribe(resp => {
-                this.list_don_hang_ban = resp;
-                this.id_don_hang = this.list_don_hang_ban[0].id;
-            });
-
-
-    }
-    get_list_kho(): void {
-        this.http
-            .post('/sys_kho.ctr/getListUse/', {
-            }
-            ).subscribe(resp => {
-                this.list_kho = resp;
-            });
-    }
+    
     get_code() {
         this.http
             .post('/sys_phieu_nhap_kho.ctr/get_code/', {
@@ -423,8 +335,6 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             ).subscribe(resp => {
                 this.record.db.ma = "Tự động tạo";
             });
-        //this.record.db.ma = this.controller + "-" + this.Progress_logo
-
     }
 
 

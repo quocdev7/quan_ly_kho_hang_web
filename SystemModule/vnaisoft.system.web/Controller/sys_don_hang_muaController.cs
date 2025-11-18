@@ -383,88 +383,71 @@ namespace vnaisoft.system.web.Controller
             }
 
         }
-        //[HttpPost]
-        //public async Task<IActionResult> DataHandlerDonHangMuaHH([FromBody] JObject json)
-        //{
-        //    try
-        //    {
-        //        var a = Request;
-        //        var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
-        //        var dictionary = new Dictionary<string, string>();
-        //        dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
+        [HttpPost]
+        public async Task<IActionResult> DataHandlerDonHangMua([FromBody] JObject json)
+        {
+            try
+            {
+                var a = Request;
+                var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
+                var dictionary = new Dictionary<string, string>();
+                dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
 
-        //        var search = dictionary["search"].Trim().ToLower();
-        //        var id_loai_giao_dich = dictionary["id_loai_giao_dich"];
-        //        var id_kho = dictionary["id_kho"];
-        //        var id_doi_tuong = dictionary["id_doi_tuong"];
-        //        var nguon = dictionary["nguon"];
-        //        var status_del = int.Parse(dictionary["status_del"]);
-        //        var is_nhap_du = int.Parse(dictionary["is_nhap_du"]);
-        //        var is_xuat_du = int.Parse(dictionary["is_xuat_du"]);
-        //        var tu_ngay = dictionary["tu_ngay"].ToString();
-        //        var den_ngay = dictionary["den_ngay"].ToString();
-        //        var tu_ngay_dt = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
-        //        var den_ngay_dt = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
-        //        tu_ngay_dt = new DateTime(tu_ngay_dt.Year, tu_ngay_dt.Month, tu_ngay_dt.Day, 0, 0, 0);
-        //        den_ngay_dt = new DateTime(den_ngay_dt.Year, den_ngay_dt.Month, den_ngay_dt.Day, 23, 59, 59);
+                var search = dictionary["search"].Trim().ToLower();
+                var nguon = dictionary["nguon"];
+                var status_del = int.Parse(dictionary["status_del"]);
+                var tu_ngay = dictionary["tu_ngay"].ToString();
+                var den_ngay = dictionary["den_ngay"].ToString();
+                var tu_ngay_dt = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
+                var den_ngay_dt = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
+                tu_ngay_dt = new DateTime(tu_ngay_dt.Year, tu_ngay_dt.Month, tu_ngay_dt.Day, 0, 0, 0);
+                den_ngay_dt = new DateTime(den_ngay_dt.Year, den_ngay_dt.Month, den_ngay_dt.Day, 23, 59, 59);
 
-        //        //var query = repo.FindAll()
-        //        var queryTable = repo._context.sys_don_hang_muas.AsQueryable().Where(d => d.status_del == status_del)
-        //            .Where(d => tu_ngay_dt <= d.ngay_dat_hang && den_ngay_dt >= d.ngay_dat_hang)
-        //             .Where(d => d.loai_giao_dich == int.Parse(id_loai_giao_dich))
-        //             .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
-        //             || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-        //             || (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
-        //             || (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
-        //             //.Where(q => q.nguoi_cap_nhat == getUserId())
-        //             ;
-        //        //2pn: chọn đơn hàng mua phiếu nhập, 2px: chọn đơn hàng mua phiếu xuất
-        //        if (nguon == "2pn")
-        //        {
-        //            if (is_nhap_du == 0)
-        //            {
-        //                queryTable = queryTable.Where(d => d.is_nhap_du != true);
-        //            }
-        //            if (is_nhap_du == 1)
-        //            {
-        //                queryTable = queryTable.Where(d => d.is_nhap_du == true);
-        //            }
-        //        }
-        //        else if (nguon == "2px")
-        //        {
-        //            queryTable = queryTable;
-        //        }
+                //var query = repo.FindAll()
+                var queryTable = repo._context.sys_don_hang_mua_col.AsQueryable().Where(d => d.status_del == status_del)
+                    .Where(d => tu_ngay_dt <= d.ngay_dat_hang && den_ngay_dt >= d.ngay_dat_hang)
+                     .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
+                     || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
+                     || search == "")
+                     ;
+                //2pn: chọn đơn hàng mua phiếu nhập, 2px: chọn đơn hàng mua phiếu xuất
+                //if (nguon == "2pn")
+                //{
+                //    if (is_nhap_du == 0)
+                //    {
+                //        queryTable = queryTable.Where(d => d.is_nhap_du != true);
+                //    }
+                //    if (is_nhap_du == 1)
+                //    {
+                //        queryTable = queryTable.Where(d => d.is_nhap_du == true);
+                //    }
+                //}
+                //else if (nguon == "2px")
+                //{
+                //    queryTable = queryTable;
+                //}
 
-        //        if (Boolean.Parse(dictionary["open"]) == true)
-        //        {
 
-        //            queryTable = queryTable
-        //                    //.Where(d => d.status_del == status_del)
-        //                    .Where(d => d.id_kho_nhap == id_kho || id_kho == "-1")
-        //                    .Where(d => d.hinh_thuc_doi_tuong == int.Parse(id_doi_tuong) || id_doi_tuong == "-1")
-        //                    ;
-        //        }
+                var count = queryTable.Count();
+                queryTable = queryTable.OrderByDescending(d => d.ma);
+                var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
+                DTResult<sys_don_hang_mua_model> result = new DTResult<sys_don_hang_mua_model>
+                {
+                    start = param.Start,
+                    draw = param.Draw,
+                    data = dataList,
+                    recordsFiltered = count,
+                    recordsTotal = count
+                };
+                return Json(result);
+            }
 
-        //        var count = queryTable.Count();
-        //        queryTable = queryTable.OrderByDescending(d => d.ma);
-        //        var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
-        //        DTResult<sys_don_hang_mua_model> result = new DTResult<sys_don_hang_mua_model>
-        //        {
-        //            start = param.Start,
-        //            draw = param.Draw,
-        //            data = dataList,
-        //            recordsFiltered = count,
-        //            recordsTotal = count
-        //        };
-        //        return Json(result);
-        //    }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
 
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { error = ex.Message });
-        //    }
-
-        //}
+        }
         //public async Task<FileStreamResult> exportExcel(string search, int? status_del, bool? open, int? id_loai_giao_dich, int? id_doi_tuong, DateTime tu_ngay, DateTime den_ngay)
         //{
         //    search = search ?? "";
@@ -771,12 +754,6 @@ namespace vnaisoft.system.web.Controller
         //        return Json("-1");
         //    }
 
-        //}
-        
-        //public void add_log(sys_lich_su_import_db db)
-        //{
-        //    repo._context.sys_lich_su_imports.AddAsync(db);
-        //    repo._context.SaveChanges();
         //}
 
 

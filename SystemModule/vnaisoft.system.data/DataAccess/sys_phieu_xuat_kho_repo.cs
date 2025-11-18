@@ -290,7 +290,6 @@ namespace vnaisoft.system.data.DataAccess
                   .Set(x => x.ten, model.db.ten)
                   .Set(x => x.ten_khong_dau, model.db.ten_khong_dau)
                   .Set(x => x.nguon, model.db.nguon)
-                  .Set(x => x.id_doi_tuong, model.db.id_doi_tuong)
                   .Set(x => x.ngay_xuat, model.db.ngay_xuat)
                   .Set(x => x.id_loai_xuat, model.db.id_loai_xuat)
                   .Set(x => x.nguoi_cap_nhat, model.db.nguoi_cap_nhat)

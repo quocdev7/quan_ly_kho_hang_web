@@ -15,32 +15,19 @@ namespace vnaisoft.DataBase.Mongodb.Collection.system
         public string ma { get; set; }
         public string ten { get; set; }
         public string ten_khong_dau { get; set; }
-        //public string id_don_hang_ban_thuc_hien { get; set; }
-        //public string id_don_hang_ban { get; set; }
-        //public string id_don_hang_mua { get; set; }
+        public string id_don_hang_ban { get; set; }
+        public string id_don_hang_mua { get; set; }
         //1 don hang ban, 2 don hang mua,
         public int? nguon { get; set; }
-        public int? hinh_thuc_doi_tuong { get; set; }
-        public string id_doi_tuong { get; set; }
-        public string ten_doi_tuong { get; set; }
-        public string ma_so_thue { get; set; }
-        public string dien_thoai { get; set; }
-        public string email { get; set; }
-        public string dia_chi_doi_tuong { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_xuat { get; set; }
-        //public string id_kho { get; set; }
         public string id_loai_xuat { get; set; }
         public string ghi_chu { get; set; }
         public string nguoi_cap_nhat { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_cap_nhat { get; set; }
         public int? status_del { get; set; }
-        //public string id_file_upload { get; set; }
-        //public string id_phieu_chuyen_kho { get; set; }
-        //public string id_hoa_don { get; set; }
-
 
         //public bool? is_sinh_tu_dong { get; set; }
         //public int? loai { get; set; }
-        public string so_phieu { get; set; }
+        //public string so_phieu { get; set; }
     }
 }

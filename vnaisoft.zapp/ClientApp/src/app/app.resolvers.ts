@@ -124,7 +124,7 @@ export class InitialDataResolver implements Resolve<any> {
             var quan_ly_danh_muc = this.menu.filter((d) =>
               this.checkInclueFn(d.menu.id, [
                 'sys_don_vi_tinh',
-                // 'sys_khach_hang_nha_cung_cap',
+                'sys_loai_nhap_xuat',
                 'sys_loai_mat_hang',
                 'sys_mat_hang',
                 'sys_don_hang_mua',

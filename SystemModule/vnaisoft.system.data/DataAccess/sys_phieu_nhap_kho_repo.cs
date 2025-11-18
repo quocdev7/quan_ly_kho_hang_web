@@ -104,146 +104,9 @@ namespace vnaisoft.system.data.DataAccess
 
         //    return ten;
         //}
-        //public async Task<int> insert_import(sys_phieu_nhap_kho_model model)
-        //{
-        //    if (model.db.id_loai_nhap == "NTRH")
-        //    {
-        //        var donHang = _context.sys_don_hang_bans.AsQueryable().Where(d => d.id == model.db.id_don_hang_ban).SingleOrDefault();
-        //        model.db.id_doi_tuong = donHang.id_doi_tuong;
-        //        model.db.dia_chi_doi_tuong = donHang.dia_chi_doi_tuong;
-        //        model.db.hinh_thuc_doi_tuong = donHang.hinh_thuc_doi_tuong;
-        //        model.db.ten_doi_tuong = donHang.ten_doi_tuong;
-        //        model.db.email = donHang.email;
-        //        model.db.dien_thoai = donHang.dien_thoai;
-        //        var list_mat_hang = _context.sys_don_hang_ban_mat_hangs.AsQueryable().Where(q => q.id_don_hang == model.db.id_don_hang_ban).Select(q => new sys_phieu_nhap_kho_chi_tiet_model
-        //        {
-        //            id_mat_hang = q.id_mat_hang,
-        //            so_luong = q.so_luong,
-        //            ghi_chu = q.ghi_chu,
-        //            id_don_vi_tinh = q.id_don_vi_tinh,
-        //            don_gia = q.don_gia,
-        //        }).ToList();
-        //        if (list_mat_hang.Count() != 0)
-        //        {
-        //            model.list_mat_hang = list_mat_hang;
-        //        }
-        //    }
-        //    if (model.db.id_loai_nhap == "NM")
-        //    {
-        //        var donHang = _context.sys_don_hang_muas.AsQueryable().Where(d => d.id == model.db.id_don_hang_mua).SingleOrDefault();
-        //        model.db.id_doi_tuong = donHang.id_doi_tuong;
-        //        model.db.dia_chi_doi_tuong = donHang.dia_chi_doi_tuong;
-        //        model.db.hinh_thuc_doi_tuong = donHang.hinh_thuc_doi_tuong;
-        //        model.db.ten_doi_tuong = donHang.ten_doi_tuong;
-        //        model.db.email = donHang.email;
-        //        model.db.dien_thoai = donHang.dien_thoai;
-        //        var list_mat_hang = _context.sys_don_hang_mua_mat_hangs.AsQueryable().Where(q => q.id_don_hang == model.db.id_don_hang_mua).Select(q => new sys_phieu_nhap_kho_chi_tiet_model
-        //        {
-        //            id_mat_hang = q.id_mat_hang,
-        //            so_luong = q.so_luong,
-        //            ghi_chu = q.ghi_chu,
-        //            id_don_vi_tinh = q.id_don_vi_tinh,
-        //            don_gia = q.don_gia,
-        //        }).ToList();
-        //        if (list_mat_hang.Count() != 0)
-        //        {
-        //            model.list_mat_hang = list_mat_hang;
-        //        }
-
-        //    }
-        //    model.db.ten = generate_ten(model);
-        //    model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
-        //    model.db.id_file_upload = model.db.id + "sys_phieu_nhap_kho";
-        //    await _context.sys_phieu_nhap_kho_col.InsertOneAsync(model.db);
-        //    //await _common_repo.insert_file(model.db.id, "sys_phieu_nhap_kho");
-        //    if (model.list_mat_hang.Count() > 0)
-        //    {
-        //        await upset_detail_import(model);
-        //    }
-        //    return 1;
-        //}
-        //public async Task<int> upset_detail_import(sys_phieu_nhap_kho_model model)
-        //{
-        //    var filter_detail = Builders<sys_phieu_nhap_kho_chi_tiet_col>.Filter.Eq("id_phieu_nhap_kho", model.db.id);
-        //    await _context.sys_phieu_nhap_kho_chi_tiet_col.DeleteManyAsync(filter_detail);
-        //    await _common_trigger_dinh_khoan_repo.removePhieu(model.db.id, "sys_phieu_nhap_kho");
-
-        //    for (int i = 0; i < model.list_mat_hang.Count(); i++)
-        //    {
-        //        var data = model.list_mat_hang[i];
-        //        var id_don_vi_tinh = _context.sys_mat_hang_col.AsQueryable().Where(q => q.id == data.id_mat_hang).Select(q => q.id_don_vi_tinh).SingleOrDefault();
-        //        var db = new sys_phieu_nhap_kho_chi_tiet_col();
-        //        var sotutang = 100 + i;
-        //        db.id = model.db.ma + sotutang.ToString();
-        //        db.status_del = 1;
-        //        db.id_kho = model.db.id_kho;
-        //        db.ngay_nhap = model.db.ngay_nhap;
-        //        db.id_phieu_nhap_kho = model.db.id;
-        //        db.id_mat_hang = data.id_mat_hang;
-        //        db.id_don_vi_tinh = id_don_vi_tinh;
-        //        db.so_luong = data.so_luong;
-        //        db.ghi_chu = data.ghi_chu;
-        //        db.nguoi_cap_nhat = model.db.nguoi_cap_nhat;
-        //        db.ngay_cap_nhat = model.db.ngay_cap_nhat;
-        //        db.doi_tuong_co = model.db.id_doi_tuong;
-        //        db.doi_tuong_no = model.db.id_doi_tuong;
-        //        db.is_dinh_khoan = false;
-        //        var mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == data.id_mat_hang).SingleOrDefault();
-
-        //        if (mat_hang != null)
-        //        {
-        //            db.ten_mat_hang = mat_hang.ten;
-        //            db.id_loai_mat_hang = mat_hang.id_loai_mat_hang;
-        //            db.ma_vach = mat_hang.ma_vach;
-        //            var loai_mat_hang = _context.sys_loai_mat_hangs.AsQueryable().Where(d => d.id == mat_hang.id_loai_mat_hang).SingleOrDefault();
-        //            if (loai_mat_hang.id_loai_dinh_khoan_mat_hang != null)
-        //            {
-        //                var loai_dinh_khoan_mat_hang = _context.sys_loai_dinh_khoan_mat_hangs.AsQueryable().Where(d => d.id == loai_mat_hang.id_loai_dinh_khoan_mat_hang).SingleOrDefault();
-        //                db.tai_khoan_co = loai_dinh_khoan_mat_hang.ma_tk_co_tien_mat;
-        //                db.tai_khoan_no = loai_dinh_khoan_mat_hang.ma_tk_no_tien_mat;
-        //            }
-
-        //        }
-        //        await _context.sys_phieu_nhap_kho_chi_tiet_col.InsertOneAsync(db);
-        //        await _common_trigger_tonkho_repo.updateNhapTonKhoAsync(data.so_luong, 0, model.db.id_kho, data.id_mat_hang, db.id_don_vi_tinh, model.db.ngay_nhap);
-
-        //        if (model.db.id_don_hang_ban != null)
-        //        {
-        //            await _common_trigger_don_hang_ban_repo.InsertTriggerDaXuat(model.db.id_don_hang_ban, model.db.nguoi_cap_nhat, db.id_mat_hang);
-        //        }
-        //        if (model.db.id_don_hang_mua != null)
-        //        {
-        //            await _common_trigger_don_hang_mua_repo.InsertTriggerDaNhap(model.db.id_don_hang_mua, model.db.nguoi_cap_nhat, db.id_mat_hang);
-        //        }
-        //    }
-        //    return 1;
-        //}
-
+        
         public async Task<int> insert(sys_phieu_nhap_kho_model model)
         {
-
-            //if (model.db.id_loai_nhap == "NTRH")
-            //{
-
-            //    var donHang = _context.sys_don_hang_bans.AsQueryable().Where(d => d.id == model.db.id_don_hang_ban).SingleOrDefault();
-            //    model.db.id_doi_tuong = donHang.id_doi_tuong;
-            //    model.db.dia_chi_doi_tuong = donHang.dia_chi_doi_tuong;
-            //    model.db.hinh_thuc_doi_tuong = donHang.hinh_thuc_doi_tuong;
-            //    model.db.ten_doi_tuong = donHang.ten_doi_tuong;
-            //    model.db.email = donHang.email;
-            //    model.db.dien_thoai = donHang.dien_thoai;
-            //}
-            //if (model.db.id_loai_nhap == "NM")
-            //{
-            //    var donHang = _context.sys_don_hang_muas.AsQueryable().Where(d => d.id == model.db.id_don_hang_mua).SingleOrDefault();
-            //    model.db.id_doi_tuong = donHang.id_doi_tuong;
-            //    model.db.dia_chi_doi_tuong = donHang.dia_chi_doi_tuong;
-            //    model.db.hinh_thuc_doi_tuong = donHang.hinh_thuc_doi_tuong;
-            //    model.db.ten_doi_tuong = donHang.ten_doi_tuong;
-            //    model.db.email = donHang.email;
-            //    model.db.dien_thoai = donHang.dien_thoai;
-
-            //}
             //model.db.ten = generate_ten(model);
             model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
             await _context.sys_phieu_nhap_kho_col.InsertOneAsync(model.db);
@@ -356,7 +219,6 @@ namespace vnaisoft.system.data.DataAccess
                 db.ghi_chu = data.db.ghi_chu;
                 db.nguoi_cap_nhat = model.db.nguoi_cap_nhat;
                 db.ngay_cap_nhat = model.db.ngay_cap_nhat;
-                db.id_loai_nhap = model.db.id_loai_nhap;
                 var mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == data.db.id_mat_hang).SingleOrDefault();
 
                 if (mat_hang != null)
@@ -389,7 +251,6 @@ namespace vnaisoft.system.data.DataAccess
                   .Set(x => x.ten, model.db.ten)
                   .Set(x => x.ten_khong_dau, model.db.ten_khong_dau)
                   .Set(x => x.nguon, model.db.nguon)
-                  .Set(x => x.id_doi_tuong, model.db.id_doi_tuong)
                        .Set(x => x.ngay_nhap, model.db.ngay_nhap)
                            .Set(x => x.id_loai_nhap, model.db.id_loai_nhap)
                              .Set(x => x.nguoi_cap_nhat, model.db.nguoi_cap_nhat)
