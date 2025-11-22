@@ -25,24 +25,14 @@ namespace vnaisoft.system.web.Controller
                   "sys_phieu_xuat_kho;create",
                    "sys_phieu_xuat_kho;edit",
                     "sys_phieu_xuat_kho;delete",
-                     "sys_phieu_xuat_kho;DataHandlerDinhKhoan",
                      "sys_phieu_xuat_kho;get_code",
-                      "sys_phieu_xuat_kho;ImportFromExcel",
-                       "sys_phieu_xuat_kho;exportExcel",
                        "sys_phieu_xuat_kho;getElementById",
                        "sys_phieu_xuat_kho;getListUse",
                          "sys_phieu_xuat_kho;update_status_del",
-                         "sys_phieu_xuat_kho;ImportFromExcelDetails",
-                         "sys_phieu_xuat_kho;ImportFromExcelMatHang",
                          "sys_phieu_xuat_kho;getElementById",
                          "sys_phieu_xuat_kho;get_list_mat_hang_xuat_kho",
-                         "sys_phieu_xuat_kho;getPrint",
                          "sys_phieu_xuat_kho;get_list_mat_hang_cua_phieu_xuat",
                          "sys_phieu_xuat_kho;get_list_phieu_xuat",
-                         "sys_phieu_xuat_kho;getElementByMa",
-                         "sys_phieu_xuat_kho;getElementByIdLog",
-                         "sys_phieu_xuat_kho;DatahandlerHistoryEdit",
-
             },
 
             list_controller_action_publicNonLogin = new List<string>(){
@@ -52,33 +42,6 @@ namespace vnaisoft.system.web.Controller
             },
             list_role = new List<ControllerRoleModel>()
             {
-                // new ControllerRoleModel()
-                //{
-                //    id="sys_phieu_xuat_kho;create",
-                //    name="create",
-                //    list_controller_action = new List<string>()
-                //    {
-                //          "sys_phieu_xuat_kho;create",
-                //    }
-                //},
-                //new ControllerRoleModel()
-                //{
-                //    id="sys_phieu_xuat_kho;edit",
-                //    name="edit",
-                //    list_controller_action = new List<string>()
-                //    {
-                //          "sys_phieu_xuat_kho;edit",
-                //    }
-                //},
-                //new ControllerRoleModel()
-                //{
-                //    id="sys_phieu_xuat_kho;delete",
-                //    name="delete",
-                //    list_controller_action = new List<string>()
-                //    {
-                //          "sys_phieu_xuat_kho;delete",
-                //    }
-                //},
                   new ControllerRoleModel()
                 {
                     id="sys_phieu_xuat_kho;list",
@@ -102,13 +65,13 @@ namespace vnaisoft.system.web.Controller
         }
         private bool checkModelStateCreateEdit(ActionEnumForm action, sys_phieu_xuat_kho_model item)
         {
-            if (action == ActionEnumForm.edit)
-            {
-                if (string.IsNullOrEmpty(item.ly_do_chinh_sua))
-                {
-                    ModelState.AddModelError("db.ly_do_chinh_sua", "required");
-                }
-            }
+            //if (action == ActionEnumForm.edit)
+            //{
+            //    if (string.IsNullOrEmpty(item.ly_do_chinh_sua))
+            //    {
+            //        ModelState.AddModelError("db.ly_do_chinh_sua", "required");
+            //    }
+            //}
             //if (item.db.id_kho == null)
             //{
             //    ModelState.AddModelError("db.id_kho", "required");

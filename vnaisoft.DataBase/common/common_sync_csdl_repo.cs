@@ -23,16 +23,6 @@ namespace vnaisoft.DataBase.commonFunc
                                         .ToArray());
         }
 
-
-
-        //public string get_anh_dai_dien(string hinh_anh_dai_dien, int? type, MongoDBContext _context)
-        //{
-        //    var id = _context.sys_cau_hinh_anh_mac_dinh_col.AsQueryable().Where(q => q.type == type).Select(q => q.image).SingleOrDefault();
-        //    var hinh_anh_dai_dien_default = _context.sys_file_upload_col.AsQueryable().Where(q => q.id == id).Select(q => q.file_path).SingleOrDefault();
-
-        //    hinh_anh_dai_dien = hinh_anh_dai_dien == null ? hinh_anh_dai_dien_default : hinh_anh_dai_dien;
-        //    return hinh_anh_dai_dien;
-        //}
         public long? getDateTime(DateTime currentime)
         {
             long unixTimeMilliseconds = new DateTimeOffset(currentime).ToUnixTimeMilliseconds();
@@ -52,68 +42,6 @@ namespace vnaisoft.DataBase.commonFunc
             var d = sourceTime.ToLocalTime();
             return d;
         }
-        //public commonConfigCode get_code_config(bool isDanhMuc, string maController, string defaultPrefix)
-        //{
-        //    var cau_hinh_ma = _context.erp_cau_hinh_ma_he_thongs.AsQueryable().Where(q => q.controller == maController).FirstOrDefault();
-        //    var code = "";
-        //    var dictionary = new Dictionary<int?, string>();
-        //    if (cau_hinh_ma != null)
-        //    {
-        //        if (!string.IsNullOrEmpty(cau_hinh_ma.tien_to))
-        //        {
-        //            code += cau_hinh_ma.tien_to;
-        //        }
-
-        //        if (cau_hinh_ma.is_ngay_gio == true)
-        //        {
-        //            if (code != "") code += "-";
-
-        //            var cau_hinh_ngay_gio = "";
-
-        //            cau_hinh_ngay_gio = DateTime.Now.ToString("yyMMdd");
-
-        //            //cau_hinh_ngay_gio = DateTime.Now.ToString("yyyy_MM_dd");
-
-        //            code += cau_hinh_ngay_gio;
-
-        //            //dictionary.Add(cauhinh.vi_tri_ngay_gio, cau_hinh_ngay_gio);
-        //        }
-
-        //        // var lst_doc = dictionary.OrderBy(q => q.Key).ToList();
-
-
-
-        //        return new commonConfigCode
-        //        {
-        //            prefix = code,
-        //            numIncrease = cau_hinh_ma.so_chu_so_tu_tang ?? 4
-        //        };
-        //    }
-        //    else
-        //    {
-        //        if (isDanhMuc)
-        //        {
-
-        //            var sotutang = 6;
-        //            return new commonConfigCode
-        //            {
-        //                prefix = defaultPrefix,
-        //                numIncrease = sotutang
-        //            };
-        //        }
-        //        else
-        //        {
-        //            string nam = DateTime.Now.ToString("yyMMdd");
-        //            var sotutang = 4;
-        //            return new commonConfigCode
-        //            {
-        //                prefix = defaultPrefix + nam,
-        //                numIncrease = sotutang
-        //            };
-        //        }
-        //    }
-
-        //}
         public string NonUnicode(string text)
         {
             string[] arr1 = new string[] { "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
@@ -157,15 +85,5 @@ namespace vnaisoft.DataBase.commonFunc
             return result;
         }
 
-        //public async Task<int> insert_file(string idPhieu, string controller)
-        //{
-        //    var db = new erp_file_upload_db();
-        //    db.id = idPhieu + controller;
-        //    db.controller = controller;
-        //    db.id_phieu = idPhieu;
-        //    await _context.erp_file_uploads.InsertOneAsync(db);
-        //    return 1;
-
-        //}
     }
 }

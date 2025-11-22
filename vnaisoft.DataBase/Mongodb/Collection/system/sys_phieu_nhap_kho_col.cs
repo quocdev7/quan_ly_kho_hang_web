@@ -30,9 +30,6 @@ namespace vnaisoft.DataBase.Mongodb.Collection.system
         public string nguoi_cap_nhat { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_cap_nhat { get; set; }
         public int? status_del { get; set; }
-
-        //public int? loai { get; set; }
-        ///public string so_phieu { get; set; }
     }
     
 }

@@ -122,7 +122,7 @@ namespace vnaisoft.system.data.DataAccess
                               ngay_xuat_kho = d.ngay_xuat,
                               ma_mat_hang = d.id_mat_hang,
                               ten_mat_hang = d.ten_mat_hang,
-                              ma_loai_xuat = d.id_loai_xuat,
+                              //ma_loai_xuat = d.id_loai_xuat,
                               id_don_vi_tinh = d.id_don_vi_tinh,
                           });
             return result;

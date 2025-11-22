@@ -234,12 +234,12 @@ namespace vnaisoft.system.web.Controller
             await repo.update_status_del(id, getUserId(), status_del);
             return Json("");
         }
-        //public async Task<IActionResult> getElementById([FromBody] JObject json)
-        //{
-        //    var id = json.GetValue("id").ToString();
-        //    var model = await repo.getElementById(id);
-        //    return Json(model);
-        //}
+        public async Task<IActionResult> getElementById([FromBody] JObject json)
+        {
+            var id = json.GetValue("id").ToString();
+            var model = await repo.getElementById(id);
+            return Json(model);
+        }
         //public async Task<IActionResult> getElementByIdLog([FromBody] JObject json)
         //{
         //    var id = json.GetValue("id").ToString();
@@ -256,7 +256,7 @@ namespace vnaisoft.system.web.Controller
         //    model.id_mat_hangs = string.Join(',', model.list_mat_hang.Select(q => q.db.id_mat_hang).ToList());
         //    return Json(model);
         //}
-        
+
         public async Task<IActionResult> get_list_don_hang_mua([FromBody] JObject json)
         {
             var list_don_hang_mua = new List<sys_don_hang_mua_model>();

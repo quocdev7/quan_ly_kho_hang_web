@@ -106,29 +106,29 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
                 }
             });
     }
-    openDialogPrint(item): void {
-        this.http
-            .post(this.controller + '.ctr/getPrint/', {
-                id: item.db.id
-            }
-            ).subscribe(resp => {
-                var data: any;
-                data = resp;
-                const dialogRef = this.dialog.open(cm_mau_in_popupComponent, {
+    // openDialogPrint(item): void {
+    //     this.http
+    //         .post(this.controller + '.ctr/getPrint/', {
+    //             id: item.db.id
+    //         }
+    //         ).subscribe(resp => {
+    //             var data: any;
+    //             data = resp;
+    //             const dialogRef = this.dialog.open(cm_mau_in_popupComponent, {
 
-                    width: '878px',
-                    disableClose: true,
-                    data: {
-                        tieu_de: data.tieu_de,
-                        noi_dung: data.noi_dung,
-                    },
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result != undefined && result != null) {
-                    }
-                });
-            });
-    }
+    //                 width: '878px',
+    //                 disableClose: true,
+    //                 data: {
+    //                     tieu_de: data.tieu_de,
+    //                     noi_dung: data.noi_dung,
+    //                 },
+    //             });
+    //             dialogRef.afterClosed().subscribe(result => {
+    //                 if (result != undefined && result != null) {
+    //                 }
+    //             });
+    //         });
+    // }
     load_list_choose_mat_hang_don_hang(listDataN): any {
         if (listDataN.length == 0) {
         }
@@ -143,12 +143,12 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
                         id_mat_hang: model.db.id_mat_hang,
                         id_don_vi_tinh: model.db.id_don_vi_tinh,
                         so_luong: model.db.so_luong,
+                        don_gia: model.db.don_gia,
                         ghi_chu: null,
                     },
-                    ma_mat_hang: model.ma_mat_hang,
+                    ma_mat_hang: model.db.id_mat_hang,
                     ten_mat_hang: model.ten_mat_hang,
                     ten_don_vi_tinh: model.ten_don_vi_tinh,
-                    ten_thuoc_tinh: model.ten_thuoc_tinh,
                     id_mat_hang: model.db.id_mat_hang
                 }
                 this.record.list_mat_hang.push(obj_mat_hang);
@@ -317,16 +317,16 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
                 }
             });
     }
-    go_to_print_phieu_nhap_kho(id): void {
-        var host = window.location.hostname;
-        var link = "";
-        if (host == "localhost") {
-            link = "https://" + host + ":44324/sys_in_phieu_nhap_kho.ctr/in_phieu_nhap_kho?id=" + id;
-        } else {
-            link = "https://" + host + '/sys_in_phieu_nhap_kho.ctr/in_phieu_nhap_kho?id=' + id;
-        }
-        window.open(link);
-    }
+    // go_to_print_phieu_nhap_kho(id): void {
+    //     var host = window.location.hostname;
+    //     var link = "";
+    //     if (host == "localhost") {
+    //         link = "https://" + host + ":44324/sys_in_phieu_nhap_kho.ctr/in_phieu_nhap_kho?id=" + id;
+    //     } else {
+    //         link = "https://" + host + '/sys_in_phieu_nhap_kho.ctr/in_phieu_nhap_kho?id=' + id;
+    //     }
+    //     window.open(link);
+    // }
     
     get_code() {
         this.http
