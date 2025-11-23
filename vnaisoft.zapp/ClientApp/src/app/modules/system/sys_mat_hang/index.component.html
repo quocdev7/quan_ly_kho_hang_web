@@ -71,7 +71,7 @@
                             <th transloco="system.loai_mat_hang" style="width:150px"></th>
                             <th transloco="system.mat_hang"></th>
                             <th transloco="system.don_vi_tinh" style="width:50px"></th>
-                            <th style="width:150px" transloco="system.info"></th>
+                            <th style="width:150px" transloco="system.don_gia"></th>
                             <th transloco="system.ghi_chu"></th>
                             <th style="width:120px !important" transloco="system.update_by"></th>
                         </tr>
@@ -99,8 +99,8 @@
                             <td align="center"> <span class="font-bold"> {{currentIndex+ i+1 }}</span> </td>
                             <td>
                                 <span class="text-blue-900 font-bold"> {{ item.ma_loai_mat_hang }}</span>
-                                <!-- <br />
-                                {{ item.ten_loai_mat_hang }} -->
+                                <br />
+                                {{ item.ten_loai_mat_hang }}
                             </td>
                             <td>
                                 <span class="text-blue-900 font-bold"> {{ item.db.ma }}</span>
@@ -110,31 +110,8 @@
                             <td>
                                 {{item.ten_don_vi_tinh}}
                             </td>
-
-                            <td>
-                                <!-- <div>
-                                        <span class="font-bold" transloco="system.gia_von"></span>:&nbsp;
-                                        <span>
-                                            <span *ngIf="item.db.gia_von==null || item.db.gia_von==''">0</span>
-                                            <span *ngIf="item.db.gia_von!=null || item.db.gia_von!=''">{{item.db.gia_von | number}}</span>
-                                        </span>
-                                    </div> -->
-                                <div>
-                                    <span class="font-bold" transloco="system.gia_ban_le"></span>:&nbsp;
-                                    <span>
-                                        <span *ngIf="item.db.gia_ban_le==null || item.db.gia_ban_le==''">0</span>
-                                        <span *ngIf="item.db.gia_ban_le!=null && item.db.gia_ban_le!=''">{{
-                                            item.db.gia_ban_le | number}}</span>
-                                    </span>
-                                </div>
-                                <div>
-                                    <span class="font-bold" transloco="system.gia_ban_si"></span>:&nbsp;
-                                    <span>
-                                        <span *ngIf="item.db.gia_ban_si==null || item.db.gia_ban_si==''">0</span>
-                                        <span *ngIf="item.db.gia_ban_si!=null && item.db.gia_ban_si!=''">{{
-                                            item.db.gia_ban_si | number}}</span>
-                                    </span>
-                                </div>
+                            <td align="right">
+                                {{ item.db.gia_ban_le | number}} VNĐ
                             </td>
                             <td>{{ item.db.ghi_chu }}</td>
                             <td>

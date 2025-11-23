@@ -81,7 +81,6 @@ import { sys_don_vi_tinh_indexComponent } from './sys_don_vi_tinh/index.componen
 import { sys_don_vi_tinh_popUpAddComponent } from './sys_don_vi_tinh/popupAdd.component';
 import { sys_mat_hang_indexComponent } from './sys_mat_hang/index.component';
 import { sys_mat_hang_popUpAddComponent } from './sys_mat_hang/popupAdd.component';
-import { sys_mat_hang_popupChooseDacTinhComponent } from './sys_mat_hang/popupChooseDacTinh.component';
 import { sys_don_hang_ban_indexComponent } from './sys_don_hang_ban/index.component';
 import { sys_don_hang_ban_popUpAddComponent } from './sys_don_hang_ban/popupAdd.component';
 import { sys_don_hang_mua_indexComponent } from './sys_don_hang_mua/index.component';
@@ -129,7 +128,6 @@ export function playerFactory() {
         sys_common_popupChooseMatHangComponent,
         sys_mat_hang_indexComponent,
         sys_mat_hang_popUpAddComponent,
-        sys_mat_hang_popupChooseDacTinhComponent,
         sys_don_hang_ban_indexComponent,
         sys_don_hang_ban_popUpAddComponent,
         sys_don_hang_mua_indexComponent,

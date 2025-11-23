@@ -108,16 +108,17 @@ export class sys_common_popupChooseMatHangComponent extends BasePopupDatatabbleC
                     this.list_choose += str;
                     don_gia = model.db.gia_ban_le;
                     let obj_mat_hang = {
-                        id_mat_hang: model.db.id,
+                        db :{
+                            id_mat_hang: model.db.id,
+                            id_loai_mat_hang: model.db.id_loai_mat_hang,
                             id_don_vi_tinh: model.db.id_don_vi_tinh,
                             don_gia: don_gia,
                             so_luong: 0,
                             vat: model.db.vat,
-                            thanh_tien_truoc_thue: 0,
                             tien_vat: 0,
                             ghi_chu: null,
-                            thanh_tien_sau_thue: 0,
-                        ma_mat_hang: model.db.ma,
+                        },
+                        ma_mat_hang: model.db.id,
                         ten_mat_hang: model.db.ten,
                         ten_don_vi_tinh: model.ten_don_vi_tinh,
                     }

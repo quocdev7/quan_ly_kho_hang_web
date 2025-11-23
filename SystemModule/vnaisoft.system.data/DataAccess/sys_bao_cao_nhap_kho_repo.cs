@@ -49,21 +49,21 @@ namespace vnaisoft.system.data.DataAccess
             var dataList = FindAll(querytable).ToList();
             dataList.ForEach(q =>
             {
-                //q.ten_loai_nhap = _context.sys_loai_nhap_xuats.AsQueryable().Where(d => d.ma == q.ma_loai_nhap).Select(d => d.ten).SingleOrDefault();
+                q.ten_loai_nhap = _context.sys_loai_nhap_xuat_col.AsQueryable().Where(d => d.ma == q.ma_loai_nhap).Select(d => d.ten).FirstOrDefault();
                 q.id_loai_mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == q.ma_mat_hang).Select(d => d.id_loai_mat_hang).FirstOrDefault();
                 q.ten_mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == q.ma_mat_hang).Select(d => d.ten).FirstOrDefault();
-                q.ma_loai_mat_hang = _context.sys_loai_mat_hang_col.AsQueryable().Where(d => d.id == q.id_loai_mat_hang).Select(d => d.ma).SingleOrDefault();
-                q.ten_loai_mat_hang = _context.sys_loai_mat_hang_col.AsQueryable().Where(d => d.id == q.id_loai_mat_hang).Select(d => d.ten).SingleOrDefault();
+                q.ma_loai_mat_hang = _context.sys_loai_mat_hang_col.AsQueryable().Where(d => d.id == q.id_loai_mat_hang).Select(d => d.ma).FirstOrDefault();
+                q.ten_loai_mat_hang = _context.sys_loai_mat_hang_col.AsQueryable().Where(d => d.id == q.id_loai_mat_hang).Select(d => d.ten).FirstOrDefault();
             });
             header = new string[] {
-                       "STT (No.)","Loại nhập","Mã phiếu nhập kho","Ngày nhập kho","Mã kho","Tên kho","Mã Loại mặt hàng","Tên loại mặt hàng","Mã mặt hàng","Tên mặt hàng"
-                       ,"Số lượng","Đơn vị tính","Đơn giá","Giá trị","Mã đối tượng","Tên đối tượng","Nội dung","Email","Địa chỉ"
+                       "STT (No.)","Loại nhập","Mã phiếu nhập kho","Ngày nhập kho","Mã Loại mặt hàng","Tên loại mặt hàng","Mã mặt hàng","Tên mặt hàng"
+                       ,"Số lượng","Đơn vị tính"
                    };
 
             listKey = new string[]
             {
-                       "ten_loai_nhap","ma_phieu_nhap_kho","ngay_nhap_kho","ma_kho","ten_kho","ma_loai_mat_hang","ten_loai_mat_hang","StrExcel_ma_mat_hang","ten_mat_hang"
-                       ,"Num_so_luong","ten_don_vi_tinh","Num_don_gia","Num_gia_tri","StrExcel_ma_doi_tuong","ten_doi_tuong","noi_dung","email","dia_chi_doi_tuong"
+                       "ten_loai_nhap","ma_phieu_nhap_kho","ngay_nhap_kho","ma_loai_mat_hang","ten_loai_mat_hang","StrExcel_ma_mat_hang","ten_mat_hang"
+                       ,"Num_so_luong","ten_don_vi_tinh"
             };
 
             //return await exportFileExcel(_appsetting, header, listKey, dataList, "bao_cao_ban_hang_theo_hang_hoa");

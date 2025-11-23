@@ -515,31 +515,30 @@ export class sys_don_hang_mua_popUpAddComponent extends BasePopUpAddTypeComponen
     loadThanhTienSauThueMatHang(pos): void {
         debugger
         var mat_hang = this.record.list_mat_hang[pos];
-        var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.vat)[0].value;
+        var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.db.vat)[0].value;
         if (vat_mat_hang == undefined || vat_mat_hang == null) {
             vat_mat_hang = 0;
         }
-        var don_gia = mat_hang.don_gia ?? null;
-        this.record.list_mat_hang[pos].don_gia = Number(don_gia);
-        this.record.list_mat_hang[pos].so_luong = Number(mat_hang.so_luong ?? 0);
+        var don_gia = mat_hang.db.don_gia ?? null;
+        this.record.list_mat_hang[pos].db.don_gia = Number(don_gia);
+        this.record.list_mat_hang[pos].db.so_luong = Number(mat_hang.db.so_luong ?? 0);
         // this.record.list_mat_hang[pos].db.tien_vat = Math.round(tien_vat);
-        this.record.list_mat_hang[pos].ghi_chu = mat_hang.ghi_chu;
-        this.record.list_mat_hang[pos].vat = mat_hang.vat;
-        const thanh_tien = this.record.list_mat_hang[pos].don_gia * this.record.list_mat_hang[pos].so_luong * (1 + vat_mat_hang / 100);
-        this.record.list_mat_hang[pos].thanh_tien = Math.round(thanh_tien);
+        this.record.list_mat_hang[pos].db.ghi_chu = mat_hang.db.ghi_chu;
+        this.record.list_mat_hang[pos].db.vat = mat_hang.db.vat;
+        const thanh_tien = this.record.list_mat_hang[pos].db.don_gia * this.record.list_mat_hang[pos].db.so_luong * (1 + vat_mat_hang / 100);
+        this.record.list_mat_hang[pos].db.thanh_tien = Math.round(thanh_tien);
         this._changeDetectorRef.markForCheck();
         this.generate_total_mat_hang();
     }
     public generate_total_mat_hang(): void {
         this.record.db.tong_thanh_tien = this.record.list_mat_hang.reduce((prev, next) => {
-            const donGia = Number(next.don_gia) || 0;
-            const soLuong = Number(next.so_luong) || 0;
-            const vat = Number(next.vat) || 0; 
+            const donGia = Number(next.db.don_gia) || 0;
+            const soLuong = Number(next.db.so_luong) || 0;
+            const vat = Number(next.db.vat) || 0; 
             const thanhTien = (donGia * soLuong) * (1 + vat / 100);
 
         return prev + thanhTien;
         }, 0);
-        //this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.don_gia), 0) + Number(this.record.db.tien_van_chuyen);
     }
     // loadThanhTienSauThueMatHangChangeTienThue(pos): void {
     //     var mat_hang = this.record.list_mat_hang[pos];

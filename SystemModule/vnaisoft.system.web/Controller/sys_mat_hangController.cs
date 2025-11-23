@@ -363,41 +363,12 @@ namespace vnaisoft.system.web.Controller
                 var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
                 dataList.ForEach(t =>
                 {
-                    t.ma_loai_mat_hang = repo._context.sys_loai_mat_hang_col.AsQueryable().Where(d => d.id == t.db.id_loai_mat_hang && d.status_del == 1).Select(q => q.ten).FirstOrDefault();
+                    t.ten_loai_mat_hang = repo._context.sys_loai_mat_hang_col.AsQueryable().Where(d => d.id == t.db.id_loai_mat_hang && d.status_del == 1).Select(q => q.ten).FirstOrDefault();
+                    t.ma_loai_mat_hang = repo._context.sys_loai_mat_hang_col.AsQueryable().Where(d => d.id == t.db.id_loai_mat_hang && d.status_del == 1).Select(q => q.ma).FirstOrDefault();
                     t.ten_don_vi_tinh = repo._context.sys_don_vi_tinh_col.AsQueryable().Where(d => d.id == t.db.id_don_vi_tinh && d.status_del == 1).Select(q => q.ten).FirstOrDefault();
-                    //var findGiaMua = repo._context.erp_bang_gia_muas.AsQueryable().Where(d => d.id_mat_hang == t.db.id && d.id_nha_cung_cap == id_doi_tuong).OrderByDescending(q => q.ngay_ghi_nhan).FirstOrDefault();
-                    //if (findGiaMua != null) t.gia_mua = findGiaMua.don_gia;
-
-                    //if (t.db.id_loai_mat_hang != null)
-                    //{
-                    //    var loai_dinh_khoan_mat_hang = repo._context.erp_loai_mat_hangs.AsQueryable().Where(d => d.id == t.db.id_loai_mat_hang && d.status_del == 1).SingleOrDefault();
-                    //    if (loai_dinh_khoan_mat_hang.id_loai_dinh_khoan_mat_hang != null)
-                    //    {
-                    //        var ldkmh = repo._context.erp_loai_dinh_khoan_mat_hangs.AsQueryable().Where(d => d.id == loai_dinh_khoan_mat_hang.id_loai_dinh_khoan_mat_hang && d.status_del == 1).SingleOrDefault();
-                    //        t.tai_khoan_no = ldkmh.ma_tk_no_tien_mat;
-                    //        t.tai_khoan_co = ldkmh.ma_tk_co_tien_mat;
-                    //    }
-                    //}
-                    //var cong_ty = repo._context.erp_cong_tys.AsQueryable().SingleOrDefault();
-                    //if (cong_ty.ma_so_thue != "")
-                    //{
-                    //    var ma_dt = repo._context.erp_khach_hang_nha_cung_caps.AsQueryable().Where(d => d.ma_so_thue == cong_ty.ma_so_thue).Select(d => d.ma).SingleOrDefault();
-                    //    t.doi_tuong_co = ma_dt;
-                    //    t.doi_tuong_no = ma_dt;
-                    //}
-                    //else
-                    //{
-                    //    var ma_dt = repo._context.erp_khach_hang_nha_cung_caps.AsQueryable().Where(d => d.dien_thoai == cong_ty.dien_thoai).Select(d => d.ma).SingleOrDefault();
-                    //    t.doi_tuong_co = ma_dt;
-                    //    t.doi_tuong_no = ma_dt;
-                    //}
-                    ////kho A 200 kho B -100  => ton kho  200
-                    ////var ton_kho = repo._context.erp_ton_kho_mat_hangs.AsQueryable().Where(d => d.id_mat_hang == t.db.id).Sum(q=>q.so_luong_ton > 0 ? (q.so_luong_ton??0):0);
-                    //var ton_kho = repo._context.erp_ton_kho_mat_hangs.AsQueryable().Where(d => d.id_mat_hang == t.db.id).Sum(q => q.so_luong_ton);
-                    //ton_kho = ton_kho < 0 ? 0 : ton_kho;
-                    //t.ton_kho = (decimal?)((ton_kho / 1000));
-
-
+                    var ton_kho = repo._context.sys_ton_kho_mat_hang_col.AsQueryable().Where(d => d.id_mat_hang == t.db.id).Sum(q => q.so_luong_ton);
+                    ton_kho = ton_kho < 0 ? 0 : ton_kho;
+                    t.ton_kho = (decimal?)((ton_kho / 1000));
                 });
 
                 DTResult<sys_mat_hang_model> result = new DTResult<sys_mat_hang_model>

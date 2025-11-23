@@ -17,6 +17,7 @@ export interface sys_mat_hang_col {
     status_del: number | null;
 }
 export interface sys_mat_hang_model {
+    ten_loai_mat_hang: string;
     nguoi_tao: string;
     nguoi_cap_nhat: string;
     db: sys_mat_hang_col;

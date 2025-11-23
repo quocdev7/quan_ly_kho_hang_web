@@ -63,21 +63,12 @@
     </div>
     <h3 transloco="system.thong_tin_mat_hang" class="text-2xl font-bold underline"></h3>
     <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap" *ngIf="actionEnum!=3">
-        <div class="flex-1 mt-6">
-            <mat-form-field class="w-full" floatLabel="always">
-                <input matInput [(ngModel)]="ma_mat_hang" (keyup.enter)="add_mat_hang()"
-                    placeholder="{{'system.nhap_ma_mat_hang' | transloco}}">
-
-                <button mat-icon-button color="primary" class="mr-4" (click)="openDialogChooseMatHang()">
-                    <span transloco="common.chon"></span>
-                </button>
-            </mat-form-field>
-        </div>
         <div class="flex-1">
-            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" (keyup.enter)="add_mat_hang()"
-                [keyError]="'so_luong_mh'" [label]="'system.so_luong'" [(model)]="record.so_luong_mh"
-                [type]="'number'"></cm_input>
-        </div>
+            <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
+                (click)="openDialogChooseMatHang()">
+                <p transloco="common.chon" class="mb-0 text-white"></p>
+            </button>
+         </div>
     </div>
     <mat-label class="ml-2" *ngIf="actionEnum!=3">
         <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'list_mat_hang'; index as i">
@@ -113,40 +104,35 @@
                             <span class="text-blue-900 font-bold"> {{ item.ma_mat_hang }}</span>
                             <br />
                             <span>{{ item.ten_mat_hang }} </span>
-                            <!-- <br *ngIf="actionEnum ==1" />
-                            <span *ngIf="actionEnum ==1">
-                                <span class="font-bold" transloco="system.ton_kho"></span>:
-                                <span>{{item.ton_kho | number}}</span>
-                            </span> -->
                         </td>
                         <td>
                             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
-                                [keyError]="'so_luong'+i" [suffixstring]="item.ten_don_vi_tinh" [pos]="i"
+                                [keyError]="'db.so_luong'+i" [suffixstring]="item.ten_don_vi_tinh" [pos]="i"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.so_luong">
+                                [(model)]="item.db.so_luong">
                             </cm_input>
                         </td>
                         <td>
                             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
-                                [keyError]="'don_gia'+i" [pos]="i"
+                                [keyError]="'db.don_gia'+i" [pos]="i"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.don_gia"></cm_input>
+                                [(model)]="item.db.don_gia"></cm_input>
                         </td>
                         <td>
                             <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [keyError]="'vat'+i"
                                 [pos]="i" [listData]="list_vat"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.vat">
+                                [(model)]="item.db.vat">
                             </cm_select>
                         </td>
                         <td>
                             <cm_input [type]="'number'" [actionEnum]="3" [errorModel]="errorModel"
                                 [keyError]="'thanh_tien'+i" [pos]="i"
                                 [callbackChangeWithParamPos]="loadThanhTienSauThueMatHang.bind(this)"
-                                [(model)]="item.thanh_tien"></cm_input>
+                                [(model)]="item.db.thanh_tien"></cm_input>
                         </td>
                         <td>
-                            <cm_input [type]="'text'" [actionEnum]="actionEnum" [(model)]="item.ghi_chu">
+                            <cm_input [type]="'text'" [actionEnum]="actionEnum" [(model)]="item.db.ghi_chu">
                             </cm_input>
                         </td>
                     </tr>

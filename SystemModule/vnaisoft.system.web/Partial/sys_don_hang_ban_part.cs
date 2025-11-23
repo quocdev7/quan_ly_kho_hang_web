@@ -97,7 +97,36 @@ namespace vnaisoft.system.web.Controller
             {
                 ModelState.AddModelError("db.ma", "required");
             }
-
+            if (string.IsNullOrEmpty(item.db.ten))
+            {
+                ModelState.AddModelError("db.ten", "required");
+            }
+            if (item.db.ngay_dat_hang == null)
+            {
+                ModelState.AddModelError("db.ngay_dat_hang", "required");
+            }
+            if (item.list_mat_hang.Count == 0)
+            {
+                ModelState.AddModelError("db.list_mat_hang", "sys.phai_chon_mat_hang");
+            }
+            else
+            {
+                for (int i = 0; i < item.list_mat_hang.Count; i++)
+                {
+                    var mat_hang = item.list_mat_hang[i];
+                    if (mat_hang.db.so_luong == null)
+                    {
+                        ModelState.AddModelError("db.so_luong" + i, "required");
+                    }
+                    else
+                    {
+                        if (mat_hang.db.so_luong <= 0)
+                        {
+                            ModelState.AddModelError("db.so_luong" + i, "sys.phai_lon_hon_0");
+                        }
+                    }
+                }
+            }
             var queryTable = repo._context.sys_don_hang_ban_col.AsQueryable().Where(q => q.id == item.db.id.Trim());
             var search = repo.FindAll(queryTable).Where(d => d.db.ma == item.db.ma && d.db.id != item.db.id).Count();
             if (search > 0)

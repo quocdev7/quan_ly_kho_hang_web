@@ -1,27 +1,27 @@
+export interface sys_don_hang_mua_model {
+    db: sys_don_hang_mua_col;
+    ten_nguoi_cap_nhat: string;
+    list_mat_hang: sys_don_hang_mua_mat_hang_model[];
+}
+
+export interface sys_don_hang_mua_mat_hang_model {
+    db: sys_don_hang_mua_mat_hang_col;
+    ten_don_vi_tinh: string;
+    ten_mat_hang: string;
+}
 export interface sys_don_hang_mua_col {
     id: string;
     ma: string;
     ten: string;
     ten_khong_dau: string;
-    id_khach_hang_nha_cung_cap: string;
-    phuong_thuc_thanh_toan: number | null;
-    id_tai_khoan_ngan_hang: string;
-    ma_ngan_hang: string;
-    so_tai_khoan: string;
     ngay_dat_hang: Date | null;
-   
     tong_thanh_tien: number | null;
     ghi_chu: string;
+    ngay_tao: Date | null;
+    nguoi_tao: string;
     nguoi_cap_nhat: string;
     ngay_cap_nhat: Date | null;
     status_del: number | null;
-}
-
-export interface sys_don_hang_mua_model {
-    db: sys_don_hang_mua_col;
-    ten_nguoi_cap_nhat: string;
-    ten_doi_tuong: string;
-    list_mat_hang: sys_don_hang_mua_mat_hang_col[];
 }
 export interface sys_don_hang_mua_mat_hang_col {
     id: string;

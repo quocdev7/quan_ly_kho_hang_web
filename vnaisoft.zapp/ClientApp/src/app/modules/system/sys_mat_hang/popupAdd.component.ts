@@ -14,7 +14,6 @@ import { sys_mat_hang_model } from './sys_mat_hang.types';
 import { sys_loai_mat_hang_popUpAddComponent } from '../sys_loai_mat_hang/popupAdd.component';
 import { list_tien_te, list_vat, } from 'app/core/data/data';
 import { sys_don_vi_tinh_popUpAddComponent } from '../sys_don_vi_tinh/popupAdd.component';
-import { sys_mat_hang_popupChooseDacTinhComponent } from './popupChooseDacTinh.component';
 import Swal from 'sweetalert2';
 
 @Component({

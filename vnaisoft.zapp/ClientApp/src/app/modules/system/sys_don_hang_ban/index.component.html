@@ -98,11 +98,8 @@
 
                             <th style="width:50px !important"></th>
                             <th style="width:50px !important" transloco="system.no_"></th>
-                            <!-- <th style="width:70px !important" transloco="system.loai_giao_dich"></th> -->
                             <th transloco="system.don_hang"></th>
-                            <!-- <th style="width:70px !important" transloco="system.tinh_trang_don_hang"></th> -->
                             <th style="width:120px" transloco="system.tong_tien_sau_thue"></th>
-                            <!-- <th style="width:120px" transloco="system.thuc_nhan"></th> -->
                             <th style="width:120px" transloco="system.ngay_dat_hang"></th>
                             <th style="width:120px" transloco="system.update_by"></th>
                         </tr>
@@ -133,20 +130,9 @@
                                         (click)="update_status_del(item,2)"></button>
                                 </mat-menu>
                             </td>
-                            <td style="width:70px" align="center" class="font-bold">{{i+1 }}</td>
-                            <!-- <td>
-                                <span class="text-cyan-600" *ngIf="item.db.loai_giao_dich==1">{{ item.loai_giao_dich_str
-                                    }}</span>
-
-                                <span class="text-purple-600" *ngIf="item.db.loai_giao_dich==2">{{
-                                    item.loai_giao_dich_str }}</span>
-
-
-                            </td> -->
-
+                            <td align="center" class="font-bold">{{i+1 }}</td>
                             <td>
                                 <span>
-
                                     <span class="text-blue-900 font-bold"> {{ item.db.ma }}</span>
                                 </span>
                                 <br />
@@ -155,15 +141,7 @@
                                 </span>
                             </td>
 
-                            <td align="end">{{ item.db.tong_tien_sau_thue | number }}</td>
-                            <!-- <td>
-                                <span *ngIf="item.db.so_tien_da_thu > 0">
-                                    <span class="text-green-500 font-bold">{{item.db.so_tien_da_thu | number }}</span>
-                                </span>
-                                <span *ngIf="item.db.so_tien_da_thu == null || item.db.so_tien_da_thu == 0">
-                                    <span class="text-red-500 font-bold" transloco="system.chua_thu"></span>
-                                </span>
-                            </td> -->
+                            <td align="end">{{ item.db.tong_thanh_tien | number }}</td>
                             <td align="end">{{ item.db.ngay_dat_hang | date: 'dd/MM/yyyy ' }}</td>
                             <td>
                                 <span class="text-blue-900 font-bold">

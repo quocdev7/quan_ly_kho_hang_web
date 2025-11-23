@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using vnaisoft.common.BaseClass;
@@ -193,6 +191,7 @@ namespace vnaisoft.system.web.Controller
                 var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
                 dataList.ForEach(t =>
                 {
+                    t.ten_loai_nhap = repo._context.sys_loai_nhap_xuat_col.AsQueryable().Where(q => q.id == t.db.id_loai_nhap && q.status_del == 1).Select(q => q.ten).FirstOrDefault();
                     if (t.db.id_don_hang_ban != null)
                     {
                         t.ma_don_hang = repo._context.sys_don_hang_ban_col.AsQueryable().Where(q => q.id == t.db.id_don_hang_ban).Select(q => q.ma).SingleOrDefault();
@@ -221,6 +220,6 @@ namespace vnaisoft.system.web.Controller
             }
 
         }
-        
+
     }
 }

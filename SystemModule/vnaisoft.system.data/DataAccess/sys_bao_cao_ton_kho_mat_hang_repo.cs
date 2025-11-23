@@ -58,12 +58,12 @@ namespace vnaisoft.system.data.DataAccess
 
             });
             header = new string[] {
-                "STT (No.)","Mã kho","Tên kho","Mã Loại mặt hàng","Tên loại mặt hàng","Mã mặt hàng","Tên mặt hàng","Số lượng","Đơn vị tính"
+                "STT (No.)","Mã Loại mặt hàng","Tên loại mặt hàng","Mã mặt hàng","Tên mặt hàng","Số lượng","Đơn vị tính"
             };
 
             listKey = new string[]
             {
-                "ma_kho","ten_kho","ma_loai_mat_hang","ten_loai_mat_hang","StrExcel_ma_mat_hang","ten_mat_hang","Num_so_luong_ton","ten_don_vi_tinh"
+                "ma_loai_mat_hang","ten_loai_mat_hang","StrExcel_ma_mat_hang","ten_mat_hang","Num_so_luong_ton","ten_don_vi_tinh"
             };
 
             //return await exportFileExcel(_appsetting, header, listKey, dataList, "bao_cao_ban_hang_theo_hang_hoa");

@@ -9,6 +9,7 @@ namespace vnaisoft.system.data.Models
             db = new sys_mat_hang_col();
         }
         public sys_mat_hang_col db { get; set; }
+        public string ten_loai_mat_hang { get; set; }
         public string ma_loai_mat_hang { get; set; }
         public string ten_don_vi_tinh { get; set; }
         public string nguoi_tao { get; set; }

@@ -94,8 +94,6 @@
                                 </td>
                                 <td>{{ item.db.ngay_nhap | date: 'dd/MM/yyyy HH:mm' }}</td>
                                 <td>
-                                    <div *ngIf="item.ten_kho != null"><span transloco="system.kho"
-                                            class="font-bold"></span>: <span>{{ item.ten_kho }}</span></div>
                                     <div *ngIf="item.ma_don_hang != null"><span transloco="system.don_hang"
                                             class="font-bold"></span>: <span>{{ item.ma_don_hang }}</span></div>
                                     <div *ngIf="item.ten_loai_nhap != null"><span transloco="system.loai_nhap"

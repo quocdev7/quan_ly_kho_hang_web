@@ -68,21 +68,21 @@
 
             <div class="flex-1">
                 <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
-                    [label]="'system.gia_ban_le'" [keyError]="'db.gia_ban_le'" [(model)]="record.db.gia_ban_le">
+                    [label]="'system.don_gia'" [keyError]="'db.gia_ban_le'" [(model)]="record.db.gia_ban_le">
                 </cm_input>
             </div>
-            <div class="flex-1">
-                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
-                    [label]="'system.gia_ban_si'" [keyError]="'db.gia_ban_si'" [(model)]="record.db.gia_ban_si">
-                </cm_input>
-            </div>
-        </div>
-        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
             <div class="flex-1">
                 <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.vat'"
                     [keyError]="'db.vat'" [listData]="list_vat" [(model)]="record.db.vat">
                 </cm_select>
             </div>
+            <!-- <div class="flex-1">
+                <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [type]="'number'"
+                    [label]="'system.gia_ban_si'" [keyError]="'db.gia_ban_si'" [(model)]="record.db.gia_ban_si">
+                </cm_input>
+            </div> -->
+        </div>
+        <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
             <div class="flex-1">
                 <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'"
                     [type]="'textarea'" [keyError]="'db.ghi_chu'" [maxlength]="500" [(model)]="record.db.ghi_chu">
