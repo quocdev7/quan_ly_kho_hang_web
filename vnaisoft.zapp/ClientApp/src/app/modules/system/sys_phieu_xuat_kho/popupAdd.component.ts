@@ -130,35 +130,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         }
     }
 
-    openDialogPrint(item): void {
-
-        this.http
-            .post(this.controller + '.ctr/getPrint/', {
-                id: item.db.id
-            }
-            ).subscribe(resp => {
-                var data: any;
-                data = resp;
-                const dialogRef = this.dialogModal.open(cm_mau_in_popupComponent, {
-                    width: '878px',
-                    disableClose: true,
-                    data: {
-                        tieu_de: data.tieu_de,
-                        noi_dung: data.noi_dung,
-                    },
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result != undefined && result != null) {
-                        // this.rerender();
-                    }
-
-
-                });
-
-            });
-
-    }
-
     getElementById(): void {
         this.http
             .post('/sys_phieu_xuat_kho.ctr/getElementById/', {
@@ -167,11 +138,10 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             ).subscribe(resp => {
 
                 this.record = resp;
-                this.record.check_doi_tuong = doi_tuong_tu_do.id == this.record.db.id_doi_tuong ? 1 : 2;
-                if(this.actionEnum == 2)
-                {
-                    this.baseInitData();
-                }
+                // if(this.actionEnum == 2)
+                // {
+                //     this.baseInitData();
+                // }
             });
     }
     public get_list_loai(): void {
@@ -179,19 +149,21 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             .post('/sys_loai_nhap_xuat.ctr/getListUse/', {
             }
             ).subscribe(resp => {
-                if (this.actionEnum == 1) {
                     this.list_loai_xuat = resp;
-                    this.list_loai_xuat = this.list_loai_xuat.filter(q => q.loai == '2' && q.ma != "XCK");
-                    this.record.db.id_loai_xuat = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].id;
-                    this.record.ma_loai_xuat = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].ma;
-                    this.record.nguon = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].nguon;
-                }
-                if (this.actionEnum != 1) {
-                    this.list_loai_xuat = resp;
-                    this.list_loai_xuat = this.list_loai_xuat.filter(q => q.loai == '2');
-                    this.record.db.nguon = this.record.db.nguon;
-                    this.record.db.id_loai_xuat = this.record.db.id_loai_xuat;
-                }
+
+                // if (this.actionEnum == 1) {
+                //     this.list_loai_xuat = resp;
+                //     this.list_loai_xuat = this.list_loai_xuat.filter(q => q.loai == '2' && q.ma != "XCK");
+                //     this.record.db.id_loai_xuat = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].id;
+                //     this.record.ma_loai_xuat = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].ma;
+                //     this.record.nguon = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].nguon;
+                // }
+                // if (this.actionEnum != 1) {
+                //     this.list_loai_xuat = resp;
+                //     this.list_loai_xuat = this.list_loai_xuat.filter(q => q.loai == '2');
+                //     this.record.db.nguon = this.record.db.nguon;
+                //     this.record.db.id_loai_xuat = this.record.db.id_loai_xuat;
+                // }
             });
     }
 

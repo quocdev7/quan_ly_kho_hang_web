@@ -114,18 +114,6 @@
                                     <button mat-menu-item transloco="view" (click)="openDialogDetail(item,i)"></button>
                                     <button mat-menu-item transloco="system.edit"
                                         (click)="openDialogEdit(item,i)"></button>
-                                    <button *ngIf="item.db.tinh_trang_don_hang == 1" mat-menu-item
-                                        transloco="system.chuyen_sang_hop_dong" (click)="cap_nhap(item,2)"></button>
-                                    <!-- <button *ngIf="item.db.tinh_trang_don_hang == 2" mat-menu-item
-                                        transloco="system.hoan_tat" (click)="cap_nhap(item,3)"></button> -->
-                                    <!-- <button mat-menu-item transloco="system.lich_su_chinh_sua"
-                                        (click)="openDialogHistoryEdit(item,i)"></button> -->
-                                    <button mat-menu-item transloco="system.dinh_kem_file" *ngIf="item.db.id!='0'"
-                                        (click)="openDialogFile(item,i)"></button>
-                                    <button mat-menu-item transloco="system.print"
-                                        (click)="openDialogPrint(item)"></button>
-                                    <!-- <button *ngIf="item.db.status_del==2" mat-menu-item transloco="system.revert"
-                                            (click)="revertStatus(item,1)"></button> -->
                                     <button *ngIf="item.db.status_del == 1" mat-menu-item transloco="system.huy"
                                         (click)="update_status_del(item,2)"></button>
                                 </mat-menu>

@@ -8,10 +8,6 @@
             *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
             <p transloco="save" class="mb-0 text-white"></p>
         </button>
-        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
-            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
-            <p transloco="system.print" class="mb-0 text-white"></p>
-        </button>
         <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center" [disabled]="loading"
             (click)="close()">
             <p transloco="close" class="mb-0 text-white"></p>
@@ -31,25 +27,22 @@
                     </button> -->
             </mat-form-field>
         </div>
-        <div class="flex-1">
+       <div class="flex-1">
+            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ten_phieu'"
+                    [keyError]="'db.ten'" [(model)]="record.db.ten"></cm_input>
+        </div>
+
+    </div>
+    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
+         <div class="flex-1">
             <cm_select [disabled]="actionEnum!=1" [errorModel]="errorModel" [actionEnum]="actionEnum"
                 [label]="'system.loai_xuat'" [listData]="list_loai_xuat" [keyError]="'db.id_loai_xuat'"
                 [(model)]="record.db.id_loai_xuat" [callbackChange]="change_loai_xuat.bind(this)">
             </cm_select>
         </div>
-
-    </div>
-    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
         <div class="flex-1">
-            <mat-form-field class="w-full" floatLabel="always">
-                <mat-label>
-                    {{'system.name' | transloco}}
-                </mat-label>
-                <input matInput [(ngModel)]="record.db.ten" disabled="true">
-                <!-- <button mat-icon-button color="primary" class="mr-4" (click)="get_code()" *ngIf="actionEnum==1">
-                        Làm mới
-                    </button> -->
-            </mat-form-field>
+            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ngay_xuat'"
+                [type]="'datepicker'" [keyError]="'db.ngay_xuat'" [(model)]="record.db.ngay_xuat"></cm_input>
         </div>
     </div>
     <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
@@ -58,10 +51,7 @@
                 <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.kho'"
                     [listData]="list_kho" [keyError]="'db.id_kho'" [(model)]="record.db.id_kho"></cm_select>
             </div> -->
-        <div class="flex-1">
-            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ngay_xuat'"
-                [type]="'datepicker'" [keyError]="'db.ngay_xuat'" [(model)]="record.db.ngay_xuat"></cm_input>
-        </div>
+        
         <div class="flex-1">
             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'" [maxlength]="500"
                 [type]="'textarea'" [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu">
@@ -206,10 +196,6 @@
         <button class="rounded py-2 px-4 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
             *ngIf="actionEnum!=3" [disabled]="loading" (click)="save()">
             <p transloco="save" class="mb-0 text-white"></p>
-        </button>
-        <button class="rounded py-2 px-8 font-bold  bg-primary-500  item2s-center hover:bg-primary-600"
-            *ngIf="actionEnum==3" [disabled]="loading" (click)="openDialogPrint(record)">
-            <p transloco="system.print" class="mb-0 text-white"></p>
         </button>
         <button class="rounded py-2 px-4 font-bold  bg-teal-500  hover:bg-teal-600  item2s-center" [disabled]="loading"
             (click)="close()">

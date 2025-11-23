@@ -1,14 +1,11 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
-using MongoDB.Bson.Serialization.Attributes;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using vnaisoft.DataBase.Mongodb;
 using vnaisoft.DataBase.Mongodb.Collection.system;
 
-namespace worldsoft.DataBase.commonFunc
+namespace vnaisoft.DataBase.commonFunc
 {
 
 
@@ -21,7 +18,7 @@ namespace worldsoft.DataBase.commonFunc
             _context = context;
         }
 
-        public  async Task<string> updateNhapTonKhoAsync(
+        public async Task<string> updateNhapTonKhoAsync(
           decimal? soLuongNhapMoi,
             decimal? giaTriNhapMoi,
           string id_mat_hang,
@@ -46,7 +43,7 @@ namespace worldsoft.DataBase.commonFunc
 
                 var idTonKho = id_mat_hang;
                 //var idTonKhoThangNam = id_mat_hang + id_kho + nam + thang;
-                var TangchenhLech = Convert.ToInt64(((soLuongNhapMoi ?? 0) ) * 1000);
+                var TangchenhLech = Convert.ToInt64(((soLuongNhapMoi ?? 0)) * 1000);
                 ;
 
                 var TangchenhLechgiaTriNhapMoi = Convert.ToInt64(((giaTriNhapMoi ?? 0)) * 1000);
@@ -106,7 +103,7 @@ namespace worldsoft.DataBase.commonFunc
 
             }
 
-            Console.WriteLine("trigger"+id_mat_hang+" "+ngayHoachToan+" done");
+            Console.WriteLine("trigger" + id_mat_hang + " " + ngayHoachToan + " done");
             return "";
 
         }
@@ -123,7 +120,7 @@ namespace worldsoft.DataBase.commonFunc
             {
                 var mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == id_mat_hang).Select(t => new
                 {
-                    id_loai_mat_hang=  t.id_loai_mat_hang,
+                    id_loai_mat_hang = t.id_loai_mat_hang,
                     ten_mat_hang = t.ten,
                 }).SingleOrDefault();
                 if (mat_hang == null) return "";

@@ -9,7 +9,6 @@ using vnaisoft.DataBase.Helper;
 using vnaisoft.DataBase.Mongodb;
 using vnaisoft.DataBase.Mongodb.Collection.system;
 using vnaisoft.system.data.Models;
-using worldsoft.DataBase.commonFunc;
 
 namespace vnaisoft.system.data.DataAccess
 {
@@ -204,7 +203,7 @@ namespace vnaisoft.system.data.DataAccess
                           });
             return result;
         }
-        
+
         //public IQueryable<sys_phieu_nhap_kho_chi_tiet_ref_model> FindAllDetailMatHang(IQueryable<sys_phieu_nhap_kho_chi_tiet_col> query)
         //{
         //    var result = (from d in query.OrderByDescending(d => d.id_phieu_nhap_kho)

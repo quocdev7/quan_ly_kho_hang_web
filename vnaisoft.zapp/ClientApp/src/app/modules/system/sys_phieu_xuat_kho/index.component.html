@@ -75,16 +75,9 @@
                                     <mat-menu #menu="matMenu">
                                         <button mat-menu-item transloco="view"
                                             (click)="openDialogDetail(item,i)"></button>
-                                        <button mat-menu-item transloco="edit" *ngIf="item.db.is_sinh_tu_dong != true"
+                                        <button mat-menu-item transloco="edit"
                                             (click)="openDialogEdit(item,i)"></button>
-                                        <button mat-menu-item transloco="system.lich_su_chinh_sua" (click)="openDialogHistoryEdit(item,i)"></button>
-                                        <button mat-menu-item transloco="system.dinh_kem_file" *ngIf="item.db.id!='0'"
-                                            (click)="openDialogFile(item,i)"></button>
-                                        <button mat-menu-item transloco="system.print"
-                                            (click)="openDialogPrint(item)"></button>
-                                        <!-- <button *ngIf="item.db.status_del==2" mat-menu-item transloco="system.revert"
-                                            (click)="revertStatus(item,1)"></button> -->
-                                        <button *ngIf="item.db.status_del == 1 && item.db.is_sinh_tu_dong != true"
+                                        <button *ngIf="item.db.status_del == 1"
                                             mat-menu-item transloco="system.huy"
                                             (click)="revertStatus(item,2)"></button>
                                     </mat-menu>

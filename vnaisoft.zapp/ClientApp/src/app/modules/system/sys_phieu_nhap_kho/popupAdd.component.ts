@@ -86,12 +86,12 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
 
             this.get_code();
             this.record.db.ngay_nhap = new Date();
-            this.get_list_loai_nhap();
 
         }
         if (this.actionEnum != 1) {
             this.load_list_mat_hang_nhap_kho();
         }
+        this.get_list_loai_nhap();
         this.record.so_luong_mh = 1
     }
     public get_list_loai_nhap(): void {
@@ -99,36 +99,13 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             .post('/sys_loai_nhap_xuat.ctr/getListUse/', {
             }
             ).subscribe(resp => {
-                if (this.actionEnum == 1) {
-                    this.list_loai_nhap = resp;
+                 this.list_loai_nhap = resp;
+                 this.list_loai_nhap = resp;
                     this.record.db.id_loai_nhap = this.list_loai_nhap[0].id;
                     this.record.db.nguon = this.list_loai_nhap[0].nguon;
-                }
             });
     }
-    // openDialogPrint(item): void {
-    //     this.http
-    //         .post(this.controller + '.ctr/getPrint/', {
-    //             id: item.db.id
-    //         }
-    //         ).subscribe(resp => {
-    //             var data: any;
-    //             data = resp;
-    //             const dialogRef = this.dialog.open(cm_mau_in_popupComponent, {
-
-    //                 width: '878px',
-    //                 disableClose: true,
-    //                 data: {
-    //                     tieu_de: data.tieu_de,
-    //                     noi_dung: data.noi_dung,
-    //                 },
-    //             });
-    //             dialogRef.afterClosed().subscribe(result => {
-    //                 if (result != undefined && result != null) {
-    //                 }
-    //             });
-    //         });
-    // }
+    
     load_list_choose_mat_hang_don_hang(listDataN): any {
         if (listDataN.length == 0) {
         }

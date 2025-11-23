@@ -9,7 +9,6 @@ using vnaisoft.DataBase.Helper;
 using vnaisoft.DataBase.Mongodb;
 using vnaisoft.DataBase.Mongodb.Collection.system;
 using vnaisoft.system.data.Models;
-using worldsoft.DataBase.commonFunc;
 
 namespace vnaisoft.system.data.DataAccess
 {
