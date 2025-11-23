@@ -14,11 +14,6 @@ namespace vnaisoft.DataBase.Mongodb.Collection.system
         public string ma { get; set; }
         public string ten { get; set; }
         public string ten_khong_dau { get; set; }
-        public string id_khach_hang_nha_cung_cap { get; set; }
-        public int? phuong_thuc_thanh_toan { get; set; }
-        public string id_tai_khoan_ngan_hang { get; set; }
-        public string ma_ngan_hang { get; set; }
-        public string so_tai_khoan { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_dat_hang { get; set; }
         [BsonRepresentation(BsonType.Decimal128)] public decimal? tong_thanh_tien { get; set; }
         public string ghi_chu { get; set; }

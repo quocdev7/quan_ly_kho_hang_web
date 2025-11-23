@@ -18,6 +18,8 @@ import { sys_don_hang_ban_popUpAddComponent } from '../sys_don_hang_ban/popupAdd
 import { sys_don_hang_mua_popUpAddComponent } from '../sys_don_hang_mua/popupAdd.component';
 import { cm_mau_in_popupComponent } from '@fuse/components/commonComponent/cm_mau_in/cm_mau_in_popup.component';
 import { doi_tuong_tu_do } from 'app/core/data/data';
+import { sys_common_popupChooseDonHangBanComponent } from '../sys_common/popupChooseDonHangBan.component';
+import { sys_common_popupChooseDonHangMuaComponent } from '../sys_common/popupChooseDonHangMua.component';
 // import { sys_common_popupChooseDonHangMuaHHComponent } from '../sys_common/popupChooseDonHangMuaHH.component';
 // import { sys_common_popupChooseDonHangBanHHComponent } from '../sys_common/popupChooseDonHangBanHH.component';
 @Component({
@@ -228,91 +230,59 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         //this.record.db.ma = this.controller + "-" + this.Progress_logo
 
     }
-    // openDialogChooseDonHang(id, type): void {
+    openDialogChooseDonHang(id, type): void {
+        if (type == 2) {
+            const dialogRef = this.dialogModal
+                .open(sys_common_popupChooseDonHangMuaComponent, {
+                    disableClose: true,
+                    width: '100%',
+                    height: '100%',
+                    data: {
+                        db: {
+                            id: id,
+                            nguon: type + "px"
+                        },
 
+                    }
+                });
+            dialogRef.afterClosed().subscribe(result => {
+                var data: any;
+                data = result;
+                if (data == undefined) return;
+                this.record.db.id_don_hang_mua = data.id;
+                this.record.db.nguon = 2;
+                this.record.ma_don_hang = data.ma;
+                this.record.ghi_chu_don_hang = data.ghi_chu;
+                this.record.list_mat_hang = [];
+                this.get_list_mat_hang_theo_don_hang_mua();
+            })
+        } else {
+            const dialogRef = this.dialogModal
+                .open(sys_common_popupChooseDonHangBanComponent, {
+                    disableClose: true,
+                    width: '100%',
+                    height: '100%',
+                    data: {
+                        db: {
+                            id: id,
+                            nguon: type + "px"
+                        },
+                    }
+                });
+            dialogRef.afterClosed().subscribe(result => {
+                var data: any;
+                data = result;
+                if (data == undefined) return;
+                this.record.db.nguon = 1;
+                this.record.db.id_don_hang_ban = data.id;
+                this.record.ma_don_hang = data.ma;
+                this.record.ghi_chu_don_hang = data.ghi_chu;
+                this.record.list_mat_hang = [];
+                this.get_list_mat_hang_theo_don_hang_ban();
+            })
 
-    //     if (type == 2) {
-    //         const dialogRef = this.dialogModal
-    //             .open(sys_common_popupChooseDonHangMuaHHComponent, {
-    //                 disableClose: true,
-    //                 width: '100%',
-    //                 height: '100%',
-    //                 data: {
-    //                     db: {
-    //                         id: id,
-    //                         nguon: type + "px"
-    //                     },
-
-    //                 }
-    //             });
-    //         dialogRef.afterClosed().subscribe(result => {
-    //             var data: any;
-    //             data = result;
-    //             this.data_doi_tuong = result;
-    //             if (data == undefined) return;
-    //             this.record.db.id_don_hang_mua = data.id;
-    //             this.record.db.nguon = 2;
-    //             this.record.ma_don_hang = data.ma;
-    //             this.record.ghi_chu_don_hang = data.ghi_chu;
-    //             this.record.loai_giao_dich = data.loai_giao_dich;
-    //             this.record.list_mat_hang = [];
-    //             this.record.db.hinh_thuc_doi_tuong = data.hinh_thuc_doi_tuong;
-    //             this.record.db.id_doi_tuong = data.id_doi_tuong;
-    //             this.record.db.ma_so_thue = data.ma_so_thue;
-    //             this.record.db.dien_thoai = data.dien_thoai;
-    //             this.record.db.email = data.email;
-    //             this.record.db.dia_chi_doi_tuong = data.dia_chi_doi_tuong;
-    //             this.record.db.ten_doi_tuong = data.ten_doi_tuong;
-    //             if (data.id_doi_tuong == "DTTD")
-    //                 this.record.check_doi_tuong = 1;
-    //             else
-    //                 this.record.check_doi_tuong = 2;
-    //             this.get_list_mat_hang_theo_don_hang_mua();
-    //         })
-    //     } else {
-
-
-    //         const dialogRef = this.dialogModal
-    //             .open(sys_common_popupChooseDonHangBanHHComponent, {
-    //                 disableClose: true,
-    //                 width: '100%',
-    //                 height: '100%',
-    //                 data: {
-    //                     db: {
-    //                         id: id,
-    //                         nguon: type + "px"
-    //                     },
-    //                 }
-    //             });
-    //         dialogRef.afterClosed().subscribe(result => {
-
-    //             var data: any;
-    //             data = result;
-    //             this.data_doi_tuong = result;
-    //             if (data == undefined) return;
-    //             this.record.db.nguon = 1;
-    //             this.record.db.id_don_hang_ban = data.id;
-    //             this.record.ma_don_hang = data.ma;
-    //             this.record.ghi_chu_don_hang = data.ghi_chu;
-    //             this.record.loai_giao_dich = data.loai_giao_dich;
-    //             this.record.list_mat_hang = [];
-    //             this.record.db.hinh_thuc_doi_tuong = data.hinh_thuc_doi_tuong;
-    //             this.record.db.id_doi_tuong = data.id_doi_tuong;
-    //             this.record.db.ma_so_thue = data.ma_so_thue;
-    //             this.record.db.dien_thoai = data.dien_thoai;
-    //             this.record.db.email = data.email;
-    //             this.record.db.dia_chi_doi_tuong = data.dia_chi_doi_tuong;
-    //             this.record.db.ten_doi_tuong = data.ten_doi_tuong;
-    //             if (data.id_doi_tuong == "DTTD")
-    //                 this.record.check_doi_tuong = 1;
-    //             else
-    //                 this.record.check_doi_tuong = 2;
-    //             this.get_list_mat_hang_theo_don_hang_ban();
-
-    //         })
-
-    //     }
-    // }
+        }
+    }
     openDialogDetailDonHangBan(id, pos): void {
         const dialogRef = this.dialog.open(sys_don_hang_ban_popUpAddComponent, {
             disableClose: true,
@@ -398,14 +368,14 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
 
                         if (data.list_mat_hang.length == 0) {
                             if (data.result == 1) {
-                                Swal.fire("mã " + ma_mat_hang + ", " + this._translocoService.translate('erp.mat_hang_khong_ton_tai_trong_he_thong'), "", "warning");
+                                Swal.fire("mã " + ma_mat_hang + ", " + this._translocoService.translate('system.mat_hang_khong_ton_tai_trong_he_thong'), "", "warning");
                             }
                             else if (data.result == 2) {
-                                Swal.fire(this._translocoService.translate('erp.mat_hang_phai_la_hang_hoa'), "", "warning");
+                                Swal.fire(this._translocoService.translate('system.mat_hang_phai_la_hang_hoa'), "", "warning");
                             } else if (data.result == 3) {
-                                Swal.fire(this._translocoService.translate('erp.mat_hang_phai_la_dich_vu'), "", "warning");
+                                Swal.fire(this._translocoService.translate('system.mat_hang_phai_la_dich_vu'), "", "warning");
                             } else {
-                                Swal.fire(this._translocoService.translate('erp.mat_hang_da_ngung_su_dung'), "", "warning");
+                                Swal.fire(this._translocoService.translate('system.mat_hang_da_ngung_su_dung'), "", "warning");
                             }
 
                         } else {
@@ -431,7 +401,7 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
 
                 if (data.list_mat_hang.length == 0) {
 
-                    Swal.fire(this._translocoService.translate('erp.khong_co_mat_hang'), "", "warning");
+                    Swal.fire(this._translocoService.translate('system.khong_co_mat_hang'), "", "warning");
 
                 } else {
 
@@ -447,11 +417,12 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
                 id: this.record.db.id_don_hang_ban,
             }
             ).subscribe(resp => {
+                debugger
                 var data: any;
                 data = resp;
                 if (data.list_mat_hang.length == 0) {
 
-                    Swal.fire(this._translocoService.translate('erp.khong_co_mat_hang'), "", "warning");
+                    Swal.fire(this._translocoService.translate('system.khong_co_mat_hang'), "", "warning");
 
                 } else {
                     this.load_list_choose_mat_hang_don_hang(data.list_mat_hang);

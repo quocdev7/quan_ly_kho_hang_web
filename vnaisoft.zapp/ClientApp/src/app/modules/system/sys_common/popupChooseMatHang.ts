@@ -45,7 +45,7 @@ export class sys_common_popupChooseMatHangComponent extends BasePopupDatatabbleC
             }
         )
 
-
+        debugger
         this.record = data;
         this.actionEnum = data.actionEnum;  
 

@@ -3,7 +3,7 @@
 
     <!-- Header -->
     <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-        <div class="text-lg font-medium" transloco="erp.don_hang_ban"></div>
+        <div class="text-lg font-medium" transloco="system.don_hang_ban"></div>
     </div>
 
             <mat-card class="rounded-2xl py-6 px-6 shadow">
@@ -31,45 +31,11 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-2 mb-4">
-                    <button mat-raised-button transloco="system.boloc"
-                        class="bg-blue-500 text-white shadow-none hover:bg-blue-600 rounded-md" (click)="filterchange()"
-                        *ngIf="filter.open==false"></button>
-                    <button mat-raised-button transloco="system.boloc"
-                        class="bg-blue-500 text-white shadow-none hover:bg-blue-600 rounded-md" (click)="filterchange()"
-                        *ngIf="filter.open==true"></button>
-                </div>
-                <ng-container *ngIf="filter.open==true">
-                    
-                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-4">
-                        <div class="flex-1">
-                            <cm_select [label]="'erp.loai_giao_dich'" [listData]="list_loai_giao_dich"
-                                [(model)]="filter.id_loai_giao_dich" [callbackChange]="rerender.bind(this)">
-                            </cm_select>
-                        </div>
-                        <div class="flex-1">
-                            <cm_select [label]="'system.hinh_thuc'" [callbackChange]="rerender.bind(this)"
-                                [listData]="list_hinh_thuc" [(model)]="filter.id_doi_tuong"></cm_select>
-                        </div>
-                    </div>
-                    <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap mt-4">
-                        
-                        <div class="flex-1">
-                            <cm_select [label]="'system.hinh_thuc_van_chuyen'" [listData]="list_hinh_thuc_van_chuyen"
-                                [(model)]="filter.id_hinh_thuc_van_chuyen" [callbackChange]="rerender.bind(this)">
-                            </cm_select>
-                        </div>
-                        <div class="flex-1"></div>
-                    </div>
-                </ng-container>
                 <div align="right" class="space-x-2">
-
-                   
                     <button class="py-2 px-4 rounded font-bold  bg-teal-500  hover:bg-teal-600  item2s-center"
                         [disabled]="loading" (click)="dong()">
                         <p transloco="close" class="mb-0 text-white"></p>
                     </button>
-        
                 </div>
             </mat-card>
             <br />
@@ -80,14 +46,9 @@
                             <tr>
                                 <th style="width:50px"></th>
                                 <th style="width:50px" transloco="system.no_" style="text-align:center"></th>
-                                
-                                <th style="width:70px !important"  transloco="erp.loai_giao_dich"></th>
                                 <th transloco="system.don_hang"></th>
-                                <th transloco="system.khach_hang" style="width: 150px !important;"></th>
-                                <th style="width:70px !important"  transloco="erp.tinh_trang_don_hang"></th>
-                                <th style="width:120px" transloco="erp.tong_tien_sau_thue"></th>
+                                <th style="width:120px" transloco="system.tong_tien_sau_thue"></th>
                                 <th style="width:120px" transloco="system.update_by"></th>
-
                             </tr>
                         </thead>
                         <tbody *ngIf="listData?.length != 0">
@@ -99,14 +60,6 @@
                                 </button>
                                 </td>
                                 <td style="width:50px" align="center">{{i+1 }}</td>
-                              
-                                <td>
-                                    <span class="text-cyan-600"  *ngIf="item.db.loai_giao_dich==1" >{{ item.loai_giao_dich_str }}</span>
-                                        
-                                    <span class="text-purple-600"  *ngIf="item.db.loai_giao_dich==2" >{{ item.loai_giao_dich_str }}</span>
-                                     
-                                  
-                                </td>
                                 <td>
                                     <span>
     
@@ -116,18 +69,6 @@
                                     <span>
                                         <span>{{ item.db.ten }}</span>
                                     </span>
-                                </td>
-                                <td>
-                                    <span  class="text-blue-900 font-bold"> {{ item.db.id_doi_tuong }}</span>
-                                    <br/>
-                                    <span>
-                                        {{ item.db.ten_doi_tuong }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span *ngIf="item.db.tinh_trang_don_hang==1" class="mt-0 mb-1" transloco="erp.bao_gia"></span>
-                                    <span *ngIf="item.db.tinh_trang_don_hang==2" class="mt-0 mb-1" transloco="erp.hop_dong"></span>
-                                    <span *ngIf="item.db.tinh_trang_don_hang==3" class="mt-0 mb-1" transloco="erp.hoan_tat"></span>
                                 </td>
                                 <td align="end">{{ item.db.tong_tien_sau_thue | number }}</td>
                                 <td>

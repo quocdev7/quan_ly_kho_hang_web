@@ -23,7 +23,6 @@ export class sys_common_popupChooseDonHangBanComponent extends BasePopupDatatabb
     public list_choose: any;
     public record: any;
     public ignore_ids: any;
-    public list_hinh_thuc_van_chuyen: any = [];
     public list_don_hang: any = [];
     constructor(
         _translocoService: TranslocoService
@@ -39,8 +38,7 @@ export class sys_common_popupChooseDonHangBanComponent extends BasePopupDatatabb
     ) {
         super(_translocoService, _fuseNavigationService, route, baseUrl, http, "sys_don_hang_ban", dialogRef, dialogModal,
             {
-                search: "", status_del: "1", id_cong_ty: "-1", tu_ngay: "", den_ngay: "", id_doi_tuong: -1, id_kieu_ban: -1, id_hinh_thuc_van_chuyen: -1, id_loai_giao_dich: 1, open: false, is_xuat_kho: null, tinh_trang_don_hang: "2"
-                , is_nhap_du: "-1", is_xuat_du: "0"
+                search: "", status_del: "1", tu_ngay: "", den_ngay: ""
             }
         )
 
@@ -48,29 +46,12 @@ export class sys_common_popupChooseDonHangBanComponent extends BasePopupDatatabb
         this.filter.nguon = this.record.db.nguon;
         //this.actionEnum = data.actionEnum;  
 
-        this.get_list_hinh_thuc_van_chuyen();
         this.load_date();
     }
     load_date(): void {
         this.filter.tu_ngay = new Date();
         this.filter.tu_ngay.setDate(this.filter.tu_ngay.getDate() - 365);
         this.filter.den_ngay = new Date();
-    }
-    get_list_hinh_thuc_van_chuyen() {
-        this.list_hinh_thuc_van_chuyen = [
-            {
-                id: -1,
-                name: this._translocoService.translate('system.all')
-            },
-            {
-                id: 1,
-                name: this._translocoService.translate('system.chua_giao_hang')
-            },
-            {
-                id: 2,
-                name: this._translocoService.translate('system.da_giao_hang')
-            }
-        ];
     }
     filterchange() {
         if (this.filter.open == true) {
@@ -106,22 +87,10 @@ export class sys_common_popupChooseDonHangBanComponent extends BasePopupDatatabb
         var obj = {
             id: model.db.id,
             ma: model.db.ma,
-            loai_giao_dich: model.db.loai_giao_dich,
-            loai_giao_dich_str: model.loai_giao_dich_str,
-            ten_hinh_thuc: model.hinh_thuc_doi_tuong_str,
-
-            id_doi_tuong: model.db.id_doi_tuong,
-            hinh_thuc_doi_tuong: model.db.hinh_thuc_doi_tuong,
-            dien_thoai: model.db.dien_thoai,
-            email: model.db.email,
-            ma_so_thue: model.db.ma_so_thue,
-            dia_chi_doi_tuong: model.db.dia_chi_doi_tuong,
-            ten_doi_tuong: model.db.ten_doi_tuong,
             noi_dung: model.db.ghi_chu,
             thanh_tien_sau_thue: model.db.thanh_tien_sau_thue,
             tong_tien_sau_thue: model.db.tong_tien_sau_thue,
             list_mat_hang: model.list_mat_hang,
-            //thuoc_tinh:model.db.thuoc_tinh
         }
         this.list_don_hang.push(obj);
 
@@ -144,7 +113,7 @@ export class sys_common_popupChooseDonHangBanComponent extends BasePopupDatatabb
 
     ngOnInit(): void {
         this.check_all = false;
-        this.baseInitDataOption("DataHandlerDonHangBanHH");
+        this.baseInitDataOption("DataHandlerDonHangBan");
 
 
         if (this.record.db.id == undefined || this.record.db.id == "") {

@@ -568,19 +568,13 @@ namespace vnaisoft.system.web.Controller
         //    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, "erp_mat_hang_theo_don_hang_ban.xlsx");
         //}
 
-        //public async Task<IActionResult> getElementById([FromBody] JObject json)
-        //{
-        //    var id = json.GetValue("id").ToString();
-        //    var model = await repo.getElementById(id);
-        //    return Json(model);
-        //}
-        //public async Task<IActionResult> getElementByIdLog([FromBody] JObject json)
-        //{
-        //    var id = json.GetValue("id").ToString();
-        //    var model = await repo.getElementByIdLog(id);
-        //    return Json(model);
-        //}
-        
+        public async Task<IActionResult> getElementById([FromBody] JObject json)
+        {
+            var id = json.GetValue("id").ToString();
+            var model = await repo.getElementById(id);
+            return Json(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> edit([FromBody] JObject json)
         {
@@ -811,290 +805,248 @@ namespace vnaisoft.system.web.Controller
             }
 
         }
-    //    [HttpPost]
-    //    public async Task<IActionResult> DataHandlerDonHangBanHH([FromBody] JObject json)
-    //    {
-    //        try
-    //        {
-    //            var a = Request;
-    //            var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
-    //            var dictionary = new Dictionary<string, string>();
-    //            dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
+        [HttpPost]
+        public async Task<IActionResult> DataHandlerDonHangBan([FromBody] JObject json)
+        {
+            try
+            {
+                var a = Request;
+                var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
+                var dictionary = new Dictionary<string, string>();
+                dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
 
-    //            var search = dictionary["search"].Trim().ToLower();
-    //            var id_doi_tuong = dictionary["id_doi_tuong"];
-    //            var tinh_trang_don_hang = dictionary["tinh_trang_don_hang"];
-    //            var id_hinh_thuc_van_chuyen = int.Parse(dictionary["id_hinh_thuc_van_chuyen"]);
-    //            var id_loai_giao_dich = int.Parse(dictionary["id_loai_giao_dich"]);
-    //            var status_del = int.Parse(dictionary["status_del"]);
-    //            var is_nhap_du = int.Parse(dictionary["is_nhap_du"]);
-    //            var is_xuat_du = int.Parse(dictionary["is_xuat_du"]);
-    //            var nguon = dictionary["nguon"];
-    //            var tu_ngay = dictionary["tu_ngay"].ToString();
-    //            var tu_ngay_dt = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
-    //            var den_ngay = dictionary["den_ngay"].ToString();
-    //            var den_ngay_dt = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
-    //            tu_ngay_dt = new DateTime(tu_ngay_dt.Year, tu_ngay_dt.Month, tu_ngay_dt.Day, 0, 0, 0);
-    //            den_ngay_dt = new DateTime(den_ngay_dt.Year, den_ngay_dt.Month, den_ngay_dt.Day, 23, 59, 59);
+                var search = dictionary["search"].Trim().ToLower();
+                var status_del = int.Parse(dictionary["status_del"]);
+                var nguon = dictionary["nguon"];
+                var tu_ngay = dictionary["tu_ngay"].ToString();
+                var tu_ngay_dt = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
+                var den_ngay = dictionary["den_ngay"].ToString();
+                var den_ngay_dt = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
+                tu_ngay_dt = new DateTime(tu_ngay_dt.Year, tu_ngay_dt.Month, tu_ngay_dt.Day, 0, 0, 0);
+                den_ngay_dt = new DateTime(den_ngay_dt.Year, den_ngay_dt.Month, den_ngay_dt.Day, 23, 59, 59);
 
-    //            var queryTable = repo._context.sys_don_hang_bans.AsQueryable().Where(d => d.status_del == status_del)
-    //                .Where(d => tu_ngay_dt <= d.ngay_dat_hang && den_ngay_dt >= d.ngay_dat_hang)
-    //                 .Where(q => q.loai_giao_dich == id_loai_giao_dich)
-    //               .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
-    //                            || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-    //                            || (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
-    //                            || (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
-    //                 .Where(q => q.tinh_trang_don_hang == tinh_trang_don_hang || tinh_trang_don_hang == "-1")
-    //                 .Where(q => q.kieu_ban == 1)
-    //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
-    //                 ;
-    //            //1pn: chọn đơn hàng bán phiếu nhập, 1px: chọn đơn hàng bán phiếu xuất
-    //            if (nguon == "1px")
-    //            {
-    //                if (is_xuat_du == 0)
-    //                {
-    //                    queryTable = queryTable.Where(d => d.is_xuat_du != true);
-    //                }
-    //                if (is_xuat_du == 1)
-    //                {
-    //                    queryTable = queryTable.Where(d => d.is_xuat_du == true);
-    //                }
-    //            }
-    //            else if (nguon == "1pn")
-    //            {
-    //                queryTable = queryTable;
-    //            }
-    //            if (Boolean.Parse(dictionary["open"]) == true)
-    //            {
+                var queryTable = repo._context.sys_don_hang_ban_col.AsQueryable().Where(d => d.status_del == status_del)
+                    .Where(d => tu_ngay_dt <= d.ngay_dat_hang && den_ngay_dt >= d.ngay_dat_hang)
+                   .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
+                                || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
+                                || search == "")
+                     ;
+                var count = queryTable.Count();
+                queryTable = queryTable.OrderByDescending(d => d.ma);
+                var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
+                DTResult<sys_don_hang_ban_model> result = new DTResult<sys_don_hang_ban_model>
+                {
+                    start = param.Start,
+                    draw = param.Draw,
+                    data = dataList,
+                    recordsFiltered = count,
+                    recordsTotal = count
+                };
+                return Json(result);
+            }
 
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
 
-    //                queryTable = queryTable
-    //                 .Where(q => q.hinh_thuc_doi_tuong == int.Parse(id_doi_tuong) || id_doi_tuong == "-1")
-    //                 //.Where(q => q.db.kieu_ban == id_kieu_ban || id_kieu_ban == -1)
-    //                 .Where(q => q.hinh_thuc_van_chuyen == id_hinh_thuc_van_chuyen || id_hinh_thuc_van_chuyen == -1)
-    //                 ;
-    //            }
-    //            //if (is_xuat_kho == 1)
-    //            //{
-    //            //    query = query.Where(q => q.is_xuat_kho == true);
-    //            //}
+        }
+        //    [HttpPost]
+        //    public async Task<IActionResult> DataHandlerDonHangBanChuaThu([FromBody] JObject json)
+        //    {
+        //        try
+        //        {
+        //            var a = Request;
+        //            var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
+        //            var dictionary = new Dictionary<string, string>();
+        //            dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
 
-    //            var count = queryTable.Count();
-    //            queryTable = queryTable.OrderByDescending(d => d.ma);
-    //            var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
-    //            DTResult<sys_don_hang_ban_model> result = new DTResult<sys_don_hang_ban_model>
-    //            {
-    //                start = param.Start,
-    //                draw = param.Draw,
-    //                data = dataList,
-    //                recordsFiltered = count,
-    //                recordsTotal = count
-    //            };
-    //            return Json(result);
-    //        }
-
-    //        catch (Exception ex)
-    //        {
-    //            return Json(new { error = ex.Message });
-    //        }
-
-    //    }
-    //    [HttpPost]
-    //    public async Task<IActionResult> DataHandlerDonHangBanChuaThu([FromBody] JObject json)
-    //    {
-    //        try
-    //        {
-    //            var a = Request;
-    //            var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
-    //            var dictionary = new Dictionary<string, string>();
-    //            dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
-
-    //            var search = dictionary["search"].Trim().ToLower();
-    //            var id_doi_tuong = dictionary["id_doi_tuong"];
-    //            var tinh_trang_don_hang = dictionary["tinh_trang_don_hang"];
-    //            var id_hinh_thuc_van_chuyen = int.Parse(dictionary["id_hinh_thuc_van_chuyen"]);
-    //            var id_loai_giao_dich = int.Parse(dictionary["id_loai_giao_dich"]);
-    //            var status_del = int.Parse(dictionary["status_del"]);
-    //            var tu_ngay = dictionary["tu_ngay"].ToString();
-    //            var tu_ngay_dt = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
-    //            var den_ngay = dictionary["den_ngay"].ToString();
-    //            var den_ngay_dt = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
-    //            tu_ngay_dt = new DateTime(tu_ngay_dt.Year, tu_ngay_dt.Month, tu_ngay_dt.Day, 0, 0, 0);
-    //            den_ngay_dt = new DateTime(den_ngay_dt.Year, den_ngay_dt.Month, den_ngay_dt.Day, 23, 59, 59);
+        //            var search = dictionary["search"].Trim().ToLower();
+        //            var id_doi_tuong = dictionary["id_doi_tuong"];
+        //            var tinh_trang_don_hang = dictionary["tinh_trang_don_hang"];
+        //            var id_hinh_thuc_van_chuyen = int.Parse(dictionary["id_hinh_thuc_van_chuyen"]);
+        //            var id_loai_giao_dich = int.Parse(dictionary["id_loai_giao_dich"]);
+        //            var status_del = int.Parse(dictionary["status_del"]);
+        //            var tu_ngay = dictionary["tu_ngay"].ToString();
+        //            var tu_ngay_dt = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
+        //            var den_ngay = dictionary["den_ngay"].ToString();
+        //            var den_ngay_dt = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
+        //            tu_ngay_dt = new DateTime(tu_ngay_dt.Year, tu_ngay_dt.Month, tu_ngay_dt.Day, 0, 0, 0);
+        //            den_ngay_dt = new DateTime(den_ngay_dt.Year, den_ngay_dt.Month, den_ngay_dt.Day, 23, 59, 59);
 
 
 
 
-    //            var queryTable = repo._context.sys_don_hang_bans.AsQueryable().Where(d => d.status_del == status_del)
-    //                //.Where(d=>d.id == "DHB2306130002")
-    //                //.Where(d =>(d.tong_tien_sau_thue) > 0 )
-    //                .Where(d => tu_ngay_dt <= d.ngay_dat_hang && den_ngay_dt >= d.ngay_dat_hang)
-    //                 .Where(q => q.loai_giao_dich == id_loai_giao_dich)
-    //               .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
-    //                            || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-    //                            || (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
-    //                            || (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
-    //                 .Where(q => q.tinh_trang_don_hang == tinh_trang_don_hang || tinh_trang_don_hang == "-1")
-    //                 .Where(q => q.kieu_ban == 1)
-    //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
-    //                 ;
-    //            var id_don_hang = queryTable.Select(d => d.id);
-    //            var tong_tien = queryTable.Select(d => d.tong_tien_sau_thue);
-    //            var tong_tien_da_thu = queryTable.Select(d => d.so_tien_da_thu ?? 0);
+        //            var queryTable = repo._context.sys_don_hang_bans.AsQueryable().Where(d => d.status_del == status_del)
+        //                //.Where(d=>d.id == "DHB2306130002")
+        //                //.Where(d =>(d.tong_tien_sau_thue) > 0 )
+        //                .Where(d => tu_ngay_dt <= d.ngay_dat_hang && den_ngay_dt >= d.ngay_dat_hang)
+        //                 .Where(q => q.loai_giao_dich == id_loai_giao_dich)
+        //               .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
+        //                            || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
+        //                            || (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
+        //                            || (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
+        //                 .Where(q => q.tinh_trang_don_hang == tinh_trang_don_hang || tinh_trang_don_hang == "-1")
+        //                 .Where(q => q.kieu_ban == 1)
+        //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
+        //                 ;
+        //            var id_don_hang = queryTable.Select(d => d.id);
+        //            var tong_tien = queryTable.Select(d => d.tong_tien_sau_thue);
+        //            var tong_tien_da_thu = queryTable.Select(d => d.so_tien_da_thu ?? 0);
 
 
-    //            if (Boolean.Parse(dictionary["open"]) == true)
-    //            {
+        //            if (Boolean.Parse(dictionary["open"]) == true)
+        //            {
 
 
-    //                queryTable = queryTable
-    //                 .Where(q => q.hinh_thuc_doi_tuong == int.Parse(id_doi_tuong) || id_doi_tuong == "-1")
-    //                 //.Where(q => q.db.kieu_ban == id_kieu_ban || id_kieu_ban == -1)
-    //                 .Where(q => q.hinh_thuc_van_chuyen == id_hinh_thuc_van_chuyen || id_hinh_thuc_van_chuyen == -1)
-    //                 ;
-    //            }
+        //                queryTable = queryTable
+        //                 .Where(q => q.hinh_thuc_doi_tuong == int.Parse(id_doi_tuong) || id_doi_tuong == "-1")
+        //                 //.Where(q => q.db.kieu_ban == id_kieu_ban || id_kieu_ban == -1)
+        //                 .Where(q => q.hinh_thuc_van_chuyen == id_hinh_thuc_van_chuyen || id_hinh_thuc_van_chuyen == -1)
+        //                 ;
+        //            }
 
-    //            //if (is_xuat_kho == 1)
-    //            //{
-    //            //    query = query.Where(q => q.is_xuat_kho == true);
-    //            //}
-
-
-    //            var count = queryTable.Count();
-    //            queryTable = queryTable.OrderByDescending(d => d.ma);
-    //            var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
-    //            DTResult<sys_don_hang_ban_model> result = new DTResult<sys_don_hang_ban_model>
-    //            {
-    //                start = param.Start,
-    //                draw = param.Draw,
-    //                data = dataList,
-    //                recordsFiltered = count,
-    //                recordsTotal = count
-    //            };
-    //            return Json(result);
-    //        }
-
-    //        catch (Exception ex)
-    //        {
-    //            return Json(new { error = ex.Message });
-    //        }
-
-    //    }
-    //    [HttpPost]
-
-    //    public async Task<IActionResult> DatahandlerHistoryEdit([FromBody] JObject json)
-    //    {
-    //        try
-    //        {
-    //            var a = Request;
-    //            var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
-    //            var dictionary = new Dictionary<string, string>();
-    //            dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
-
-    //            var ma = dictionary["ma"];
-
-    //            var queryTable = repo._context.sys_don_hang_ban_logs.AsQueryable().Where(d => d.status_del == 1)
-    //                .Where(d => d.ma == ma)
-    //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
-    //                 ;
-
-    //            var count = queryTable.Count();
-    //            queryTable = queryTable.OrderByDescending(d => d.ngay_cap_nhat);
-    //            var dataList = await Task.Run(() => repo.FindAllLog(queryTable.Skip(param.Start).Take(param.Length)).ToList());
-    //            DTResult<sys_don_hang_ban_log_model> result = new DTResult<sys_don_hang_ban_log_model>
-    //            {
-    //                start = param.Start,
-    //                draw = param.Draw,
-    //                data = dataList,
-    //                recordsFiltered = count,
-    //                recordsTotal = count
-    //            };
-    //            return Json(result);
-    //        }
-
-    //        catch (Exception ex)
-    //        {
-    //            return Json(new { error = ex.Message });
-    //        }
-
-    //    }
-    //    public async Task<FileStreamResult> exportExcel(string search, int status_del, bool open, DateTime tu_ngay, DateTime den_ngay, string tinh_trang_don_hang,
-    //        int id_doi_tuong, int id_loai_giao_dich, int id_hinh_thuc_van_chuyen)
-    //    {
-
-    //        search = search ?? "";
-    //        search = search.Trim().ToLower();
-    //        var queryTable = repo._context.sys_don_hang_bans.AsQueryable().Where(d => d.status_del == status_del)
-    //               .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
-    //                            || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-    //                            || (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
-    //                            || (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
-    //                 .Where(q => q.kieu_ban == 1)
-    //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
-    //                 ;
-
-    //        var tu_ngay_t = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
-    //        var den_ngay_t = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
-    //        tu_ngay_t = new DateTime(tu_ngay_t.Year, tu_ngay_t.Month, tu_ngay_t.Day, 0, 0, 0);
-    //        den_ngay_t = new DateTime(den_ngay_t.Year, den_ngay_t.Month, den_ngay_t.Day, 23, 59, 59);
-
-    //        queryTable = queryTable
-    //         .Where(q => q.tinh_trang_don_hang == tinh_trang_don_hang || tinh_trang_don_hang == "-1")
-    //         .Where(d => tu_ngay_t <= d.ngay_dat_hang && den_ngay_t >= d.ngay_dat_hang)
-    //         .Where(q => q.hinh_thuc_doi_tuong == id_doi_tuong || id_doi_tuong == -1)
-    //         .Where(q => q.hinh_thuc_van_chuyen == id_hinh_thuc_van_chuyen || id_hinh_thuc_van_chuyen == -1)
-    //         .Where(q => q.loai_giao_dich == id_loai_giao_dich || id_loai_giao_dich == -1)
-    //         ;
-    //        var query = repo.FindAll(queryTable).ToList();
-    //        var dataList = query.OrderByDescending(d => d.db.ma).ToList();
-    //        dataList.ForEach(t =>
-    //        {
-    //            t.ngay_cap_nhap_str = t.db.ngay_cap_nhat.Value.ToString("dd/MM/yyyy");
-
-    //        });
-    //        string[] header = new string[] {
-    //            "STT (No.)","Mã đơn hàng","Tên đơn hàng","Loại giao dịch","Hình thức vận chuyển","Hình thức đối tượng","Mã số thuế","Điện thoại","Tên đối tượng","Email","Địa chỉ","Tình trạng đơn hàng","Tổng tiền sau thuế","Người cập nhật","Ngày cập nhật"
-    //        };
-
-    //        string[] listKey = new string[]
-    //        {
-    //           "db.ma","db.ten","loai_giao_dich_str","hinh_thuc_van_chuyen_str","hinh_thuc_doi_tuong_str","StrExcel_db.ma_so_thue","StrExcel_db.dien_thoai","db.ten_doi_tuong","db.email","db.dia_chi_doi_tuong","tinh_trang_don_hang","Num_db.tong_tien_sau_thue","ten_nguoi_cap_nhat","ngay_cap_nhap_str"
-    //        };
-
-    //        return await exportFileExcel(_appsetting, header, listKey, dataList, "sys_don_hang_ban_buon_ban_si");
-    //    }
-    //    public async Task<FileStreamResult> exportExcelDetails()
-    //    {
-    //        var queryTable = repo._context.sys_don_hang_ban_mat_hangs.AsQueryable()
-    //                 //.Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
-    //                 //|| d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-    //                 //|| (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
-    //                 //|| (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
-    //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
-    //                 ;
+        //            //if (is_xuat_kho == 1)
+        //            //{
+        //            //    query = query.Where(q => q.is_xuat_kho == true);
+        //            //}
 
 
-    //        queryTable = queryTable
-    //                ;
-    //        var query = repo.FindAllDetail(queryTable).ToList();
-    //        var dataList = query.OrderByDescending(d => d.db.ngay_cap_nhat).ToList();
-    //        dataList.ForEach(t =>
-    //        {
-    //            t.ten_nguoi_cap_nhat = repo._context.Users.AsQueryable().Where(d => d.status_del == 1).Where(d => d.Id == t.db.nguoi_cap_nhat).Select(d => d.full_name).SingleOrDefault();
-    //            t.ngay_cap_nhap_str = t.db.ngay_cap_nhat.Value.ToString("dd/MM/yyyy");
-    //            t.trang_thai_str = t.db.status_del == 1 ? "Sử dụng" : "Hủy";
-    //        });
-    //        string[] header = new string[] {
-    //    "STT (No.)","Mã đơn hàng","Ngày đặt hàng","Mã mặt hàng","Tên mặt hàng","Số lượng","Đơn vị tính","Đơn giá","Chiết khấu","Thành tiền sau chiết khấu","VAT (%)","Tiền thuế","Thành tiền sau thuế","Ghi chú","Trạng thái","Người cập nhật","Ngày cập nhật"
-    //};
+        //            var count = queryTable.Count();
+        //            queryTable = queryTable.OrderByDescending(d => d.ma);
+        //            var dataList = await Task.Run(() => repo.FindAll(queryTable.Skip(param.Start).Take(param.Length)).ToList());
+        //            DTResult<sys_don_hang_ban_model> result = new DTResult<sys_don_hang_ban_model>
+        //            {
+        //                start = param.Start,
+        //                draw = param.Draw,
+        //                data = dataList,
+        //                recordsFiltered = count,
+        //                recordsTotal = count
+        //            };
+        //            return Json(result);
+        //        }
 
-    //        string[] listKey = new string[]
-    //        {
-    //   "db.id_don_hang","db.ngay_dat_hang","ma_mat_hang","ten_mat_hang","Num_db.so_luong","ten_don_vi_tinh","Num_db.don_gia","Num_db.chiet_khau","Num_db.thanh_tien_chiet_khau","Num_db.vat","Num_db.tien_vat","Num_db.thanh_tien_sau_thue","db.ghi_chu","trang_thai_str","ten_nguoi_cap_nhat","ngay_cap_nhap_str"
-    //        };
+        //        catch (Exception ex)
+        //        {
+        //            return Json(new { error = ex.Message });
+        //        }
 
-    //        return await exportFileExcel(_appsetting, header, listKey, dataList, "sys_don_hang_ban_chi_tiet");
-    //    }
+        //    }
+        //    [HttpPost]
+
+        //    public async Task<IActionResult> DatahandlerHistoryEdit([FromBody] JObject json)
+        //    {
+        //        try
+        //        {
+        //            var a = Request;
+        //            var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
+        //            var dictionary = new Dictionary<string, string>();
+        //            dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
+
+        //            var ma = dictionary["ma"];
+
+        //            var queryTable = repo._context.sys_don_hang_ban_logs.AsQueryable().Where(d => d.status_del == 1)
+        //                .Where(d => d.ma == ma)
+        //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
+        //                 ;
+
+        //            var count = queryTable.Count();
+        //            queryTable = queryTable.OrderByDescending(d => d.ngay_cap_nhat);
+        //            var dataList = await Task.Run(() => repo.FindAllLog(queryTable.Skip(param.Start).Take(param.Length)).ToList());
+        //            DTResult<sys_don_hang_ban_log_model> result = new DTResult<sys_don_hang_ban_log_model>
+        //            {
+        //                start = param.Start,
+        //                draw = param.Draw,
+        //                data = dataList,
+        //                recordsFiltered = count,
+        //                recordsTotal = count
+        //            };
+        //            return Json(result);
+        //        }
+
+        //        catch (Exception ex)
+        //        {
+        //            return Json(new { error = ex.Message });
+        //        }
+
+        //    }
+        //    public async Task<FileStreamResult> exportExcel(string search, int status_del, bool open, DateTime tu_ngay, DateTime den_ngay, string tinh_trang_don_hang,
+        //        int id_doi_tuong, int id_loai_giao_dich, int id_hinh_thuc_van_chuyen)
+        //    {
+
+        //        search = search ?? "";
+        //        search = search.Trim().ToLower();
+        //        var queryTable = repo._context.sys_don_hang_bans.AsQueryable().Where(d => d.status_del == status_del)
+        //               .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
+        //                            || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
+        //                            || (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
+        //                            || (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
+        //                 .Where(q => q.kieu_ban == 1)
+        //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
+        //                 ;
+
+        //        var tu_ngay_t = Convert.ToDateTime(tu_ngay, System.Globalization.CultureInfo.InvariantCulture);
+        //        var den_ngay_t = Convert.ToDateTime(den_ngay, System.Globalization.CultureInfo.InvariantCulture);
+        //        tu_ngay_t = new DateTime(tu_ngay_t.Year, tu_ngay_t.Month, tu_ngay_t.Day, 0, 0, 0);
+        //        den_ngay_t = new DateTime(den_ngay_t.Year, den_ngay_t.Month, den_ngay_t.Day, 23, 59, 59);
+
+        //        queryTable = queryTable
+        //         .Where(q => q.tinh_trang_don_hang == tinh_trang_don_hang || tinh_trang_don_hang == "-1")
+        //         .Where(d => tu_ngay_t <= d.ngay_dat_hang && den_ngay_t >= d.ngay_dat_hang)
+        //         .Where(q => q.hinh_thuc_doi_tuong == id_doi_tuong || id_doi_tuong == -1)
+        //         .Where(q => q.hinh_thuc_van_chuyen == id_hinh_thuc_van_chuyen || id_hinh_thuc_van_chuyen == -1)
+        //         .Where(q => q.loai_giao_dich == id_loai_giao_dich || id_loai_giao_dich == -1)
+        //         ;
+        //        var query = repo.FindAll(queryTable).ToList();
+        //        var dataList = query.OrderByDescending(d => d.db.ma).ToList();
+        //        dataList.ForEach(t =>
+        //        {
+        //            t.ngay_cap_nhap_str = t.db.ngay_cap_nhat.Value.ToString("dd/MM/yyyy");
+
+        //        });
+        //        string[] header = new string[] {
+        //            "STT (No.)","Mã đơn hàng","Tên đơn hàng","Loại giao dịch","Hình thức vận chuyển","Hình thức đối tượng","Mã số thuế","Điện thoại","Tên đối tượng","Email","Địa chỉ","Tình trạng đơn hàng","Tổng tiền sau thuế","Người cập nhật","Ngày cập nhật"
+        //        };
+
+        //        string[] listKey = new string[]
+        //        {
+        //           "db.ma","db.ten","loai_giao_dich_str","hinh_thuc_van_chuyen_str","hinh_thuc_doi_tuong_str","StrExcel_db.ma_so_thue","StrExcel_db.dien_thoai","db.ten_doi_tuong","db.email","db.dia_chi_doi_tuong","tinh_trang_don_hang","Num_db.tong_tien_sau_thue","ten_nguoi_cap_nhat","ngay_cap_nhap_str"
+        //        };
+
+        //        return await exportFileExcel(_appsetting, header, listKey, dataList, "sys_don_hang_ban_buon_ban_si");
+        //    }
+        //    public async Task<FileStreamResult> exportExcelDetails()
+        //    {
+        //        var queryTable = repo._context.sys_don_hang_ban_mat_hangs.AsQueryable()
+        //                 //.Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
+        //                 //|| d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
+        //                 //|| (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
+        //                 //|| (d.ten_doi_tuong.ToLower() ?? "").Contains(search) || search == "")
+        //                 //.Where(q => q.nguoi_cap_nhat == getUserId())
+        //                 ;
+
+
+        //        queryTable = queryTable
+        //                ;
+        //        var query = repo.FindAllDetail(queryTable).ToList();
+        //        var dataList = query.OrderByDescending(d => d.db.ngay_cap_nhat).ToList();
+        //        dataList.ForEach(t =>
+        //        {
+        //            t.ten_nguoi_cap_nhat = repo._context.Users.AsQueryable().Where(d => d.status_del == 1).Where(d => d.Id == t.db.nguoi_cap_nhat).Select(d => d.full_name).SingleOrDefault();
+        //            t.ngay_cap_nhap_str = t.db.ngay_cap_nhat.Value.ToString("dd/MM/yyyy");
+        //            t.trang_thai_str = t.db.status_del == 1 ? "Sử dụng" : "Hủy";
+        //        });
+        //        string[] header = new string[] {
+        //    "STT (No.)","Mã đơn hàng","Ngày đặt hàng","Mã mặt hàng","Tên mặt hàng","Số lượng","Đơn vị tính","Đơn giá","Chiết khấu","Thành tiền sau chiết khấu","VAT (%)","Tiền thuế","Thành tiền sau thuế","Ghi chú","Trạng thái","Người cập nhật","Ngày cập nhật"
+        //};
+
+        //        string[] listKey = new string[]
+        //        {
+        //   "db.id_don_hang","db.ngay_dat_hang","ma_mat_hang","ten_mat_hang","Num_db.so_luong","ten_don_vi_tinh","Num_db.don_gia","Num_db.chiet_khau","Num_db.thanh_tien_chiet_khau","Num_db.vat","Num_db.tien_vat","Num_db.thanh_tien_sau_thue","db.ghi_chu","trang_thai_str","ten_nguoi_cap_nhat","ngay_cap_nhap_str"
+        //        };
+
+        //        return await exportFileExcel(_appsetting, header, listKey, dataList, "sys_don_hang_ban_chi_tiet");
+        //    }
 
         //[HttpPost]
         //public async Task<IActionResult> ImportFromExcel()

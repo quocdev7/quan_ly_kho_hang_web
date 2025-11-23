@@ -23,6 +23,7 @@ namespace vnaisoft.DataBase.Mongodb.Collection.system
         [BsonRepresentation(BsonType.Decimal128)] public decimal? thanh_tien { get; set; }
 
         public string ghi_chu { get; set; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_dat_hang { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)] public DateTime? ngay_tao { get; set; }
         public string nguoi_tao { get; set; }
         public string nguoi_cap_nhat { get; set; }

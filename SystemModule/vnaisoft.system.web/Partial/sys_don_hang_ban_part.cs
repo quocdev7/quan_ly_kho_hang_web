@@ -27,17 +27,13 @@ namespace vnaisoft.system.web.Controller
                  "sys_don_hang_ban;edit",
                  "sys_don_hang_ban;update_status_del",
                  "sys_don_hang_ban;get_list_don_vi_tinh",
-                 "sys_don_hang_ban;exportExcel",
                  "sys_don_hang_ban;get_code",
                    "sys_don_hang_ban;downloadtemp",
                     "sys_don_hang_ban;getElementById",
                      "sys_don_hang_ban;get_list_mat_hang",
                      "sys_don_hang_ban;cap_nhap",
-                     "sys_don_hang_ban;DataHandlerDonHangBanHH",
-                     "sys_don_hang_ban;DataHandlerDonHangBanChuaThu",
-                     "sys_don_hang_ban;DatahandlerHistoryEdit",
+                     "sys_don_hang_ban;DataHandlerDonHangBan",
                      "sys_don_hang_ban;get_list_nhan_vien",
-                     "sys_don_hang_ban;exportExcelDetails",
 
             },
             list_controller_action_publicNonLogin = new List<string>(){
