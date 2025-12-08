@@ -89,7 +89,7 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         if (this.actionEnum == 1) {
 
             this.record.check_doi_tuong = 1;
-            this.record.db.ten = "Tự động tạo";
+            //this.record.db.ten = "Tự động tạo";
             this.record.db.ngay_nhap = new Date();
             //this.record.db.nguon = 1;
             this.get_code();
