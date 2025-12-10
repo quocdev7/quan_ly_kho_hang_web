@@ -107,7 +107,7 @@ namespace vnaisoft.system.web.Controller
             }
             if (item.list_mat_hang.Count == 0)
             {
-                ModelState.AddModelError("db.list_mat_hang", "sys.phai_chon_mat_hang");
+                ModelState.AddModelError("db.list_mat_hang", "Phải chọn mặt hàng");
             }
             else
             {
@@ -122,7 +122,7 @@ namespace vnaisoft.system.web.Controller
                     {
                         if (mat_hang.db.so_luong <= 0)
                         {
-                            ModelState.AddModelError("db.so_luong" + i, "sys.phai_lon_hon_0");
+                            ModelState.AddModelError("db.so_luong" + i, "Phải lớn hơn 0");
                         }
                     }
                 }
