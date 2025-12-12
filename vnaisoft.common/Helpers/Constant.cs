@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using vnaisoft.common.Models;
+﻿using quan_ly_kho.common.Models;
+using System.Collections.Generic;
 
-namespace vnaisoft.common.Helpers
+namespace quan_ly_kho.common.Helpers
 {
     public static class Constant
     {

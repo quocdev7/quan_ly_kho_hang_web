@@ -4,24 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Models;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Models;
-using vnaisoft.common.Services;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
 using JsonConvert = Newtonsoft.Json.JsonConvert;
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     public partial class sys_homeController : BaseAuthenticationController
     {
-        //private vnaisoftDefautContext context;
+        //private quan_ly_khoDefautContext context;
         public MongoDBContext _context;
         public AppSettings _appsetting;
         private IHttpContextAccessor _httpContextAccessor;

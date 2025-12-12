@@ -1,18 +1,17 @@
 ﻿using MongoDB.Driver;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.system.data.Models;
-using WS.CRM.Data.Helper;
-using static vnaisoft.common.BaseClass.BaseAuthenticationController;
+using static quan_ly_kho.common.BaseClass.BaseAuthenticationController;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class bao_cao_nhap_kho_repo
     {
@@ -107,29 +106,29 @@ namespace vnaisoft.system.data.DataAccess
         public IQueryable<bao_cao_nhap_kho_model> FindAll(IQueryable<sys_phieu_nhap_kho_chi_tiet_col> query)
         {
 
-            var result = (from d in query.OrderByDescending(q => q.ngay_nhap)
+            var result = from d in query.OrderByDescending(q => q.ngay_nhap)
 
-                          join dvt in _context.sys_don_vi_tinh_col.AsQueryable() on d.id_don_vi_tinh equals dvt.id into gdvt
-                          from dvt in gdvt.DefaultIfEmpty()
+                         join dvt in _context.sys_don_vi_tinh_col.AsQueryable() on d.id_don_vi_tinh equals dvt.id into gdvt
+                         from dvt in gdvt.DefaultIfEmpty()
 
-                          join pn in _context.sys_phieu_nhap_kho_col.AsQueryable() on d.id_phieu_nhap_kho equals pn.id into gpx
-                          from pn in gpx.DefaultIfEmpty()
+                         join pn in _context.sys_phieu_nhap_kho_col.AsQueryable() on d.id_phieu_nhap_kho equals pn.id into gpx
+                         from pn in gpx.DefaultIfEmpty()
 
-                          select new bao_cao_nhap_kho_model
-                          {
-                              status_del = d.status_del,
-                              id_phieu_nhap_kho = d.id_phieu_nhap_kho,
-                              ma_phieu_nhap_kho = d.id_phieu_nhap_kho,
-                              so_luong = d.so_luong ?? 0,
-                              ngay_nhap_kho = d.ngay_nhap,
-                              ma_mat_hang = d.id_mat_hang,
-                              ten_mat_hang = d.ten_mat_hang,
-                              id_don_vi_tinh = d.id_don_vi_tinh,
-                              ngay_cap_nhat = d.ngay_cap_nhat,
-                              ten_don_vi_tinh = dvt.ten,
-                              ma_loai_nhap = pn.id_loai_nhap,
-                              don_gia = d.don_gia ?? 0,
-                          });
+                         select new bao_cao_nhap_kho_model
+                         {
+                             status_del = d.status_del,
+                             id_phieu_nhap_kho = d.id_phieu_nhap_kho,
+                             ma_phieu_nhap_kho = d.id_phieu_nhap_kho,
+                             so_luong = d.so_luong ?? 0,
+                             ngay_nhap_kho = d.ngay_nhap,
+                             ma_mat_hang = d.id_mat_hang,
+                             ten_mat_hang = d.ten_mat_hang,
+                             id_don_vi_tinh = d.id_don_vi_tinh,
+                             ngay_cap_nhat = d.ngay_cap_nhat,
+                             ten_don_vi_tinh = dvt.ten,
+                             ma_loai_nhap = pn.id_loai_nhap,
+                             don_gia = d.don_gia ?? 0,
+                         };
             return result;
 
 

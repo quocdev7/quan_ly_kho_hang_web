@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
+using quan_ly_kho.common.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
-using vnaisoft.common.Controllers;
 
-namespace vnaisoft.common.Helpers
+namespace quan_ly_kho.common.Helpers
 {
     public static class Captcha
     {
@@ -165,8 +165,8 @@ namespace vnaisoft.common.Helpers
 
                     int scanline = bitmapData.Stride;
 
-                    IntPtr scan0 = bitmapData.Scan0;
-                    IntPtr srcScan0 = bmSrc.Scan0;
+                    nint scan0 = bitmapData.Scan0;
+                    nint srcScan0 = bmSrc.Scan0;
                     baseMap.UnlockBits(bitmapData);
                     bSrc.UnlockBits(bmSrc);
                     bSrc.Dispose();

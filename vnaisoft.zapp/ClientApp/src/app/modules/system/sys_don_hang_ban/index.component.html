@@ -6,56 +6,6 @@
         <div class="rounded-2xl">
             <h1 mat-dialog-title class="dark:text-white" transloco="NAV.sys_don_hang_ban"></h1>
             <mat-card class="rounded-2xl py-6 px-6 shadow">
-                <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-                    <div class="flex-1">
-                        <div class="flex items-center border-b border-blue-500 py-2">
-                            <div class="flex w-full items-center justify-center bg-grey-lighter">
-                                <label
-                                    class="w-full p-1 flex flex-row items-center bg-white text-blue rounded-lg tracking-wide uppercase  cursor-pointer hover:bg-blue-600 hover:text-white">
-                                    <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path
-                                            d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                                    </svg>
-                                    &nbsp;&nbsp;
-                                    <span *ngIf="file" class="text-base leading-normal"> {{file.name}}</span>
-                                    <span *ngIf="!file" class="text-base leading-normal"> Chọn file import đơn hàng
-                                        bán</span>
-                                    <input type='file' class="hidden" (change)="onFileSelected($event)" #fileUpLoad />
-                                </label>
-                            </div>
-
-                            <button
-                                class="flex-shrink-0 border-transparent border-4 text-blue-500 hover:bg-blue-600 hover:text-white text-base py-1 px-2 rounded"
-                                type="button" (click)="dowloadFileMau()">
-                                <span transloco="system.import_form"></span>
-                            </button>
-                            <button
-                                class="flex-shrink-0 border-transparent border-4 text-blue-500 hover:bg-blue-600 hover:text-white text-base py-1 px-2 rounded"
-                                type="button" (click)="onSubmitFile($event)">
-                                <span transloco="system.improt"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                    </div>
-                </div>
-                <br> -->
-                <!-- <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-                    <div class="flex-1">
-                        <cm_select [label]="'system.loai_giao_dich'" [listData]="list_loai_giao_dich"
-                            [(model)]="filter.id_loai_giao_dich" [callbackChange]="rerender.bind(this)">
-                        </cm_select>
-                    </div>
-                    <div class="flex-1">
-                        <cm_input [label]="'system.tu_ngay_dat_hang'" [type]="'datepicker'" [readonly]="'false'"
-                            [callbackChange]="rerender.bind(this)" [(model)]="filter.tu_ngay"></cm_input>
-                    </div>
-                    <div class="flex-1">
-                        <cm_input [label]="'system.den_ngay_dat_hang'" [type]="'datepicker'" [readonly]="'false'"
-                            [callbackChange]="rerender.bind(this)" [(model)]="filter.den_ngay"></cm_input>
-                    </div>
-                </div> -->
                 <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
                     <div class="flex-1">
                         <cm_select [label]="'system.status_del'" [listData]="list_status_del"
@@ -79,14 +29,6 @@
                         (click)="openDialogAdd()">
                         <p transloco="system.add" class="mb-0 text-white"></p>
                     </button>
-                    <button class="rounded py-2 px-4 font-bold  bg-yellow-500  hover:bg-yellow-600  item2s-center"
-                        (click)="exportToExcel()">
-                        <p transloco="system.xuat_excel" class="mb-0 text-white"></p>
-                    </button>
-                    <!-- <button class="rounded py-2 px-4 font-bold  bg-yellow-500  hover:bg-yellow-600  item2s-center"
-                        (click)="exportExcelDetails()">
-                        <p class="mb-0 text-white">Xuất excel chi tiết</p>
-                    </button> -->
                 </div>
             </mat-card>
             <br />
@@ -114,8 +56,8 @@
                                     <button mat-menu-item transloco="view" (click)="openDialogDetail(item,i)"></button>
                                     <button mat-menu-item transloco="system.edit"
                                         (click)="openDialogEdit(item,i)"></button>
-                                    <button *ngIf="item.db.status_del == 1" mat-menu-item transloco="system.huy"
-                                        (click)="update_status_del(item,2)"></button>
+                                    <!-- <button *ngIf="item.db.status_del == 1" mat-menu-item transloco="system.huy"
+                                        (click)="update_status_del(item,2)"></button> -->
                                 </mat-menu>
                             </td>
                             <td align="center" class="font-bold">{{i+1 }}</td>

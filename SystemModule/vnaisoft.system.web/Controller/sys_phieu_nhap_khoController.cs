@@ -3,21 +3,20 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.system.data.DataAccess;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.common;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Services;
-
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.system.data.DataAccess;
-using vnaisoft.system.data.Models;
 
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     public partial class sys_phieu_nhap_khoController : BaseAuthenticationController
     {
@@ -41,43 +40,6 @@ namespace vnaisoft.system.web.Controller
                  }).ToList();
             return Json(result);
         }
-        //public async Task<IActionResult> get_list_mat_hang_cua_phieu_nhap([FromBody] JObject json)
-        //{
-        //    var id_don_hang = json.GetValue("id_don_hang").ToString();
-        //    var id = json.GetValue("id").ToList();
-        //    var ids = String.Join(",", id);
-        //    var list_id = ids.Split(",").ToList();
-        //    var queryTableDetail = repo._context.sys_phieu_nhap_kho_chi_tiets.AsQueryable();
-        //    var list_mat_hang = repo.FindAllDetailMatHang(queryTableDetail).AsQueryable().Where(q => list_id.Contains(q.id_phieu_nhap_kho)).ToList();
-        //    var list_mat_hang_group = list_mat_hang.GroupBy(q => q.id_mat_hang).Select(q => new sys_phieu_nhap_kho_chi_tiet_ref_model
-        //    {
-        //        id_mat_hang = q.Key,
-        //        don_gia = q.First().don_gia,
-        //        so_luong = q.Sum(d => d.so_luong),
-        //        noi_dung = q.First().ma_mat_hang,
-        //        ten_mat_hang = q.First().ten_mat_hang,
-        //        thanh_tien = q.Sum(d => d.so_luong) * q.First().don_gia,
-        //    }).ToList();
-        //    //model.id_mat_hangs = string.Join(',', model.list_mat_hang.Select(q => q.db.id_mat_hang).ToList());
-        //    var don_hang = repo._context.sys_don_hang_bans.AsQueryable().Where(d => d.id == id_don_hang).Where(d => d.status_del == 1).SingleOrDefault();
-        //    var van_chuyen = new sys_phieu_nhap_kho_chi_tiet_ref_model();
-        //    if (don_hang.tien_van_chuyen != null)
-        //    {
-        //        van_chuyen.id_mat_hang = "-1";
-        //        van_chuyen.don_gia = don_hang.tien_van_chuyen + (don_hang.tien_van_chuyen * don_hang.tien_vat_van_chuyen) / 100;
-        //        van_chuyen.so_luong = 1;
-        //        van_chuyen.noi_dung = "Tiền vận chuyển";
-        //        van_chuyen.thanh_tien = (van_chuyen.so_luong ?? 0) * (van_chuyen.don_gia ?? 0);
-        //        list_mat_hang_group.Add(van_chuyen);
-        //    }
-        //    var model = new
-        //    {
-        //        list_mat_hang = list_mat_hang,
-        //        doi_tuong = don_hang,
-        //    };
-        //    return Json(model);
-        //}
-
         public async Task<IActionResult> get_list_mat_hang_ban([FromBody] JObject json)
         {
             var id = json.GetValue("id").ToString();
@@ -174,15 +136,11 @@ namespace vnaisoft.system.web.Controller
                 den_ngay_t = new DateTime(den_ngay_t.Year, den_ngay_t.Month, den_ngay_t.Day, 23, 59, 59);
                 var id_loai_nhap = dictionary["id_loai_nhap"];
 
-                //var query = repo.FindAll()
                 var queryTable = repo._context.sys_phieu_nhap_kho_col.AsQueryable().Where(d => d.status_del == status_del)
-                      //.Where(d => d.nguoi_cap_nhat == getUserId())
-                      //.Where(d => d.loai == 1)
                       .Where(d => d.id_loai_nhap == id_loai_nhap || id_loai_nhap == "-1")
                        .Where(d => d.ngay_nhap >= tu_ngay_t && d.ngay_nhap <= den_ngay_t)
                        .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
                        || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-                       //|| (d.id_don_hang_mua.ToLower() ?? "").Contains(search) || (d.id_don_hang_ban.ToLower() ?? "").Contains(search)
                        || search == "")
                        ;
 

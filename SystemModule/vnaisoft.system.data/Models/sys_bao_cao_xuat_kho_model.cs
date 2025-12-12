@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace vnaisoft.system.data.Models
+namespace quan_ly_kho.system.data.Models
 {
     public class bao_cao_xuat_kho_model
     {

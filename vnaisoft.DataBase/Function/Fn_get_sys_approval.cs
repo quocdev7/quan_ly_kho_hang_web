@@ -1,8 +1,9 @@
-﻿using System;using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 using System.Text;
 
-namespace vnaisoft.DataBase.Function
+namespace quan_ly_kho.DataBase.Function
 {
 	public class Fn_get_sys_approval
     {

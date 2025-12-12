@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace vnaisoft.DataBase.Mongodb.Collection.HocAI
+namespace quan_ly_kho.DataBase.Mongodb.Collection.HocAI
 {
     [Table("sys_log_email_col")]
     public class sys_log_email_col

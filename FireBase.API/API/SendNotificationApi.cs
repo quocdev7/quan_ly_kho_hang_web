@@ -2,19 +2,17 @@ using Google.Cloud.Firestore;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.System;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.System;
-using vnaisoft.fireBase.models;
 
-namespace vnaisoft.fireBase.API
+namespace FireBase.API.API
 {
     public class SendNotificationApi
     {
@@ -235,7 +233,7 @@ namespace vnaisoft.fireBase.API
                 Console.WriteLine(e);
             }
         }
-        public String getSubstring(String text)
+        public string getSubstring(string text)
         {
             var start = ">";
             var end = "</";

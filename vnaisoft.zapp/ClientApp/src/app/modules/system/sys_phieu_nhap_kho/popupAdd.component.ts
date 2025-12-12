@@ -74,25 +74,18 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         this.record = data;
         this.Oldrecord = JSON.parse(JSON.stringify(data));
         this.actionEnum = data.actionEnum;
-        if (this.actionEnum != 2) {
-            this.dialogRef.keydownEvents().subscribe(event => {
-                if (event.key === "Escape") {
-                    this.dialogRef.close();
-                }
-            });
-        }
         if (this.actionEnum == 1) {
+
+            this.record.db.ngay_nhap = new Date();
+            this.get_code();
+            this.record.list_mat_hang = [];
             this.baseInitData();
 
-            this.get_code();
-            this.record.db.ngay_nhap = new Date();
+        } else {
+            this.load_list_mat_hang_nhap_kho();
 
         }
-        if (this.actionEnum != 1) {
-            this.load_list_mat_hang_nhap_kho();
-        }
         this.get_list_loai_nhap();
-        this.record.so_luong_mh = 1
     }
     public get_list_loai_nhap(): void {
         this.http
@@ -288,22 +281,8 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
                 this.record.db.id_don_hang_ban = data.db.id_don_hang_ban;
                 this.record.db.id_don_hang_mua = data.db.id_don_hang_mua;
                 this.record.check_doi_tuong = doi_tuong_tu_do.id == this.record.db.id_doi_tuong ? 1 : 2;
-                if(this.actionEnum == 2)
-                {
-                    this.baseInitData();
-                }
             });
     }
-    // go_to_print_phieu_nhap_kho(id): void {
-    //     var host = window.location.hostname;
-    //     var link = "";
-    //     if (host == "localhost") {
-    //         link = "https://" + host + ":44324/sys_in_phieu_nhap_kho.ctr/in_phieu_nhap_kho?id=" + id;
-    //     } else {
-    //         link = "https://" + host + '/sys_in_phieu_nhap_kho.ctr/in_phieu_nhap_kho?id=' + id;
-    //     }
-    //     window.open(link);
-    // }
     
     get_code() {
         this.http
@@ -314,41 +293,6 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             });
     }
 
-
-
-    public getListDetail(): void {
-        this.http
-            .post('/sys_phieu_nhap_kho.ctr/getListDetail/', {
-                id: this.record.db.id
-            }
-            ).subscribe(resp => {
-                //this.list_mat_hang = resp;
-                var data: any;
-                data = resp;
-                // this.record.list_mat_hang = resp as Array<qlmv_mat_hang_dich_vu_ref_model>;
-
-                this.record.list_mat_hang.push(data);
-                this.list_mat_hang.shift();
-                this.list_mat_hang = this.list_mat_hang.filter(q => q.id != data.id);
-            });
-    }
-    // openDialogChooseMatHang(): void {
-    //     this.record.db.loai_giao_dich = 1;
-    //     const dialogRef = this.dialogModal
-    //         .open(sys_common_popupChooseMatHangComponent, {
-    //             disableClose: true,
-    //             width: '95%',
-    //             height: '95%',
-    //             data: this.record
-    //         });
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         var data: any;
-    //         data = result;
-    //         if (data == undefined) return;
-
-    //         this.record.list_mat_hang = data;
-    //     })
-    // }
     delete_mat_hang(pos, ten_mat_hang): void {
 
         Swal.fire({
@@ -376,7 +320,6 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         if (event.key === 'Enter') {
             if (this.combinedCode != "" && this.combinedCode.length > 6 && (this.ma_mat_hang ?? "") == "") {
                 this.ma_mat_hang = this.combinedCode;
-                this.add_mat_hang()
             }
             this.combinedCode = "";
         } else {
@@ -391,53 +334,7 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             }
         }
     }
-    add_mat_hang() {
-        var ma_mat_hang = this.ma_mat_hang + "";
-        this.ma_mat_hang = "";
-        var findIndexExist = this.record.list_mat_hang.findIndex(d => d.db.id_mat_hang == ma_mat_hang.trim() || d.db.ma_vach == ma_mat_hang.trim());
-        if (findIndexExist >= 0) {
-            // this.record.list_mat_hang[findIndexExist].db.so_luong++;
-            this.record.list_mat_hang[findIndexExist].db.so_luong = Number(this.record.list_mat_hang[findIndexExist].db.so_luong) + Number(this.record.so_luong_mh);
-            return;
-        } else {
-            if (this.record.so_luong_mh <= 0 || this.record.so_luong_mh == null) {
-                Swal.fire("Số lượng phải lớn hơn 0", "", "warning");
-            }
-            else {
-                this.http
-                    .post('/sys_mat_hang.ctr/add_mat_hang/', {
-                        ma: ma_mat_hang.trim(),
-                        loai_giao_dich: "1",
-                        id_doi_tuong: this.record.db.id_doi_tuong ?? "",
-                        list_mat_hang: this.record.list_mat_hang
-                    }
-                    ).subscribe(resp => {
-                        var data: any;
-                        data = resp;
-
-                        if (data.list_mat_hang.length == 0) {
-                            if (data.result == 1) {
-                                Swal.fire("mã " + ma_mat_hang + ", " + this._translocoService.translate('erp.mat_hang_khong_ton_tai_trong_he_thong'), "", "warning");
-                            }
-                            else if (data.result == 2) {
-                                Swal.fire(this._translocoService.translate('erp.mat_hang_phai_la_hang_hoa'), "", "warning");
-                            } else if (data.result == 3) {
-                                Swal.fire(this._translocoService.translate('erp.mat_hang_phai_la_dich_vu'), "", "warning");
-                            } else {
-                                Swal.fire(this._translocoService.translate('erp.mat_hang_da_ngung_su_dung'), "", "warning");
-                            }
-
-                        } else {
-                            this.load_list_choose(data.list_mat_hang);
-
-                            //this.record.list_mat_hang.push(data.list_mat_hang);
-                        }
-
-                    });
-            }
-
-        }
-    }
+    
     load_list_choose(listDataN): any {
         debugger
         if (listDataN.length == 0) {
@@ -512,10 +409,5 @@ export class sys_phieu_nhap_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             },
             "searching": false,
         };
-    }
-    chose_file_logo(fileInput: any) {
-
-        this.file_logo = fileInput.target.files;
-        fileInput.target.value = null;
     }
 }

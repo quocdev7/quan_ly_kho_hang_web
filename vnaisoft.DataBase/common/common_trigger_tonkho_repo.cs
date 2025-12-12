@@ -1,11 +1,11 @@
 ﻿using MongoDB.Driver;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
 
-namespace vnaisoft.DataBase.commonFunc
+namespace quan_ly_kho.DataBase.common
 {
 
 
@@ -30,7 +30,7 @@ namespace vnaisoft.DataBase.commonFunc
             {
                 var mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == id_mat_hang).Select(t => new
                 {
-                    id_loai_mat_hang = t.id_loai_mat_hang,
+                    t.id_loai_mat_hang,
                     ten_mat_hang = t.ten,
                 }).SingleOrDefault();
                 if (mat_hang == null) return "";
@@ -43,10 +43,10 @@ namespace vnaisoft.DataBase.commonFunc
 
                 var idTonKho = id_mat_hang;
                 //var idTonKhoThangNam = id_mat_hang + id_kho + nam + thang;
-                var TangchenhLech = Convert.ToInt64(((soLuongNhapMoi ?? 0)) * 1000);
+                var TangchenhLech = Convert.ToInt64((soLuongNhapMoi ?? 0) * 1000);
                 ;
 
-                var TangchenhLechgiaTriNhapMoi = Convert.ToInt64(((giaTriNhapMoi ?? 0)) * 1000);
+                var TangchenhLechgiaTriNhapMoi = Convert.ToInt64((giaTriNhapMoi ?? 0) * 1000);
                 ;
 
                 var filter = Builders<sys_ton_kho_mat_hang_col>.Filter.And(
@@ -120,7 +120,7 @@ namespace vnaisoft.DataBase.commonFunc
             {
                 var mat_hang = _context.sys_mat_hang_col.AsQueryable().Where(d => d.id == id_mat_hang).Select(t => new
                 {
-                    id_loai_mat_hang = t.id_loai_mat_hang,
+                    t.id_loai_mat_hang,
                     ten_mat_hang = t.ten,
                 }).SingleOrDefault();
                 if (mat_hang == null) return "";
@@ -133,8 +133,8 @@ namespace vnaisoft.DataBase.commonFunc
 
                 var idTonKho = id_mat_hang;
                 var idTonKhoThangNam = id_mat_hang + nam + thang;
-                var GiamchenhLech = Convert.ToInt64(((soLuongXuatMoi ?? 0)) * 1000);
-                ; var GiamchenhLechgiaTriNhapMoi = Convert.ToInt64(((giaTriXuatMoi ?? 0)) * 1000);
+                var GiamchenhLech = Convert.ToInt64((soLuongXuatMoi ?? 0) * 1000);
+                ; var GiamchenhLechgiaTriNhapMoi = Convert.ToInt64((giaTriXuatMoi ?? 0) * 1000);
                 ;
 
                 var filter = Builders<sys_ton_kho_mat_hang_col>.Filter.And(

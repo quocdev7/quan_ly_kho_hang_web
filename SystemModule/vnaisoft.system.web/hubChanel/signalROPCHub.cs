@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Opc.UaFx;
 using Opc.UaFx.Client;
 
-namespace vnaisoft.system.web.hubChanel
+namespace quan_ly_kho.system.web.hubChanel
 {
 
     public class signalROPCHub : Hub

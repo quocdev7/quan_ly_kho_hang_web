@@ -90,7 +90,7 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
 
             this.record.check_doi_tuong = 1;
             //this.record.db.ten = "Tự động tạo";
-            this.record.db.ngay_nhap = new Date();
+            this.record.db.ngay_xuat = new Date();
             //this.record.db.nguon = 1;
             this.get_code();
             this.record.list_mat_hang = [];
@@ -103,7 +103,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         this.record.so_luong_mh = 1
         this.get_list_loai();
         this.get_list_don_hang();
-        this.get_list_kho();
 
 
     }
@@ -114,7 +113,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         if (event.key === 'Enter') {
             if (this.combinedCode != "" && this.combinedCode.length > 6 && (this.ma_mat_hang ?? "") == "") {
                 this.ma_mat_hang = this.combinedCode;
-                this.add_mat_hang()
             }
             this.combinedCode = "";
         } else {
@@ -138,10 +136,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             ).subscribe(resp => {
 
                 this.record = resp;
-                // if(this.actionEnum == 2)
-                // {
-                //     this.baseInitData();
-                // }
             });
     }
     public get_list_loai(): void {
@@ -150,20 +144,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             }
             ).subscribe(resp => {
                     this.list_loai_xuat = resp;
-
-                // if (this.actionEnum == 1) {
-                //     this.list_loai_xuat = resp;
-                //     this.list_loai_xuat = this.list_loai_xuat.filter(q => q.loai == '2' && q.ma != "XCK");
-                //     this.record.db.id_loai_xuat = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].id;
-                //     this.record.ma_loai_xuat = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].ma;
-                //     this.record.nguon = this.list_loai_xuat.filter(q => q.ma == "XGG")[0].nguon;
-                // }
-                // if (this.actionEnum != 1) {
-                //     this.list_loai_xuat = resp;
-                //     this.list_loai_xuat = this.list_loai_xuat.filter(q => q.loai == '2');
-                //     this.record.db.nguon = this.record.db.nguon;
-                //     this.record.db.id_loai_xuat = this.record.db.id_loai_xuat;
-                // }
             });
     }
 
@@ -184,14 +164,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
                 this.list_don_hang = resp;
             });
     }
-    get_list_kho(): void {
-        this.http
-            .post('/sys_kho.ctr/getListUse/', {
-            }
-            ).subscribe(resp => {
-                this.list_kho = resp;
-            });
-    }
     get_code() {
         this.http
             .post('/sys_phieu_xuat_kho.ctr/get_code/', {
@@ -199,8 +171,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             ).subscribe(resp => {
                 this.record.db.ma = "Tự động tạo";
             });
-        //this.record.db.ma = this.controller + "-" + this.Progress_logo
-
     }
     openDialogChooseDonHang(id, type): void {
         if (type == 2) {
@@ -289,79 +259,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             if (result.db.id == 0) return;
         });
     }
-    // openDialogChooseMatHang(): void {
-    //     this.record.db.loai_giao_dich = 1;
-    //     const dialogRef = this.dialogModal
-    //         .open(sys_common_popupChooseMatHangComponent, {
-    //             disableClose: true,
-    //             width: '95%',
-    //             height: '95%',
-    //             data: this.record
-    //             // data: {
-    //             //     db: {
-    //             //         loai_giao_dich: -1
-    //             //     },
-    //             //     list_mat_hang: this.record.list_mat_hang
-    //             // }
-    //         });
-    //     dialogRef.afterClosed().subscribe(result => {
-
-    //         var data: any;
-    //         data = result;
-    //         if (data == undefined) return;
-    //         if (this.record.list_mat_hang == null || this.record.list_mat_hang == undefined || this.record.list_mat_hang.length == 0)
-    //             this.record.list_mat_hang = []
-    //         this.record.list_mat_hang = data;
-    //     })
-    // }
-
-    add_mat_hang() {
-        var ma_mat_hang = this.ma_mat_hang + "";
-        this.ma_mat_hang = "";
-        var findIndexExist = this.record.list_mat_hang.findIndex(d => d.db.id_mat_hang == ma_mat_hang.trim() || d.db.ma_vach == ma_mat_hang.trim());
-        if (findIndexExist >= 0) {
-            this.record.list_mat_hang[findIndexExist].db.so_luong = Number(this.record.list_mat_hang[findIndexExist].db.so_luong) + Number(this.record.so_luong_mh);
-            return;
-        } else {
-            if (this.record.so_luong_mh <= 0 || this.record.so_luong_mh == null) {
-                Swal.fire("Số lượng phải lớn hơn 0", "", "warning");
-            }
-            else {
-                this.http
-                    .post('/sys_mat_hang.ctr/add_mat_hang/', {
-                        ma: ma_mat_hang.trim(),
-                        loai_giao_dich: "1",
-                        id_doi_tuong: this.record.db.id_doi_tuong ?? "",
-                        list_mat_hang: this.record.list_mat_hang
-                    }
-                    ).subscribe(resp => {
-                        var data: any;
-                        data = resp;
-
-                        if (data.list_mat_hang.length == 0) {
-                            if (data.result == 1) {
-                                Swal.fire("mã " + ma_mat_hang + ", " + this._translocoService.translate('system.mat_hang_khong_ton_tai_trong_he_thong'), "", "warning");
-                            }
-                            else if (data.result == 2) {
-                                Swal.fire(this._translocoService.translate('system.mat_hang_phai_la_hang_hoa'), "", "warning");
-                            } else if (data.result == 3) {
-                                Swal.fire(this._translocoService.translate('system.mat_hang_phai_la_dich_vu'), "", "warning");
-                            } else {
-                                Swal.fire(this._translocoService.translate('system.mat_hang_da_ngung_su_dung'), "", "warning");
-                            }
-
-                        } else {
-                            this.load_list_choose(data.list_mat_hang);
-
-
-                        }
-
-
-
-                    });
-            }
-        }
-    }
     get_list_mat_hang_theo_don_hang_mua() {
         this.http
             .post('/sys_don_hang_mua.ctr/getElementById/', {
@@ -402,27 +299,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             });
     }
 
-
-
-    // openDialogMatHang(): void {
-    //     const dialogRef = this.dialogModal.open(sys_mat_hang_popUpAddComponent, {
-    //         disableClose: true,
-    //         width: '768px',
-    //         data: {
-    //             actionEnum: 1,
-    //             db: {
-    //                 id: 0,
-    //             },
-    //         },
-    //     });
-    //     dialogRef.afterClosed().subscribe(result => {
-
-    //         if (result.db.id == 0) return;
-    //         if (result.db.thuoc_tinh != 1) {
-    //         }
-    //     });
-
-    // }
     delete_mat_hang(pos, ten_mat_hang): void {
 
         Swal.fire({
@@ -442,51 +318,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             }
         })
     }
-    onFileSelected(event: any) {
-        this.file = event.target.files[0];
-    }
-    dowloadFileMau() {
-        var url = '/sys_phieu_xuat_kho.ctr/downloadtempdetail';
-        window.location.href = url;
-    }
-    onSubmitFile(event: any) {
-        if (this.file == null || this.file == undefined) {
-            Swal.fire('Phải chọn file import', '', 'warning')
-        } else {
-            this.record.list_mat_hang = [];
-            var formData = new FormData();
-            formData.append('file', this.file);
-            formData.append('model', JSON.stringify(this.record));
-
-            this.http.post('/sys_phieu_xuat_kho.ctr/ImportFromExcelMatHang/', formData, {
-                reportProgress: true,
-                observe: 'events'
-            })
-                .subscribe(res => {
-                    if (res.type == HttpEventType.UploadProgress) {
-                    } else if (res.type === HttpEventType.Response) {
-
-                        var item: any;
-                        item = res.body;
-                        if (item.error == "") {
-                            for (let i = 0; i < item.list_mat_hang.length; i++) {
-                                var model = item.list_mat_hang[i]
-                                model.db.ten = model.ten_mat_hang
-                                model.db.ma = model.ma_mat_hang
-                                model.db.id = model.db.id_mat_hang,
-                                this.record.so_luong_mh = model.db.so_luong,
-                                model.db.so_luong = model.db.so_luong,
-                                model.db.ghi_chu = model.db.ghi_chu
-                            }
-                            this.load_list_choose(item.list_mat_hang);
-                        } else {
-                            Swal.fire(item.error, "", "warning")
-                        }
-                    }
-                })
-        }
-    }
-
     load_list_choose_mat_hang_don_hang(listDataN): any {
 
         if (listDataN.length == 0) {
@@ -552,14 +383,6 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
         }
 
     }
-    fileProgress(fileInput: any) {
-
-        this.fileData = fileInput.target.files;
-        fileInput.target.value = null;
-    }
-    DragAndDropProgress(files: any) {
-        this.fileData = files;
-    }
     public tableapi: any;
     ngOnInit(): void {
         var that = this;
@@ -591,9 +414,5 @@ export class sys_phieu_xuat_kho_popUpAddComponent extends BasePopUpAddTypeCompon
             },
             "searching": false,
         };
-    }
-    chose_file_logo(fileInput: any) {
-        this.file_logo = fileInput.target.files;
-        fileInput.target.value = null;
     }
 }

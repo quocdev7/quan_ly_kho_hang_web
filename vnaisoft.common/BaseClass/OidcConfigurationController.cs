@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace vnaisoft.common.BaseClass
+namespace quan_ly_kho.common.BaseClass
 { 
     public class OidcConfigurationController : Controller
     {

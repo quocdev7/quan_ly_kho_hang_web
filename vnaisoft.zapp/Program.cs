@@ -1,20 +1,20 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Models;
+using quan_ly_kho.system.web.MenuAndRole;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.Models;
-using vnaisoft.system.web.MenuAndRole;
 
-namespace vnaisoft.zapp
+namespace quan_ly_kho.zapp
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            var currrent = System.IO.Directory.GetCurrentDirectory();
+            var currrent = Directory.GetCurrentDirectory();
             var pathgoogle = Path.Combine(currrent, "firebaseShungo.json");
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", pathgoogle);
             ListControlller.list = new List<ControllerAppModel>();

@@ -1,12 +1,10 @@
 ﻿using MongoDB.Driver;
+using quan_ly_kho.DataBase.Mongodb;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-
-using vnaisoft.DataBase.Mongodb;
-
-namespace vnaisoft.DataBase.commonFunc
+namespace quan_ly_kho.DataBase.common
 {
 
 
@@ -46,7 +44,7 @@ namespace vnaisoft.DataBase.commonFunc
         {
 
 
-            long milisecond = (long)(nanoseconds / 1000);
+            long milisecond = nanoseconds / 1000;
             //long unixTimeMilliseconds = new DateTimeOffset(currentime).ToUnixTimeMilliseconds();
 
             var datetime =
@@ -113,12 +111,12 @@ namespace vnaisoft.DataBase.commonFunc
             }
             if (string.IsNullOrEmpty(max))
             {
-                result += ((numGenerate + 1) + "").Remove(0, 1);
+                result += (numGenerate + 1 + "").Remove(0, 1);
             }
             else
             {
                 var parse = int.Parse(max.Replace(preFixCode, ""));
-                result += (numGenerate + (parse + 1)).ToString().Remove(0, 1);
+                result += (numGenerate + parse + 1).ToString().Remove(0, 1);
             }
             return result;
         }

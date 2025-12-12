@@ -1,18 +1,17 @@
 ﻿using MongoDB.Driver;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.system.data.Models;
-using WS.CRM.Data.Helper;
-using static vnaisoft.common.BaseClass.BaseAuthenticationController;
+using static quan_ly_kho.common.BaseClass.BaseAuthenticationController;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class bao_cao_xuat_kho_repo
     {
@@ -106,23 +105,23 @@ namespace vnaisoft.system.data.DataAccess
         public IQueryable<bao_cao_xuat_kho_model> FindAll(IQueryable<sys_phieu_xuat_kho_chi_tiet_col> query)
         {
 
-            var result = (from d in query.OrderByDescending(q => q.ngay_xuat)
+            var result = from d in query.OrderByDescending(q => q.ngay_xuat)
 
 
-                          select new bao_cao_xuat_kho_model
-                          {
-                              status_del = d.status_del,
-                              id_phieu_xuat_kho = d.id_phieu_xuat_kho,
-                              ma_phieu_xuat_kho = d.id_phieu_xuat_kho,
-                              so_luong = d.so_luong ?? 0,
-                              don_gia = d.don_gia ?? 0,
-                              gia_tri = d.gia_tri ?? 0,
-                              ngay_xuat_kho = d.ngay_xuat,
-                              ma_mat_hang = d.id_mat_hang,
-                              ten_mat_hang = d.ten_mat_hang,
-                              //ma_loai_xuat = d.id_loai_xuat,
-                              id_don_vi_tinh = d.id_don_vi_tinh,
-                          });
+                         select new bao_cao_xuat_kho_model
+                         {
+                             status_del = d.status_del,
+                             id_phieu_xuat_kho = d.id_phieu_xuat_kho,
+                             ma_phieu_xuat_kho = d.id_phieu_xuat_kho,
+                             so_luong = d.so_luong ?? 0,
+                             don_gia = d.don_gia ?? 0,
+                             gia_tri = d.gia_tri ?? 0,
+                             ngay_xuat_kho = d.ngay_xuat,
+                             ma_mat_hang = d.id_mat_hang,
+                             ten_mat_hang = d.ten_mat_hang,
+                             //ma_loai_xuat = d.id_loai_xuat,
+                             id_don_vi_tinh = d.id_don_vi_tinh,
+                         };
             return result;
 
 

@@ -1,12 +1,12 @@
+using MongoDB.Driver;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using vnaisoft.DataBase.System;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Mongodb;
-using MongoDB.Driver;
 
-namespace vnaisoft.common.Services
+namespace quan_ly_kho.common.Services
 {
     public interface IUserService
     {
@@ -35,7 +35,7 @@ namespace vnaisoft.common.Services
 
             //1 duyet
             //3 dang ky chua duyet
-            var user = _context.sys_user_col.AsQueryable().Where(d=>d.status_del!=0 && d.status_del!=2 ).SingleOrDefault(x => x.Username == username|| x.id == userId);
+            var user = _context.sys_user_col.AsQueryable().Where(d => d.status_del != 0 && d.status_del != 2).SingleOrDefault(x => x.Username == username || x.id == userId);
 
             // check if username exists
             if (user == null)
@@ -56,7 +56,7 @@ namespace vnaisoft.common.Services
 
         public User GetById(string id)
         {
-            return _context.sys_user_col.AsQueryable().Where(q=>q.id==id).FirstOrDefault();
+            return _context.sys_user_col.AsQueryable().Where(q => q.id == id).FirstOrDefault();
         }
         public User GetByName(string username)
         {
@@ -86,7 +86,7 @@ namespace vnaisoft.common.Services
 
         public void Update(User userParam, string password = null)
         {
-            var user = _context.sys_user_col.AsQueryable().Where(q => q.id == userParam.id).FirstOrDefault(); 
+            var user = _context.sys_user_col.AsQueryable().Where(q => q.id == userParam.id).FirstOrDefault();
 
             if (user == null)
                 throw new AppException("User not found");
@@ -118,7 +118,7 @@ namespace vnaisoft.common.Services
                 user.PasswordSalt = passwordSalt;
 
                 var update_pass = Builders<User>.Update
-            
+
                .Set(x => x.PasswordHash, user.PasswordHash)
                .Set(x => x.PasswordSalt, user.PasswordSalt)
                ;
@@ -129,27 +129,27 @@ namespace vnaisoft.common.Services
 
             }
 
-           //  var update_name = Builders<User>.Update
-           //.Set(x => x.FirstName, user.FirstName)
-           //.Set(x => x.LastName, user.LastName)
-           //;
+            //  var update_name = Builders<User>.Update
+            //.Set(x => x.FirstName, user.FirstName)
+            //.Set(x => x.LastName, user.LastName)
+            //;
 
-           // // Create a filter to match the document to update
-           // var filter_name = Builders<User>.Filter.Eq(x => x.id, userParam.id);
-           // _context.sys_user_col.UpdateOne(filter_name, update_name);
-           
+            // // Create a filter to match the document to update
+            // var filter_name = Builders<User>.Filter.Eq(x => x.id, userParam.id);
+            // _context.sys_user_col.UpdateOne(filter_name, update_name);
 
-           
+
+
         }
 
         public void Delete(string id)
         {
-          
+
 
             var filter = Builders<User>.Filter.Eq(q => q.id, id);
-          
+
             _context.sys_user_col.DeleteOne(filter);
-            
+
         }
 
         // private helper methods

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Models;
+using quan_ly_kho.system.data.Models;
+using System.Collections.Generic;
 using System.Linq;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.Models;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     partial class sys_template_mailController
     {

@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 
-namespace vnaisoft.common.Helpers
+namespace quan_ly_kho.common.Helpers
 
 {
     public static class SoapExtensions

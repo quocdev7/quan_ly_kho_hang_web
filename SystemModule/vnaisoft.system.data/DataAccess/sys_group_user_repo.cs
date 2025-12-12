@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.System;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.System;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class sys_group_user_repo
     {
@@ -88,28 +88,28 @@ namespace vnaisoft.system.data.DataAccess
 
 
         }
-        
+
         public IQueryable<sys_group_user_model> FindAll()
         {
-            var result = (from d in _context.sys_group_user_col.AsQueryable()
+            var result = from d in _context.sys_group_user_col.AsQueryable()
 
-                          join u in _context.sys_user_col.AsQueryable()
-                          on d.nguoi_cap_nhat equals u.id into uG
+                         join u in _context.sys_user_col.AsQueryable()
+                         on d.nguoi_cap_nhat equals u.id into uG
 
-                          join sgud in _context.sys_group_user_detail_col.AsQueryable()
-                          on d.id equals sgud.id_group_user into sgudG
+                         join sgud in _context.sys_group_user_detail_col.AsQueryable()
+                         on d.id equals sgud.id_group_user into sgudG
 
-                          //join gru in _context.sys_group_user_detail_col.AsQueryable()
-                          //  on d.nguoi_cap_nhat equals gru.user_id into gruG
-                          from u in uG.DefaultIfEmpty()
-                              //from gru in gruG.DefaultIfEmpty()
-                          select new sys_group_user_model
-                          {
-                              db = d,
-                              ten_nguoi_cap_nhat = u.ho_va_ten,
-                              count_user = sgudG.Count()
-                              //count_user = gruG.Count()
-                          });
+                         //join gru in _context.sys_group_user_detail_col.AsQueryable()
+                         //  on d.nguoi_cap_nhat equals gru.user_id into gruG
+                         from u in uG.DefaultIfEmpty()
+                             //from gru in gruG.DefaultIfEmpty()
+                         select new sys_group_user_model
+                         {
+                             db = d,
+                             ten_nguoi_cap_nhat = u.ho_va_ten,
+                             count_user = sgudG.Count()
+                             //count_user = gruG.Count()
+                         };
 
             return result;
 
@@ -118,32 +118,32 @@ namespace vnaisoft.system.data.DataAccess
         }
         public IQueryable<sys_group_user_role_model> FindAllRole(string id)
         {
-            var result = (from d in _context.sys_group_user_role_col.AsQueryable()
-                          where d.id_group_user == id
+            var result = from d in _context.sys_group_user_role_col.AsQueryable()
+                         where d.id_group_user == id
 
-                          join gru in _context.sys_group_user_col.AsQueryable()
-                          on d.id_group_user equals gru.id into gruG
-                          from gru in gruG.DefaultIfEmpty()
+                         join gru in _context.sys_group_user_col.AsQueryable()
+                         on d.id_group_user equals gru.id into gruG
+                         from gru in gruG.DefaultIfEmpty()
 
-                          select new sys_group_user_role_model()
-                          {
-                              db = d,
-                              user_name = gru.name
-                          });
+                         select new sys_group_user_role_model()
+                         {
+                             db = d,
+                             user_name = gru.name
+                         };
 
             return result;
         }
         public IQueryable<sys_group_user_detail_model> FindAllItem()
         {
-            var result = (from d in _context.sys_user_col.AsQueryable()
-                          where d.status_del == 1
-                          select new sys_group_user_detail_model
-                          {
-                              user_name = d.Username,
+            var result = from d in _context.sys_user_col.AsQueryable()
+                         where d.status_del == 1
+                         select new sys_group_user_detail_model
+                         {
+                             user_name = d.Username,
 
-                              user_id = d.id,
-                              type_user = d.loai
-                          });
+                             user_id = d.id,
+                             type_user = d.loai
+                         };
 
             return result;
         }

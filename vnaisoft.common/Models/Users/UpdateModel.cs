@@ -1,4 +1,4 @@
-namespace vnaisoft.common.Models.Users
+namespace quan_ly_kho.common.Models.Users
 {
   public class UpdateModel
     {

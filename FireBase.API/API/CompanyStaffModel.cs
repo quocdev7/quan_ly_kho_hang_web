@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace vnaisoft.fireBase.models
+namespace FireBase.API.API
 {
 
     public class TokenNotiUserModel

@@ -8,20 +8,20 @@ using Newtonsoft.Json.Linq;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Models;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.System;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using vnaisoft.common.Common;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Models;
-using vnaisoft.common.Services;
-using vnaisoft.DataBase.Mongodb;
-using WS.CRM.Data.Helper;
 
-namespace vnaisoft.common.BaseClass
+namespace quan_ly_kho.common.BaseClass
 {
     public enum ActionEnumForm
     {
@@ -33,7 +33,7 @@ namespace vnaisoft.common.BaseClass
 
 
 
-    [ServiceFilter(typeof(vnaisoftAuthorize))]
+    [ServiceFilter(typeof(quan_ly_khoAuthorize))]
     [ApiController]
     [Route("[controller].ctr/[action]")]
     public abstract class BaseAuthenticationController : Controller
@@ -52,7 +52,7 @@ namespace vnaisoft.common.BaseClass
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             var pathsave = Path.Combine(path, tick + ".txt");
-            using (System.IO.Stream stream = new FileStream(pathsave, FileMode.Create))
+            using (Stream stream = new FileStream(pathsave, FileMode.Create))
             {
                 stream.CopyTo(stream);
             }
@@ -66,7 +66,7 @@ namespace vnaisoft.common.BaseClass
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             var pathsave = Path.Combine(path, tick + ".txt");
-            using (System.IO.Stream stream = new FileStream(pathsave, FileMode.Create))
+            using (Stream stream = new FileStream(pathsave, FileMode.Create))
             {
                 stream.CopyTo(stream);
             }
@@ -88,7 +88,7 @@ namespace vnaisoft.common.BaseClass
                   ?? User?.FindFirst("nameid")?.Value
                   ?? User?.FindFirst("sub")?.Value;
                 // dang nhap co khong co email(tai khpan so )
-                if (loai_dang_nhap!=null && loai_dang_nhap == "5")
+                if (loai_dang_nhap != null && loai_dang_nhap == "5")
                 {
                     return User.Identity.Name;
                 }
@@ -101,7 +101,7 @@ namespace vnaisoft.common.BaseClass
 
                 // dang nhap bang email google,facebook
 
-                String user_id_school;
+                string user_id_school;
                 var cacheServices = HttpContext.RequestServices.GetService<IMemoryCache>();
                 var cache_key = "UserId" + User.Identity.Name;
                 var cache_value = cacheServices.Get(cache_key);
@@ -130,7 +130,7 @@ namespace vnaisoft.common.BaseClass
 
         }
 
-        public vnaisoft.DataBase.System.User getUser()
+        public User getUser()
         {
             var username = User.Identity.Name;
             var user = _userService.GetById(username);
@@ -397,7 +397,7 @@ namespace vnaisoft.common.BaseClass
 
 
 
-                for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
+                for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++) //Read Excel File
 
                 {
 
@@ -493,7 +493,7 @@ namespace vnaisoft.common.BaseClass
 
 
 
-                for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
+                for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++) //Read Excel File
 
                 {
 
@@ -597,7 +597,7 @@ namespace vnaisoft.common.BaseClass
 
 
 
-                for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
+                for (int i = sheet.FirstRowNum + 1; i <= sheet.LastRowNum; i++) //Read Excel File
 
                 {
 

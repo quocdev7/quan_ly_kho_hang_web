@@ -1,4 +1,4 @@
-namespace vnaisoft.common.Helpers
+namespace quan_ly_kho.common.Helpers
 {
     public class AppSettings
     {

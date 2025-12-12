@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using vnaisoft.common.Models;
-using vnaisoft.system.data.Models;
+﻿using quan_ly_kho.common.Models;
+using quan_ly_kho.system.data.Models;
+using System.Collections.Generic;
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     partial class bao_cao_xuat_khoController
     {

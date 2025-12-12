@@ -11,8 +11,8 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\FireBase.API\FireBase.API.csproj" />
-		<ProjectReference Include="..\..\vnaisoft.common\vnaisoft.common.csproj" />
-		<ProjectReference Include="..\..\vnaisoft.DataBase\vnaisoft.DataBase.csproj" />
+		<ProjectReference Include="..\..\vnaisoft.common\quan_ly_kho.common.csproj" />
+		<ProjectReference Include="..\..\vnaisoft.DataBase\quan_ly_kho.DataBase.csproj" />
 	</ItemGroup>
 
 </Project>

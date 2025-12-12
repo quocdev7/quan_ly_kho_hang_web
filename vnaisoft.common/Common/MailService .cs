@@ -1,7 +1,7 @@
 ﻿
 
 using Microsoft.Extensions.Options;
-
+using quan_ly_kho.common.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,9 +9,8 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using vnaisoft.common.Models;
 
-namespace vnaisoft.common.Common
+namespace quan_ly_kho.common.Common
 {
     public interface IMailService
     {
@@ -106,7 +105,7 @@ namespace vnaisoft.common.Common
                 Email(mailRequest.Body, mailRequest.Subject, mailRequest.ToEmail, mailRequest.CCEmail);
 
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
               
             }

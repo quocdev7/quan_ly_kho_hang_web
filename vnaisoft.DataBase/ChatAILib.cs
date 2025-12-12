@@ -1,31 +1,16 @@
-﻿using Google.Api.Gax.Grpc;
-using Google.Apis.Auth.OAuth2;
-using Google.Cloud.AIPlatform.V1;
-using Google.Protobuf;
-using MongoDB.Driver;
-using OpenAI.Chat;
-using OpenAI.Responses;
-using Syncfusion.Pdf;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using TiktokenSharp;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.HocAI;
+﻿using quan_ly_kho.DataBase.Mongodb;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Processing;
-namespace vnaisoft.DataBase
+using System;
+using System.IO;
+namespace quan_ly_kho.DataBase
 {
     public class ChatAILib
     {
         MongoDBContext _contextMongo;
-        String user_id;
-        public ChatAILib(MongoDBContext _Context,string _user_id)
+        string user_id;
+        public ChatAILib(MongoDBContext _Context, string _user_id)
         {
             _contextMongo = _Context;
             user_id = _user_id;

@@ -1,36 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using QRCoder;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.system.data.DataAccess;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.common;
-using vnaisoft.common.Common;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Services;
-
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.fireBase.API;
-using vnaisoft.system.data.DataAccess;
-using vnaisoft.system.data.Models;
 
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     public partial class sys_don_hang_muaController : BaseAuthenticationController
     {
@@ -48,138 +36,6 @@ namespace vnaisoft.system.web.Controller
             var code = repo.getCode();
             return Json(code);
         }
-        //public async Task<IActionResult> check_kho()
-        //{
-        //    var id_kho = "";
-
-        //    id_kho = repo._context.sys_user_col.AsQueryable().Where(q => q.id == getUserId()).Select(q => q.id_kho_nhap).SingleOrDefault();
-
-
-        //    return Json(id_kho);
-        //}
-
-        //[AllowAnonymous]
-        //public ActionResult downloadtempdetail()
-        //{
-        //    var currentpath = Directory.GetCurrentDirectory();
-        //    string newPath = Path.Combine(currentpath, "wwwroot", "assets", "template");
-        //    if (!Directory.Exists(newPath))
-        //        Directory.CreateDirectory(newPath);
-
-        //    string Files = newPath + "\\erp_mat_hang_theo_don_hang_mua.xlsx";
-        //    byte[] fileBytes = System.IO.File.ReadAllBytes(Files);
-        //    System.IO.File.WriteAllBytes(Files, fileBytes);
-        //    MemoryStream ms = new MemoryStream(fileBytes);
-        //    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, "erp_mat_hang_theo_don_hang_mua.xlsx");
-        //}
-        //[HttpPost]
-        //public async Task<IActionResult> ImportFromExcelMatHang()
-        //{
-        //    var error = "";
-        //    IFormFile file = Request.Form.Files[0];
-        //    var model_master = JsonConvert.DeserializeObject<sys_don_hang_mua_model>(Request.Form["model"]);
-        //    var rs = "";
-
-        //    if (file.Length > 0)
-        //    {
-        //        try
-        //        {
-
-        //            var list_row = handleImportFile(file);
-
-        //            for (int ct = 0; ct < list_row.Count(); ct++)
-        //            {
-        //                var fileImport = list_row[ct].list_cell.ToList();
-
-
-        //                var model = new sys_don_hang_mua_mat_hang_model();
-
-        //                var stt = (fileImport[0].value.ToString() ?? "").Trim();
-        //                var ma_mat_hang = (fileImport[1].value.ToString() ?? "").Trim();
-        //                var so_luong = (fileImport[2].value.ToString() ?? "").Trim();
-        //                var don_gia = (fileImport[3].value.ToString() ?? "").Trim();
-        //                var chiet_khau = (fileImport[4].value.ToString() ?? "").Trim();
-        //                var ghi_chu = (fileImport[5].value.ToString() ?? "").Trim();
-
-        //                model.ma_mat_hang = ma_mat_hang;
-        //                model.db.so_luong = decimal.Parse(so_luong);
-        //                model.db.ghi_chu = ghi_chu;
-
-
-        //                //user import
-        //                error = CheckErrorImportMatHang(model, ct + 1, error);
-        //                if (!string.IsNullOrEmpty(error))
-        //                {
-
-        //                }
-        //                else
-        //                {
-        //                    var mat_hang = repo._context.erp_mat_hangs.AsQueryable().Where(q => q.ma.Trim().ToLower() == model.ma_mat_hang.Trim().ToLower()).FirstOrDefault();
-        //                    model.db.id_mat_hang = mat_hang.id;
-        //                    model.db.id_don_vi_tinh = mat_hang.id_don_vi_tinh;
-        //                    model.db.vat = mat_hang.vat;
-        //                    model.ten_mat_hang = mat_hang.ten;
-        //                    model.ten_don_vi_tinh = repo._context.erp_don_vi_tinhs.AsQueryable().Where(q => q.id == model.db.id_don_vi_tinh).Select(q => q.ten).FirstOrDefault();
-
-        //                    model.db.chiet_khau = decimal.Parse(chiet_khau) != 0 ? decimal.Parse(chiet_khau) : mat_hang.ty_le_chiet_khau;
-        //                    var don_gia_tu_bgm = repo._context.erp_bang_gia_muas.AsQueryable()
-        //                                                        .Where(d => d.id_nha_cung_cap == model_master.db.id_doi_tuong)
-        //                                                        .Where(d => d.id_mat_hang == model.db.id_mat_hang)
-        //                                                          .Where(d => d.ngay_ghi_nhan <= DateTime.Now)
-        //                                                        .Where(d => d.status_del == 1).OrderByDescending(q => q.ngay_ghi_nhan).Select(d => d.don_gia).SingleOrDefault();
-        //                    model.db.don_gia = don_gia_tu_bgm == null ? decimal.Parse(don_gia) : don_gia_tu_bgm;
-        //                    model_master.list_mat_hang.Add(model);
-        //                }
-
-        //            }
-        //            var data = new
-        //            {
-        //                error = error,
-        //                list_mat_hang = model_master.list_mat_hang
-        //            };
-        //            return Json(data);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            var data = new
-        //            {
-        //                error = "File không đúng định dạng"
-
-        //            };
-
-        //            return Json(data);
-        //        }
-
-
-        //    }
-        //    else
-        //    {
-        //        var data = new
-        //        {
-        //            error = "File không đúng định dạng"
-
-        //        };
-
-        //        return Json(data);
-
-        //    }
-
-        //}
-
-        //public async Task<IActionResult> getPrint([FromBody] JObject json)
-        //{
-        //    var id = json.GetValue("id").ToString();
-        //    var template = repo._context.erp_mau_ins.AsQueryable().Where(t => t.id_loai == "sys_don_hang_mua").FirstOrDefault();
-        //    var model = await repo.getElementById(id);
-        //    var commonPrint = new Common_print_helper(repo._context);
-        //    var templatePrint = commonPrint.generatePrint(template.noi_dung, model, "list_mat_hang");
-        //    return Json(new
-        //    {
-        //        tieu_de = template.ten,
-        //        noi_dung = templatePrint
-        //    });
-        //}
-        
         public IActionResult getListUse()
         {
             var result = repo._context.sys_don_hang_mua_col.AsQueryable()
@@ -240,23 +96,6 @@ namespace vnaisoft.system.web.Controller
             var model = await repo.getElementById(id);
             return Json(model);
         }
-        //public async Task<IActionResult> getElementByIdLog([FromBody] JObject json)
-        //{
-        //    var id = json.GetValue("id").ToString();
-        //    var model = await repo.getElementByIdLog(id);
-        //    return Json(model);
-        //}
-        //public async Task<IActionResult> getElementByIdXuatKho([FromBody] JObject json)
-        //{
-        //    var id = json.GetValue("id").ToString();
-        //    var queryTable = repo._context.sys_don_hang_muas.AsQueryable().Where(q => q.id == id.Trim());
-        //    var model = repo.FindAll(queryTable).AsQueryable().Where(q => q.db.id == id).SingleOrDefault();
-        //    var queryTableDetail = repo._context.sys_don_hang_mua_mat_hangs.AsQueryable().Where(q => q.id_don_hang == id.Trim());
-        //    model.list_mat_hang = repo.FindAllDetail(queryTableDetail).AsQueryable().Where(q => q.db.id_don_hang == id).ToList();
-        //    model.id_mat_hangs = string.Join(',', model.list_mat_hang.Select(q => q.db.id_mat_hang).ToList());
-        //    return Json(model);
-        //}
-
         public async Task<IActionResult> get_list_don_hang_mua([FromBody] JObject json)
         {
             var list_don_hang_mua = new List<sys_don_hang_mua_model>();
@@ -264,41 +103,6 @@ namespace vnaisoft.system.web.Controller
             list_don_hang_mua = repo.FindAll(queryTable).Where(q => q.db.status_del == 1).ToList();
             return Json(list_don_hang_mua);
         }
-        //[HttpPost]
-        //public async Task<IActionResult> DataHandlerLog([FromBody] JObject json)
-        //{
-        //    try
-        //    {
-        //        var a = Request;
-        //        var param = JsonConvert.DeserializeObject<DTParameters>(json.GetValue("param1").ToString());
-        //        var dictionary = new Dictionary<string, string>();
-        //        dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
-        //        var search = dictionary["search"].Trim().ToLower();
-        //        var id_don_hang = dictionary["id_don_hang"];
-        //        var queryTable = repo._context.sys_don_hang_mua_logs.AsQueryable()
-        //            .Where(d => d.id_don_hang == id_don_hang)
-        //            ;
-        //        var count = queryTable.Count();
-        //        queryTable = queryTable.OrderByDescending(d => d.ma);
-        //        var dataList = await Task.Run(() => repo.FindAllLog(queryTable.Skip(param.Start).Take(param.Length)).OrderByDescending(d => d.db.ngay_cap_nhat).ToList());
-        //        DTResult<sys_don_hang_mua_log_model> result = new DTResult<sys_don_hang_mua_log_model>
-        //        {
-        //            start = param.Start,
-        //            draw = param.Draw,
-        //            data = dataList,
-        //            recordsFiltered = count,
-        //            recordsTotal = count
-        //        };
-        //        return Json(result);
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { error = ex.Message });
-        //    }
-
-        //}
-
         [HttpPost]
         public async Task<IActionResult> DataHandler([FromBody] JObject json)
         {
@@ -310,12 +114,7 @@ namespace vnaisoft.system.web.Controller
                 dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(json.GetValue("data").ToString());
 
                 var search = dictionary["search"].Trim().ToLower();
-                var id_loai_giao_dich = dictionary["id_loai_giao_dich"];
-                // var id_kho = dictionary["id_kho"];
-                var id_doi_tuong = dictionary["id_doi_tuong"];
                 var status_del = int.Parse(dictionary["status_del"]);
-                var is_nhap_du = int.Parse(dictionary["is_nhap_du"]);
-                var is_chi_du = int.Parse(dictionary["is_chi_du"]);
 
                 var tu_ngay = dictionary["tu_ngay"].ToString();
                 var den_ngay = dictionary["den_ngay"].ToString();
@@ -325,43 +124,12 @@ namespace vnaisoft.system.web.Controller
                 den_ngay_dt = new DateTime(den_ngay_dt.Year, den_ngay_dt.Month, den_ngay_dt.Day, 23, 59, 59);
 
 
-                //var query = repo.FindAll()
                 var queryTable = repo._context.sys_don_hang_mua_col.AsQueryable().Where(d => d.status_del == status_del)
                     .Where(d => tu_ngay_dt <= d.ngay_dat_hang && den_ngay_dt >= d.ngay_dat_hang)
                      .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
                      || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-                     //|| (d.ma_so_thue.ToLower() ?? "").Contains(search) || (d.dien_thoai.ToLower() ?? "").Contains(search)
-                     //|| (d.ten_doi_tuong.ToLower() ?? "").Contains(search) 
                      || search == "")
-                     //.Where(q => q.nguoi_cap_nhat == getUserId())
                      ;
-
-                //if (is_nhap_du == 1)
-                //{
-                //    queryTable = queryTable.Where(q => q.is_nhap_du == true);
-                //}
-                //if (is_nhap_du == 0)
-                //{
-                //    queryTable = queryTable.Where(q => q.is_nhap_du != true);
-                //}
-                //if (is_chi_du == 1)
-                //{
-                //    queryTable = queryTable.Where(q => q.is_chi_du == true);
-                //}
-                //if (is_chi_du == 0)
-                //{
-                //    queryTable = queryTable.Where(q => q.is_chi_du != true);
-                //}
-                //if (Boolean.Parse(dictionary["open"]) == true)
-                //{
-
-                //    queryTable = queryTable
-                //            //.Where(d => d.status_del == status_del)
-                //            .Where(d => d.loai_giao_dich == int.Parse(id_loai_giao_dich) || id_loai_giao_dich == "-1")
-                //            //.Where(d => d.id_kho_nhap == id_kho || id_kho == "-1")
-                //            .Where(d => d.hinh_thuc_doi_tuong == int.Parse(id_doi_tuong) || id_doi_tuong == "-1")
-                //            ;
-                //}
 
                 var count = queryTable.Count();
                 queryTable = queryTable.OrderByDescending(d => d.ma);

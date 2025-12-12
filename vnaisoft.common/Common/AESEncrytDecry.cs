@@ -6,7 +6,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace WS.Common
+namespace quan_ly_kho.common.Common
 {
     public class CMAESEncrytDecry
     {

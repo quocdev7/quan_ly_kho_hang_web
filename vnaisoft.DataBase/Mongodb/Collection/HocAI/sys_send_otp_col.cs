@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace vnaisoft.DataBase.Mongodb.Collection.HocAI
+namespace quan_ly_kho.DataBase.Mongodb.Collection.HocAI
 {
     [Table("sys_send_otp_col")]
     public class sys_send_otp_col

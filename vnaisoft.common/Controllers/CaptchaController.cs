@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Services;
 
-namespace vnaisoft.common.Controllers
+namespace quan_ly_kho.common.Controllers
 {
     public class UserEnteredCaptchaCodeModel
     {
@@ -64,9 +64,9 @@ namespace vnaisoft.common.Controllers
         private string GenerateRandomOTP(int iOTPLength, string[] saAllowedCharacters)
         {
 
-            string sOTP = String.Empty;
+            string sOTP = string.Empty;
 
-            string sTempChars = String.Empty;
+            string sTempChars = string.Empty;
 
             Random rand = new Random();
 

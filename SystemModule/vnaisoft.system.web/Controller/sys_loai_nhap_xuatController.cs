@@ -6,20 +6,20 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.system.data.DataAccess;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.common;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Services;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.system.data.DataAccess;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     public partial class sys_loai_nhap_xuatController : BaseAuthenticationController
     {

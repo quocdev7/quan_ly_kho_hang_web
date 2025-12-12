@@ -1,25 +1,18 @@
-﻿using Azure;
-using Azure.AI.OpenAI;
-using Google.Api.Gax.Grpc;
-using Google.Apis.Auth.OAuth2;
-using Google.Cloud.AIPlatform.V1;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.Mongodb;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TiktokenSharp;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.HocAI;
 
-namespace vnaisoft.DataBase.hubChanel
+namespace quan_ly_kho.zapp.hubChanel
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
@@ -162,7 +155,7 @@ namespace vnaisoft.DataBase.hubChanel
 
         private async Task addUserConnection()
         {
-            var connectionId = _cache.GetString("SignalChatGPT" + this.Context.User.Identity.Name);
+            var connectionId = _cache.GetString("SignalChatGPT" + Context.User.Identity.Name);
             List<string> listconnection = new List<string>();
             if (!string.IsNullOrEmpty(connectionId))
             {
@@ -170,24 +163,24 @@ namespace vnaisoft.DataBase.hubChanel
             }
             listconnection.Add(Context.ConnectionId);
             var listconnectionStore = listconnection.TakeLast(10).ToList();
-            await _cache.SetStringAsync("SignalChatGPT" + this.Context.User.Identity.Name, string.Join(",", listconnectionStore));
+            await _cache.SetStringAsync("SignalChatGPT" + Context.User.Identity.Name, string.Join(",", listconnectionStore));
 
-            await Clients.All.SendAsync(ChatMethodEnum.Connected.ToString(), this.Context.User.Identity.Name);
+            await Clients.All.SendAsync(ChatMethodEnum.Connected.ToString(), Context.User.Identity.Name);
         }
 
         private async Task removeUserCacheConnection()
         {
-            var connectionId = _cache.GetString("SignalChatGPT" + this.Context.User.Identity.Name);
+            var connectionId = _cache.GetString("SignalChatGPT" + Context.User.Identity.Name);
             List<string> listconnection = new List<string>();
             if (!string.IsNullOrEmpty(connectionId))
             {
                 listconnection.AddRange(connectionId.Split(","));
             }
             listconnection.Remove(Context.ConnectionId);
-            await _cache.SetStringAsync("SignalChatGPT" + this.Context.User.Identity.Name, string.Join(",", listconnection));
+            await _cache.SetStringAsync("SignalChatGPT" + Context.User.Identity.Name, string.Join(",", listconnection));
             if (listconnection.Count == 0)
             {
-                await Clients.All.SendAsync(ChatMethodEnum.Disconnected.ToString(), this.Context.User.Identity.Name);
+                await Clients.All.SendAsync(ChatMethodEnum.Disconnected.ToString(), Context.User.Identity.Name);
             }
         }
 

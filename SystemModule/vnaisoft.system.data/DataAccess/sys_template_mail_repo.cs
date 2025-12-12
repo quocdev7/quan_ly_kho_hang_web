@@ -1,19 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.DataBase.System;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class sys_template_mail_repo
     {
-        //public vnaisoftDefautContext _context;
+        //public quan_ly_khoDefautContext _context;
         public MongoDBContext _context;
         public common_mongo_repo _common_repo;
 
@@ -70,17 +69,17 @@ namespace vnaisoft.system.data.DataAccess
 
         public IQueryable<sys_template_mail_model> FindAll()
         {
-            var result = (from q in _context.sys_template_mail_col.AsQueryable()
+            var result = from q in _context.sys_template_mail_col.AsQueryable()
 
-                          join u in _context.sys_user_col.AsQueryable()
-                          on q.nguoi_cap_nhat equals u.id into uG
-                          from u in uG.DefaultIfEmpty()
+                         join u in _context.sys_user_col.AsQueryable()
+                         on q.nguoi_cap_nhat equals u.id into uG
+                         from u in uG.DefaultIfEmpty()
 
-                          select new sys_template_mail_model
-                          {
-                              db = q,
-                              nguoi_cap_nhat = u.ho_va_ten,
-                          });
+                         select new sys_template_mail_model
+                         {
+                             db = q,
+                             nguoi_cap_nhat = u.ho_va_ten,
+                         };
             return result;
         }
         public async Task<int> update_status_del(string id, string userid, int status_del)

@@ -7,9 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Helper;
-using static vnaisoft.common.BaseClass.BaseAuthenticationController;
+using static quan_ly_kho.common.BaseClass.BaseAuthenticationController;
 
 
 
@@ -18,7 +16,7 @@ using static vnaisoft.common.BaseClass.BaseAuthenticationController;
 /*------------------------------------------------------------------
 * REPORT HELPER - MANH.NGUYEN - JUNE 15, 2011
 ------------------------------------------------------------------*/
-namespace WS.CRM.Data.Helper
+namespace quan_ly_kho.common.Helpers
 {
     public class ExcelHelper
     {
@@ -53,13 +51,13 @@ namespace WS.CRM.Data.Helper
         {
             var cell = row.CreateCell(rowId);
 
-            if (!String.IsNullOrEmpty(value))
+            if (!string.IsNullOrEmpty(value))
             {
                 cell.SetCellValue(value.Trim());
             }
             else
             {
-                cell.SetCellValue(String.Empty);
+                cell.SetCellValue(string.Empty);
             }
             if (cellStyle != null)
             {
@@ -137,7 +135,7 @@ namespace WS.CRM.Data.Helper
         public IFont TitleFontItalic(IWorkbook workbook)
         {
             var titleFont = workbook.CreateFont();
-            titleFont.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.Bold;
+            titleFont.Boldweight = (short)FontBoldWeight.Bold;
             titleFont.FontHeightInPoints = 10;
             //  titleFont.Boldweight = 90 * 9;
             titleFont.FontName = "Times New Roman";
@@ -211,7 +209,7 @@ namespace WS.CRM.Data.Helper
                         break;
                     case 'W':
                         style.Alignment = HorizontalAlignment.Right;
-                        style.DataFormat = format.GetFormat(("#,##0"));
+                        style.DataFormat = format.GetFormat("#,##0");
                         style.SetFont(TitleFont0(workbook));
                         break;
                     case 'M':
@@ -301,7 +299,7 @@ namespace WS.CRM.Data.Helper
                         break;
                     case 'W':
                         style.Alignment = HorizontalAlignment.Right;
-                        style.DataFormat = format.GetFormat(("#,##0"));
+                        style.DataFormat = format.GetFormat("#,##0");
                         style.SetFont(TitleFont0(workbook));
                         break;
                     case 'M':
@@ -611,14 +609,14 @@ namespace WS.CRM.Data.Helper
                     else
                     {
                         if (autoNo)
-                            SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                            SetAlignment(rowC, j++, STT++ + "", styleCenter);
                     }
 
                 }
                 else
                 {
                     if (autoNo)
-                        SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                        SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
                 }
 
@@ -656,7 +654,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -867,14 +865,14 @@ namespace WS.CRM.Data.Helper
                     else
                     {
                         if (autoNo)
-                            SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                            SetAlignment(rowC, j++, STT++ + "", styleCenter);
                     }
 
                 }
                 else
                 {
                     if (autoNo)
-                        SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                        SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
                 }
 
@@ -912,7 +910,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -1110,7 +1108,7 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -1145,7 +1143,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -1343,7 +1341,7 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -1378,7 +1376,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -1511,7 +1509,7 @@ namespace WS.CRM.Data.Helper
                         {
                             style = styleLeftBoldNoBorder;
                         }
-                        SetAlignment(rowC, ((col_header.col_index - 1) ?? 0), col_header.name, style);
+                        SetAlignment(rowC, col_header.col_index - 1 ?? 0, col_header.name, style);
                     }
 
 
@@ -1554,9 +1552,9 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
                 else
-                    SetAlignment(rowC, j++, (t++) + "." + (STT++), styleCenter);
+                    SetAlignment(rowC, j++, t++ + "." + STT++, styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -1591,7 +1589,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -1727,9 +1725,9 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
                 else
-                    SetAlignment(rowC, j++, (t++) + "." + (STT++), styleCenter);
+                    SetAlignment(rowC, j++, t++ + "." + STT++, styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -1767,7 +1765,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -1993,7 +1991,7 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -2028,7 +2026,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -2210,7 +2208,7 @@ namespace WS.CRM.Data.Helper
                         {
 
                         }
-                        SetAlignment(rowC, ((col_header.col_index - 1) ?? 0), col_header.name, style);
+                        SetAlignment(rowC, col_header.col_index - 1 ?? 0, col_header.name, style);
                     }
 
 
@@ -2255,9 +2253,9 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
                 else
-                    SetAlignment(rowC, j++, (t++) + "." + (STT++), styleCenter);
+                    SetAlignment(rowC, j++, t++ + "." + STT++, styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -2292,7 +2290,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -2354,7 +2352,7 @@ namespace WS.CRM.Data.Helper
                 {
                     var row_footer = footer_excel[r].row_index;
                     var lst_col = footer_excel[r].lst_col;
-                    idRowStart = (row_footer ?? 0);
+                    idRowStart = row_footer ?? 0;
                     rowC = sheet.CreateRow(idRowStart);
                     rowC.Height = (short)(100 * 3.2);
 
@@ -2372,7 +2370,7 @@ namespace WS.CRM.Data.Helper
                         {
 
                         }
-                        SetAlignment(rowC, ((col_header.col_index - 1) ?? 0), col_header.name, style);
+                        SetAlignment(rowC, col_header.col_index - 1 ?? 0, col_header.name, style);
                     }
 
 
@@ -2535,7 +2533,7 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -2570,7 +2568,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -2758,7 +2756,7 @@ namespace WS.CRM.Data.Helper
                 cell = rowC.CreateCell(100);
                 // column no.
                 if (autoNo)
-                    SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                    SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
                 foreach (var itemHeader in listKeyPrint)
                 {
@@ -2792,7 +2790,7 @@ namespace WS.CRM.Data.Helper
                             var itemSplitted = itemHeader.Substring(4);
                             try { value = StringHelper.GetValuePropertyString(item, itemSplitted); } catch { }
                         ;
-                            if (!String.IsNullOrEmpty(value))
+                            if (!string.IsNullOrEmpty(value))
                             {
                                 byte[] data = File.ReadAllBytes(value);
                                 int pictureIndex = workbook.AddPicture(data, PictureType.JPEG);
@@ -2957,7 +2955,7 @@ namespace WS.CRM.Data.Helper
                 rowC.Height = (short)(100 * 3.2);
                 cell = rowC.CreateCell(100);
                 // column no.
-                SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -3113,7 +3111,7 @@ namespace WS.CRM.Data.Helper
                 rowC.Height = (short)(100 * 3.2);
                 cell = rowC.CreateCell(100);
                 // column no.
-                SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -3848,7 +3846,7 @@ namespace WS.CRM.Data.Helper
                 rowC.Height = (short)(100 * 3.2);
                 cell = rowC.CreateCell(100);
                 // column no.
-                SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -4047,7 +4045,7 @@ namespace WS.CRM.Data.Helper
                 rowC.Height = (short)(100 * 3.2);
                 cell = rowC.CreateCell(100);
                 // column no.
-                SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)
@@ -4241,7 +4239,7 @@ namespace WS.CRM.Data.Helper
                 rowC.Height = (short)(100 * 3.2);
                 cell = rowC.CreateCell(100);
                 // column no.
-                SetAlignment(rowC, j++, (STT++) + "", styleCenter);
+                SetAlignment(rowC, j++, STT++ + "", styleCenter);
 
 
                 foreach (var itemHeader in listKeyPrint)

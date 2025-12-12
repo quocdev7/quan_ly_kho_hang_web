@@ -1,11 +1,9 @@
 ﻿using MongoDB.Driver;
-using vnaisoft.DataBase.Mongodb.Collection.HocAI;
+using quan_ly_kho.DataBase.Mongodb.Collection.HocAI;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.DataBase.System;
 
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.DataBase.System;
-
-
-namespace vnaisoft.DataBase.Mongodb
+namespace quan_ly_kho.DataBase.Mongodb
 {
 
     public partial class MongoDBContext

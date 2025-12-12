@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace vnaisoft.common.Common
+namespace quan_ly_kho.common.Common
 {
     public static class File_content_type
     {

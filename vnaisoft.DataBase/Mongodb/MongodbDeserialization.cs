@@ -1,11 +1,12 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System;using MongoDB.Bson.Serialization.Attributes;
+using System;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 using System.Text;
 
-namespace vnaisoft.DataBase.Mongodb
+namespace quan_ly_kho.DataBase.Mongodb
 {
     public class DateTimeSerializer : IBsonDocumentSerializer
     {
@@ -16,7 +17,7 @@ namespace vnaisoft.DataBase.Mongodb
             var date = (DateTime)value;
             var milliseconds = new DateTimeOffset(date).ToUnixTimeMilliseconds();
             var bsonDate = new BsonDateTime(milliseconds);
-            context.Writer.WriteDateTime((bsonDate.MillisecondsSinceEpoch));
+            context.Writer.WriteDateTime(bsonDate.MillisecondsSinceEpoch);
         }
 
         public object Deserialize(BsonDeserializationContext context, BsonDeserializationArgs args)

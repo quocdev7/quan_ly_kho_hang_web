@@ -1,10 +1,11 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;using MongoDB.Bson.Serialization.Attributes;
+using System;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace vnaisoft.DataBase.System
+namespace quan_ly_kho.DataBase.System
 {
     [Table("sys_group_user_detail_db")]
     public class sys_group_user_detail_db

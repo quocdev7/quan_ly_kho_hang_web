@@ -87,7 +87,6 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
         if (event.key === 'Enter') {
             if (this.combinedCode != "" && this.combinedCode.length > 6 && (this.ma_mat_hang ?? "") == "") {
                 this.ma_mat_hang = this.combinedCode;
-                this.add_mat_hang()
             }
             this.combinedCode = "";
         } else {
@@ -121,54 +120,7 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
             this.close();
         });
     }
-    resetDonHang(): void {
-        var ma = this.record.db.ma;
-        var ten = this.record.db.ten;
-        this.record = this.Oldrecord;
-        this.record.db.ma = ma;
-        this.record.db.ten = ten;
-        this.record.list_mat_hang = [];
-    }
-    add_mat_hang() {
-        var ma_mat_hang = this.ma_mat_hang + "";
-        this.ma_mat_hang = "";
-        if (this.record.so_luong_mh <= 0 || this.record.so_luong_mh == null) {
-            Swal.fire("Số lượng phải lớn hơn 0", "", "warning");
-        }
-        else {
-            this.http
-                .post('/sys_mat_hang.ctr/add_mat_hang_da_chon/', {
-                    ma: ma_mat_hang.trim(),
-                    id_doi_tuong: this.record.db.id_doi_tuong ?? "",
-                    loai_giao_dich: this.record.db.loai_giao_dich,
-                    list_mat_hang: this.record.list_mat_hang
-                }
-                ).subscribe(resp => {
-                    var data: any;
-                    data = resp;
-
-                    if (data.list_mat_hang.length == 0) {
-                        if (data.result == 1) {
-                            Swal.fire("mã " + ma_mat_hang + ", " + this._translocoService.translate('erp.mat_hang_khong_ton_tai_trong_he_thong'), "", "warning");
-                        }
-                        else if (data.result == 2) {
-                            Swal.fire(this._translocoService.translate('erp.mat_hang_phai_la_hang_hoa'), "", "warning");
-                        } else if (data.result == 3) {
-                            Swal.fire(this._translocoService.translate('erp.mat_hang_phai_la_dich_vu'), "", "warning");
-                        } else {
-                            Swal.fire(this._translocoService.translate('erp.mat_hang_da_ngung_su_dung'), "", "warning");
-                        }
-
-                    } else {
-                        //this.load_list_choose(data.list_mat_hang);
-
-                        //this.record.list_mat_hang.push(data.list_mat_hang);
-                    }
-
-
-                });
-        }
-    }
+    
     get_code() {
         this.http
             .post('/sys_don_hang_ban.ctr/get_code/', {
@@ -222,7 +174,6 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
 
         return prev + thanhTien;
         }, 0);
-        //this.record.list_mat_hang.reduce((prev, next) => prev + Number(next.don_gia), 0) + Number(this.record.db.tien_van_chuyen);
     }
     get_list_vat() {
         this.list_vat = list_vat;
@@ -244,213 +195,10 @@ export class sys_don_hang_ban_popUpAddComponent extends BasePopUpAddTypeComponen
 
                     var data: any = resp;
                     this.record = data;
-                    if(this.actionEnum == 2)
-                    {
-                        //this.baseInitData();
-                    }
                 });
         Swal.close();
     }
     
-    loadThanhTienSauThueMatHangPopup(): void {
-
-        if (this.record.cau_hinh_gia_ban == "true") {
-            for (var i = 0; i < this.record.list_mat_hang.length; i++) {
-                var pos = i;
-                var mat_hang = this.record.list_mat_hang[pos];
-                var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.db.vat)[0].value;
-                if (vat_mat_hang == undefined || vat_mat_hang == null) {
-                    vat_mat_hang = 0;
-                }
-                mat_hang.db.thanh_tien_truoc_thue = Math.round(Number(mat_hang.db.so_luong ?? 0) * Number(mat_hang.db.don_gia));
-                if (isNaN(mat_hang.db.thanh_tien_truoc_thue)) {
-                    mat_hang.db.thanh_tien_truoc_thue = 0;
-                }
-
-                // gan gia tri cho list mat hang ban
-                this.record.list_mat_hang[pos].db.don_gia_gom_thue = Number(mat_hang.db.don_gia);
-                this.record.list_mat_hang[pos].db.so_luong = Number(mat_hang.db.so_luong ?? 0);
-
-                this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau = Math.round(Number(this.record.list_mat_hang[pos].db.thanh_tien_sau_thue * 100
-                    / (100 + Number(vat_mat_hang))));
-                this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue = Math.round(Number(this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau) * 100
-                    / (100 - Number(mat_hang.db.chiet_khau)));
-                this.record.list_mat_hang[pos].db.tien_vat = Math.round(Number(this.record.list_mat_hang[pos].db.thanh_tien_sau_thue) - Number(this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau));
-                //this.record.list_mat_hang[pos].db.chiet_khau = Number(this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue) - Number(this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau);
-                this.record.list_mat_hang[pos].db.chiet_khau = Number(mat_hang.db.chiet_khau);
-
-                this.record.list_mat_hang[pos].db.tien_vat = Math.round(Number(mat_hang.db.thanh_tien_chiet_khau) * Number(vat_mat_hang / 100));
-                this.record.list_mat_hang[pos].db.ghi_chu = mat_hang.db.ghi_chu;
-                this.record.list_mat_hang[pos].db.vat = mat_hang.db.vat;
-
-                this._changeDetectorRef.markForCheck();
-            }
-        }
-        else {
-            for (var i = 0; i < this.record.list_mat_hang.length; i++) {
-                var pos = i;
-                var mat_hang = this.record.list_mat_hang[pos];
-                var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.db.vat)[0].value;
-                if (vat_mat_hang == undefined || vat_mat_hang == null) {
-                    vat_mat_hang = 0;
-                }
-                mat_hang.db.thanh_tien_truoc_thue = Math.round(Number(mat_hang.db.so_luong ?? 0) * Number(mat_hang.db.don_gia));
-                if (isNaN(mat_hang.db.thanh_tien_truoc_thue)) {
-                    mat_hang.db.thanh_tien_truoc_thue = 0;
-                }
-
-                // gan gia tri cho list mat hang ban
-                this.record.list_mat_hang[pos].db.don_gia = Number(mat_hang.db.don_gia);
-                this.record.list_mat_hang[pos].db.so_luong = Number(mat_hang.db.so_luong ?? 0);
-                this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue = Math.round(Number(mat_hang.db.thanh_tien_truoc_thue));
-                this.record.list_mat_hang[pos].db.chiet_khau = Number(mat_hang.db.chiet_khau);
-                this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau = Math.round(this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue - (this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue * Number(mat_hang.db.chiet_khau / 100)));
-
-                this.record.list_mat_hang[pos].db.tien_vat = Math.round(Number(mat_hang.db.thanh_tien_chiet_khau) * Number(vat_mat_hang / 100));
-                this.record.list_mat_hang[pos].db.thanh_tien_sau_thue = Math.round(Number(this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau) + Number(mat_hang.db.tien_vat));
-                this.record.list_mat_hang[pos].db.ghi_chu = mat_hang.db.ghi_chu;
-                this.record.list_mat_hang[pos].db.vat = mat_hang.db.vat;
-                this._changeDetectorRef.markForCheck();
-            }
-        }
-
-
-        this.generate_total_mat_hang();
-    }
-    
-
-    loadThanhTienSauThueMatHangChangeTienThue(pos): void {
-        //var pos = this.pos
-        if (this.record.cau_hinh_gia_ban == "true") {
-            var mat_hang = this.record.list_mat_hang[pos];
-            var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.db.vat)[0].value;
-            if (vat_mat_hang == undefined || vat_mat_hang == null) {
-                vat_mat_hang = 0;
-            }
-            this.record.list_mat_hang[pos].db.so_luong = Number(mat_hang.db.so_luong ?? 0);
-            this.record.list_mat_hang[pos].db.ghi_chu = mat_hang.db.ghi_chu;
-            this.record.list_mat_hang[pos].db.vat = mat_hang.db.vat;
-            this.record.list_mat_hang[pos].db.don_gia_gom_thue = Number(mat_hang.db.don_gia);
-
-            var thanh_tien_truoc_thue = (Number(mat_hang.db.don_gia_gom_thue) * 100) / (100 + Number(vat_mat_hang)) * Number(mat_hang.db.so_luong);
-            mat_hang.db.thanh_tien_truoc_thue = Math.round(thanh_tien_truoc_thue);
-
-
-
-            mat_hang.db.don_gia = Number(mat_hang.db.thanh_tien_truoc_thue) / Number(mat_hang.db.so_luong);
-
-
-            var tien_chiet_khau = Number(mat_hang.db.thanh_tien_truoc_thue) * Number(mat_hang.db.chiet_khau / 100);
-            var thanh_tien_chiet_khau = Number(mat_hang.db.thanh_tien_truoc_thue) - Number(tien_chiet_khau);
-            mat_hang.db.thanh_tien_chiet_khau = Math.round(thanh_tien_chiet_khau);
-
-           // var tien_vat = Number(mat_hang.db.thanh_tien_chiet_khau) * Number(vat_mat_hang / 100);
-           // mat_hang.db.tien_vat = Math.round(tien_vat);
-
-            mat_hang.db.thanh_tien_sau_thue = Math.round(Number(mat_hang.db.thanh_tien_chiet_khau) + Number(mat_hang.db.tien_vat));
-
-
-            // mat_hang.db.thanh_tien_truoc_thue =  Number(mat_hang.db.thanh_tien_sau_thue) / ( 1 -  Number(mat_hang.db.chiet_khau/100) + Number(vat_mat_hang/100) ) ;
-
-            // if (isNaN(mat_hang.db.thanh_tien_truoc_thue)) {
-            //      mat_hang.db.thanh_tien_truoc_thue = 0;
-            // }
-            this._changeDetectorRef.markForCheck();
-        }
-        else {
-            var mat_hang = this.record.list_mat_hang[pos];
-            var vat_mat_hang = this.list_vat.filter(q => q.id == mat_hang.db.vat)[0].value;
-            if (vat_mat_hang == undefined || vat_mat_hang == null) {
-                vat_mat_hang = 0;
-            }
-            mat_hang.db.thanh_tien_truoc_thue = Number(mat_hang.db.so_luong ?? 0) * Number(mat_hang.db.don_gia);
-            if (isNaN(mat_hang.db.thanh_tien_truoc_thue)) {
-                mat_hang.db.thanh_tien_truoc_thue = 0;
-            }
-
-            // gan gia tri cho list mat hang ban
-            this.record.list_mat_hang[pos].db.don_gia = Number(mat_hang.db.don_gia);
-            this.record.list_mat_hang[pos].db.so_luong = Number(mat_hang.db.so_luong ?? 0);
-            this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue = Math.round(Number(mat_hang.db.thanh_tien_truoc_thue));
-            this.record.list_mat_hang[pos].db.chiet_khau = Number(mat_hang.db.chiet_khau);
-            var thanh_tien_chiet_khau = this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue - (this.record.list_mat_hang[pos].db.thanh_tien_truoc_thue * Number(mat_hang.db.chiet_khau / 100));
-            this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau = Math.round(thanh_tien_chiet_khau);
-
-            var tien_vat = Number(mat_hang.db.thanh_tien_chiet_khau) * Number(vat_mat_hang / 100);
-            //this.record.list_mat_hang[pos].db.tien_vat = Math.round(tien_vat);
-            var thanh_tien_sau_thue = Number(this.record.list_mat_hang[pos].db.thanh_tien_chiet_khau) + Number(mat_hang.db.tien_vat);
-            this.record.list_mat_hang[pos].db.thanh_tien_sau_thue = Math.round(thanh_tien_sau_thue);
-            this.record.list_mat_hang[pos].db.ghi_chu = mat_hang.db.ghi_chu;
-            this.record.list_mat_hang[pos].db.vat = mat_hang.db.vat;
-            this._changeDetectorRef.markForCheck();
-
-        }
-        this.generate_total_mat_hang();
-    }
-    get_list_file(): void {
-        this.http.post(this.controller + '.ctr/get_list_file', {
-            id_feed: this.record.db.id,
-        }).subscribe(resp => {
-            //this.list_file_upload = resp; 
-        })
-    }
-    public sum_so_luong(arr): any {
-        var value = 0;
-        if (arr == undefined) {
-
-        } else {
-            if (arr.length > 0) {
-                for (var i = 0; i < arr.length; i++) {
-                    if (arr[i].db.so_luong == null || arr[i].db.so_luong == '') {
-                        arr[i].db.so_luong = 0;
-                    }
-                    value += parseFloat(arr[i].db.so_luong);
-                }
-            }
-        }
-
-        return value;
-
-    };
-    public sum_thanh_tien_truoc_thue(arr): any {
-        var value = 0;
-
-        if (arr == undefined) {
-
-        } else {
-            if (arr.length > 0) {
-                for (var i = 0; i < arr.length; i++) {
-                    value += parseFloat(arr[i].db.thanh_tien_truoc_thue);
-                }
-            }
-        }
-        return value;
-    };
-    public sum_tien_thue(arr): any {
-        var value = 0;
-        if (arr == undefined) {
-        } else {
-            if (arr.length > 0) {
-                for (var i = 0; i < arr.length; i++) {
-                    value += parseFloat(arr[i].db.tien_thue);
-                }
-            }
-        }
-        return value;
-    };
-    public sum_thanh_tien_sau_thue(arr): any {
-        var value = 0;
-        if (arr == undefined) {
-        } else {
-            if (arr.length > 0) {
-                for (var i = 0; i < arr.length; i++) {
-
-                    value += parseFloat(arr[i].db.thanh_tien_sau_thue);
-                }
-            }
-        }
-        return value;
-    };
     delete_mat_hang(pos, ten_mat_hang): void {
         Swal.fire({
             html: `<div>

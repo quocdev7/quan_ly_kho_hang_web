@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using quan_ly_kho.common.Models;
+using quan_ly_kho.system.web.Controller;
+using System.Collections.Generic;
+//using quan_ly_kho.so_chu_nhiem.web.Controller;
 
-using vnaisoft.common.Models;
-using vnaisoft.system.web.Controller;
-//using vnaisoft.so_chu_nhiem.web.Controller;
-
-namespace vnaisoft.system.web.MenuAndRole
+namespace quan_ly_kho.system.web.MenuAndRole
 {
     public static class SystemListController
     {

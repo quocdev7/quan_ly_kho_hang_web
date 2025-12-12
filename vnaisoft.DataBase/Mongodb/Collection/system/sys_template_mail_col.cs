@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace vnaisoft.DataBase.Mongodb.Collection.system
+namespace quan_ly_kho.DataBase.Mongodb.Collection.system
 {
     [Table("sys_template_mail_col")]
     public class sys_template_mail_col

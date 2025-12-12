@@ -1,7 +1,7 @@
-﻿using System;
-using vnaisoft.DataBase.Mongodb.Collection.system;
+﻿using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using System;
 
-namespace vnaisoft.system.data.Models
+namespace quan_ly_kho.system.data.Models
 {
     public class sys_phieu_nhap_kho_chi_tiet_model
     {
@@ -33,7 +33,7 @@ namespace vnaisoft.system.data.Models
         public string id_loai_mat_hang { get; set; }
         public string vat { get; set; }
     }
-    
+
 }
 
 

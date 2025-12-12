@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using System.Collections.Generic;
 using System.Linq;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Mongodb.Collection.system;
 
-namespace vnaisoft.system.data.Models
+namespace quan_ly_kho.system.data.Models
 {
     public class sys_phieu_nhap_kho_model
     {

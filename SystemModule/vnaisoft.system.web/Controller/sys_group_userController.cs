@@ -3,19 +3,18 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.system.data.DataAccess;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.common;
-using vnaisoft.common.Services;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.System;
-using vnaisoft.system.data.DataAccess;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     public partial class sys_group_userController : BaseAuthenticationController
     {
@@ -41,7 +40,7 @@ namespace vnaisoft.system.web.Controller
         public async Task<IActionResult> getListItem([FromBody] JObject json)
         {
             var id = json.GetValue("id").ToString();
-            var model = repo.FindAllItem().OrderBy(q=>q.type_user).ToList();
+            var model = repo.FindAllItem().OrderBy(q => q.type_user).ToList();
 
             model.ForEach(t =>
             {

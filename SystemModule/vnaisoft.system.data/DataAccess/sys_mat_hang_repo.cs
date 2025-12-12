@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Helper;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class sys_mat_hang_repo
     {
@@ -51,7 +51,7 @@ namespace vnaisoft.system.data.DataAccess
         }
         public async Task<int> insert(sys_mat_hang_model model)
         {
-            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
+            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", string.Empty);
 
             await _context.sys_mat_hang_col.InsertOneAsync(model.db);
 
@@ -61,7 +61,7 @@ namespace vnaisoft.system.data.DataAccess
 
         public async Task<int> update(sys_mat_hang_model model)
         {
-            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
+            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", string.Empty);
 
             var update = Builders<sys_mat_hang_col>.Update
             //.Set(x => x.ma, model.db.ma)
@@ -88,26 +88,26 @@ namespace vnaisoft.system.data.DataAccess
         public IQueryable<sys_mat_hang_model> FindAll(IQueryable<sys_mat_hang_col> query)
         {
 
-            var result = (from d in query.OrderByDescending(d => d.ma)
-                          join u in _context.sys_user_col.AsQueryable()
-                         on d.nguoi_cap_nhat equals u.id into uG
+            var result = from d in query.OrderByDescending(d => d.ma)
+                         join u in _context.sys_user_col.AsQueryable()
+                        on d.nguoi_cap_nhat equals u.id into uG
 
 
-                          join lmh in _context.sys_loai_mat_hang_col.AsQueryable()
-                       on d.id_loai_mat_hang equals lmh.id into lmhG
+                         join lmh in _context.sys_loai_mat_hang_col.AsQueryable()
+                      on d.id_loai_mat_hang equals lmh.id into lmhG
 
-                          join dvt in _context.sys_don_vi_tinh_col.AsQueryable()
-                          on d.id_don_vi_tinh equals dvt.id into dvtG
+                         join dvt in _context.sys_don_vi_tinh_col.AsQueryable()
+                         on d.id_don_vi_tinh equals dvt.id into dvtG
 
-                          from u in uG.DefaultIfEmpty()
-                          from lmh in lmhG.DefaultIfEmpty()
-                          from dvt in dvtG.DefaultIfEmpty()
+                         from u in uG.DefaultIfEmpty()
+                         from lmh in lmhG.DefaultIfEmpty()
+                         from dvt in dvtG.DefaultIfEmpty()
 
-                          select new sys_mat_hang_model
-                          {
-                              db = d,
-                              nguoi_cap_nhat = u.ho_va_ten,
-                          });
+                         select new sys_mat_hang_model
+                         {
+                             db = d,
+                             nguoi_cap_nhat = u.ho_va_ten,
+                         };
             return result;
         }
 

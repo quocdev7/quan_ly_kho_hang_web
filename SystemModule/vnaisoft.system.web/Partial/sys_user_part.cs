@@ -1,12 +1,12 @@
 ﻿using MongoDB.Driver;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Models;
+using quan_ly_kho.system.data.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.Models;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     partial class sys_userController
     {
@@ -63,7 +63,7 @@ namespace vnaisoft.system.web.Controller
             list_controller_action_publicNonLogin = new List<string>(){
                   "sys_user;save_token_hoc_cung_ai",
 
-                 
+
                    "sys_user;get_user_in_group",
                    "sys_user;authenticate_sso",
                       "sys_user;send_mail_otp_new",

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace vnaisoft.common.Models
+namespace quan_ly_kho.common.Models
 {
     public class ControllerAppModel
     {

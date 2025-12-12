@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using quan_ly_kho.DataBase.Mongodb;
 using System;
 using System.Collections.Generic;
-using vnaisoft.DataBase.Mongodb;
 
 public interface IMongoClientFactory
 {

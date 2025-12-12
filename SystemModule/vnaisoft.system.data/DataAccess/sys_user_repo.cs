@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.System;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.common.Common;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.System;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class sys_user_repo
     {
-        //public vnaisoftDefautContext _context;
+        //public quan_ly_khoDefautContext _context;
         public MongoDBContext _context;
         public common_mongo_repo _common_repo;
         private IMailService _mailService;
@@ -75,26 +75,26 @@ namespace vnaisoft.system.data.DataAccess
 
         public IQueryable<sys_user_model> FindAll()
         {
-            var result = (from u in _context.sys_user_col.AsQueryable()
+            var result = from u in _context.sys_user_col.AsQueryable()
 
 
-                          join us in _context.sys_user_col.AsQueryable()
-                         on u.nguoi_cap_nhat equals us.id into usG
+                         join us in _context.sys_user_col.AsQueryable()
+                        on u.nguoi_cap_nhat equals us.id into usG
 
 
-                          from us in usG.DefaultIfEmpty()
-                          select new sys_user_model
-                          {
-                              db = u,
-                              id = u.id,
-                              nguoi_cap_nhat = us.ho_va_ten,
-                              ho_va_ten = u.ho_va_ten,
-                              email = u.email,
-                              phone = u.so_dien_thoai,
-                              nguoi_tao = us.ho_va_ten,
-                              Username = u.Username,
-                              hinh_anh_dai_dien = u.hinh_anh_dai_dien ?? "assets/images/logo/logo.png",
-                          });
+                         from us in usG.DefaultIfEmpty()
+                         select new sys_user_model
+                         {
+                             db = u,
+                             id = u.id,
+                             nguoi_cap_nhat = us.ho_va_ten,
+                             ho_va_ten = u.ho_va_ten,
+                             email = u.email,
+                             phone = u.so_dien_thoai,
+                             nguoi_tao = us.ho_va_ten,
+                             Username = u.Username,
+                             hinh_anh_dai_dien = u.hinh_anh_dai_dien ?? "assets/images/logo/logo.png",
+                         };
             return result;
         }
 

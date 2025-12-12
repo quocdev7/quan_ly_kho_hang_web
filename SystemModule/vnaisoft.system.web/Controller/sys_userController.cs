@@ -4,17 +4,25 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-
 using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Models;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.HocAI;
+using quan_ly_kho.DataBase.System;
+using quan_ly_kho.system.data.DataAccess;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
-
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
@@ -24,23 +32,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.common;
-using vnaisoft.common.Common;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Models;
-using vnaisoft.common.Services;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.HocAI;
-using vnaisoft.DataBase.System;
-using vnaisoft.fireBase.API;
-using vnaisoft.system.data.DataAccess;
-using vnaisoft.system.data.Models;
 
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     public partial class sys_userController : BaseAuthenticationController
     {
@@ -1324,7 +1318,7 @@ namespace vnaisoft.system.web.Controller
 
             var idUser = CMAESCrypto.DecryptText(idtoken);
             var user = repo._context.sys_user_col.AsQueryable().Where(d => d.id == idUser).SingleOrDefault();
-            
+
             if (string.IsNullOrEmpty(password))
             {
                 ModelState.AddModelError("password", "required");
@@ -1396,7 +1390,7 @@ namespace vnaisoft.system.web.Controller
             }
 
         }
-        
+
         public async Task<IActionResult> forgot_pass([FromBody] JObject json)
         {
             var email = json.GetValue("email").ToString();

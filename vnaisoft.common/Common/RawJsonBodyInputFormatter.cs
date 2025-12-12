@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace vnaisoft.common.Common
+namespace quan_ly_kho.common.Common
 {
     
         public class RawRequestBodyFormatter : InputFormatter
@@ -24,7 +24,7 @@ namespace vnaisoft.common.Common
             /// </summary>
             /// <param name="context"></param>
             /// <returns></returns>
-            public override Boolean CanRead(InputFormatterContext context)
+            public override bool CanRead(InputFormatterContext context)
             {
                 if (context == null) throw new ArgumentNullException(nameof(context));
 

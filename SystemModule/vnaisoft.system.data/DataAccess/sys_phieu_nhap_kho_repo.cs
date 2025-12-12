@@ -1,16 +1,16 @@
 ﻿using MongoDB.Driver;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Helper;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class sys_phieu_nhap_kho_repo
     {
@@ -45,7 +45,7 @@ namespace vnaisoft.system.data.DataAccess
 
         public async Task<sys_phieu_nhap_kho_model> getElementById(string id)
         {
-            var query = _context.sys_phieu_nhap_kho_col.AsQueryable().Where((m => m.id == id));
+            var query = _context.sys_phieu_nhap_kho_col.AsQueryable().Where(m => m.id == id);
             var obj = FindAll(query).SingleOrDefault();
 
             var queryTableDetail = _context.sys_phieu_nhap_kho_chi_tiet_col.AsQueryable().Where(q => q.id_phieu_nhap_kho == id.Trim());
@@ -69,7 +69,7 @@ namespace vnaisoft.system.data.DataAccess
         }
         public async Task<int> insert(sys_phieu_nhap_kho_model model)
         {
-            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
+            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", string.Empty);
             await _context.sys_phieu_nhap_kho_col.InsertOneAsync(model.db);
             if (model.list_mat_hang.Count() > 0)
             {
@@ -85,10 +85,10 @@ namespace vnaisoft.system.data.DataAccess
               .Where(d => d.id_phieu_nhap_kho == id_phieu)
               .Select(d => new
               {
-                  id_mat_hang = d.id_mat_hang,
-                  id_don_vi_tinh = d.id_don_vi_tinh,
-                  so_luong = d.so_luong,
-                  gia_tri = d.gia_tri,
+                  d.id_mat_hang,
+                  d.id_don_vi_tinh,
+                  d.so_luong,
+                  d.gia_tri,
               }).ToList();
 
             for (int i = 0; i < listOld.Count(); i++)
@@ -134,7 +134,7 @@ namespace vnaisoft.system.data.DataAccess
         }
         public async Task<int> update(sys_phieu_nhap_kho_model model)
         {
-            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", String.Empty);
+            model.db.ten_khong_dau = Regex.Replace(StringFunctions.NonUnicode(HttpUtility.HtmlDecode(model.db.ten ?? "")).ToLower().Normalize(), "<.*?>|&.*?;", string.Empty);
             var update = Builders<sys_phieu_nhap_kho_col>.Update
                   .Set(x => x.ten, model.db.ten)
                   .Set(x => x.ten_khong_dau, model.db.ten_khong_dau)
@@ -164,43 +164,43 @@ namespace vnaisoft.system.data.DataAccess
 
         public IQueryable<sys_phieu_nhap_kho_model> FindAll(IQueryable<sys_phieu_nhap_kho_col> query)
         {
-            var result = (from d in query.OrderByDescending(d => d.ngay_nhap)
+            var result = from d in query.OrderByDescending(d => d.ngay_nhap)
 
-                          join u in _context.sys_user_col.AsQueryable()
-                          on d.nguoi_cap_nhat equals u.id into uG
+                         join u in _context.sys_user_col.AsQueryable()
+                         on d.nguoi_cap_nhat equals u.id into uG
 
-                          from u in uG.DefaultIfEmpty()
+                         from u in uG.DefaultIfEmpty()
 
-                          select new sys_phieu_nhap_kho_model
-                          {
-                              db = d,
-                              ten_nguoi_cap_nhat = u.ho_va_ten,
-                          });
+                         select new sys_phieu_nhap_kho_model
+                         {
+                             db = d,
+                             ten_nguoi_cap_nhat = u.ho_va_ten,
+                         };
             return result;
         }
 
         public IQueryable<sys_phieu_nhap_kho_chi_tiet_model> FindAllDetail(IQueryable<sys_phieu_nhap_kho_chi_tiet_col> query)
         {
 
-            var result = (from d in query.OrderByDescending(d => d.id_phieu_nhap_kho)
-                          join mh in _context.sys_mat_hang_col.AsQueryable()
-                           on d.id_mat_hang equals mh.id into mhG
+            var result = from d in query.OrderByDescending(d => d.id_phieu_nhap_kho)
+                         join mh in _context.sys_mat_hang_col.AsQueryable()
+                          on d.id_mat_hang equals mh.id into mhG
 
-                          join dvt in _context.sys_don_vi_tinh_col.AsQueryable()
-                          on d.id_don_vi_tinh equals dvt.id into dvtG
+                         join dvt in _context.sys_don_vi_tinh_col.AsQueryable()
+                         on d.id_don_vi_tinh equals dvt.id into dvtG
 
-                          from dvt in dvtG.DefaultIfEmpty()
-                          from mh in mhG.DefaultIfEmpty()
+                         from dvt in dvtG.DefaultIfEmpty()
+                         from mh in mhG.DefaultIfEmpty()
 
-                          select new sys_phieu_nhap_kho_chi_tiet_model
-                          {
-                              db = d,
-                              ten_don_vi_tinh = dvt.ten,
-                              ten_mat_hang = mh.ten,
-                              ma_mat_hang = mh.ma,
-                              id_mat_hang = mh.id,
-                              id_deatils_nhap_kho = d.id,
-                          });
+                         select new sys_phieu_nhap_kho_chi_tiet_model
+                         {
+                             db = d,
+                             ten_don_vi_tinh = dvt.ten,
+                             ten_mat_hang = mh.ten,
+                             ma_mat_hang = mh.ma,
+                             id_mat_hang = mh.id,
+                             id_deatils_nhap_kho = d.id,
+                         };
             return result;
         }
 

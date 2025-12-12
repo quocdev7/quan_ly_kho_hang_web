@@ -1,7 +1,6 @@
-﻿using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.DataBase.System;
+﻿using quan_ly_kho.DataBase.Mongodb.Collection.system;
 
-namespace vnaisoft.system.data.Models
+namespace quan_ly_kho.system.data.Models
 {
     public class sys_template_mail_model
     {

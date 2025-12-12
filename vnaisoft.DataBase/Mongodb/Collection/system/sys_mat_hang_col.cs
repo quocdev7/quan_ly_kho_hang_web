@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
-namespace vnaisoft.DataBase.Mongodb.Collection.system
+namespace quan_ly_kho.DataBase.Mongodb.Collection.system
 {
     [Table("sys_mat_hang_col")]
     public class sys_mat_hang_col

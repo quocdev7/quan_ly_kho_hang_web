@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace vnaisoft.DataBase.System
+namespace quan_ly_kho.DataBase.System
 {
     [Table("Users")]
     public class UserHocCungAi

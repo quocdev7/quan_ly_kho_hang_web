@@ -1,8 +1,8 @@
 using AutoMapper;
-using vnaisoft.DataBase.System;
-using vnaisoft.common.Models.Users;
+using quan_ly_kho.DataBase.System;
+using quan_ly_kho.common.Models.Users;
 
-namespace vnaisoft.common.Helpers
+namespace quan_ly_kho.common.Helpers
 {
     public class AutoMapperProfile : Profile
     {

@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.system.data.Models;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class sys_loai_nhap_xuat_repo
     {
@@ -56,16 +56,16 @@ namespace vnaisoft.system.data.DataAccess
         public IQueryable<sys_loai_nhap_xuat_model> FindAll()
         {
 
-            var result = (from d in _context.sys_loai_nhap_xuat_col.AsQueryable()
+            var result = from d in _context.sys_loai_nhap_xuat_col.AsQueryable()
 
-                          join u in _context.sys_user_col.AsQueryable()
-                         on d.nguoi_cap_nhat equals u.id into lu
-                          from user in lu.DefaultIfEmpty()
-                          select new sys_loai_nhap_xuat_model
-                          {
-                              db = d,
-                              ten_nguoi_cap_nhat = user.ho_va_ten,
-                          });
+                         join u in _context.sys_user_col.AsQueryable()
+                        on d.nguoi_cap_nhat equals u.id into lu
+                         from user in lu.DefaultIfEmpty()
+                         select new sys_loai_nhap_xuat_model
+                         {
+                             db = d,
+                             ten_nguoi_cap_nhat = user.ho_va_ten,
+                         };
             return result;
 
         }

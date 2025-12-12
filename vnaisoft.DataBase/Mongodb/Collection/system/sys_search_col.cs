@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace vnaisoft.DataBase.System
+namespace quan_ly_kho.DataBase.Mongodb.Collection.system
 {
     [Table("sys_search_col")]
     public class sys_search_col

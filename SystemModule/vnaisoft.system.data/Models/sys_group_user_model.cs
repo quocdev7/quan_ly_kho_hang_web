@@ -1,11 +1,7 @@
-﻿using MimeKit.Cryptography;
-using System;
+﻿using quan_ly_kho.DataBase.System;
 using System.Collections.Generic;
-using System.Text;
-using vnaisoft.common.Models;
-using vnaisoft.DataBase.System;
 
-namespace vnaisoft.system.data.Models
+namespace quan_ly_kho.system.data.Models
 {
     public class sys_group_user_model
     {
@@ -34,7 +30,7 @@ namespace vnaisoft.system.data.Models
         public bool? isCheck { get; set; }
         public int? type_user { get; set; }
         public bool? is_system { get; set; }
-        
+
     }
     public class sys_group_user_role_model
     {

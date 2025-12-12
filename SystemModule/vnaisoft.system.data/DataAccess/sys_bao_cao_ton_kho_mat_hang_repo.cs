@@ -1,17 +1,16 @@
 ﻿using MongoDB.Driver;
 using NPOI.SS.Util;
 using NPOI.XSSF.UserModel;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.common;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using quan_ly_kho.system.data.Models;
 using System.Collections.Generic;
 using System.Linq;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.commonFunc;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.system.data.Models;
-using WS.CRM.Data.Helper;
-using static vnaisoft.common.BaseClass.BaseAuthenticationController;
+using static quan_ly_kho.common.BaseClass.BaseAuthenticationController;
 
-namespace vnaisoft.system.data.DataAccess
+namespace quan_ly_kho.system.data.DataAccess
 {
     public class bao_cao_ton_kho_mat_hang_repo
     {
@@ -101,22 +100,22 @@ namespace vnaisoft.system.data.DataAccess
         public IQueryable<bao_cao_ton_kho_mat_hang_model> FindAll(IQueryable<sys_ton_kho_mat_hang_col> query)
         {
 
-            var result = (from d in query
-                          join mh in _context.sys_mat_hang_col.AsQueryable()
-                                              on d.id_mat_hang equals mh.id into mhG
+            var result = from d in query
+                         join mh in _context.sys_mat_hang_col.AsQueryable()
+                                             on d.id_mat_hang equals mh.id into mhG
 
-                          from mh in mhG.DefaultIfEmpty()
-                          select new bao_cao_ton_kho_mat_hang_model
-                          {
-                              so_luong_ton = d.so_luong_ton / 1000 ?? 0,
-                              ma_mat_hang = mh.ma,
-                              ten_mat_hang = mh.ten,
-                              id_loai_mat_hang = mh.id_loai_mat_hang,
-                              id_don_vi_tinh = mh.id_don_vi_tinh,
-                              ngay_cap_nhat = d.ngay_cap_nhat
+                         from mh in mhG.DefaultIfEmpty()
+                         select new bao_cao_ton_kho_mat_hang_model
+                         {
+                             so_luong_ton = d.so_luong_ton / 1000 ?? 0,
+                             ma_mat_hang = mh.ma,
+                             ten_mat_hang = mh.ten,
+                             id_loai_mat_hang = mh.id_loai_mat_hang,
+                             id_don_vi_tinh = mh.id_don_vi_tinh,
+                             ngay_cap_nhat = d.ngay_cap_nhat
 
 
-                          });
+                         };
             return result;
 
 

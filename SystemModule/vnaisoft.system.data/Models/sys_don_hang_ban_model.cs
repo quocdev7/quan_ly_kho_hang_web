@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using vnaisoft.DataBase.Mongodb.Collection.system;
+﻿using quan_ly_kho.DataBase.Mongodb.Collection.system;
+using System.Collections.Generic;
 
-namespace vnaisoft.system.data.Models
+namespace quan_ly_kho.system.data.Models
 {
     public class sys_don_hang_ban_model
     {

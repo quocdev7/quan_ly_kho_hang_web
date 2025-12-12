@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace vnaisoft.DataBase.Helper
+namespace quan_ly_kho.common.Helpers
 {
     public static class StringFunctions
     {
@@ -135,7 +135,7 @@ namespace vnaisoft.DataBase.Helper
                                     doc += cs[5] + " ";
                                 break;
                             default:
-                                doc += cs[(int)number[i + j] - 48] + " ";
+                                doc += cs[number[i + j] - 48] + " ";
                                 break;
                         }
 
@@ -159,14 +159,14 @@ namespace vnaisoft.DataBase.Helper
                         rd = 0;
                     }
                     else
-                        if (found != 0) doc += dv[((len - i - n + 1) % 9) / 3 + 2] + " ";
+                        if (found != 0) doc += dv[(len - i - n + 1) % 9 / 3 + 2] + " ";
                 }
 
                 i += n;
             }
 
             if (len == 1)
-                if (number[0] == '0' || number[0] == '5') return cs[(int)number[0] - 48];
+                if (number[0] == '0' || number[0] == '5') return cs[number[0] - 48];
             doc = doc.Substring(0, 1).ToUpper() + doc.Substring(1, doc.Length - 1);
             return am + doc.Trim() + " ";
         }
@@ -189,7 +189,7 @@ namespace vnaisoft.DataBase.Helper
                     List<object> list = new List<object>();
                     try
                     {
-                        var objectTemp = StringHelper.GetValuePropertyObject(value, handle);
+                        var objectTemp = GetValuePropertyObject(value, handle);
                         list = ((IEnumerable)objectTemp).Cast<object>().ToList();
                     }
                     catch (Exception e) { }
@@ -293,11 +293,11 @@ namespace vnaisoft.DataBase.Helper
                     numberFormat.NumberGroupSeparator = groupingSymbol;
                     numberFormat.NumberDecimalSeparator = decimalSymbol;
                 }
-                return ((double)(number)).ToString("N", numberFormat);
+                return ((double)number).ToString("N", numberFormat);
             }
             else
             {
-                return String.Empty;
+                return string.Empty;
             }
         }
 
@@ -328,7 +328,7 @@ namespace vnaisoft.DataBase.Helper
                 numberFormat.NumberDecimalSeparator = decimalSymbol;
                 numberFormat.NumberDecimalDigits = decimalPlaces;
             }
-            return number != null ? ((double)(number)).ToString("N", numberFormat) : string.Empty;
+            return number != null ? ((double)number).ToString("N", numberFormat) : string.Empty;
         }
 
         public static string Truncate(this string str, int maxLength)
@@ -623,17 +623,17 @@ namespace vnaisoft.DataBase.Helper
         ///Phong.tran - 14/10/2013-- Doi Thanh Tieng Anh
 
         #region Doc So Bang Tieng Anh - BY Phong.tran 14/10/2013
-        public static String changeNumericToWords(double numb)
+        public static string changeNumericToWords(double numb)
         {
-            String num = numb.ToString();
+            string num = numb.ToString();
             return changeToWords(num, false);
         }
-        public static String changeCurrencyToWords(String numb)
+        public static string changeCurrencyToWords(string numb)
         {
 
             return changeToWords(numb, true);
         }
-        public static String changeNumericToWordsNew(String numb, string groupingSymbol)
+        public static string changeNumericToWordsNew(string numb, string groupingSymbol)
         {
             var number = numb.Split(groupingSymbol.ToCharArray()[0]); string strt = "";
             int stt = 0;
@@ -700,14 +700,14 @@ namespace vnaisoft.DataBase.Helper
             return strt;
         }
 
-        public static String changeCurrencyToWords(double numb)
+        public static string changeCurrencyToWords(double numb)
         {
             return changeToWords(numb.ToString(), true);
         }
-        private static String changeToWords(String numb, bool isCurrency)
+        private static string changeToWords(string numb, bool isCurrency)
         {
-            String val = "", wholeNo = numb, points = "", andStr = "", pointStr = "";
-            String endStr = (isCurrency) ? ("only") : ("");
+            string val = "", wholeNo = numb, points = "", andStr = "", pointStr = "";
+            string endStr = isCurrency ? "only" : "";
             try
             {
                 int decimalPlace = numb.IndexOf(".");
@@ -717,31 +717,31 @@ namespace vnaisoft.DataBase.Helper
                     points = numb.Substring(decimalPlace + 1);
                     if (points != null)
                     {
-                        andStr = (isCurrency) ? ("and") : ("point");// just to separate whole numbers from points/cents
-                        endStr = (isCurrency) ? ("Cents " + endStr) : ("");
+                        andStr = isCurrency ? "and" : "point";// just to separate whole numbers from points/cents
+                        endStr = isCurrency ? "Cents " + endStr : "";
                         pointStr = translateCents(points);
                     }
                 }
-                val = String.Format("{0} {1}{2} {3}", translateWholeNumber(wholeNo).Trim(), andStr, pointStr, endStr);
+                val = string.Format("{0} {1}{2} {3}", translateWholeNumber(wholeNo).Trim(), andStr, pointStr, endStr);
             }
             catch {; }
             return val;
         }
-        private static String translateWholeNumber(String number)
+        private static string translateWholeNumber(string number)
         {
             string word = "";
             try
             {
                 bool beginsZero = false;//tests for 0XX
                 bool isDone = false;//test if already translated
-                double dblAmt = (Convert.ToDouble(number));
+                double dblAmt = Convert.ToDouble(number);
                 //if ((dblAmt > 0) && number.StartsWith("0"))
                 if (dblAmt > 0)
                 {//test for zero or digit zero in a nuemric
                     beginsZero = number.StartsWith("0");
                     int numDigits = number.Length;
                     int pos = 0;//store digit grouping
-                    String place = "";//digit grouping name:hundres,thousand,etc...
+                    string place = "";//digit grouping name:hundres,thousand,etc...
                     switch (numDigits)
                     {
                         case 1://ones' range
@@ -753,23 +753,23 @@ namespace vnaisoft.DataBase.Helper
                             isDone = true;
                             break;
                         case 3://hundreds' range
-                            pos = (numDigits % 3) + 1;
+                            pos = numDigits % 3 + 1;
                             place = " hundred and ";
                             break;
                         case 4://thousands' range
                         case 5:
                         case 6:
-                            pos = (numDigits % 4) + 1;
+                            pos = numDigits % 4 + 1;
                             place = " thousand ";
                             break;
                         case 7://millions' range
                         case 8:
                         case 9:
-                            pos = (numDigits % 7) + 1;
+                            pos = numDigits % 7 + 1;
                             place = " million ";
                             break;
                         case 10://Billions's range
-                            pos = (numDigits % 10) + 1;
+                            pos = numDigits % 10 + 1;
                             place = " billion ";
                             break;
                         //add extra case options for anything above Billion...
@@ -791,10 +791,10 @@ namespace vnaisoft.DataBase.Helper
             catch {; }
             return word.Trim();
         }
-        private static String tens(String digit)
+        private static string tens(string digit)
         {
             int digt = Convert.ToInt32(digit);
-            String name = null;
+            string name = null;
             switch (digt)
             {
                 case 10:
@@ -860,10 +860,10 @@ namespace vnaisoft.DataBase.Helper
             }
             return name;
         }
-        private static String ones(String digit)
+        private static string ones(string digit)
         {
             int digt = Convert.ToInt32(digit);
-            String name = "";
+            string name = "";
             switch (digt)
             {
                 case 1:
@@ -896,9 +896,9 @@ namespace vnaisoft.DataBase.Helper
             }
             return name;
         }
-        private static String translateCents(String cents)
+        private static string translateCents(string cents)
         {
-            String cts = "", digit = "", engOne = "";
+            string cts = "", digit = "", engOne = "";
             for (int i = 0; i < cents.Length; i++)
             {
                 digit = cents[i].ToString();
@@ -945,7 +945,7 @@ namespace vnaisoft.DataBase.Helper
         /// </summary>
         public static string Remove(this string str)
         {
-            if (!String.IsNullOrEmpty(str))
+            if (!string.IsNullOrEmpty(str))
             {
                 str = str.ToUpper().Trim();
                 str = str.Replace('/', '-');
@@ -960,7 +960,7 @@ namespace vnaisoft.DataBase.Helper
             }
             else
             {
-                return String.Empty;
+                return string.Empty;
             }
         }
         public static int GetSoHopDongMax(string soHopDong)
@@ -1017,7 +1017,7 @@ namespace vnaisoft.DataBase.Helper
                 monthCurrent = "0" + monthCurrent;
             }
             //Khi tham so select o database la null khoi tao so dau tien
-            if (String.IsNullOrEmpty(maxValue))
+            if (string.IsNullOrEmpty(maxValue))
             {
                 string ret = "1";
                 while (ret.Length < length)
@@ -1066,9 +1066,9 @@ namespace vnaisoft.DataBase.Helper
         }
         public static string ArchiveStringToNewString(int length, string stringArchive)
         {
-            string ret = String.Empty;
+            string ret = string.Empty;
 
-            if (String.IsNullOrEmpty(stringArchive))
+            if (string.IsNullOrEmpty(stringArchive))
                 return ret;
 
             if (stringArchive.Length > length)

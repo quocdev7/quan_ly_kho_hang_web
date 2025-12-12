@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace vnaisoft.common.Models
+namespace quan_ly_kho.common.Models
 {
     public class sys_common_model
     {
@@ -39,7 +39,7 @@ namespace vnaisoft.common.Models
     }
     public class sys_common_check_model
     {
-        public string? id { get; set; }
+        public string id { get; set; }
         public bool? isCheck { get; set; }
 
     }

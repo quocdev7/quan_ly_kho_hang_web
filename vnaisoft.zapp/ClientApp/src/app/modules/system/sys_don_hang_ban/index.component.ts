@@ -46,7 +46,7 @@ export class sys_don_hang_ban_indexComponent extends BaseIndexDatatableComponent
         , @Inject('BASE_URL') baseUrl: string
     ) {
         super(http, baseUrl, _translocoService, _fuseNavigationService, route, dialog, 'sys_don_hang_ban',
-            { search: "", status_del: "1", id_cong_ty: "-1", tu_ngay: "", den_ngay: "", id_doi_tuong: -1, id_kieu_ban: -1, id_hinh_thuc_van_chuyen: -1, id_loai_giao_dich: -1, open: false, is_xuat_kho: 0, tinh_trang_don_hang: "-1", is_xuat_du: "-1", is_thu_du: "-1" }
+            { search: "", status_del: "1", tu_ngay: "", den_ngay: "" }
         )
         this.list_status_del = [
             {
@@ -58,12 +58,7 @@ export class sys_don_hang_ban_indexComponent extends BaseIndexDatatableComponent
                 name: this._translocoService.translate('system.huy')
             }
         ];
-        this.get_list_hinh_thuc_van_chuyen();
-        this.get_hinh_thuc_doi_tuong();
-        this.get_loai_giao_dich();
-        this.get_tinh_trang_don_hang();
         this.load_date();
-        this.get_cau_hinh_he_thong_gia_ban();
     }
     update_status_del(model, status_del): void {
         Swal.fire({
@@ -110,327 +105,7 @@ export class sys_don_hang_ban_indexComponent extends BaseIndexDatatableComponent
         this.filter.tu_ngay.setDate(this.filter.tu_ngay.getDate() - 365);
         this.filter.den_ngay = new Date();
     }
-    cap_nhap(model, tinh_trang_don_hang): void {
-        if (tinh_trang_don_hang == 2) {
-            Swal.fire({
-                title: this._translocoService.translate('ban_co_muon_chuyen_thanh_hop_dong_hay_khong'),
-                text: "",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: this._translocoService.translate('yes'),
-                cancelButtonText: this._translocoService.translate('no')
-            }).then((result) => {
-                if (result.value) {
-                    this.http
-                        .post(this.controller + '.ctr/cap_nhap/',
-                            {
-                                id: model.db.id,
-                                tinh_trang_don_hang: tinh_trang_don_hang
 
-                            }
-                        ).subscribe(resp => {
-                            Swal.fire('Cập nhập thành công', '', 'success');
-                            this.rerender();
-                        },
-                        );
-                }
-            })
-        }
-        else if (tinh_trang_don_hang == 3) {
-            Swal.fire({
-                title: this._translocoService.translate('ban_co_muon_xac_nhan_hoan_tat_don_hang_hay_khong'),
-                text: "",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: this._translocoService.translate('yes'),
-                cancelButtonText: this._translocoService.translate('no')
-            }).then((result) => {
-                if (result.value) {
-                    this.http
-                        .post(this.controller + '.ctr/cap_nhap/',
-                            {
-                                id: model.db.id,
-                                tinh_trang_don_hang: tinh_trang_don_hang
-
-                            }
-                        ).subscribe(resp => {
-                            Swal.fire('Cập nhập thành công', '', 'success');
-                            this.rerender();
-                        },
-                        );
-                }
-            })
-        }
-
-
-
-    }
-
-    onFileSelected(event: any) {
-        this.file = event.target.files[0];
-    }
-    dowloadFileMau() {
-        var url = '/sys_don_hang_ban.ctr/downloadtemp';
-        window.location.href = url;
-    }
-    onSubmitFile(event: any) {
-        if (this.file == null || this.file == undefined) {
-            Swal.fire('Phải chọn file import', '', 'warning')
-        } else {
-            this.showLoading("", "", true)
-            var formData = new FormData();
-            formData.append('file', this.file);
-            this.http.post('/sys_don_hang_ban.ctr/ImportFromExcel/', formData, {
-            })
-            .subscribe(resp => {
-
-                Swal.close();
-                var res
-                res = resp
-                if (res == "1") {
-                    Swal.fire('Lưu thành công', '', 'success');
-                    this.file = null;
-                    this.rerender();
-                }
-                if (res == "-1") {
-                    Swal.fire("File không đúng định dạng", '', 'warning');
-                }
-                if (res != "-1" && res != "1") {
-                    Swal.fire({
-                        title: this._translocoService.translate('system.khong_the_import_duoc_vui_long_tai_ve_xem_chi_tiet'),
-                        text: "",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: this._translocoService.translate('system.tai_ve'),
-                        cancelButtonText: this._translocoService.translate('system.close')
-                    }).then((result) => {
-                        if (result.value) {
-                            var url = '/sys_home.ctr/downloadtempFileError?path=' + res;
-                            window.location.href = url;
-                        }
-                    })
-                }
-
-            })
-        }
-
-    }
-
-
-    get_tinh_trang_don_hang() {
-        this.list_tinh_trang_don_hang = [
-            {
-                id: "1",
-                name: this._translocoService.translate('erp.bao_gia')
-            },
-            {
-                id: "2",
-                name: this._translocoService.translate('erp.hop_dong')
-            },
-            {
-                id: "3",
-                name: this._translocoService.translate('erp.hoan_tat')
-            }
-        ];
-    }
-    
-    public file_chi_tiet: any;
-    onFileSelectedChiTiet(event: any) {
-        this.file_chi_tiet = event.target.files[0];
-        //event.target.value = null;
-    }
-    dowloadFileMauChiTiet() {
-        var url = '/sys_don_hang_ban.ctr/downloadtempdetail';
-        window.location.href = url;
-    }
-    onSubmitFileChietTiet(event: any) {
-
-        this.pageLoading = true;
-        if (this.file_chi_tiet == null || this.file_chi_tiet == undefined) {
-            Swal.fire('Phải chọn file import', '', 'warning')
-            this.pageLoading = false;
-
-        } else {
-            var formData = new FormData();
-            formData.append('file', this.file_chi_tiet);
-            this.http.post('/sys_don_hang_ban.ctr/ImportFromExcelChiTiet/', formData, {
-            })
-                .subscribe(res => {
-                    if (res == "") {
-                        Swal.fire('Lưu thành công', '', 'success');
-                        this.pageLoading = false;
-                        this.file_chi_tiet = null;
-                        event.target.value = null;
-                        this.rerender();
-                    } else {
-
-                        Swal.fire(res.toString(), '', 'warning')
-                        this.pageLoading = false;
-                        this.file_chi_tiet = null;
-                        event.target.value = null;
-                    }
-                })
-        }
-
-    }
-    exportToExcel() {
-
-        this.showLoading("", "", true)
-        const params = new HttpParams()
-            .set('search', this.filter.search)
-            .set('status_del', this.filter.status_del)
-            .set('open', this.filter.open)
-            .set('tu_ngay', this.filter.tu_ngay.toISOString())
-            .set('den_ngay', this.filter.den_ngay.toISOString())
-            .set('tinh_trang_don_hang', this.filter.tinh_trang_don_hang)
-            .set('id_loai_giao_dich', this.filter.id_loai_giao_dich)
-            .set('id_hinh_thuc_van_chuyen', this.filter.id_hinh_thuc_van_chuyen)
-            .set('id_doi_tuong', this.filter.id_doi_tuong)
-            ;
-
-        let uri = this.controller + '.ctr/exportExcel';
-        this.http.get(uri, { params, responseType: 'blob', observe: 'response' })
-            .subscribe(resp => {
-                var res;
-
-                res = resp;
-                var downloadedFile = new Blob([res.body], { type: res.body.type });
-                const a = document.createElement('a');
-                a.setAttribute('style', 'display:none;');
-                document.body.appendChild(a);
-                a.href = URL.createObjectURL(downloadedFile);
-                a.target = '_dAblank';
-                a.download = 'DonHangBanBuon/BanSi.xlsx';
-
-                a.click();
-                document.body.removeChild(a);
-                Swal.close();
-            })
-    }
-    exportExcelDetails() {
-        this.showLoading("", "", true)
-        const params = new HttpParams()
-            ;
-        let uri = '/sys_don_hang_ban.ctr/exportExcelDetails';
-        this.http.get(uri, { params, responseType: 'blob', observe: 'response' })
-            .subscribe(resp => {
-                var res;
-
-                res = resp;
-                var downloadedFile = new Blob([res.body], { type: res.body.type });
-                const a = document.createElement('a');
-                a.setAttribute('style', 'display:none;');
-                document.body.appendChild(a);
-                a.href = URL.createObjectURL(downloadedFile);
-                a.target = '_dAblank';
-                a.download = 'DonHangBanChiTiet.xlsx';
-
-                a.click();
-                document.body.removeChild(a);
-                Swal.close();
-            })
-
-    }
-    openDialogPrint(item): void {
-
-        this.http
-            .post(this.controller + '.ctr/getPrint/', {
-                id: item.db.id
-            }
-            ).subscribe(resp => {
-                var data: any;
-                data = resp;
-                const dialogRef = this.dialog.open(cm_mau_in_popupComponent, {
-                    width: '878px',
-                    disableClose: true,
-                    data: {
-                        tieu_de: data.tieu_de,
-                        noi_dung: data.noi_dung,
-                    },
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result != undefined && result != null) {
-                        this.rerender();
-                    }
-
-
-                });
-
-            });
-
-    }
-    filterchange() {
-        if (this.filter.open == true) {
-            this.filter.open = false;
-        } else {
-            this.filter.open = true;
-        }
-    }
-    get_list_hinh_thuc_van_chuyen() {
-        this.list_hinh_thuc_van_chuyen = [
-            {
-                id: -1,
-                name: this._translocoService.translate('system.all')
-            },
-            {
-                id: 1,
-                name: this._translocoService.translate('erp.khong_giao_hang')
-            },
-            {
-                id: 2,
-                name: this._translocoService.translate('erp.co_giao_hang')
-            }
-        ];
-    }
-    get_hinh_thuc_doi_tuong() {
-        this.list_hinh_thuc = [
-            {
-                id: -1,
-                name: this._translocoService.translate('system.all')
-            },
-            {
-                id: 1,
-                name: this._translocoService.translate('system.ca_nhan')
-            },
-            {
-                id: 2,
-                name: this._translocoService.translate('system.to_chuc')
-            }
-        ];
-    }
-    get_loai_giao_dich() {
-        this.list_loai_giao_dich = [
-            {
-                id: -1,
-                name: this._translocoService.translate('system.all')
-            },
-            {
-                id: 1,
-                name: this._translocoService.translate('system.hang_hoa')
-            },
-            {
-                id: 2,
-                name: this._translocoService.translate('system.dich_vu')
-            }
-        ];
-    }
-    get_cau_hinh_he_thong_gia_ban(): void {
-        this.http
-            .post('/sys_don_hang_ban.ctr/get_cau_hinh_he_thong_gia_ban/', {
-            }
-            ).subscribe(resp => {
-                var data: any;
-                data = resp;
-                this.cau_hinh_gia_ban = data.value;
-            });
-
-    }
     openDialogAdd(): void {
         const dialogRef = this.dialog.open(sys_don_hang_ban_popUpAddComponent, {
             disableClose: true,
@@ -450,24 +125,6 @@ export class sys_don_hang_ban_indexComponent extends BaseIndexDatatableComponent
             if (result.db.id == 0) return;
         });
 
-    }
-    openDialogFile(item, i): void {
-        const dialogRef = this.dialog.open(cm_file_upload_popupComponent, {
-            width: '80%',
-            height: '80%',
-            disableClose: true,
-            data: {
-                db: {
-                    id: item.db.id_file_upload,
-                    list_file: []
-                }
-            },
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            if (result != undefined && result != null) {
-                this.rerender();
-            }
-        });
     }
     openDialogEdit(item, pos): void {
         const dialogRef = this.dialog.open(sys_don_hang_ban_popUpAddComponent, {
@@ -512,7 +169,7 @@ export class sys_don_hang_ban_indexComponent extends BaseIndexDatatableComponent
     ngOnInit(): void {
         this.baseInitData();
 
-        var title = 'ERP-' + this._translocoService.translate('NAV.sys_don_hang_ban');
+        var title = this._translocoService.translate('NAV.sys_don_hang_ban');
         var metaTag = [
 
 

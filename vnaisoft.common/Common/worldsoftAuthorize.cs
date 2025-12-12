@@ -1,27 +1,22 @@
-﻿using Google.Api;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.Mongodb;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Provider;
 
-namespace vnaisoft.common.Common
+namespace quan_ly_kho.common.Common
 {
-    public class vnaisoftAuthorize : ActionFilterAttribute
+    public class quan_ly_khoAuthorize : ActionFilterAttribute
     {
         public string ResourceKey { get; set; }
         public string OperationKey { get; set; }
@@ -29,7 +24,7 @@ namespace vnaisoft.common.Common
         private readonly MongoDBContext dbContext;
         private IMemoryCache _cache;
         public AppSettings _appsetting;
-        public vnaisoftAuthorize(MongoDBContext _dbContext, IMemoryCache memoryCache, IOptions<AppSettings> appsetting)
+        public quan_ly_khoAuthorize(MongoDBContext _dbContext, IMemoryCache memoryCache, IOptions<AppSettings> appsetting)
         {
             this.dbContext = _dbContext;
             _cache = memoryCache;
@@ -152,7 +147,7 @@ namespace vnaisoft.common.Common
         {
             List<string> cacheActionControllerUser;
             var username = httpContext.User.Identity.Name;
-            var cachekey = "vnaisoftAuthorizeListControllerAction" + username;
+            var cachekey = "quan_ly_khoAuthorizeListControllerAction" + username;
 
             var userid = username;
             var type = dbContext.sys_user_col.AsQueryable().Where(t => t.id == userid).Select(d => d.loai).SingleOrDefault();

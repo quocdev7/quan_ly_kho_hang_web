@@ -1,25 +1,22 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.BaseClass;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.system.data.DataAccess;
+using quan_ly_kho.system.data.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using vnaisoft.common.BaseClass;
-using vnaisoft.common.common;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Services;
-
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.system.data.DataAccess;
-using vnaisoft.system.data.Models;
 
 
-namespace vnaisoft.system.web.Controller
+namespace quan_ly_kho.system.web.Controller
 {
     public partial class sys_phieu_xuat_khoController : BaseAuthenticationController
     {
@@ -110,7 +107,7 @@ namespace vnaisoft.system.web.Controller
 
             return Json(model);
         }
-        
+
         public async Task<IActionResult> getElementById([FromBody] JObject json)
         {
             var id = json.GetValue("id").ToString();
@@ -139,15 +136,11 @@ namespace vnaisoft.system.web.Controller
                 den_ngay_t = new DateTime(den_ngay_t.Year, den_ngay_t.Month, den_ngay_t.Day, 23, 59, 59);
                 var id_loai_xuat = dictionary["id_loai_xuat"];
 
-                //var query = repo.FindAll()
                 var queryTable = repo._context.sys_phieu_xuat_kho_col.AsQueryable().Where(d => d.status_del == status_del)
-                      //.Where(d => d.nguoi_cap_nhat == getUserId())
-                      //.Where(d => d.loai == 1)
                       .Where(d => d.id_loai_xuat == id_loai_xuat || id_loai_xuat == "-1")
                      .Where(d => d.ngay_xuat >= tu_ngay_t && d.ngay_xuat <= den_ngay_t)
                      .Where(d => d.ma.ToLower().Contains(search) || d.ghi_chu.ToLower().Contains(search)
                      || d.ten.ToLower().Contains(search) || d.ten_khong_dau.ToLower().Contains(search)
-                     //|| (d.id_don_hang_mua.ToLower() ?? "").Contains(search) || (d.id_don_hang_ban.ToLower() ?? "").Contains(search) 
                      || search == "");
 
                 var count = queryTable.Count();

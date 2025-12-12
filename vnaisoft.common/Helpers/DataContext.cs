@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using vnaisoft.DataBase.System;
+using quan_ly_kho.DataBase.System;
 
-namespace vnaisoft.common.Helpers
+namespace quan_ly_kho.common.Helpers
 {
     public class DataContext : DbContext
     {

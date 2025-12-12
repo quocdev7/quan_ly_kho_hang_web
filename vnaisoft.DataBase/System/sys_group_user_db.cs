@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace vnaisoft.DataBase.System
+namespace quan_ly_kho.DataBase.System
 {
     [Table("sys_group_user_db")]
     public class sys_group_user_db

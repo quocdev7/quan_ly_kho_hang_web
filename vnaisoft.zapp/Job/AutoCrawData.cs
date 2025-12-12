@@ -1,43 +1,28 @@
-﻿using Google.Apis.Drive.v3.Data;
-using Microsoft.Extensions.Options;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Options;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.Mongodb;
 using Quartz;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using System.Xml;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
-using vnaisoft.DataBase.System;
-using Formatting = Newtonsoft.Json.Formatting;
 
-namespace worldsoft.zapp.Job
+namespace quan_ly_kho.zapp.Job
 {
     public class AutoCrawDataJob : IJob
     {
-      
+
         public AppSettings _appsetting;
         public HttpClient client;
         public MongoDBContext _context;
- 
 
 
-        public AutoCrawDataJob( IOptions<AppSettings> appsetting, MongoDBContext context)
+
+        public AutoCrawDataJob(IOptions<AppSettings> appsetting, MongoDBContext context)
         {
-            _context = context;        
+            _context = context;
             _appsetting = appsetting.Value;
             client = new HttpClient();
-            
+
         }
 
 
@@ -85,7 +70,7 @@ namespace worldsoft.zapp.Job
             var tt4 = "https://moet.gov.vn/rss/Pages/index.aspx?ItemID=58";
             var tt5 = "https://moet.gov.vn/rss/Pages/index.aspx?ItemID=59";
 
-             var tt = tt1 + ";" + tt2 + ";" + tt3 + ";" + tt4 + ";" + tt5;
+            var tt = tt1 + ";" + tt2 + ";" + tt3 + ";" + tt4 + ";" + tt5;
             switch (CatalogNewsId)
             {
                 case "tin_tuc":
@@ -98,7 +83,7 @@ namespace worldsoft.zapp.Job
                     name = "https://moet.gov.vn/rss/Pages/index.aspx?ItemID=57";
                     break;
 
-             
+
                 default:
                     name = "";
                     break;
@@ -119,7 +104,7 @@ namespace worldsoft.zapp.Job
                 case 2:
                     name = "https://moet.gov.vn/rss/Pages/index.aspx?ItemID=60";
                     break;
-           
+
                 default:
                     name = "";
                     break;

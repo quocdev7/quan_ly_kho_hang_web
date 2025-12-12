@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace vnaisoft.common.common
+namespace quan_ly_kho.common.Common
 {
    
     /// <summary>
@@ -35,7 +35,7 @@ namespace vnaisoft.common.common
         /// Note that this parameter's name can be changed using the ajaxDT option's dataSrc property.
         /// </summary>
         public List<T> data { get; set; }
-        public Object? total { get; set; }
+        public object total { get; set; }
 
     }
 
@@ -118,7 +118,7 @@ namespace vnaisoft.common.common
             get
             {
                 return Columns != null && Order != null && Order.Length > 0
-                    ? (Columns[Order[0].Column].Data + (Order[0].Dir == DTOrderDir.DESC ? " " + Order[0].Dir : string.Empty))
+                    ? Columns[Order[0].Column].Data + (Order[0].Dir == DTOrderDir.DESC ? " " + Order[0].Dir : string.Empty)
                     : null;
             }
         }

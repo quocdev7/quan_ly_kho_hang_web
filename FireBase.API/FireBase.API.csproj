@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\vnaisoft.DataBase\vnaisoft.DataBase.csproj" />
+	  <ProjectReference Include="..\vnaisoft.DataBase\quan_ly_kho.DataBase.csproj" />
 	</ItemGroup>
 
 

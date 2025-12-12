@@ -47,11 +47,6 @@
     </div>
     <div class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
 
-        <!-- <div class="flex-1">
-                <cm_select [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.kho'"
-                    [listData]="list_kho" [keyError]="'db.id_kho'" [(model)]="record.db.id_kho"></cm_select>
-            </div> -->
-        
         <div class="flex-1">
             <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" [label]="'system.ghi_chu'" [maxlength]="500"
                 [type]="'textarea'" [keyError]="'db.ghi_chu'" [(model)]="record.db.ghi_chu">
@@ -109,23 +104,6 @@
     </ng-container>
     <!--Thong tin mat hang-->
     <h3 transloco="system.thong_tin_mat_hang" class="mt-3 text-2xl font-bold underline"></h3>
-    <div *ngIf="actionEnum !=3" class="flex flex-col md:flex-row lg:flex-row md:space-x-4 flex-wrap">
-        <div class="flex-1  mt-6">
-            <mat-form-field class="w-full" floatLabel="always">
-                <input matInput [(ngModel)]="ma_mat_hang" (keyup.enter)="add_mat_hang()"
-                    placeholder="{{'system.nhap_ma_mat_hang' | transloco}}">
-
-                <button mat-icon-button color="primary" class="mr-4" (click)="openDialogChooseMatHang()">
-                    <span transloco="common.chon"></span>
-                </button>
-            </mat-form-field>
-        </div>
-        <div class="flex-1">
-            <cm_input [errorModel]="errorModel" [actionEnum]="actionEnum" (keyup.enter)="add_mat_hang()"
-                [keyError]="'so_luong_mh'" [label]="'system.so_luong'" [(model)]="record.so_luong_mh" [type]="'number'">
-            </cm_input>
-        </div>
-    </div>
     <mat-label class="ml-2">
         <span style="color: red" *ngFor="let item of errorModel | filter: 'key':'list_mat_hang'; index as i">
             (<span *ngFor="let msg of item.value"> {{ msg | transloco }} </span>)

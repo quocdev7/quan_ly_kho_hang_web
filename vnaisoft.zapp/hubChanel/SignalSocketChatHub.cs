@@ -1,30 +1,19 @@
-﻿using Azure;
-using Azure.AI.OpenAI;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using Newtonsoft.Json;
-
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.Mongodb;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using TiktokenSharp;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.HocAI;
-using vnaisoft.DataBase.System;
-
-using static System.Net.WebRequestMethods;
 
 
 
-namespace vnaisoft.DataBase.hubChanel
+namespace quan_ly_kho.zapp.hubChanel
 {
 
 
@@ -59,12 +48,12 @@ namespace vnaisoft.DataBase.hubChanel
 
     public enum ChatMethodEnum
     {
-      Connected,
-      Disconnected,
-      sendMessage,
-       reactionMessage,
-      change_convertsation,
-       remove_user_convertsation,
+        Connected,
+        Disconnected,
+        sendMessage,
+        reactionMessage,
+        change_convertsation,
+        remove_user_convertsation,
         ErrorSendMessage,
 
     }
@@ -97,37 +86,37 @@ namespace vnaisoft.DataBase.hubChanel
             await removeUserCacheConnection();
             await base.OnDisconnectedAsync(exception);
         }
-    
 
-    
+
+
         private async Task addUserConnection()
         {
-            var connectionId = _cache.GetString("SignalSocketChat" + this.Context.User.Identity.Name);
+            var connectionId = _cache.GetString("SignalSocketChat" + Context.User.Identity.Name);
             List<string> listconnection = new List<string>();
             if (!string.IsNullOrEmpty(connectionId))
             {
                 listconnection.AddRange(connectionId.Split(','));
             }
             listconnection.Add(Context.ConnectionId);
-            var  listconnectionStore = listconnection.Take(10).ToList();
-            await _cache.SetStringAsync("SignalSocketChat" + this.Context.User.Identity.Name, string.Join(",", listconnectionStore));
+            var listconnectionStore = listconnection.Take(10).ToList();
+            await _cache.SetStringAsync("SignalSocketChat" + Context.User.Identity.Name, string.Join(",", listconnectionStore));
 
-            await Clients.All.SendAsync(ChatMethodEnum.Connected.ToString(), this.Context.User.Identity.Name);
+            await Clients.All.SendAsync(ChatMethodEnum.Connected.ToString(), Context.User.Identity.Name);
         }
 
         private async Task removeUserCacheConnection()
         {
-            var connectionId = _cache.GetString("SignalSocketChat" + this.Context.User.Identity.Name);
+            var connectionId = _cache.GetString("SignalSocketChat" + Context.User.Identity.Name);
             List<string> listconnection = new List<string>();
             if (!string.IsNullOrEmpty(connectionId))
             {
                 listconnection.AddRange(connectionId.Split(','));
             }
             listconnection.Remove(Context.ConnectionId);
-            await _cache.SetStringAsync("SignalSocketChat" + this.Context.User.Identity.Name, string.Join(",", listconnection));
+            await _cache.SetStringAsync("SignalSocketChat" + Context.User.Identity.Name, string.Join(",", listconnection));
             if (listconnection.Count == 0)
             {
-                await Clients.All.SendAsync(ChatMethodEnum.Disconnected.ToString(), this.Context.User.Identity.Name);
+                await Clients.All.SendAsync(ChatMethodEnum.Disconnected.ToString(), Context.User.Identity.Name);
             }
         }
         private long getCurrentEpochMicrosecond()

@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
@@ -18,8 +16,12 @@ using Microsoft.IdentityModel.Tokens;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
 using Newtonsoft.Json.Serialization;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Models;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.Provider;
 using Quartz;
 using StackExchange.Redis;
 using System;
@@ -32,17 +34,8 @@ using tusdotnet.Models;
 using tusdotnet.Models.Configuration;
 using tusdotnet.Models.Expiration;
 using tusdotnet.Stores;
-using vnaisoft.common.Common;
-using vnaisoft.common.Helpers;
-using vnaisoft.common.Models;
-using vnaisoft.common.Services;
-using vnaisoft.DataBase.hubChanel;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Provider;
-using vnaisoft.system.web.Controller;
-using worldsoft.zapp.Job;
 
-namespace vnaisoft.zapp
+namespace quan_ly_kho.zapp
 {
     public class Startup
     {
@@ -254,7 +247,7 @@ namespace vnaisoft.zapp
             // Configure the DI container to use the multi-tenant database service
             services.AddSingleton<IMongoClientFactory, MongoClientFactory>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<MongoDBContext>(s =>
+            services.AddScoped(s =>
             {
                 var factory = s.GetRequiredService<IMongoClientFactory>();
                 var httpContext = s.GetService<IHttpContextAccessor>()?.HttpContext;
@@ -266,7 +259,7 @@ namespace vnaisoft.zapp
             });
 
 
-            services.AddTransient<vnaisoftAuthorize>();
+            services.AddTransient<quan_ly_khoAuthorize>();
             services.AddTransient<IMailService, MailService>();
             services.AddHttpClient();
             services.AddSession(options =>
@@ -376,7 +369,7 @@ namespace vnaisoft.zapp
             var _appSettings = appSettingsSection.Get<AppSettings>();
 
             var env = (IWebHostEnvironment)serviceProvider.GetRequiredService(typeof(IWebHostEnvironment));
-            var tusFiles = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "file_upload", "tempFile");
+            var tusFiles = Path.Combine(Directory.GetCurrentDirectory(), "file_upload", "tempFile");
             if (!Directory.Exists(tusFiles))
                 Directory.CreateDirectory(tusFiles);
 
@@ -414,7 +407,7 @@ namespace vnaisoft.zapp
 
                             var id_folder = metadatas["id_folder"].GetString(Encoding.UTF8);
                             id_folder = id_folder == "undefined" ? "" : id_folder;
-                            if (String.IsNullOrEmpty(id_folder))
+                            if (string.IsNullOrEmpty(id_folder))
                             {
                                 path = Path.Combine(_appSettings.folder_path, "file_upload", "storage_file_manager");
                             }

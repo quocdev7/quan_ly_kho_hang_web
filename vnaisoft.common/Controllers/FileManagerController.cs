@@ -9,6 +9,10 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
+using quan_ly_kho.common.Common;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.DataBase.Mongodb;
+using quan_ly_kho.DataBase.Mongodb.Collection.system;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -18,13 +22,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using vnaisoft.common.Common;
-using vnaisoft.common.Helpers;
-using vnaisoft.DataBase.Helper;
-using vnaisoft.DataBase.Mongodb;
-using vnaisoft.DataBase.Mongodb.Collection.system;
 
-namespace vnaisoft.common.Controllers
+namespace quan_ly_kho.common.Controllers
 {
 
     [ApiController]
@@ -886,7 +885,7 @@ namespace vnaisoft.common.Controllers
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
                 var pathsave = Path.Combine(path, tick + "." + filename.Split(".").Last());
-                using (System.IO.Stream stream = new FileStream(pathsave, FileMode.Create))
+                using (Stream stream = new FileStream(pathsave, FileMode.Create))
                 {
                     await formFile.CopyToAsync(stream);
                 }
@@ -921,7 +920,7 @@ namespace vnaisoft.common.Controllers
             if (item != null)
             {
                 var filename = item.FileName.Trim('"') + "";
-                filename = StringFunctions.NonUnicode(filename);
+                filename = filename.NonUnicode();
                 var currentpath = _appsetting.folder_path;//Directory.GetCurrentDirectory();
                 //file_upload => san_pham => thumnail | image_upload
                 var path = Path.Combine(currentpath, "file_upload", host, controller, type);
@@ -948,14 +947,14 @@ namespace vnaisoft.common.Controllers
                         catch { }
                     ;
 
-                    using (System.IO.Stream stream = new FileStream(pathsave, FileMode.Create))
+                    using (Stream stream = new FileStream(pathsave, FileMode.Create))
                     {
                         await item.CopyToAsync(stream);
                     }
                 }
                 else
                 {
-                    using (System.IO.Stream stream = new FileStream(pathsave, FileMode.Create))
+                    using (Stream stream = new FileStream(pathsave, FileMode.Create))
                     {
                         await item.CopyToAsync(stream);
                     }
@@ -1000,7 +999,7 @@ namespace vnaisoft.common.Controllers
                     host = "localhost";
                 }
                 var path = Path.Combine(currentpath, "file_upload", host, controller, user_id);
-                if (!String.IsNullOrEmpty(folder))
+                if (!string.IsNullOrEmpty(folder))
                 {
                     path = Path.Combine(currentpath, "file_upload", host, controller, folder, user_id);
                 }
@@ -1010,7 +1009,7 @@ namespace vnaisoft.common.Controllers
                 var pathsave = Path.Combine(path, id + "." + filename.Split(".").Last());
 
 
-                using (System.IO.Stream stream = new FileStream(pathsave, FileMode.Create))
+                using (Stream stream = new FileStream(pathsave, FileMode.Create))
                 {
                     await item.CopyToAsync(stream);
                 }
@@ -1085,7 +1084,7 @@ namespace vnaisoft.common.Controllers
 
                 string s3KeyName = "";
                 string date = DateTime.Now.ToString("yyyy") + DateTime.Now.ToString("MM") + DateTime.Now.ToString("dd");
-                if (!String.IsNullOrEmpty(folder))
+                if (!string.IsNullOrEmpty(folder))
                 {
 
                     bool createdNestedFolder = await uploader.CreateFolderAsync($"{host}/{user_id}/{date}/{controller}/{folder}");
@@ -1200,7 +1199,7 @@ namespace vnaisoft.common.Controllers
                         host = "localhost";
                     }
                     var path = Path.Combine(currentpath, "file_upload", host, controller, user_id);
-                    if (!!String.IsNullOrEmpty(folder))
+                    if (!!string.IsNullOrEmpty(folder))
                     {
                         path = Path.Combine(currentpath, "file_upload", host, controller, user_id, folder);
                     }
@@ -1210,7 +1209,7 @@ namespace vnaisoft.common.Controllers
                     var pathsave = Path.Combine(path, id + "." + filename.Split(".").Last());
 
 
-                    using (System.IO.Stream stream = new FileStream(pathsave, FileMode.Create))
+                    using (Stream stream = new FileStream(pathsave, FileMode.Create))
                     {
                         await item.CopyToAsync(stream);
                     }
@@ -1291,7 +1290,7 @@ namespace vnaisoft.common.Controllers
                     {
                         folder = user_id;
                     }
-                    if (!String.IsNullOrEmpty(folder))
+                    if (!string.IsNullOrEmpty(folder))
                     {
 
                         bool createdNestedFolder = await uploader.CreateFolderAsync($"{host}/{controller}/{folder}");
@@ -1919,7 +1918,7 @@ namespace vnaisoft.common.Controllers
                .Select(kvp =>
                    new
                    {
-                       Key = kvp.Key,
+                       kvp.Key,
                        Value = kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                    }
                ).ToList();

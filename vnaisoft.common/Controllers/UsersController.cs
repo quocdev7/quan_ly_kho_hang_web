@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
-using System.IdentityModel.Tokens.Jwt;
-using vnaisoft.common.Helpers;
-using Microsoft.Extensions.Options;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using vnaisoft.common.Services;
-using vnaisoft.DataBase.System;
-using vnaisoft.common.Models.Users;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using vnaisoft.common.BaseClass;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using quan_ly_kho.common.Helpers;
+using quan_ly_kho.common.Models.Users;
+using quan_ly_kho.common.Services;
+using quan_ly_kho.DataBase.System;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
-namespace vnaisoft.common.Controllers
+namespace quan_ly_kho.common.Controllers
 {
     [Authorize]
     [ApiController]
@@ -48,7 +47,7 @@ namespace vnaisoft.common.Controllers
         {
             var user = _userService.Authenticate(model.Username, model.Password);
             var CaptchaCode = HttpContext.Session.GetString("CaptchaCode");
-            if(!string.IsNullOrEmpty(CaptchaCode))
+            if (!string.IsNullOrEmpty(CaptchaCode))
             {
                 if (CaptchaCode.ToLower() != model.capcha.ToLower()) return BadRequest(new { message = "Captcha không chính xác" });
             }
@@ -56,7 +55,7 @@ namespace vnaisoft.common.Controllers
             {
                 return BadRequest(new { message = "Tài khoản hoặc mật khẩu không chính xác" });
             }
-                
+
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -75,14 +74,14 @@ namespace vnaisoft.common.Controllers
             // return basic user info and authentication token
             return Ok(new
             {
-                id = user.id,
+                user.id,
                 username = user.Username,
                 full_name = user.ho_va_ten,
                 token = tokenString,
-                type=user.loai,
+                type = user.loai,
             });
         }
-       
+
         [HttpGet("getUser")]
         public IActionResult getUser()
         {
@@ -90,7 +89,7 @@ namespace vnaisoft.common.Controllers
             var user = _userService.GetById(id_user);
             return Ok(new
             {
-                id = user.id,
+                user.id,
                 user_name = user.Username,
                 full_name = user.ho_va_ten,
             });
@@ -205,9 +204,9 @@ namespace vnaisoft.common.Controllers
             // return basic user info and authentication token
             return Ok(new
             {
-                id = user.id,
+                user.id,
                 username = user.Username,
-   
+
                 full_name = user.ho_va_ten,
                 token = tokenString
             });

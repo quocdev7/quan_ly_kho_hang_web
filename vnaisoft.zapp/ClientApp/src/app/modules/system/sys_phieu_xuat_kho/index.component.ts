@@ -56,112 +56,16 @@ export class sys_phieu_xuat_kho_indexComponent extends BaseIndexDatatableCompone
             {
                 search: "",
                 status_del: "1",
-                id_kho: "-1",
                 id_loai_xuat: "-1",
                 id_don_hang: "-1",
                 nguon: "-1",
                 tu_ngay: null,
                 den_ngay: null,
-                open: false
                 //id_don_hang:""
             }
         )
     }
-    onFileSelected(event: any) {
-        this.file = event.target.files[0];
-        //this.onSubmitFile();
-        //event.target.value = null;
-    }
-    dowloadFileMau() {
-        var url = '/sys_phieu_xuat_kho.ctr/downloadtemp';
-        window.location.href = url;
-    }
-    onSubmitFile(event: any) {
-        if (this.file == null || this.file == undefined) {
-            Swal.fire('Phải chọn file import', '', 'warning')
-        } else {
-            this.showLoading("", "", true)
-            var formData = new FormData();
-            formData.append('file', this.file);
-            this.http.post('/sys_phieu_xuat_kho.ctr/ImportFromExcel/', formData, {
-            })
-                .subscribe(res => {
-                    Swal.close();
-                    var resp: any
-                    resp = res
-                    if (res == "1") {
-                        Swal.fire('Lưu thành công', '', 'success');
-                        this.rerender();
-                        event.target.value = null;
-                    }
-                    if (res == "-1") {
-                        Swal.fire("File không đúng định dạng", '', 'warning');
-                    }
-                    if (res != "-1" && res != "1") {
-                        Swal.fire({
-                            title: this._translocoService.translate('system.khong_the_import_duoc_vui_long_tai_ve_xem_chi_tiet'),
-                            text: "",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: this._translocoService.translate('system.tai_ve'),
-                            cancelButtonText: this._translocoService.translate('system.close')
-                        }).then((result) => {
-                            if (result.value) {
-                                var url = 'sys_home.ctr/downloadtempFileError?path=' + res;
-                                window.location.href = url;
-                            }
-                        })
-                    }
-                })
-        }
-    }
-    get_list_nguon() {
-        this.list_nguon = [
-            {
-                id: 1,
-                name: this._translocoService.translate('erp.khac')
-            },
-            {
-                id: 2,
-                name: this._translocoService.translate('erp.thu_tien_tu_don_hang_ban')
-            },
-            {
-                id: 3,
-                name: this._translocoService.translate('erp.nhan_hoan_tien_tu_don_hang_mua')
-            }
-        ];
-        this.list_nguon.splice(0, 0, { id: '-1', name: this._translocoService.translate('system.all') })
-    }
-    openDialogPrint(item): void {
-
-        this.http
-            .post(this.controller + '.ctr/getPrint/', {
-                id: item.db.id
-            }
-            ).subscribe(resp => {
-                var data: any;
-                data = resp;
-                const dialogRef = this.dialog.open(cm_mau_in_popupComponent, {
-                    width: '878px',
-                    disableClose: true,
-                    data: {
-                        tieu_de: data.tieu_de,
-                        noi_dung: data.noi_dung,
-                    },
-                });
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result != undefined && result != null) {
-                        this.rerender();
-                    }
-
-
-                });
-
-            });
-
-    }
+    
     get_list_loai_nhap_kho() {
         this.http
             .post('sys_loai_nhap_xuat.ctr/getListUse', {
@@ -175,11 +79,9 @@ export class sys_phieu_xuat_kho_indexComponent extends BaseIndexDatatableCompone
 
     ngOnInit(): void {
         this.baseInitData();
-
         this.get_list_loai_nhap_kho();
         this.load_trang_thai();
         this.load_date();
-        this.get_list_kho();
 
         this._fuseConfigService.config$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -187,7 +89,7 @@ export class sys_phieu_xuat_kho_indexComponent extends BaseIndexDatatableCompone
                 this.config = config;
             });
 
-        var title = 'SHUNGO - ' + this._translocoService.translate('NAV.sys_phieu_xuat_kho');
+        var title = this._translocoService.translate('NAV.sys_phieu_xuat_kho');
         var metaTag = [
 
 
@@ -200,39 +102,6 @@ export class sys_phieu_xuat_kho_indexComponent extends BaseIndexDatatableCompone
         this.seoService.updateMetaTags(metaTag);
 
     }
-    exportToExcel() {
-        this.showLoading("", "", true)
-        const params = new HttpParams()
-            .set('search', this.filter.search)
-            .set('status_del', this.filter.status_del)
-            .set('open', this.filter.open)
-            .set('tu_ngay', this.filter.tu_ngay.toISOString())
-            .set('den_ngay', this.filter.den_ngay.toISOString())
-            .set('id_loai_xuat', this.filter.id_loai_xuat)
-            .set('id_kho', this.filter.id_kho)
-            ;
-
-        let uri = this.controller + '.ctr/exportExcel';
-        this.http.get(uri, { params, responseType: 'blob', observe: 'response' })
-            .subscribe(resp => {
-                var res;
-
-                res = resp;
-                var downloadedFile = new Blob([res.body], { type: res.body.type });
-                const a = document.createElement('a');
-                a.setAttribute('style', 'display:none;');
-                document.body.appendChild(a);
-                a.href = URL.createObjectURL(downloadedFile);
-                a.target = '_dAblank';
-                a.download = 'PhieuXuatKho.xlsx'
-                a.click();
-                document.body.removeChild(a);
-                Swal.close();
-            })
-    }
-
-
-
     load_trang_thai(): void {
         this.list_status_del = [
             {
@@ -246,58 +115,10 @@ export class sys_phieu_xuat_kho_indexComponent extends BaseIndexDatatableCompone
         ];
     }
 
-    get_list_kho(): void {
-        this.http
-            .post('/sys_kho.ctr/getListUse/', {}
-            ).subscribe(resp => {
-                this.list_kho = resp;
-                this.listData.forEach(q => {
-                    this.list_kho = this.list_kho.filter(d => d.id == q.db.id_kho);
-                })
-                this.list_kho.splice(0, 0, { id: '-1', name: this._translocoService.translate('system.all') })
-                this.filter.list_kho = this.list_kho[0].id;
-            });
-    }
     load_date(): void {
         this.filter.tu_ngay = new Date();
         this.filter.tu_ngay.setDate(this.filter.tu_ngay.getDate() - 365);
         this.filter.den_ngay = new Date();
-    }
-    // openDialogPrint(item): void {
-    //     const dialogRef = this.dialog.open(cm_mau_in_popupComponent, {
-    //         width: '80%',
-    //         height: '80%',
-    //         disableClose: true,
-    //         data: {
-    //             controller: this.controller,
-    //             item: item
-    //         },
-    //     });
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         if (result != undefined && result != null) {
-    //             this.rerender();
-    //         }
-
-
-    //     });
-    // }
-    openDialogFile(item, i): void {
-        const dialogRef = this.dialog.open(cm_file_upload_popupComponent, {
-            width: '80%',
-            height: '80%',
-            disableClose: true,
-            data: {
-                db: {
-                    id: item.db.id_file_upload,
-                    list_file: []
-                }
-            },
-        });
-        dialogRef.afterClosed().subscribe(result => {
-            if (result != undefined && result != null) {
-                this.rerender();
-            }
-        });
     }
     openDialogAdd(): void {
         const dialogRef = this.dialog.open(sys_phieu_xuat_kho_popUpAddComponent, {
@@ -358,35 +179,5 @@ export class sys_phieu_xuat_kho_indexComponent extends BaseIndexDatatableCompone
             this.rerender();
         });
     }
-    public sudung(model, status_del): void {
-        Swal.fire({
-            title: this._translocoService.translate('areYouSure'),
-            text: "",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: this._translocoService.translate('yes'),
-            cancelButtonText: this._translocoService.translate('no')
-        }).then((result) => {
-            if (result.value) {
-                this.http
-                    .post(this.controller + '.ctr/update_status_del/',
-                        {
-                            id: model.db.id,
-                            status_del: status_del,
-                        }
-                    ).subscribe(resp => {
-                        Swal.fire('Ngưng sử dụng thành công', '', 'success');
-                        this.rerender();
-                    },
-                        error => {
-                            if (error.status == 403) {
-                                Swal.fire(this._translocoService.translate('no_permission'), "", "warning");
-                            }
-                        }
-                    );
-            }
-        })
-    }
+    
 }
