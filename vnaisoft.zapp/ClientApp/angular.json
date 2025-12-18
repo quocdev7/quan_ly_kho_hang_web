@@ -85,7 +85,7 @@
                     "configurations": {
                         "production": {
                             "outputPath": "dist",
-                            "deployUrl": "https://cdnaisava.vietnamai.com.vn/",
+                            "deployUrl": "/",
                             "baseHref": "/",
                             "budgets": [
                                 {
